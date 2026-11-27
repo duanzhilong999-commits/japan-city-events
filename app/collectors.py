@@ -118,13 +118,19 @@ class Walkerplus(Collector):
     def collect(self, anchor):
         start, end = self.window(anchor)
         out, seen = [], set()
-        for page in range(1, self.MAX_PAGES + 1):
+        pages, page = self.MAX_PAGES, 1
+        while page <= min(pages, 160):
             url = self.homepage if page == 1 else f"{self.homepage}{page}.html"
             try:
                 html = self.get(url).text
             except Exception as exc:
                 self.errors.append(f"{url}: {exc}")
                 break
+            if page == 1:
+                m = re.search(r"全\s*([\d,]+)\s*件", html)
+                if m:
+                    total = int(m.group(1).replace(",", ""))
+                    pages = max(pages, -(-total // 10) + 1)
             events = []
             for block in re.findall(r'<script type="application/ld\+json">(.*?)</script>', html, re.S):
                 try:
@@ -166,6 +172,7 @@ class Walkerplus(Collector):
                     ward=detect_ward(addr, venue, name), city=self.city_id,
                     url=e.get("url") or "", description=desc,
                 ))
+            page += 1
         return out
 
 
@@ -334,7 +341,6 @@ class NaraNarahaku(Collector):
 # ----------------------------------------------------------------------------
 # 金沢21世紀美術館（公式・展覧会）
 # ----------------------------------------------------------------------------
-
 class Kanazawa21(Collector):
     name = "kanazawa21"
     label = "金沢21世紀美術館（公式）"
@@ -358,6 +364,76 @@ class Kanazawa21(Collector):
                 address="金沢市広坂1-2-1", ward="21世紀美術館・広坂", city=self.city_id,
                 url=urljoin(self.homepage, a.get("href")) if a else self.homepage,
                 price="有料" if "有料" in self.text(art) else "",
+            ))
+        return out
+
+
+# ----------------------------------------------------------------------------
+# Tokyo Art Beat（东京展覧会/画廊，Next.js 数据）
+# ----------------------------------------------------------------------------
+
+_TOKYO_WARDS = ["千代田", "中央", "港", "新宿", "文京", "台東", "墨田", "江東", "品川", "目黒", "大田", "世田谷", "渋谷", "中野", "杉並", "豊島", "北", "荒川", "板橋", "練馬", "足立", "葛飾", "江戸川"]
+
+
+class TokyoArtBeat(Collector):
+    name = "tokyo-artbeat"
+    label = "Tokyo Art Beat（東京の展覧会）"
+    homepage = "https://www.tokyoartbeat.com/events"
+
+    def collect(self, anchor):
+        start, end = self.window(anchor)
+        html = self.get(self.homepage).text
+        m = re.search(r'<script id="__NEXT_DATA__" type="application/json">(.*?)</script>', html, re.S)
+        if not m:
+            self.errors.append("no __NEXT_DATA__")
+            return []
+        data = json.loads(m.group(1))
+        fallback = ((data.get("props") or {}).get("pageProps") or {}).get("fallback") or {}
+        items = []
+        for payload in fallback.values():
+            if isinstance(payload, dict) and isinstance(payload.get("data"), list):
+                items += payload["data"]
+        out, seen = [], set()
+        for e in items:
+            title = (e.get("eventName") or "").strip()
+            if not title or title in seen:
+                continue
+            fields = ((e.get("venue") or {}).get("fields") or {})
+            venue = (fields.get("fullName") or "").strip()
+            geo = fields.get("geoInfo") or {}
+            lat, lon = geo.get("lat"), geo.get("lon")
+            # 只收东京都内的会场（TAB 也收录关西，按经纬度卡范围，避免串城）
+            if not isinstance(lat, (int, float)) or not isinstance(lon, (int, float)):
+                continue
+            if not (35.5 <= lat <= 35.95 and 139.4 <= lon <= 140.0):
+                continue
+            sd = e.get("scheduleStartsOn")
+            ed = e.get("scheduleEndsOn") or sd
+            if not sd:
+                continue
+            try:
+                p_start = datetime.fromisoformat(str(sd)[:10])
+                p_end = datetime.fromisoformat(str(ed)[:10])
+            except Exception:
+                continue
+            if p_end.date() < start or p_start.date() > end:
+                continue
+            seen.add(title)
+            area = ((fields.get("localArea") or {}).get("fields") or {}).get("name") or ""
+            ward = detect_ward(area, venue, title)
+            if not ward:
+                for w in _TOKYO_WARDS:
+                    if w in area or w in venue:
+                        ward = w + "区"
+                        break
+            slug = e.get("slug") or ""
+            out.append(Event(
+                source=self.name, source_key=f"{normalize_title(title)}|{str(sd)[:10]}",
+                title=title[:90], start=p_start, end=p_end, all_day=True,
+                category="exhibition", venue=venue[:40],
+                address=area[:60], ward=detect_ward(area, venue, title), city=self.city_id,
+                url=f"https://www.tokyoartbeat.com/events/{slug}" if slug else self.homepage,
+                description=f"{area}".strip()[:200],
             ))
         return out
 
@@ -417,6 +493,7 @@ def sources_for(city_id: str) -> list[Collector]:
     out += _cards(city_id)
     if city_id == "tokyo":
         out.append(TokyoGotokyo(city_id))
+        out.append(TokyoArtBeat(city_id))
     if city_id == "nara":
         out.append(NaraNarahaku(city_id))
     if city_id == "kanazawa":
