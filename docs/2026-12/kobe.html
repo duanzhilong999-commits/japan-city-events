@@ -1,0 +1,2541 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026年12月 · 神户活动日历 ｜ 日本热门城市</title>
+<style>
+:root {
+  --bg: #f7f5f1;
+  --card: #ffffff;
+  --ink: #24211d;
+  --sub: #8b8680;
+  --line: #e6e1d9;
+  --accent: #c9453f;
+  --shadow: 0 1px 2px rgba(36, 33, 29, .08), 0 8px 24px rgba(36, 33, 29, .06);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP",
+    "Microsoft YaHei", "Segoe UI", sans-serif;
+  font-size: 14px; line-height: 1.6;
+}
+a { color: inherit; }
+.wrap { max-width: 1280px; margin: 0 auto; padding: 22px 20px 60px; }
+
+header.top { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 14px; }
+h1 { font-size: 21px; margin: 0; letter-spacing: .5px; }
+h1 span { color: var(--accent); }
+.meta { color: var(--sub); font-size: 12.5px; }
+.spacer { flex: 1; }
+.btn {
+  border: 1px solid var(--line); background: var(--card); color: var(--ink);
+  padding: 7px 13px; border-radius: 999px; font-size: 13px; cursor: pointer;
+  text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+}
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.primary:hover { filter: brightness(.94); color: #fff; }
+
+.monthbar { display: flex; align-items: center; gap: 10px; margin: 6px 0 14px; }
+.monthbar .title { font-size: 30px; font-weight: 700; letter-spacing: 1px; }
+.monthbar .title small { font-size: 14px; font-weight: 400; color: var(--sub); margin-left: 6px; }
+.arrow { font-size: 18px; padding: 6px 12px; }
+
+form.filters {
+  background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+  padding: 12px 14px; box-shadow: var(--shadow); margin-bottom: 16px;
+  display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+}
+.chipset { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  border: 1px solid var(--line); border-radius: 999px; padding: 4px 11px; font-size: 12.5px;
+  cursor: pointer; user-select: none; background: #fff; display: inline-flex; align-items: center; gap: 6px;
+}
+.chip input { display: none; }
+.chip.on { color: #fff; border-color: transparent; }
+.chip .dot { width: 8px; height: 8px; border-radius: 50%; }
+select, input[type=search] {
+  border: 1px solid var(--line); border-radius: 999px; padding: 7px 12px; font-size: 13px;
+  background: #fff; color: var(--ink); outline: none; font-family: inherit;
+}
+input[type=search] { min-width: 190px; }
+label.check { display: inline-flex; gap: 5px; align-items: center; font-size: 13px; color: var(--sub); }
+
+.calendar { background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
+.weekhead { display: grid; grid-template-columns: repeat(7, 1fr); background: #fbfaf7; border-bottom: 1px solid var(--line); }
+.weekhead div { padding: 9px 0; text-align: center; font-size: 12.5px; color: var(--sub); letter-spacing: 2px; }
+.weekhead div:nth-child(6) { color: #2f6f9f; }
+.weekhead div:nth-child(7) { color: #b5433c; }
+.grid { display: grid; grid-template-columns: repeat(7, 1fr); }
+.cell {
+  min-height: 132px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  padding: 6px 7px 8px; display: flex; flex-direction: column; gap: 4px; background: #fff;
+}
+.cell:nth-child(7n) { border-right: 0; }
+.cell.out { background: #faf9f6; }
+.cell.weekend { background: #fdfbf8; }
+.cell.today { background: #fff6ee; box-shadow: inset 0 0 0 2px #f0c8a8; }
+.dnum { font-size: 12px; color: var(--sub); display: flex; justify-content: space-between; align-items: center; }
+.dnum b { font-size: 14px; color: var(--ink); font-weight: 600; }
+.cell.out .dnum b { color: #c8c3ba; }
+.cell.today .dnum b { color: var(--accent); }
+
+.ev {
+  border-radius: 6px; padding: 2px 5px; font-size: 11.5px; line-height: 1.35;
+  color: #fff; text-decoration: none; display: block;
+  overflow: hidden; text-overflow: ellipsis; display: -webkit-box;
+  -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+}
+.ev .t { opacity: .92; font-variant-numeric: tabular-nums; margin-right: 3px; }
+.more { font-size: 11px; color: var(--sub); padding-left: 4px; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 12px; margin: 12px 2px 26px; font-size: 12px; color: var(--sub); }
+.legend span { display: inline-flex; align-items: center; gap: 5px; }
+.legend i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+
+.section-title { display: flex; align-items: baseline; gap: 10px; margin: 8px 0 12px; }
+.section-title h2 { font-size: 17px; margin: 0; }
+.section-title .meta { font-size: 12px; }
+
+.list { display: flex; flex-direction: column; gap: 10px; }
+.item {
+  background: var(--card); border: 1px solid var(--line); border-left: 4px solid #ccc;
+  border-radius: 12px; padding: 12px 14px; display: flex; gap: 14px; box-shadow: var(--shadow);
+}
+.item .datecol { min-width: 74px; text-align: center; }
+.item .datecol .d { font-size: 19px; font-weight: 700; line-height: 1.1; }
+.item .datecol .m { font-size: 11.5px; color: var(--sub); }
+.item .body { flex: 1; min-width: 0; }
+.item .t { font-size: 15px; font-weight: 600; margin-bottom: 3px; }
+.item .t a { text-decoration: none; }
+.item .t a:hover { text-decoration: underline; }
+.item .line { font-size: 12.5px; color: var(--sub); display: flex; flex-wrap: wrap; gap: 10px; margin-top: 2px; }
+.item .desc { font-size: 12.5px; color: #55504a; margin-top: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.badge { font-size: 11px; padding: 1px 8px; border-radius: 999px; color: #fff; }
+
+footer.stats { margin-top: 34px; border-top: 1px solid var(--line); padding-top: 16px; color: var(--sub); font-size: 12.5px; }
+footer.stats table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 12px; }
+footer.stats th, footer.stats td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--line); }
+footer.stats th { color: var(--sub); font-weight: 500; }
+.ok { color: #2f7a4f; font-weight: 600; }
+.bad { color: #b5433c; font-weight: 600; }
+@media (max-width: 760px) {
+  .cell { min-height: 92px; padding: 4px; }
+  .ev { font-size: 10px; -webkit-line-clamp: 2; }
+  .monthbar .title { font-size: 22px; }
+  .item .datecol { min-width: 54px; }
+}
+
+/* ---- 城市切换标签 ---- */
+.citytabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px}
+.citytab{display:flex;align-items:center;gap:6px;padding:7px 12px;border:1px solid #e2e8f0;border-radius:999px;
+  background:#fff;color:#334155;font-size:14px;text-decoration:none;transition:all .15s}
+.citytab:hover{border-color:#94a3b8;transform:translateY(-1px)}
+.citytab.on{background:#0f172a;color:#fff;border-color:#0f172a}
+.citytab small{font-size:11px;opacity:.6}
+
+.ev.ongoing{background:#f8fafc !important;color:#475569;font-size:11px}
+
+</style>
+<link rel="alternate" type="text/calendar" href="/calendar.ics?city=kobe">
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div>
+    <h1>日本<span>城市</span>活动日历</h1>
+    <div class="meta">神户（神戸市）· 兵庫県 ｜ 自动汇总 2 个来源 ｜ 库内 127 个 ｜ 本月 83 个</div>
+  </div>
+  <div class="spacer"></div>
+  <a class="btn" href="/calendar.ics?city=kobe">📅 订阅本城市 ICS</a>
+  <a class="btn" href="/sources?city=kobe">📡 数据源状态</a>
+  <button class="btn primary" id="refreshBtn" onclick="doRefresh()">↻ 抓取本城市</button>
+</header>
+
+<nav class="citytabs">
+  
+  <a class="citytab " href="/?city=fukuoka&month=2026-12">
+    福冈<small>890</small>
+  </a>
+  
+  <a class="citytab " href="/?city=yokohama&month=2026-12">
+    横浜<small>719</small>
+  </a>
+  
+  <a class="citytab " href="/?city=tokyo&month=2026-12">
+    东京<small>227</small>
+  </a>
+  
+  <a class="citytab " href="/?city=kyoto&month=2026-12">
+    京都<small>172</small>
+  </a>
+  
+  <a class="citytab " href="/?city=osaka&month=2026-12">
+    大阪<small>131</small>
+  </a>
+  
+  <a class="citytab on" href="/?city=kobe&month=2026-12">
+    神户<small>127</small>
+  </a>
+  
+  <a class="citytab " href="/?city=nara&month=2026-12">
+    奈良<small>47</small>
+  </a>
+  
+  <a class="citytab " href="/?city=sapporo&month=2026-12">
+    札幌<small>97</small>
+  </a>
+  
+  <a class="citytab " href="/?city=okinawa&month=2026-12">
+    冲绳（那霸）<small>37</small>
+  </a>
+  
+  <a class="citytab " href="/?city=nagoya&month=2026-12">
+    名古屋<small>140</small>
+  </a>
+  
+  <a class="citytab " href="/?city=nagasaki&month=2026-12">
+    长崎<small>29</small>
+  </a>
+  
+  <a class="citytab " href="/?city=kanazawa&month=2026-12">
+    金泽<small>39</small>
+  </a>
+  
+</nav>
+
+<div class="monthbar">
+  <a class="btn arrow" href="/?city=kobe&month=2026-11">‹</a>
+  <div class="title">2026年12月<small>神户 · 83 个活动</small></div>
+  <a class="btn arrow" href="/?city=kobe&month=2027-01">›</a>
+  <a class="btn" href="/?city=kobe&month=2026-11">今天</a>
+  
+</div>
+
+<form class="filters" method="get" action="/">
+  <input type="hidden" name="month" value="2026-12">
+  <input type="hidden" name="city" value="kobe">
+  <div class="chipset">
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="market" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#f59e0b"></span>市集
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="flea" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#a855f7"></span>跳蚤市场
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="festival" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#ef4444"></span>节庆
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="illumination" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#06b6d4"></span>灯饰
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="exhibition" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#3b82f6"></span>展览
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="performance" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#ec4899"></span>演出
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="game" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#22c55e"></span>游戏
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="workshop" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#84cc16"></span>体验
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="food" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#f97316"></span>美食
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="sports" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#0ea5e9"></span>运动
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="other" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#64748b"></span>其他
+    </label>
+    
+  </div>
+  <select name="area" onchange="this.form.submit()">
+    <option value="">全部区域</option>
+    
+    <option value="三宮・元町" >三宮・元町</option>
+    
+    <option value="北野・新神戸" >北野・新神戸</option>
+    
+    <option value="六甲山・有馬" >六甲山・有馬</option>
+    
+    <option value="神戸駅・新開地" >神戸駅・新開地</option>
+    
+    <option value="ポートアイランド" >ポートアイランド</option>
+    
+    <option value="西区・須磨・舞子" >西区・須磨・舞子</option>
+    
+    <option value="北区" >北区</option>
+    
+  </select>
+  <input type="search" name="q" value="" placeholder="搜索标题 / 会场 / 关键词">
+  <label class="check"><input type="checkbox" name="free" value="1" 
+         onchange="this.form.submit()">仅免费</label>
+  <label class="check"><input type="checkbox" name="weekend" value="1" 
+         onchange="this.form.submit()">仅周末</label>
+  <button class="btn" type="submit">筛选</button>
+  <a class="btn" href="/?city=kobe&month=2026-12">重置</a>
+</form>
+
+<div class="calendar">
+  <div class="weekhead">
+    <div>月</div><div>火</div><div>水</div><div>木</div><div>金</div><div>土</div><div>日</div>
+  </div>
+  <div class="grid">
+    
+    <div class="cell out  ">
+      <div class="dnum"><b>30</b></div>
+      
+      
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>1</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 63 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>2</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 63 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>3</b></div>
+      
+      <a class="ev" href="https://www.koransha.com/ballet/tchaikovsky/" target="_blank" rel="noopener"
+         style="background:#ec4899" title="チャイコフスキー・バレエ劇場 ｢くるみ割り人形｣(神戸) ｜ 神戸国際会館 こくさいホール ｜ 12/03">
+        チャイコフスキー・バレエ劇場 ｢くるみ割り人形｣(神戸)
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 63 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>4</b></div>
+      
+      <a class="ev" href="https://www.totteikobe.jp/event/article/31918" target="_blank" rel="noopener"
+         style="background:#f59e0b" title="神戸 TOTTEI ABCクリスマスマーケット2026 supported by ホームメイト ｜ TOTTEI PARK (トッテイパーク) ｜ 12/04–12/25">
+        神戸 TOTTEI ABCクリスマスマーケット2026 supported by ホームメイト
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 63 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>5</b></div>
+      
+      <a class="ev" href="https://www.hashinokagakukan.jp/news/news77" target="_blank" rel="noopener"
+         style="background:#84cc16" title="橋の科学館･明石海峡大橋クリスマスパーク2026 ｜ 橋の科学館 ｜ 12/05">
+        橋の科学館･明石海峡大橋クリスマスパーク2026
+      </a>
+      
+      <a class="ev" href="#" target="_blank" rel="noopener"
+         style="background:#f59e0b" title="しあわせの村　第22回・23回はっぴーマーケット ｜ しあわせの村　中央緑道 ｜ 12/05–12/06">
+        しあわせの村　第22回・23回はっぴーマーケット
+      </a>
+      
+      <a class="ev" href="https://ktomitake.wixsite.com/z-d-m" target="_blank" rel="noopener"
+         style="background:#ef4444" title="新開地冬まつり2026 metro＋会場 ｜ メトロ神戸　metro＋ ｜ 12/05–12/06">
+        新開地冬まつり2026 metro＋会場
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 63 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>6</b></div>
+      
+      <a class="ev" href="https://shiawasenomura.org/events/8030" target="_blank" rel="noopener"
+         style="background:#64748b" title="第7回しあわせの村オリジナル陸上記録会 ｜ しあわせの村　多目的運動広場 ｜ 12/06">
+        第7回しあわせの村オリジナル陸上記録会
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 64 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>7</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 53 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>8</b></div>
+      
+      <a class="ev" href="https://docs.google.com/forms/d/e/1FAIpQLSeYTwyEa4Xi5XT72GRRBshJ01H31k52ImmlTfnGb7bF__Zf7g/viewform?usp=dialog" target="_blank" rel="noopener"
+         style="background:#f97316" title="KOBE NIGHT STORIES vol.3-チョコストーリーを味わう、神戸の夜- ｜ BEER&amp;amp;GRILLコウベビアハウゼ ｜ 12/08">
+        KOBE NIGHT STORIES vol.3-チョコストーリーを味わう、神戸の夜-
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 53 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>9</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 53 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>10</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 52 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>11</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 43 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>12</b></div>
+      
+      <a class="ev" href="https://ktomitake.wixsite.com/z-d-m" target="_blank" rel="noopener"
+         style="background:#ef4444" title="アミュゼフェスタ in ONE HEART BIRTH ｜ ONE HEART BIRTH ｜ 12/12">
+        アミュゼフェスタ in ONE HEART BIRTH
+      </a>
+      
+      <a class="ev" href="https://kobe-shimin-daiku.com/" target="_blank" rel="noopener"
+         style="background:#64748b" title="市民の第九2026 ｜ 神戸文化ホール　大ホール ｜ 12/12">
+        市民の第九2026
+      </a>
+      
+      <a class="ev" href="http://www.saga-beauty.com" target="_blank" rel="noopener"
+         style="background:#3b82f6" title="池田 愛花里個展　愛情は よく熟れてから食べましょう ｜ アート〇美空間Saga ｜ 12/12–12/20">
+        池田 愛花里個展　愛情は よく熟れてから食べましょう
+      </a>
+      
+      <span class="more">+1 更多…</span>
+      
+      <span class="more">⟳ 另有 43 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>13</b></div>
+      
+      <a class="ev" href="https://100sosaku.com" target="_blank" rel="noopener"
+         style="background:#ef4444" title="百貨創作祭　神戸 名谷駅前広場（12月） ｜ 名谷駅前広場 ｜ 12/13">
+        百貨創作祭　神戸 名谷駅前広場（12月）
+      </a>
+      
+      <a class="ev" href="https://livepocket.jp/e/knightpolice20261213" target="_blank" rel="noopener"
+         style="background:#64748b" title="『騎動警察ナイトポリス』Blu-ray&amp;amp;CD発売記念イベントin 関西 ｜ アミュスタ神戸 ｜ 12/13">
+        『騎動警察ナイトポリス』Blu-ray&amp;amp;CD発売記念イベントin 関西
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 44 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>14</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 41 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>15</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 41 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>16</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 41 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>17</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 41 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>18</b></div>
+      
+      <a class="ev" href="https://www.shiminfukushidaigaku.jp/training/detail/619" target="_blank" rel="noopener"
+         style="background:#64748b" title="もしかしたら、身近にある？セルフネグレクト～気づきとつながりの第一歩～ ｜ こうべ市民福祉交流センター ｜ 12/18">
+        もしかしたら、身近にある？セルフネグレクト～気づきとつながりの第一歩～
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 41 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>19</b></div>
+      
+      <a class="ev" href="https://www.konan-wu.ac.jp/news/detail.php?id=4474" target="_blank" rel="noopener"
+         style="background:#ec4899" title="2026年度 クリスマスチャリティコンサート 災害復興支援～神戸から音楽のエールを！～ ｜ 甲南女子大学 芦原講堂 ｜ 12/19">
+        2026年度 クリスマスチャリティコンサート 災害復興支援～神戸から音楽のエールを！～
+      </a>
+      
+      <a class="ev" href="https://www.eggnworks.jp/ja/event_detail/1149" target="_blank" rel="noopener"
+         style="background:#ec4899" title="ツクルヒトタチ博in神戸KIITO 2026 ｜ デザイン・クリエイティブセンター神戸（KIITOキイト） ｜ 12/19–12/20">
+        ツクルヒトタチ博in神戸KIITO 2026
+      </a>
+      
+      <a class="ev" href="https://www.rokkosan.com/museum/" target="_blank" rel="noopener"
+         style="background:#ec4899" title="森の音クリスマス・ナイト・コンサート2026 ｜ ROKKO森の音ミュージアム ｜ 12/19–12/20">
+        森の音クリスマス・ナイト・コンサート2026
+      </a>
+      
+      <span class="more">+2 更多…</span>
+      
+      <span class="more">⟳ 另有 40 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>20</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 43 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>21</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 40 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>22</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 40 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>23</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 40 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>24</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 40 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>25</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 40 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>26</b></div>
+      
+      <a class="ev" href="https://www.rokkosan.com/museum/" target="_blank" rel="noopener"
+         style="background:#3b82f6" title="猫とこたつのあったかフェア2026 ｜ ROKKO森の音ミュージアム ｜ 12/26–03/12">
+        猫とこたつのあったかフェア2026
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 31 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>27</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 32 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>28</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 27 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>29</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 23 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>30</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 23 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>31</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 22 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell out  ">
+      <div class="dnum"><b>1</b></div>
+      
+      
+      
+    </div>
+    
+    <div class="cell out weekend ">
+      <div class="dnum"><b>2</b></div>
+      
+      
+      
+    </div>
+    
+    <div class="cell out weekend ">
+      <div class="dnum"><b>3</b></div>
+      
+      
+      
+    </div>
+    
+  </div>
+</div>
+
+<div class="legend">
+  
+  <span><i style="background:#f59e0b"></i>市集/マルシェ / 市集</span>
+  
+  <span><i style="background:#a855f7"></i>フリマ/蚤の市 / 跳蚤市场</span>
+  
+  <span><i style="background:#ef4444"></i>祭り/フェス / 节庆</span>
+  
+  <span><i style="background:#06b6d4"></i>灯饰/ライトアップ / 灯饰</span>
+  
+  <span><i style="background:#3b82f6"></i>展覧会 / 展览</span>
+  
+  <span><i style="background:#ec4899"></i>舞台/コンサート / 演出</span>
+  
+  <span><i style="background:#22c55e"></i>ゲーム/謎解き / 游戏</span>
+  
+  <span><i style="background:#84cc16"></i>体験/ワークショップ / 体验</span>
+  
+  <span><i style="background:#f97316"></i>グルメ/食 / 美食</span>
+  
+  <span><i style="background:#0ea5e9"></i>スポーツ / 运动</span>
+  
+  <span><i style="background:#64748b"></i>その他 / 其他</span>
+  
+</div>
+
+<div class="section-title">
+  <h2>神户本月活动一览</h2>
+  <span class="meta">按开始日期排序 · 共 83 个</span>
+</div>
+
+<div class="list">
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">03</div>
+      <div class="m">12月 · 12/03</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.koransha.com/ballet/tchaikovsky/" target="_blank" rel="noopener">チャイコフスキー・バレエ劇場 ｢くるみ割り人形｣(神戸)</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 神戸国際会館 こくさいホール</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">クリスマス・イブ、くるみ割り人形を贈られたマーシャは、おとぎの国へと導かれ、王子と夢のような時を過ごす。幻想的な雪の精たちによる群舞、ねずみ軍との戦い、きらびやかな人形の国。心ときめく物語に、チャイコフスキー最晩年の集大成である、可憐さと革新性を兼ね備えた名曲たちが響き渡る。子供から大人まであらゆる世代の観客の心をつかんで離さない、クリスマスを彩る珠玉の名作。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f59e0b">
+    <div class="datecol">
+      <div class="d">04</div>
+      <div class="m">12月 · 12/04–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.totteikobe.jp/event/article/31918" target="_blank" rel="noopener">神戸 TOTTEI ABCクリスマスマーケット2026 supported by ホームメイト</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f59e0b">市集/マルシェ</span>
+        <span>📍 TOTTEI PARK (トッテイパーク)</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">兵庫県神戸市の新港第二突堤(TOTTEI)に広がるTOTTEI PARKで、2026年12月4日(金)から12月25日(金)まで開催するクリスマスマーケット。2025年に初開催され好評を得た「神戸TOTTEIクリスマスマーケット」が、名称を新たに2回目を迎える。神戸港の景色を背景に、クリスマスらしいグルメやドリンク、イルミネーションを楽しめる。開催時間は平日が16時から20時まで、土・日曜は11時から20時まで。入場は原則無料で、12月19日(土)・20日(日)・24日(木)・25日(金)のみ有料。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f59e0b">
+    <div class="datecol">
+      <div class="d">05</div>
+      <div class="m">12月 · 12/05–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="#" target="_blank" rel="noopener">しあわせの村　第22回・23回はっぴーマーケット</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f59e0b">市集/マルシェ</span>
+        <span>📍 しあわせの村　中央緑道</span>
+        <span>北区</span>
+        
+        
+      </div>
+      <div class="desc">今回で、第22回・23回を迎える人気イベント。出店者を一般の人から募集し、実施する。50店舗以上の多種多様なイベントが、しあわせの村をにぎわせる。※出店希望の申し込み締め切りは11月27日（金）</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ef4444">
+    <div class="datecol">
+      <div class="d">05</div>
+      <div class="m">12月 · 12/05–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://ktomitake.wixsite.com/z-d-m" target="_blank" rel="noopener">新開地冬まつり2026 metro＋会場</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ef4444">祭り/フェス</span>
+        <span>📍 メトロ神戸　metro＋</span>
+        <span>神戸駅・新開地</span>
+        
+        
+      </div>
+      <div class="desc">12月5日（土）・6日（日）は「新開地冬まつり2026」へ！ メトロプラス中央広場で、両日12時から17時まで多彩なステージを開催。エレクトーンやフルート、歌唱、アイドル、フラメンコ、ウクレレなど、見どころ満載！ パフォーマーあきひでによる大道芸とビンゴゲームもお楽しみに。総合司会は、ぐみが担当。大人も子どもも一緒に楽しめる2日間。家族や友達と、笑顔あふれる冬のひとときを過ごそう。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#84cc16">
+    <div class="datecol">
+      <div class="d">05</div>
+      <div class="m">12月 · 12/05</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.hashinokagakukan.jp/news/news77" target="_blank" rel="noopener">橋の科学館･明石海峡大橋クリスマスパーク2026</a></div>
+      <div class="line">
+        <span class="badge" style="background:#84cc16">体験/ワークショップ</span>
+        <span>📍 橋の科学館</span>
+        <span>西区・須磨・舞子</span>
+        
+        
+      </div>
+      <div class="desc">橋の科学館でクリスマスイベントを開催！普段は入れない明石海峡大橋のアンカレイジを探検する特別ツアーをはじめ、橋クイズやパズル、キャラクター探し、クリスマスオーナメント作りなど、親子で楽しめる企画が盛りだくさん！人気キャラクター「わたる」と「めぐる」も登場する。クリスマス気分を味わいながら、橋の魅力を楽しく学べるイベントだ。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">06</div>
+      <div class="m">12月 · 12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://shiawasenomura.org/events/8030" target="_blank" rel="noopener">第7回しあわせの村オリジナル陸上記録会</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 しあわせの村　多目的運動広場</span>
+        <span>北区</span>
+        
+        
+      </div>
+      <div class="desc">400mまでは、自動タイム計測器を用いた計測で行う。800m以上は手計測である。運動が苦手な人でも家族でぜひ一緒に参加しよう。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f97316">
+    <div class="datecol">
+      <div class="d">08</div>
+      <div class="m">12月 · 12/08</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://docs.google.com/forms/d/e/1FAIpQLSeYTwyEa4Xi5XT72GRRBshJ01H31k52ImmlTfnGb7bF__Zf7g/viewform?usp=dialog" target="_blank" rel="noopener">KOBE NIGHT STORIES vol.3-チョコストーリーを味わう、神戸の夜-</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f97316">グルメ/食</span>
+        <span>📍 BEER&amp;amp;GRILLコウベビアハウゼ</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">世界36か国を巡るチョコレートバイヤー・みりがスペインで出会ったチョコレートの魅力や旅のエピソードをお届け。日本初上陸となる希少なチョコレート5種と、クラフトビール（100ml×4種飲み比べ）を楽しめる特別なイベントを、コウベビアハウゼで開催。ひと口ごとに広がるこれまで知らなかったチョコとビールのおいしさ。新しい発見とともに、いつもの夜を特別に。神戸で過ごす新しい夜のひとときを楽しもう。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">12</div>
+      <div class="m">12月 · 12/12</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.harmony-fields.com/double-impact" target="_blank" rel="noopener">DOUBLE IMPACT ＜LINKSTONE × Hachiko＞</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 ZING</span>
+        <span>六甲山・有馬</span>
+        
+        
+      </div>
+      <div class="desc">「Japan Student Jazz Festival」でバークリー特別賞に輝いたLINKSTONEと、フジテレビ系「TEPPEN 2025 秋」で優勝したHachiko。伸びやかなサックスと、即興演奏を得意とする自在なピアノで心躍る音楽で、クリスマスシーズンを彩る。ゲストにアコーディオンのかとうかなこと、バンジョーの青木研。多彩な音色と軽快なリズムで、ステージに華を添える。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ef4444">
+    <div class="datecol">
+      <div class="d">12</div>
+      <div class="m">12月 · 12/12</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://ktomitake.wixsite.com/z-d-m" target="_blank" rel="noopener">アミュゼフェスタ in ONE HEART BIRTH</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ef4444">祭り/フェス</span>
+        <span>📍 ONE HEART BIRTH</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">神戸ポートタワー北側のONE HEART BIRTHで「アミュゼフェスタ」を開催！ アイドルや歌、演奏、人形パフォーマンスなど、多彩な8組が出演する。キッチンカーやマルシェも登場。美しい港の街で、音楽とグルメ、素敵な出会いを楽しめる冬のイベント。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">12</div>
+      <div class="m">12月 · 12/12</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://kobe-shimin-daiku.com/" target="_blank" rel="noopener">市民の第九2026</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 神戸文化ホール　大ホール</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">市民一人ひとりの情熱が、歓喜の歌となって響き渡る！年末の神戸を彩る風物詩「市民の第九」は今年で11回目を迎える。市内7か所の文化センターで練習を重ねてきた合唱団。今年度から新たに「基礎クラス」を開設。10月からはパート練習にも励み、更に磨きをかけてきた。渾身のハーモニーに豪華ソリストが華を添える、一年の締めくくりにふさわしい感動のステージ。心を揺さぶる歓喜の歌をぜひ会場で体感しよう！</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">12</div>
+      <div class="m">12月 · 12/12–12/20</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="http://www.saga-beauty.com" target="_blank" rel="noopener">池田 愛花里個展　愛情は よく熟れてから食べましょう</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 アート〇美空間Saga</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">池田愛花里は腐敗したものをモチーフに油彩作品を制作し、恐怖と喜びが混在する世界を描いている。腐敗の世界には、消えゆくいのちとこれから誕生していくいのちが共存している。形あるものはやがて崩れ失われていく一方で、その傍らでは新たな何かが生まれようとしている。「何か」や「誰か」を愛するということは、失うことへの恐怖とそれでも愛してしまう喜びを同時に抱えることなのかもしれない。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">13</div>
+      <div class="m">12月 · 12/13</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://livepocket.jp/e/knightpolice20261213" target="_blank" rel="noopener">『騎動警察ナイトポリス』Blu-ray&amp;amp;CD発売記念イベントin 関西</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 アミュスタ神戸</span>
+        <span>六甲山・有馬</span>
+        
+        
+      </div>
+      <div class="desc">史上初！！ 騎動警察ナイトポリスショー開催決定！！ M-90・K-91の二人のヒーローが並び立ち悪と戦う！ ショーには、山下優さんの出演も決定。ここでしか見ることができない、Blu-ray未収録映像の上映。香上優馬役の山下優さん、香上純役の広瀬仁美さんによるトークショー、サイン会、撮影会も実施。イベント限定商品の販売も実施。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ef4444">
+    <div class="datecol">
+      <div class="d">13</div>
+      <div class="m">12月 · 12/13</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://100sosaku.com" target="_blank" rel="noopener">百貨創作祭　神戸 名谷駅前広場（12月）</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ef4444">祭り/フェス</span>
+        <span>📍 名谷駅前広場</span>
+        <span>西区・須磨・舞子</span>
+        
+        
+      </div>
+      <div class="desc">熱意あふれる個人作家の逸品作品展示販売のイベント。お菓子・デザートやアツアツの食品、キッチンカーも出店。人の温かみを感じることができる手づくりの素晴らしさを楽しんで。ロケーションはショッピングセンター・専門店パティオと大丸百貨店・名谷駅に囲まれていて、周辺は広大な住宅地が広がるベッドタウンがあり、とても華やかで賑やかな広場。出店者も募集。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">18</div>
+      <div class="m">12月 · 12/18</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.shiminfukushidaigaku.jp/training/detail/619" target="_blank" rel="noopener">もしかしたら、身近にある？セルフネグレクト～気づきとつながりの第一歩～</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 こうべ市民福祉交流センター</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">「最近、近所の方の様子が心配…」 「自宅訪問しても『放っておいて』と拒否されてしまう…」 地域や福祉の現場で、そんな悩みはないだろうか？「だらしない」「怠けている」と片付けるのではなく、どのように地域で関わっていけるのか、その第一歩を考えていく内容。地域住民の身近な気づきはもちろん、福祉職の人にとっても、支援拒否などの事例に対するヒントを学べる機会。 申込締切：令和8年11月24日（火）</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">19</div>
+      <div class="m">12月 · 12/19</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.konan-wu.ac.jp/news/detail.php?id=4474" target="_blank" rel="noopener">2026年度 クリスマスチャリティコンサート 災害復興支援～神戸から音楽のエールを！～</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 甲南女子大学 芦原講堂</span>
+        <span>六甲山・有馬</span>
+        
+        
+      </div>
+      <div class="desc">西日本最大級のパイプオルガンを備える芦原講堂を会場に、クリスマスチャリティコンサートを今年も開催。芦屋交響楽団と土橋薫氏（オルガニスト・同学非常勤講師）による、オーケストラとパイプオルガンの演奏を楽しもう。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">19</div>
+      <div class="m">12月 · 12/19</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://composers.jp" target="_blank" rel="noopener">The Composers - 作曲家シリーズ02『ベートーヴェンと…』</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 神戸芸術センター・シューマンホール</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">《The Composers - 作曲家シリーズ「○○○…』》第2弾『ベートーヴェンと…』では、ベートーヴェンの名曲を中心にベートーヴェンと関わりのあったもう1人の作曲家チェルニーの作品もトークとともに届ける、クラシック音楽初心者からでも気軽に上質な芸術・文化を楽しめるMusic Inc.オリジナル企画。出演：ピアニスト米本彩夏 &amp;amp; ナビゲーター 南出卓。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">19</div>
+      <div class="m">12月 · 12/19–12/20</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.eggnworks.jp/ja/event_detail/1149" target="_blank" rel="noopener">ツクルヒトタチ博in神戸KIITO 2026</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 デザイン・クリエイティブセンター神戸（KIITOキイト）</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">シリーズ最大規模となる約250組のクリエイターが、アクセサリー、雑貨、イラスト、器、アートなどの作品を直接販売する、クリスマス前の年末の一大イベント。会場では、横幅9メートルの紙に4人のアーティストが即興で描くライブペインティングや、アコーディオンデュオの生演奏、神戸の伝統芸能の舞台も楽しむことができる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">19</div>
+      <div class="m">12月 · 12/19–12/20</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.rokkosan.com/museum/" target="_blank" rel="noopener">森の音クリスマス・ナイト・コンサート2026</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 ROKKO森の音ミュージアム</span>
+        <span>六甲山・有馬</span>
+        
+        
+      </div>
+      <div class="desc">ROKKO森の音ミュージアムならではの自動演奏楽器によるクリスマスコンサートを、併設の「森の Cafe」提供の肩ひじ張らない選べるカジュアルメニューとともに楽しめる。その他、参加者特典としてリクエスト曲の演奏（1組1曲）や当日のショップのお買い物で利用できる5%OFFクーポンつき。WEB予約または電話予約（営業時間のみ対応）未就学児の参加不可。各日30名限定</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f59e0b">
+    <div class="datecol">
+      <div class="d">19</div>
+      <div class="m">12月 · 12/19–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://kobemerikenxmas.com/" target="_blank" rel="noopener">神戸開港160年プレイベント 神戸メリケンクリスマス ～未来への灯と港の光～</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f59e0b">市集/マルシェ</span>
+        <span>📍 メリケンパーク周辺</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">神戸の冬の夜空を美しく彩るドローンショーイベント「神戸メリケンクリスマス」が今年も開催。今年のドローンショーは、クリスマスらしいショーに加え、神戸開港160年の幕開けを記念した演出も見逃せない。さらに、2026年12月19日(土)と25日(金)は花火の打ち上げも行われる。また、会場ではクリスマスマーケットや音楽ステージも一緒に楽しむことができる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">26</div>
+      <div class="m">12月 · 12/26–03/12</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.rokkosan.com/museum/" target="_blank" rel="noopener">猫とこたつのあったかフェア2026</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 ROKKO森の音ミュージアム</span>
+        <span>六甲山・有馬</span>
+        
+        
+      </div>
+      <div class="desc">冬の六甲山で「猫」と「こたつ」をテーマにした、あたたかく過ごせるフェアを開催する。期間中は、諏訪温子（すわあつこ）が描いた「猫」をテーマにした日本画を展示販売する他、ぬいぐるみと寝そべってオルゴールなどの音色が聴けるコンサートルームや、ぬい撮り応援グッズも用意する。また、コンサートルーム、森のCafeテラス席、オルゴール組立体験部屋、SIKIドーム 森のライブラリーなど施設内にこたつを設置する。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">04月 · 04/01–03/31</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.feel-kobe.jp/event/36265/" target="_blank" rel="noopener">「阪急沿線 観光まちあるき2026」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 兵庫・長田</span>
+        <span>神戸駅・新開地</span>
+        
+        
+      </div>
+      <div class="desc">開催中 「阪急沿線 観光まちあるき2026」 2026年4月1日（水） ~2027年3月31日（水） 阪急沿線の観光スポットや隠れた名所をめぐるウォーキングイベント。 神戸市の様々なエリアを巡るツアーやコースが用意されており、まだ知らない沿線の魅力を楽しむことができます。 ウォーキングアプリaruku&amp;で参加するコースでは、神戸市にあるミュージアムロード・HAT神戸に点在する文化施設や、エリアの歴</div>
+      <div class="line">
+        <span>kobe-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">29</div>
+      <div class="m">05月 · 05/29–02/28</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.daimaru.co.jp/kobe/topics/20260512_illumination.html" target="_blank" rel="noopener">旧居留地イルミネーション</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 大丸神戸店</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">レトロな雰囲気が残る歴史的な建物やおしゃれなショップが軒を連ねる、兵庫県神戸市旧居留地のイルミネーションイベント。大丸神戸店周辺の街路樹が約11万個の電飾で装飾され、神戸の美しい街並みがイルミネーションで輝く。周辺エリアの景観と調和した光の演出が特徴で、散策しながら楽しめる点も魅力。 詳細は公式サイトでご確認ください。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">06月 · 06/11–03/26</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.feel-kobe.jp/event/36478/" target="_blank" rel="noopener">「メリケンミュージックナイツ」メリケンパーク</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 景観、体験</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">開催中 「メリケンミュージックナイツ」メリケンパーク 2026年6月11日（木） ~2027年3月26日（金） 「メリケンパークを音楽の力で盛り上げる」をコンセプトに、年間を通じて、誰もが気軽に音楽コンテンツ等を楽しめるイベント。プロミュージシャンによる音楽ライブをお楽しみください。 エリア： 景観、体験 音楽 メリケンパーク・ハーバーランド・ニューシーポート</div>
+      <div class="line">
+        <span>kobe-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#22c55e">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">07月 · 07/01–12/31</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://tsukienofune.com/" target="_blank" rel="noopener">有馬の秘宝と月への舟　第２章</a></div>
+      <div class="line">
+        <span class="badge" style="background:#22c55e">ゲーム/謎解き</span>
+        <span>📍 月への舟</span>
+        <span>北区</span>
+        
+        
+      </div>
+      <div class="desc">旅館内を巡りながら、さまざまなミッションに挑戦する館内周遊型の謎解きイベント。ミッション形式なので気軽に参加でき、自分のペースで館内探索や謎解きを楽しむことができる。月の印を集めて幻の秘宝を目指す、物語の世界に入り込める体験を楽しもう。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#22c55e">
+    <div class="datecol">
+      <div class="d">22</div>
+      <div class="m">08月 · 08/22–03/21</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.feel-kobe.jp/event/37553/" target="_blank" rel="noopener">「リアル謎解きゲーム×阪神高速おでかけパス 謎めきロード2026」阪神高速沿線各所</a></div>
+      <div class="line">
+        <span class="badge" style="background:#22c55e">ゲーム/謎解き</span>
+        <span>📍 景観、体験</span>
+        <span>西区・須磨・舞子</span>
+        
+        
+      </div>
+      <div class="desc">開催中 「リアル謎解きゲーム×阪神高速おでかけパス 謎めきロード2026」阪神高速沿線各所 2026年8月22日（土） ~2027年3月21日（日） 阪神高速沿線で実際に神戸や大阪を巡って謎を解く体験型のゲームイベント「リアル謎解きゲーム×阪神高速おでかけパス 謎めきロード2026」が開催されます。 謎解きキットを片手に3つのコースからチャレンジしたいコースを選び、スポットを巡りながら謎を解きます</div>
+      <div class="line">
+        <span>kobe-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#84cc16">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">09月 · 09/01–01/31</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://hyogo-gt.jp/" target="_blank" rel="noopener">ひょうご五国スタンプラリー</a></div>
+      <div class="line">
+        <span class="badge" style="background:#84cc16">体験/ワークショップ</span>
+        <span>📍 兵庫県内の農林漁業体験施設</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">兵庫県内の５つ地域（神戸、播磨、但馬、丹波、淡路）のうち、３つの地域の農林水産業の体験型施設を訪問し、スタンプを集めて応募すると、抽選で30名に2,500円相当の賞品が当たる。詳しくは、公式HPを確認。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ef4444">
+    <div class="datecol">
+      <div class="d">04</div>
+      <div class="m">09月 · 09/04–12/28</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kobeherb.com/topics/48526" target="_blank" rel="noopener">ドイツ祭り2026 －Beer ＆ Wine Fest(ビア＆ワインフェスト)－</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ef4444">祭り/フェス</span>
+        <span>📍 神戸布引ハーブ園／ロープウェイ</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">港町神戸の街並みが一望できるリゾート施設で開催されるドイツ祭り。本場ドイツのビールやワインが11種類用意されるほか、オリジナルハーブソーセージや仔羊のブロシェット、子どもも飲めるキンダーワイン(ブドウジュース)がそろい、古城をモチーフにした異国情緒あふれる空間で楽しめる。11月30日(月)までは、レストランやテラスで「実りの秋」をテーマにしたスイーツなどが販売される。クリスマスシーズンにあたる11月7日(土)〜12月28日(月)はメニューが異なる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">06</div>
+      <div class="m">09月 · 09/06–12/18</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kobe-park.or.jp/shinrin/eventlist/%e7%ac%ac11%e5%9b%9e%e3%80%80%e5%85%ad%e7%94%b2%e5%b1%b1%e3%81%ae%e3%82%ad%e3%83%8e%e3%82%b3%e5%b1%95-in-%e6%a3%ae%e6%9e%97%e6%a4%8d%e7%89%a9%e5%9c%92/" target="_blank" rel="noopener">「第11回 六甲山のキノコ展 in 森林植物園」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 神戸市立森林植物園　森林展示館2階</span>
+        <span>六甲山・有馬</span>
+        
+        
+      </div>
+      <div class="desc">開催中 「第11回 六甲山のキノコ展 in 森林植物園」 2026年9月6日（日） ~2026年12月18日（金） 「第11回 六甲山のキノコ展 in 森林植物園」は、六甲山で見られるさまざまなキノコを紹介する展示イベントです。 会場には、身近なものから珍しいものまで、六甲山地に生息するキノコの標本が並びます。普段はなかなか気に留めないキノコも、種類や特徴を知ると、森林散策が少し違って見えてくるか</div>
+      <div class="line">
+        <span>walkerplus</span><span>kobe-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ef4444">
+    <div class="datecol">
+      <div class="d">12</div>
+      <div class="m">09月 · 09/12–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kobeherb.com/topics/48521" target="_blank" rel="noopener">GARDEN FEST 2026－Autumn－(ガーデンフェスト 2026 オータム) のんびり、ぶらり、秋散歩</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ef4444">祭り/フェス</span>
+        <span>📍 神戸布引ハーブ園／ロープウェイ</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">標高400メートルの山上に位置し、港町神戸の街並みが一望できる神戸布引ハーブ園の秋イベント。色、形、大きさの異なる約300個のさまざまなカボチャや収穫物、ドライフラワーで作られたハロウィンディスプレイがガーデン各所に登場するほか、本場ドイツのビールやワインを味わえる「ドイツ祭り」、「実りの秋」をテーマにしたスイーツが並ぶ「収穫の秋フェア」など数々のイベントが開催。秋バージョンの「宝探しゲーム」も用意されている。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#22c55e">
+    <div class="datecol">
+      <div class="d">17</div>
+      <div class="m">09月 · 09/17–02/28</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.feel-kobe.jp/event/38199/" target="_blank" rel="noopener">「灘の酒蔵謎解き探訪2026」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#22c55e">ゲーム/謎解き</span>
+        <span>📍 灘・東灘</span>
+        
+        
+        
+      </div>
+      <div class="desc">開催中 「灘の酒蔵謎解き探訪2026」 2026年9月17日（木） ~2027年2月28日（日） 「灘の酒蔵謎解き探訪」は、日本酒・食文化・街並みなど、灘の魅力を楽しみながら巡る体験型イベントです。 参加者は旅人探偵「たぬき探偵ジェリー」とともに灘五郷を巡り、物語に沿って謎を解き進めていきます。 LINE上で謎解きを進めると、各スポットでコラムやキーワードが届きます。3つのキーワードを集めて「酒の</div>
+      <div class="line">
+        <span>kobe-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#22c55e">
+    <div class="datecol">
+      <div class="d">17</div>
+      <div class="m">09月 · 09/17–02/28</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://jellyroom.jp/nada/" target="_blank" rel="noopener">灘の酒蔵謎解き探訪2026 たぬき探偵ジェリー「灘五郷の秘密の依頼」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#22c55e">ゲーム/謎解き</span>
+        <span>📍 灘五郷</span>
+        <span>六甲山・有馬</span>
+        
+        
+      </div>
+      <div class="desc">灘五郷を舞台に、酒蔵や関連施設を巡りながら謎を解く街歩き型のイベント。神戸、西宮エリアを「神戸西」、「神戸東」、「西宮西」、「西宮東」の4つのコースに分け、各コースに設定された複数のスポットを訪れて探偵キャラクター「たぬき探偵ジェリー」とともに謎解きに挑戦できる。参加者は問題用紙とスマートフォンを使い、各スポットに設置された情報などを手掛かりに、コースごとの謎を解き進める。謎解きへの参加で「謎解き賞」、「お買い物賞」、「SNS賞」の3つのプレゼント抽選に応募できる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#22c55e">
+    <div class="datecol">
+      <div class="d">18</div>
+      <div class="m">09月 · 09/18–05/31</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.feel-kobe.jp/event/38256/" target="_blank" rel="noopener">「姿を消した先輩を追え 神戸から始まる物語 」神戸市周辺</a></div>
+      <div class="line">
+        <span class="badge" style="background:#22c55e">ゲーム/謎解き</span>
+        <span>📍 三宮・元町</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">開催中 「姿を消した先輩を追え 〜神戸から始まる物語〜」神戸市周辺 2026年9月18日（金） ~2027年5月31日（月） 没入型謎解き体験「姿を消した先輩を追え〜神戸から始まる物語〜」が開催されます。 「姿を消した記者を追え」に続く、「ヰ空間」による第2弾の完全新作です。 カフェや自宅などお好みの場所でのWEB謎パート（約1時間）で、先輩の所持品（封筒）を手がかりに謎を解いたあと、JR三ノ宮駅</div>
+      <div class="line">
+        <span>kobe-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#22c55e">
+    <div class="datecol">
+      <div class="d">18</div>
+      <div class="m">09月 · 09/18–05/31</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://machihack.com/jrwest-hitosagashi/" target="_blank" rel="noopener">姿を消した先輩を追え〜神戸から始まる物語〜</a></div>
+      <div class="line">
+        <span class="badge" style="background:#22c55e">ゲーム/謎解き</span>
+        <span>📍 JR三ノ宮駅スタート</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">神戸の街を実際に歩きながら謎を解き、姿を消した先輩の行方を追う体験型の謎解きイベント。参加者は、姿を消した高校の先輩について調べることになり、さまざまな謎を解きながら先輩の足取りを追っていく。イベントは、Web上で楽しむ「謎解きパート」と、実際に神戸の街を巡る「街歩きパート」の2段階で構成。参加者はまず自宅などでWeb上の謎に挑戦し、その後、JR三ノ宮駅をスタート地点として、神戸市内やJR神戸線沿線の各所を訪れながら手掛かりを探していく。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">19</div>
+      <div class="m">09月 · 09/19–12/27</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://ytmoca.jp/" target="_blank" rel="noopener">Curators in Panic 2～横尾忠則展　学芸員危機２髪？</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 横尾忠則現代美術館</span>
+        <span>六甲山・有馬</span>
+        
+        
+      </div>
+      <div class="desc">2021年開催の「横尾忠則展 学芸員危機一髪」は、当時、大規模な個展のために横尾の代表作約200点を貸し出してしまい、苦肉の策として、残された作品の中から学芸員3名が「推し」への愛を語る展覧会だった。今回は、その第２弾で、同館の全コレクションを対象に、歴代学芸員5名が、作家にも美術史にも忖度することなく、独断と偏見で作品を選出。個々の思い入れが詰まったユニークなセレクションを楽しもう。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">19</div>
+      <div class="m">09月 · 09/19–12/27</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.feel-kobe.jp/event/37975/" target="_blank" rel="noopener">「Curators in Panic 2 横尾忠則展 学芸員危機２髪？」横尾忠則現代美術館</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 アート</span>
+        
+        
+        
+      </div>
+      <div class="desc">開催中 「Curators in Panic 2～横尾忠則展 学芸員危機２髪？」横尾忠則現代美術館 2026年9月19日（土） ~2026年12月27日（日） 本展は、2021年に開催した展覧会「Curators in Panic〜横尾忠則展 学芸員危機一髪」の第2弾です。 当時、大規模な個展のために横尾の代表作約200点を貸し出してしまった当館の学芸員が苦肉の策として企画したこの展覧会は、残され</div>
+      <div class="line">
+        <span>kobe-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">21</div>
+      <div class="m">09月 · 09/21–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kobeherb.com" target="_blank" rel="noopener">【花・見ごろ】神戸布引ハーブ園／ロープウェイ　セージ</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 神戸布引ハーブ園／ロープウェイ</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">メキシカンブッシュセージやサルビア・イエローマジェスティ、チェリーセージなど色とりどりのセージが咲き誇り、ガーデンを彩る。秋空に映える色鮮やかなセージを堪能しよう。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#84cc16">
+    <div class="datecol">
+      <div class="d">29</div>
+      <div class="m">09月 · 09/29–12/28</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.feel-kobe.jp/event/37890/" target="_blank" rel="noopener">「サカナクション「グッドナイト・プラネタリウム」特別上映 追加上映決定」バンドー神戸青少年科学館</a></div>
+      <div class="line">
+        <span class="badge" style="background:#84cc16">体験/ワークショップ</span>
+        <span>📍 文化</span>
+        <span>ポートアイランド</span>
+        
+        
+      </div>
+      <div class="desc">開催中 「サカナクション「グッドナイト・プラネタリウム」特別上映 追加上映決定」バンドー神戸青少年科学館 2026年9月29日（火） ~2026年12月28日（月） バンドー神戸青少年科学館にて、サカナクションの音楽と映像による特別なプラネタリウム上映「サカナクション「グッドナイト・プラネタリウム」特別上映」が開催されます。 音と光と闇が織りなす特別な夜を、満天の星々とともに体感できる上映会です。</div>
+      <div class="line">
+        <span>kobe-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">10月 · 10/01–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kobeherb.com" target="_blank" rel="noopener">【花・見ごろ】神戸布引ハーブ園／ロープウェイ　コスモス</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 神戸布引ハーブ園／ロープウェイ</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">爽やかな秋風に揺れるコスモスは、昼は可憐に、夕暮れ時には美しく夕陽に照らされ、幻想的に彩る。四季の庭の約2,200株のコスモス（ソナタ）、風の丘フラワー園の約4,600株のコスモス（オレンジキャンパス、アプリコットレモネード）と2ヵ所のガーデンで出迎えてくれる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">10月 · 10/01–12/30</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.anacrowneplaza-kobe.jp/restaurant/menu/?_sft_locations=suzhou" target="_blank" rel="noopener">季節で巡る中国料理の旅楊貴妃長安に咲く華</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 中国レストラン 蘇州</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">唐王朝6代皇帝の玄宗（げんそう）の寵愛を受け「傾国の美女（その美しさによって国を傾けるほどの影響力を持つ美女）」として知られる楊貴妃をフィーチャー。楊貴妃が好んだ食材を満喫できるコースが楽しめる。楊貴妃が愛したと伝わる美食の世界。「楊貴妃のように、いつまでも美しくありたい。」そんな女性たちの願いに寄り添い、体にやさしく、美味しい食材を取り入れた特別なコースを用意。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">10月 · 10/01–03/31</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://harborland.co.jp/harborland_night/" target="_blank" rel="noopener">神戸ハーバーランド　ガス燈通りのイルミネーション</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 神戸ハーバーランド　神戸ガス燈通り</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">神戸を代表するベイエリア、神戸ハーバーランド。ショッピング、レストラン、アミューズメント、ホテルなどがそろうこのエリアは、夜になるとライトアップされ、昼間とはまた違った表情を見せる。神戸ガス燈通りとハーバーロードではケヤキ並木約100本がライトアップされ、旧神戸港信号所から神戸煉瓦倉庫へと続くハーバーウォーク周辺もイルミネーションで彩られる。また、ライトアップされた大観覧車から360度見渡す神戸の街の灯りや、高浜岸壁から望む対岸のメリケンパークの夜景もロマンチック。黄金色に輝く遊覧船が水面をたゆたう光景は、港町・神戸ならでは。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">03</div>
+      <div class="m">10月 · 10/03–12/13</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.dougukan.jp/special_exhibition/where_trees_live_again" target="_blank" rel="noopener">企画展「木の生命、かたちへ　—ジョージ・ナカシマと職人たち」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 竹中大工道具館　1階ホール</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">一本の木には、それぞれ固有の形と表情がある。ジョージ・ナカシマ（1905-1990）は、木の個性を活かすことを追求した家具デザイナーであり木工家である。節や割れ、年輪の表情を生かす造形には、素材への深い敬意が込められている。今展では、60年以上ナカシマ家具を製作する香川県の桜製作所に焦点を当て、職人たちが木の生命を「かたち」へ導く誠実なものづくりの営みを紹介する。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">05</div>
+      <div class="m">10月 · 10/05–12/04</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://event.city.kobe.lg.jp/event/uBivEyKaeDKvLtYvqYFx" target="_blank" rel="noopener">2026年「須磨デジタルスタンプラリー」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 須磨区内18か所のスポット</span>
+        <span>西区・須磨・舞子</span>
+        
+        
+      </div>
+      <div class="desc">須磨区の魅力を多くの人に知ってもらうため、須磨区内のスポットを巡り、スマートフォンでスタンプを集める。集めたスタンプ数に応じて、抽選で豪華景品をGET。景品一覧：神戸須磨シーワールドのぬいぐるみ、敦盛そばの「名物敦盛そば」ペアお食事券、ナナ・ファーム須磨のお買物券、須磨離宮公園のはちみつと入園券、すまぼうぬいぐるみ。ファミリー・シニア・一人でも楽しんで参加できる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">10</div>
+      <div class="m">10月 · 10/10–12/13</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.feel-kobe.jp/event/38427/" target="_blank" rel="noopener">「トーベとムーミン展 とっておきのものを探しに 」神戸市立博物館</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 アート</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      
+      <div class="line">
+        <span>kobe-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">10</div>
+      <div class="m">10月 · 10/10–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.feel-kobe.jp/event/38102/" target="_blank" rel="noopener">「兵庫津発掘‐よみがえる江戸時代の浜本陣と町家‐」兵庫県立兵庫津ミュージアム</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 自然</span>
+        
+        
+        
+      </div>
+      <div class="desc">開催中 「兵庫津発掘‐よみがえる江戸時代の浜本陣と町家‐」兵庫県立兵庫津ミュージアム 2026年10月10日（土） ~2026年12月6日（日） 港湾都市として繁栄した兵庫津の地下には、千年以上にわたる人々の営みが埋もれています。 江戸時代に西国大名の御用や朝鮮通信使の宿をつとめた浜本陣網屋新九郎の遺構や、新在家町の町家・街路などが、2020年の兵庫津ミュージアム建設地での発掘調査により見つかりま</div>
+      <div class="line">
+        <span>kobe-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">10</div>
+      <div class="m">10月 · 10/10–12/13</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.ktv.jp/event/tove_moomins/" target="_blank" rel="noopener">トーベとムーミン展～とっておきのものを探しに～(兵庫)</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 神戸市立博物館</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">2025年にムーミン最初の小説出版の80周年を迎えたことを記念し、フィンランドのヘルシンキ市立美術館の協力によって開催される展覧会。ムーミンの生みの親で、絵画、風刺画、漫画、絵本、小説など多方面に才能を発揮したアーティスト、トーベ・ヤンソンの創作の世界をひもとく。初期の油彩画や第二次世界大戦前後の風刺画、ムーミンの小説やコミックスの原画やスケッチ、愛用品など約300点の作品や資料が紹介され、トーベの創作の世界を振り返るとともに、彼女の人生が色濃く反映されたムーミンの魅力に迫る。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">10</div>
+      <div class="m">10月 · 10/10–01/12</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.lampwork-museum.com/index.php" target="_blank" rel="noopener">企画展「色彩の美-ソフトガラス-」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 KOBEとんぼ玉ミュージアム</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">ソフトガラスとは、古代から使われてきた溶融温度の低いガラスの総称。 歴史の中でその時代や国の人々が求めるさまざまな色が作られ、培われ、時代を超えて根強い人気を得てきた色が今に続いている。 ソフトガラスならではの色彩の美を生かした作品の数々を観覧してみてはいかが。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">10</div>
+      <div class="m">10月 · 10/10–12/27</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.artm.pref.hyogo.jp/exhibition/t_2610/index.html" target="_blank" rel="noopener">国立美術館 コレクション・ダイアローグ　松方幸次郎 × 山村德太郎　蒐集のパッション　ーロダンを日本へ、具体を世界へ</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 兵庫県立美術館</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">松方幸次郎と山村德太郎、兵庫県ゆかりの2人のコレクターの活動を紹介する展覧会。松方コレクションからはロダンをはじめとする近代西洋美術が、山村コレクションからは具体美術協会を中心にした戦後日本の現代美術が出品され、両コレクションをともに紹介。異なる時代の美術が並ぶ。2人がどのような想いで作品を集めたのか、そしてそのコレクションがどのように美術館へ受け継がれたのかをたどる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">21</div>
+      <div class="m">10月 · 10/21–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kobe-park.or.jp/shinrin/" target="_blank" rel="noopener">神戸市立森林植物園の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 神戸市立森林植物園</span>
+        <span>北区</span>
+        
+        
+      </div>
+      <div class="desc">神戸市街よりも一足早く秋が訪れる森林植物園では、2026年10月31日(土)から12月6日(日)まで「植物園のもみじ散策」が開催される(期間中無休)。38種3000本の樹木の紅葉は、種類やエリアによって見頃が異なるため、開催期間中は日々移り変わる森の表情を楽しめる。青葉トンネルでは、カラーLEDによる移ろいゆく山の紅葉色の演出も楽しめる。森林ガイドツアーなどイベントも多数開催。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">23</div>
+      <div class="m">10月 · 10/23–02/14</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.feel-kobe.jp/event/37589/" target="_blank" rel="noopener">「神戸イルミナージュ2026」道の駅神戸フルーツフラワーパーク大沢</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 西神・北神</span>
+        
+        
+        
+      </div>
+      
+      <div class="line">
+        <span>kobe-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">23</div>
+      <div class="m">10月 · 10/23–02/14</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://illuminagegroup.com/ja" target="_blank" rel="noopener">神戸イルミナージュ</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 道の駅 神戸フルーツ・フラワーパーク大沢</span>
+        <span>北区</span>
+        
+        
+      </div>
+      <div class="desc">神戸フルーツフラワーパークを舞台に開催される「神戸イルミナージュ」には、毎年多くの人が訪れる。17周年を迎える2026年度のテーマは 「スターライト・ドリーム」。 夜空に輝く星々と色鮮やかな花々が織りなす幻想的な世界が、訪れるすべての人を夢のような光の空間へと誘う。 光り輝く蝶をモチーフにした「バタフライブランコ」や、無数の光で彩られた「ハートトンネル」、色鮮やかな花々をテーマにした「フローラルインスタレーション」など、多彩なイルミネーションが会場全体を彩る。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">24</div>
+      <div class="m">10月 · 10/24–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.feel-kobe.jp/event/38567/" target="_blank" rel="noopener">「秋のバラ観賞会」神戸市立須磨離宮公園</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 須磨・垂水</span>
+        <span>西区・須磨・舞子</span>
+        
+        
+      </div>
+      
+      <div class="line">
+        <span>kobe-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">24</div>
+      <div class="m">10月 · 10/24–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kobe-park.or.jp/rikyu/event/event-27232/" target="_blank" rel="noopener">秋のバラ観賞会</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 神戸市立須磨離宮公園</span>
+        <span>西区・須磨・舞子</span>
+        
+        
+      </div>
+      <div class="desc">「王侯貴族のバラ園」や「世界殿堂入りバラ園」を中心に200種3000株のバラが見頃を迎える。また、「バラの歴史と文化園」では個性豊かなローズヒップ（バラの実）を楽しむこともできる。期間中には、もみじやポインセチアなど、秋から冬にかけての花々も見頃になる。秋のバラとあわせて鑑賞しよう。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">30</div>
+      <div class="m">10月 · 10/30–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.feel-kobe.jp/event/38829/" target="_blank" rel="noopener">「秋めく相楽宴2026」神戸市立相楽園</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 自然</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">開催中 「秋めく相楽宴2026」神戸市立相楽園 2026年10月30日（金） ~2026年12月6日（日） 神戸市立相楽園では、紅葉の色づき始めから見頃を迎える時期にあわせて、「秋めく相楽宴2026」が開催されます。 期間中は、日本庭園を舞台にした手づくり作品展「第44回相楽市～あいたのしむいち～」や、旧小寺家厩舎前での秋宵コンサート、ジャズライブなどの音楽イベントが行われます。旧ハッサム住宅の内</div>
+      <div class="line">
+        <span>kobe-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">31</div>
+      <div class="m">10月 · 10/31–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kobe-park.or.jp/shinrin/eventlist/" target="_blank" rel="noopener">神戸市立森林植物園 紅葉のライトアップ</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 神戸市立森林植物園</span>
+        <span>北区</span>
+        
+        
+      </div>
+      <div class="desc">森林植物園では、メタセコイア、イロハモミジ、ケヤキなどの紅葉をライトアップし、幻想的な世界を楽しめる。他にも、あじさい坂下ロータリーの大木にはフルカラーイルミネーションが施され、写真映え間違いなし。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">31</div>
+      <div class="m">10月 · 10/31–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kobe-park.or.jp/shinrin/eventlist/" target="_blank" rel="noopener">～世界の森の紅葉めぐり～ 植物園のもみじ散策</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 神戸市立森林植物園</span>
+        <span>北区</span>
+        
+        
+      </div>
+      <div class="desc">神戸市街よりも一足早く秋が訪れる森林植物園では、イロハモミジなど紅葉を代表するカエデの仲間だけでなく、外国産の樹木を含めた様々な木々の色づきを楽しむことができる。日々変化する移ろいゆく景色を楽しんで。案内スタッフによる「森林ガイドツアー」をはじめ様々なイベントを開催。土日祝は一部エリアで「紅葉のライトアップ」を開催。いろんな秋を見つけに出かけてみよう。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f97316">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">11月 · 11/01–01/11</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kobe-kitanohotel.co.jp/?men=11&amp;amp;cat=57#871" target="_blank" rel="noopener">Xmas(クリスマス)スイーツビュッフェ「いちごとチョコのマリアージュ」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f97316">グルメ/食</span>
+        <span>📍 神戸北野ホテル</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">2カ月限定で開催されるクリスマスのスイーツビュッフェ。ホワイトクリスマスをイメージしたディナー限定のミル・ミルサントノーレをはじめ、タルトやムース、パンナコッタ、ブッシュドノエル風ロールケーキなど、いちごとチョコレートを使用したクリスマスモチーフのスイーツが並ぶ。タルタルチキンとカボチャのサンドイッチや赤ワインビーフシチューなど食事メニューが充実しているので、ランチやディナーとしての利用もできる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#84cc16">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">11月 · 11/01–02/28</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.feel-kobe.jp/event/38667/" target="_blank" rel="noopener">「【1日1室限定】豚まん気分になれる！老祥記111周年記念コンセプトルーム」ホテル北野プラザ六甲荘</a></div>
+      <div class="line">
+        <span class="badge" style="background:#84cc16">体験/ワークショップ</span>
+        <span>📍 食</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      
+      <div class="line">
+        <span>kobe-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f59e0b">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">11月 · 11/01–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kobeherb.com" target="_blank" rel="noopener">【紅葉・見ごろ】神戸布引ハーブ園／ロープウェイ</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f59e0b">市集/マルシェ</span>
+        <span>📍 神戸布引ハーブ園／ロープウェイ</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">神戸の絶景や秋色に染まる山並みを眼下にロープウェイで約10分の空中散歩。コスモスやセージなど色とりどりのガーデンと園内随所で赤や黄色に色づく紅葉を同時に堪能できる。神戸クリスマスマーケットやイルミネーションでクリスマス一色のガーデンで「布引の紅葉」と「クリスマス」が一緒に楽しめるのも魅力。2026年も幻想的に浮かび上がる「紅葉ライトアップ」も実施。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">11月 · 11/01–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://do-main.co.jp/taisanji/index.html" target="_blank" rel="noopener">太山寺の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 太山寺</span>
+        <span>西区・須磨・舞子</span>
+        
+        
+      </div>
+      <div class="desc">神戸市西区にある太山寺は天台宗の寺で、本堂は1955年に神戸市で唯一の国宝建造物に指定された。周辺の豊かな自然は11ヘクタールの「太山寺原生林」として、兵庫県の天然記念物となっている。広大な敷地面積を誇る境内で本堂や三重塔を飾る秋景色には心を奪われる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">11月 · 11/01–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kobeherb.com/" target="_blank" rel="noopener">神戸布引ハーブ園／ロープウェイの紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 神戸布引ハーブ園／ロープウェイ</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">神戸の景色、秋色に染まる山並みを眼下にロープウェイで約10分の空中散歩。約200種75000株のハーブや花々が咲き集う日本最大級のハーブガーデンで、コスモスやセージなどが彩るガーデンを散策しながら、園内各所で紅葉を楽しむことができる。例年11月上旬から12月上旬頃にかけてが、紅葉の見頃の時期となる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f97316">
+    <div class="datecol">
+      <div class="d">02</div>
+      <div class="m">11月 · 11/02–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.portopia.co.jp/restaurant/detail/belle/menu/#!menu-457" target="_blank" rel="noopener">神戸ポートピアホテル　クリスマスアフタヌーンティーセット</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f97316">グルメ/食</span>
+        <span>📍 神戸ポートピアホテル</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">「ホワイトクリスマス」をテーマにしたアフタヌーンティー。白いリボンをあしらったギフトボックスショートケーキをはじめ、ツリーのオーナメントを思わせるカシスのムースや雪のようになめらかな白ワインとレモンのブランマンジェなど、クリスマスの華やぎを映したパティシエこだわりのスイーツを味わえる。ドリンクはウェルカムティーとしてウィンタースパイスチャイが提供されるほか、紅茶やコーヒーなどがフリーフローで利用できる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">02</div>
+      <div class="m">11月 · 11/02–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kobe-orientalhotel.co.jp/topics/214/" target="_blank" rel="noopener">神戸メリケンパークオリエンタルホテル イルミネーション</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 神戸メリケンパークオリエンタルホテル</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">目の前に海が広がる神戸メリケンパークオリエンタルホテルでは、「港町・神戸」をテーマにしたクリスマスツリーが登場。神戸のアコヤ貝養殖に想いを寄せたパールや、港の情景を思わせるブルーのオーナメントがロビーを華やかに彩る。装飾の一部には役目を終えた貝殻やガラス瓶を再利用し、美しい海への思いやりをクリスマスの輝きに重ね合わせた。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f97316">
+    <div class="datecol">
+      <div class="d">04</div>
+      <div class="m">11月 · 11/04–01/31</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.feel-kobe.jp/event/38751/" target="_blank" rel="noopener">「神戸・灘ラーメンスタンプラリー」灘区内各所</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f97316">グルメ/食</span>
+        <span>📍 食</span>
+        <span>六甲山・有馬</span>
+        
+        
+      </div>
+      <div class="desc">開催中 「神戸・灘ラーメンスタンプラリー」灘区内各所 2026年11月4日（水） ~2027年1月31日（日） ラーメン激戦区として知られる六甲道エリアをはじめ、多くのラーメン店が集まる灘区で、「神戸・灘ラーメンスタンプラリー」が開催されます。区内の対象店舗32店で飲食し、店内の二次元コードをスマートフォンで読み取るとスタンプを集められるデジタルスタンプラリーです。 集めたスタンプの数に応じて、灘</div>
+      <div class="line">
+        <span>kobe-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f97316">
+    <div class="datecol">
+      <div class="d">04</div>
+      <div class="m">11月 · 11/04–01/31</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kobe-orientalhotel.co.jp/restaurant/allflags/menu_info/63/" target="_blank" rel="noopener">蟹 食べ放題と冬のご馳走フェア</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f97316">グルメ/食</span>
+        <span>📍 神戸メリケンパークオリエンタルホテル</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">毎年恒例のカニ食べ放題フェア。思う存分カニを楽しめる料理の数々に加え、寒い季節に味わいたい「冬のご馳走」をテーマにした多彩なメニューがそろう。カニすき鍋やカニクリームコロッケなど、カニの旨みを存分に味わえる料理はもちろん、フランス南西部で親しまれてきた冬の伝統料理のカスレ、ホワイトソースで仕上げたクラムチャウダーなどのメニューを楽しめる。ライブキッチンコーナーでは、ディナータイム限定で神戸ポークのステーキとホタテのブルゴーニュ風が提供される。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">06</div>
+      <div class="m">11月 · 11/06–02/24</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.premiumoutlets.co.jp/kobesanda/" target="_blank" rel="noopener">「神戸三田プレミアム・アウトレット ウィンターイルミネーション」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 神戸三田プレミアム・アウトレット</span>
+        <span>北区</span>
+        
+        
+      </div>
+      <div class="desc">開催中 「神戸三田プレミアム・アウトレット ウィンターイルミネーション」 2026年11月6日（金） ~2027年2月24日（水） 神戸三田プレミアム・アウトレットで、「Snowy Ribbon Story」をテーマにしたクリスマスイルミネーションが実施されます。 クリスマスプレゼントを彩るリボンをモチーフに、訪れる人々の想いやつながりを表現した幻想的な空間が演出されます。シャンパンゴールドの光が</div>
+      <div class="line">
+        <span>walkerplus</span><span>walkerplus</span><span>kobe-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">06</div>
+      <div class="m">11月 · 11/06–01/22</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kobe-cufs.ac.jp/news/2026/24106.html" target="_blank" rel="noopener">講演会「珈琲と暮らす」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 こうべまちづくり会館</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">神戸らしい地場産業のひとつである「珈琲」をテーマに、言語学と珈琲を専門とする神戸市外大教授と、珈琲や神戸に縁のあるゲストによる講演会「珈琲と暮らす」を開催する。全3回の講演会では、喫茶店の経営や地域とのつながり、日々の暮らしと珈琲の関わりなどを、各回のテーマに沿って掘り下げる。珈琲を通じて、人と人、店と地域のつながりについて考えながら、身近な珈琲の新たな魅力や楽しみ方に出会える講演会である。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">07</div>
+      <div class="m">11月 · 11/07–01/31</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://umie.jp/" target="_blank" rel="noopener">umie(ウミエ) ウィンターイルミネーション</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 神戸ハーバーランドumie</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">兵庫県神戸市中央区の神戸ハーバーランドumieで、2026年11月7日(土)から開催する冬のイルミネーション。ノースモールとサウスモールの間に延びるセンターストリートでは「BRIGHT WHITE CHRISTMAS」をテーマに、温かな白い光をまとった高さ8メートルのクリスマスツリーが登場し、12月25日(金)まで館内を照らす。海に面したモザイク2階の花の広場・海の広場・光の広場は「神戸の記憶を、光の結晶に」がテーマ。過去から未来へ続く港の記憶をたどるように、神戸港が見つめてきた風景を輝くオブジェで描き出す。JR神戸駅から徒歩5分で、ショッピングやディナーと組み合わせて立ち寄れるのも魅力。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f59e0b">
+    <div class="datecol">
+      <div class="d">07</div>
+      <div class="m">11月 · 11/07–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.feel-kobe.jp/event/38423/" target="_blank" rel="noopener">「KOBE UMIAKARI」神戸ハーバーランド地区内・メトロこうべ</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f59e0b">市集/マルシェ</span>
+        <span>📍 景観、体験</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      
+      <div class="line">
+        <span>kobe-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">07</div>
+      <div class="m">11月 · 11/07–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.feel-kobe.jp/event/38649/" target="_blank" rel="noopener">「もみじ観賞会&amp;ルミエール2026」神戸市立須磨離宮公園</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 自然</span>
+        <span>西区・須磨・舞子</span>
+        
+        
+      </div>
+      <div class="desc">開催中 「もみじ観賞会&amp;ルミエール2026」神戸市立須磨離宮公園 2026年11月7日（土） ~2026年12月6日（日） 須磨離宮公園では、もみじの小径や和風庭園を中心に、約600本のイロハモミジやメタセコイア・ラクウショウ・カツラ・モミジバフウなどが色づく時期にあわせて、もみじ観賞会が開催されます。 期間中は、和室でのお抹茶や茶会、和風庭園でのヨガなどのイベントが行われます。 また、期間中の土</div>
+      <div class="line">
+        <span>kobe-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f59e0b">
+    <div class="datecol">
+      <div class="d">07</div>
+      <div class="m">11月 · 11/07–12/28</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.feel-kobe.jp/event/38459/" target="_blank" rel="noopener">「神戸クリスマスマーケット2026-古城のクリスマス-」神戸布引ハーブ園／ロープウェイ</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f59e0b">市集/マルシェ</span>
+        <span>📍 自然</span>
+        <span>北野・新神戸</span>
+        
+        
+      </div>
+      
+      <div class="line">
+        <span>kobe-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">07</div>
+      <div class="m">11月 · 11/07–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kobe-park.or.jp/rikyu/event/event-27324/" target="_blank" rel="noopener">もみじ観賞会&amp;amp;ルミエール2026</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 神戸市立須磨離宮公園</span>
+        <span>西区・須磨・舞子</span>
+        
+        
+      </div>
+      <div class="desc">植物園エリアを中心に、約600本のイロハモミジをはじめ、メタセコイア、ラクウショウなどの木々が見ごろを迎える。期間中の土日祝日は「ルミエール2026」を開催。20時まで延長開園し、噴水広場周辺でのイルミネーションや紅葉のライトアップにより幻想的な離宮公園に。また、12/6（日）まで秋のバラ鑑賞会も同時開催。バラともみじ、イルミネーションの3つのイベントを楽しむことができる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f59e0b">
+    <div class="datecol">
+      <div class="d">07</div>
+      <div class="m">11月 · 11/07–12/28</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kobeherb.com/tips/kobechristmasmarket/" target="_blank" rel="noopener">神戸クリスマスマーケット2026 -古城のクリスマス-</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f59e0b">市集/マルシェ</span>
+        <span>📍 神戸布引ハーブ園／ロープウェイ</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">港町神戸の街並みが一望できるハーブや花々が咲き集う「神戸布引ハーブ園／ロープウェイ」で、毎年恒例のクリスマスイベントを開催。今年のテーマは「ボタニカルクリスマス」で、ハーブ園全体がクリスマスムードに包まれ、昼と夜の異なる表情を楽しめる。標高約400メートルの古城を舞台に、広場や裏庭、城門に至るまで多彩なディスプレイスポットが用意される。高さ約7メートルの「クリスマスタワー」には、園内で剪定された枝や木の実、ドイツトウヒなどが使われ、自然素材を生かしたオリジナルデザインが魅力。また、マーケットでは、本場ドイツの雑貨が販売され、ワインやグルメなども楽しめる。今年は開催期間を12月28日(月)まで延</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">11月 · 11/11–12/09</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://sorakuen.com/" target="_blank" rel="noopener">相楽園の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 相楽園</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">神戸市の都市公園で唯一の日本庭園。池の周りの飛石や石橋を渡りながら巡る回遊式の庭園で、約2万平方メートルの敷地面積からなる庭園内には、蘇鉄(そてつ)園のほか、樹齢500年と伝えられる大クスノキ、ツツジやモミジがある。紅葉が見頃となるのは、毎年11月中旬から。園内の各所に植えられているモミジが見頃の時期には、赤や黄色に染まり池の水面に反射して美しい。三宮の市街地に近接しているが、静かにゆっくりと紅葉を鑑賞することができる紅葉スポットだ。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">11月 · 11/11–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kobe-park.or.jp/rikyu/" target="_blank" rel="noopener">神戸市立須磨離宮公園の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 神戸市立須磨離宮公園</span>
+        <span>西区・須磨・舞子</span>
+        
+        
+      </div>
+      <div class="desc">兵庫県神戸市に位置し、皇室の別荘地「旧武庫離宮」を当時の皇太子殿下(現在の上皇陛下)ご成婚記念事業として整備し、1967年(昭和42年)に開設された由緒ある公園。例年11月中旬から11月下旬ごろには植物園を中心にイロハモミジなど約600本の紅葉が見頃を迎える。紅葉が色づく花の広場、紅葉のトンネルになるもみじ道、和庭園など見どころが豊富。また、園内にはレストラン「GARDEN PARTAGE須磨離宮」がある。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">11月 · 11/11–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://sorakuen.com" target="_blank" rel="noopener">秋めく相楽宴2026</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 神戸市立相楽園</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">秋色に染まった日本庭園を舞台に紅葉の見頃に合わせて今年も様々なイベントを開催。相楽市～あいたのしむいち～、音楽コンサート、重要文化財公開、夜間開園など。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">14</div>
+      <div class="m">11月 · 11/14–12/27</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.feel-kobe.jp/event/38892/" target="_blank" rel="noopener">「無差別格闘流 修行の旅 有馬に『らんま1/2』が来た」有馬温泉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 文化</span>
+        <span>六甲山・有馬</span>
+        
+        
+      </div>
+      <div class="desc">開催中 「無差別格闘流 修行の旅 有馬に『らんま1/2』が来た」有馬温泉 2026年11月14日（土） ~2026年12月27日（日） TVアニメ「らんま1/2」と有馬温泉のコラボイベント「無差別格闘流 修行の旅 有馬に『らんま1/2』が来た」を開催します。2026年11月14日（土）から12月27日（日）までの期間中、有馬温泉街を舞台に、スタンプラリーやオリジナルノベルティの配布、コラボメニュー</div>
+      <div class="line">
+        <span>kobe-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">14</div>
+      <div class="m">11月 · 11/14–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.rokkosan.com/museum/" target="_blank" rel="noopener">森の音ワンダークリスマス2026</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 ROKKO森の音ミュージアム</span>
+        <span>六甲山・有馬</span>
+        
+        
+      </div>
+      <div class="desc">「ドイツを中心とした欧米のクリスマス」がテーマのイベントを行う。森の音ホール内コンサートルームでは、アンティーク・オルゴールなどの自動演奏楽器に囲まれた空間をクリスマスツリーやドイツ製のクリスマスオーナメントを用いた暖かな雰囲気の室内イルミネーションで彩る。物語の世界のような空間で、自動演奏楽器による讃美歌やクリスマスソングを演奏するコンサートを行い街中とは一味違ったクリスマスムードが楽しめる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">19</div>
+      <div class="m">11月 · 11/19–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kobe-sol.jp/" target="_blank" rel="noopener">SOL&amp;#39;s Christmas (ソルズ クリスマス)</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 神戸国際会館SOL</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">プラントハンター西畠清順氏が手がけた11階屋上庭園「そらガーデン」では、シンボルツリーである樹齢500年のオリーブの巨木を中心に、世界各地から集められた植物をライトアップ。植物から湧き上がるエネルギーをイメージした光が、呼吸するように瞬きながら冬の夜空へと立ちのぼる。街の喧騒から離れた屋上で、クリスマスならではの幻想的なガーデンを楽しめる。また、1階サンクンガーデンもきらびやかにライトアップされ、ロマンティックな空間が広がる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">21</div>
+      <div class="m">11月 · 11/21–12/27</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://rokkosansilence-resort.com/news20260410-6" target="_blank" rel="noopener">冬季限定　天空のピッツェリア＆天空のクリスマスツリー</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 六甲山サイレンスリゾート空のダイニング</span>
+        <span>六甲山・有馬</span>
+        
+        
+      </div>
+      <div class="desc">神戸六甲山に誕生する新店舗「天空のピッツェリア」。眼下に広がる、関西3県を見渡す光の海。標高765mの冬の澄んだ空気の中、窓の向こうには煌めく巨大な天空のクリスマスツリーが迎える。専用ピザ窯でシェフが一枚一枚焼き上げる本格ピッツァ。最高の夜景と天空のクリスマスツリーが大切な人との夜を美しく彩る。冬季限定11月21日から12月27日まで。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">21</div>
+      <div class="m">11月 · 11/21–12/05</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://kawata-gallery.com/exhibition/2384/" target="_blank" rel="noopener">金 明植 展「自然と人間」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 川田画廊</span>
+        <span>六甲山・有馬</span>
+        
+        
+      </div>
+      <div class="desc">金明植（キム・ミョンシク）は1949年韓国・ソウル生まれ。韓国、日本、アメリカ、中国など世界各地で80回を超える個展を開催。国際的に活躍を続ける、韓国を代表する現代画家だ。代表作「East Side Story」シリーズは、異なる文化や価値観を持つ人々が互いを認め合い共に生きる「調和」と「平和」への願いを込め、20年以上にわたり描き継がれている。今展では、最新の油彩画約20点を展覧。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">21</div>
+      <div class="m">11月 · 11/21–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.sumadera.or.jp/" target="_blank" rel="noopener">須磨寺の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 須磨寺</span>
+        <span>西区・須磨・舞子</span>
+        
+        
+      </div>
+      <div class="desc">兵庫県神戸市須磨区に位置し、源平ゆかりの古刹として知られている須磨寺。古来より景勝地としても親しまれ、源平のロマンをしのび、与謝蕪村や松尾芭蕉など多くの文人が訪れ、境内にはその句碑、歌碑が多く立っている。紅葉は11月下旬から色づき始め、三重塔や源平の庭などの須磨寺内の各所を、赤や黄色に色付いた紅葉が彩る。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f59e0b">
+    <div class="datecol">
+      <div class="d">27</div>
+      <div class="m">11月 · 11/27–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://umie.jp/news/detail/14858" target="_blank" rel="noopener">umieクリスマスマーケット</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f59e0b">市集/マルシェ</span>
+        <span>📍 高浜岸壁</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">今年も高浜岸壁にｕｍｉｅクリスマスマーケットがやってくる。過去最大規模の今年はホットワインやソーセージ、シュトーレンなどのクリスマスにぴったりな飲食店や、こだわりのクリスマス雑貨など毎週60店舗以上が出店。神戸ハーバーランドｕｍｉｅやモザイクでの買い物や食事を楽しんだ後は、クリスマスマーケットへ！ ハーバーランドでクリスマスムード溢れる1日を過ごそう。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">28</div>
+      <div class="m">11月 · 11/28–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nankinmachi.or.jp/" target="_blank" rel="noopener">南京町ランターンフェア</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 南京町一帯</span>
+        <span>三宮・元町</span>
+        
+        
+      </div>
+      <div class="desc">神戸市の元町にある南京町で開催される、冬の夜を彩るイベント「東洋の光の祭典」。南京町一帯に400個以上の中国提灯が飾られ、メインストリートを中心に華やかな光が広がる。クリスマスイルミネーションとはひと味違う、中国情緒あふれる幻想的な雰囲気を楽しめる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+<footer class="stats">
+  <div>神户 数据源 2 个 ｜ 库内有效活动 127 个 ｜ </div>
+  <table>
+    <tr><th>来源</th><th>活动数</th><th>最近抓取</th><th>成功/失败</th></tr>
+    
+    <tr>
+      <td>Feel KOBE（神戸市公式）</td>
+      <td>30</td>
+      <td>2026-11-27T16:50:31</td>
+      <td><span class="ok">1</span> / <span class="bad">0</span></td>
+    </tr>
+    
+    <tr>
+      <td>ウォーカープラス</td>
+      <td>101</td>
+      <td>2026-11-27T16:50:31</td>
+      <td><span class="ok">1</span> / <span class="bad">0</span></td>
+    </tr>
+    
+  </table>
+</footer>
+
+</div>
+<script>
+async function doRefresh() {
+  const btn = document.getElementById('refreshBtn');
+  btn.disabled = true; btn.textContent = '抓取中…';
+  const r = await Promise.resolve({json:async()=>({message:'静态页面不支持抓取',ok:false})});//kobe', {method: 'POST'});
+  const j = await r.json();
+  btn.textContent = j.message || '完成';
+  setTimeout(() => location.reload(), j.ok ? 90000 : 3000);
+}
+</script>
+</body>
+</html>

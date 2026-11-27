@@ -1,0 +1,1805 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026年12月 · 札幌活动日历 ｜ 日本热门城市</title>
+<style>
+:root {
+  --bg: #f7f5f1;
+  --card: #ffffff;
+  --ink: #24211d;
+  --sub: #8b8680;
+  --line: #e6e1d9;
+  --accent: #c9453f;
+  --shadow: 0 1px 2px rgba(36, 33, 29, .08), 0 8px 24px rgba(36, 33, 29, .06);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP",
+    "Microsoft YaHei", "Segoe UI", sans-serif;
+  font-size: 14px; line-height: 1.6;
+}
+a { color: inherit; }
+.wrap { max-width: 1280px; margin: 0 auto; padding: 22px 20px 60px; }
+
+header.top { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 14px; }
+h1 { font-size: 21px; margin: 0; letter-spacing: .5px; }
+h1 span { color: var(--accent); }
+.meta { color: var(--sub); font-size: 12.5px; }
+.spacer { flex: 1; }
+.btn {
+  border: 1px solid var(--line); background: var(--card); color: var(--ink);
+  padding: 7px 13px; border-radius: 999px; font-size: 13px; cursor: pointer;
+  text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+}
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.primary:hover { filter: brightness(.94); color: #fff; }
+
+.monthbar { display: flex; align-items: center; gap: 10px; margin: 6px 0 14px; }
+.monthbar .title { font-size: 30px; font-weight: 700; letter-spacing: 1px; }
+.monthbar .title small { font-size: 14px; font-weight: 400; color: var(--sub); margin-left: 6px; }
+.arrow { font-size: 18px; padding: 6px 12px; }
+
+form.filters {
+  background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+  padding: 12px 14px; box-shadow: var(--shadow); margin-bottom: 16px;
+  display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+}
+.chipset { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  border: 1px solid var(--line); border-radius: 999px; padding: 4px 11px; font-size: 12.5px;
+  cursor: pointer; user-select: none; background: #fff; display: inline-flex; align-items: center; gap: 6px;
+}
+.chip input { display: none; }
+.chip.on { color: #fff; border-color: transparent; }
+.chip .dot { width: 8px; height: 8px; border-radius: 50%; }
+select, input[type=search] {
+  border: 1px solid var(--line); border-radius: 999px; padding: 7px 12px; font-size: 13px;
+  background: #fff; color: var(--ink); outline: none; font-family: inherit;
+}
+input[type=search] { min-width: 190px; }
+label.check { display: inline-flex; gap: 5px; align-items: center; font-size: 13px; color: var(--sub); }
+
+.calendar { background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
+.weekhead { display: grid; grid-template-columns: repeat(7, 1fr); background: #fbfaf7; border-bottom: 1px solid var(--line); }
+.weekhead div { padding: 9px 0; text-align: center; font-size: 12.5px; color: var(--sub); letter-spacing: 2px; }
+.weekhead div:nth-child(6) { color: #2f6f9f; }
+.weekhead div:nth-child(7) { color: #b5433c; }
+.grid { display: grid; grid-template-columns: repeat(7, 1fr); }
+.cell {
+  min-height: 132px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  padding: 6px 7px 8px; display: flex; flex-direction: column; gap: 4px; background: #fff;
+}
+.cell:nth-child(7n) { border-right: 0; }
+.cell.out { background: #faf9f6; }
+.cell.weekend { background: #fdfbf8; }
+.cell.today { background: #fff6ee; box-shadow: inset 0 0 0 2px #f0c8a8; }
+.dnum { font-size: 12px; color: var(--sub); display: flex; justify-content: space-between; align-items: center; }
+.dnum b { font-size: 14px; color: var(--ink); font-weight: 600; }
+.cell.out .dnum b { color: #c8c3ba; }
+.cell.today .dnum b { color: var(--accent); }
+
+.ev {
+  border-radius: 6px; padding: 2px 5px; font-size: 11.5px; line-height: 1.35;
+  color: #fff; text-decoration: none; display: block;
+  overflow: hidden; text-overflow: ellipsis; display: -webkit-box;
+  -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+}
+.ev .t { opacity: .92; font-variant-numeric: tabular-nums; margin-right: 3px; }
+.more { font-size: 11px; color: var(--sub); padding-left: 4px; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 12px; margin: 12px 2px 26px; font-size: 12px; color: var(--sub); }
+.legend span { display: inline-flex; align-items: center; gap: 5px; }
+.legend i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+
+.section-title { display: flex; align-items: baseline; gap: 10px; margin: 8px 0 12px; }
+.section-title h2 { font-size: 17px; margin: 0; }
+.section-title .meta { font-size: 12px; }
+
+.list { display: flex; flex-direction: column; gap: 10px; }
+.item {
+  background: var(--card); border: 1px solid var(--line); border-left: 4px solid #ccc;
+  border-radius: 12px; padding: 12px 14px; display: flex; gap: 14px; box-shadow: var(--shadow);
+}
+.item .datecol { min-width: 74px; text-align: center; }
+.item .datecol .d { font-size: 19px; font-weight: 700; line-height: 1.1; }
+.item .datecol .m { font-size: 11.5px; color: var(--sub); }
+.item .body { flex: 1; min-width: 0; }
+.item .t { font-size: 15px; font-weight: 600; margin-bottom: 3px; }
+.item .t a { text-decoration: none; }
+.item .t a:hover { text-decoration: underline; }
+.item .line { font-size: 12.5px; color: var(--sub); display: flex; flex-wrap: wrap; gap: 10px; margin-top: 2px; }
+.item .desc { font-size: 12.5px; color: #55504a; margin-top: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.badge { font-size: 11px; padding: 1px 8px; border-radius: 999px; color: #fff; }
+
+footer.stats { margin-top: 34px; border-top: 1px solid var(--line); padding-top: 16px; color: var(--sub); font-size: 12.5px; }
+footer.stats table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 12px; }
+footer.stats th, footer.stats td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--line); }
+footer.stats th { color: var(--sub); font-weight: 500; }
+.ok { color: #2f7a4f; font-weight: 600; }
+.bad { color: #b5433c; font-weight: 600; }
+@media (max-width: 760px) {
+  .cell { min-height: 92px; padding: 4px; }
+  .ev { font-size: 10px; -webkit-line-clamp: 2; }
+  .monthbar .title { font-size: 22px; }
+  .item .datecol { min-width: 54px; }
+}
+
+/* ---- 城市切换标签 ---- */
+.citytabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px}
+.citytab{display:flex;align-items:center;gap:6px;padding:7px 12px;border:1px solid #e2e8f0;border-radius:999px;
+  background:#fff;color:#334155;font-size:14px;text-decoration:none;transition:all .15s}
+.citytab:hover{border-color:#94a3b8;transform:translateY(-1px)}
+.citytab.on{background:#0f172a;color:#fff;border-color:#0f172a}
+.citytab small{font-size:11px;opacity:.6}
+
+.ev.ongoing{background:#f8fafc !important;color:#475569;font-size:11px}
+
+</style>
+<link rel="alternate" type="text/calendar" href="/calendar.ics?city=sapporo">
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div>
+    <h1>日本<span>城市</span>活动日历</h1>
+    <div class="meta">札幌（札幌市）· 北海道 ｜ 自动汇总 2 个来源 ｜ 库内 97 个 ｜ 本月 46 个</div>
+  </div>
+  <div class="spacer"></div>
+  <a class="btn" href="/calendar.ics?city=sapporo">📅 订阅本城市 ICS</a>
+  <a class="btn" href="/sources?city=sapporo">📡 数据源状态</a>
+  <button class="btn primary" id="refreshBtn" onclick="doRefresh()">↻ 抓取本城市</button>
+</header>
+
+<nav class="citytabs">
+  
+  <a class="citytab " href="/?city=fukuoka&month=2026-12">
+    福冈<small>890</small>
+  </a>
+  
+  <a class="citytab " href="/?city=yokohama&month=2026-12">
+    横浜<small>719</small>
+  </a>
+  
+  <a class="citytab " href="/?city=tokyo&month=2026-12">
+    东京<small>227</small>
+  </a>
+  
+  <a class="citytab " href="/?city=kyoto&month=2026-12">
+    京都<small>172</small>
+  </a>
+  
+  <a class="citytab " href="/?city=osaka&month=2026-12">
+    大阪<small>131</small>
+  </a>
+  
+  <a class="citytab " href="/?city=kobe&month=2026-12">
+    神户<small>127</small>
+  </a>
+  
+  <a class="citytab " href="/?city=nara&month=2026-12">
+    奈良<small>47</small>
+  </a>
+  
+  <a class="citytab on" href="/?city=sapporo&month=2026-12">
+    札幌<small>97</small>
+  </a>
+  
+  <a class="citytab " href="/?city=okinawa&month=2026-12">
+    冲绳（那霸）<small>37</small>
+  </a>
+  
+  <a class="citytab " href="/?city=nagoya&month=2026-12">
+    名古屋<small>140</small>
+  </a>
+  
+  <a class="citytab " href="/?city=nagasaki&month=2026-12">
+    长崎<small>29</small>
+  </a>
+  
+  <a class="citytab " href="/?city=kanazawa&month=2026-12">
+    金泽<small>39</small>
+  </a>
+  
+</nav>
+
+<div class="monthbar">
+  <a class="btn arrow" href="/?city=sapporo&month=2026-11">‹</a>
+  <div class="title">2026年12月<small>札幌 · 46 个活动</small></div>
+  <a class="btn arrow" href="/?city=sapporo&month=2027-01">›</a>
+  <a class="btn" href="/?city=sapporo&month=2026-11">今天</a>
+  
+</div>
+
+<form class="filters" method="get" action="/">
+  <input type="hidden" name="month" value="2026-12">
+  <input type="hidden" name="city" value="sapporo">
+  <div class="chipset">
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="market" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#f59e0b"></span>市集
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="flea" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#a855f7"></span>跳蚤市场
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="festival" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#ef4444"></span>节庆
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="illumination" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#06b6d4"></span>灯饰
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="exhibition" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#3b82f6"></span>展览
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="performance" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#ec4899"></span>演出
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="game" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#22c55e"></span>游戏
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="workshop" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#84cc16"></span>体验
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="food" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#f97316"></span>美食
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="sports" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#0ea5e9"></span>运动
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="other" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#64748b"></span>其他
+    </label>
+    
+  </div>
+  <select name="area" onchange="this.form.submit()">
+    <option value="">全部区域</option>
+    
+    <option value="大通・札幌駅" >大通・札幌駅</option>
+    
+    <option value="すすきの・豊平" >すすきの・豊平</option>
+    
+    <option value="藻岩山・定山渓" >藻岩山・定山渓</option>
+    
+    <option value="芸術の森・モエレ" >芸術の森・モエレ</option>
+    
+    <option value="手稲・西区" >手稲・西区</option>
+    
+  </select>
+  <input type="search" name="q" value="" placeholder="搜索标题 / 会场 / 关键词">
+  <label class="check"><input type="checkbox" name="free" value="1" 
+         onchange="this.form.submit()">仅免费</label>
+  <label class="check"><input type="checkbox" name="weekend" value="1" 
+         onchange="this.form.submit()">仅周末</label>
+  <button class="btn" type="submit">筛选</button>
+  <a class="btn" href="/?city=sapporo&month=2026-12">重置</a>
+</form>
+
+<div class="calendar">
+  <div class="weekhead">
+    <div>月</div><div>火</div><div>水</div><div>木</div><div>金</div><div>土</div><div>日</div>
+  </div>
+  <div class="grid">
+    
+    <div class="cell out  ">
+      <div class="dnum"><b>30</b></div>
+      
+      
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>1</b></div>
+      
+      <a class="ev" href="https://www.shiroikoibitopark.jp/illumination/" target="_blank" rel="noopener"
+         style="background:#06b6d4" title="白い恋人パーク　スイートイルミネーション2026～50th WINTER WITH LOVE～ ｜ 白い恋人パーク  ｜ 12/01–03/31">
+        白い恋人パーク　スイートイルミネーション2026～50th WINTER WITH LOVE～
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 19 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>2</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 20 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>3</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 19 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>4</b></div>
+      
+      <a class="ev" href="https://www.pgs.ne.jp/pages/king-of-pop" target="_blank" rel="noopener"
+         style="background:#3b82f6" title="KING OF POP（札幌） ｜ 札幌PARCO 7F PARCO FACTORY ｜ 12/04–12/13">
+        KING OF POP（札幌）
+      </a>
+      
+      <a class="ev" href="https://getback.tv/pages/beatles-store" target="_blank" rel="noopener"
+         style="background:#3b82f6" title="GET BACK（札幌） ｜ 札幌PARCO 7F PARCO FACTORY ｜ 12/04–12/13">
+        GET BACK（札幌）
+      </a>
+      
+      <a class="ev" href="https://www.fujifilm.co.jp/photosalon/sapporo/" target="_blank" rel="noopener"
+         style="background:#3b82f6" title="第15回ニッコールクラブ札幌中央支部写真展 ｜ 富士フイルムフォトサロン 札幌 ｜ 12/04–12/09">
+        第15回ニッコールクラブ札幌中央支部写真展
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 19 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>5</b></div>
+      
+      <a class="ev" href="https://www.sapporo.travel/event/event-list/okurayama_fuyuhanabi/" target="_blank" rel="noopener"
+         style="background:#64748b" title="大倉山冬花火2026 ｜ 大倉山ジャンプ競技場 ｜ 12/05">
+        大倉山冬花火2026
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 22 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>6</b></div>
+      
+      <a class="ev" href="https://www.s-shiryokan.jp/event/" target="_blank" rel="noopener"
+         style="background:#ec4899" title="札幌市資料館　ウィンターコンサート ｜ 札幌市資料館研修室 ｜ 12/06">
+        札幌市資料館　ウィンターコンサート
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 22 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>7</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 21 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>8</b></div>
+      
+      <a class="ev" href="https://emina.jp/forms/forms-116421/" target="_blank" rel="noopener"
+         style="background:#f97316" title="道産ビーフ味覚セミナー＆試食会 ｜ ホテルマイステイズ札幌中島公園　ラ・ファソン ｜ 12/08">
+        道産ビーフ味覚セミナー＆試食会
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 21 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>9</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 21 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>10</b></div>
+      
+      <a class="ev" href="https://kitara-sapporo.or.jp/event/event_detail.php?num=7197" target="_blank" rel="noopener"
+         style="background:#ec4899" title="桑原志織 ピアノ・リサイタル（札幌公演） ｜ 札幌コンサートホール Kitara 大ホール ｜ 12/10">
+        桑原志織 ピアノ・リサイタル（札幌公演）
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 20 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>11</b></div>
+      
+      <a class="ev" href="https://www.fujifilm.co.jp/photosalon/sapporo/" target="_blank" rel="noopener"
+         style="background:#3b82f6" title="半田菜摘・坪井智洋写真展『紡ぐ』 ｜ 富士フイルムフォトサロン 札幌 ｜ 12/11–12/16">
+        半田菜摘・坪井智洋写真展『紡ぐ』
+      </a>
+      
+      <a class="ev" href="https://www.titan-net.co.jp/" target="_blank" rel="noopener"
+         style="background:#ec4899" title="爆笑問題 with タイタンシネマライブ （北海道） ｜ 札幌シネマフロンティア ｜ 12/11">
+        爆笑問題 with タイタンシネマライブ （北海道）
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 20 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>12</b></div>
+      
+      <a class="ev" href="https://midoridesign.main.jp/100-uk/2026/10/29/09/59/20/587/" target="_blank" rel="noopener"
+         style="background:#64748b" title="めざせ北海道100人ウクレレ第九2026 ｜ エルプラザ　ホール ｜ 12/12">
+        めざせ北海道100人ウクレレ第九2026
+      </a>
+      
+      <a class="ev" href="https://emina.jp/forms/forms-113238/" target="_blank" rel="noopener"
+         style="background:#84cc16" title="運動の後は、やっぱ牛乳でしょ！親子バレーボール教室（12月） ｜ 北ガスアリーナ札幌46 ｜ 12/12">
+        運動の後は、やっぱ牛乳でしょ！親子バレーボール教室（12月）
+      </a>
+      
+      <a class="ev" href="https://emina.jp/forms/forms-113238/" target="_blank" rel="noopener"
+         style="background:#84cc16" title="運動の後は、やっぱ牛乳でしょ！親子カーリング教室（12月） ｜ どうぎんカーリングスタジアム ｜ 12/12">
+        運動の後は、やっぱ牛乳でしょ！親子カーリング教室（12月）
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 21 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>13</b></div>
+      
+      <a class="ev" href="https://www.takinopark.com/" target="_blank" rel="noopener"
+         style="background:#64748b" title="冒険遊び場きのたんの森 ｜ 滝野スノーワールド　滝野の森東エリア ｜ 12/13–01/17">
+        冒険遊び場きのたんの森
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 21 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>14</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 20 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>15</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 20 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>16</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 20 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>17</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 19 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>18</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 19 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>19</b></div>
+      
+      <a class="ev" href="https://www.msnw-wishall.jp/event/202610109243/" target="_blank" rel="noopener"
+         style="background:#ec4899" title="なの花薬局Presents 子どもといっしょに聴きたいコンサート Vol.6 ｜ ウィステリアホール ｜ 12/19–12/20">
+        なの花薬局Presents 子どもといっしょに聴きたいコンサート Vol.6
+      </a>
+      
+      <a class="ev" href="https://moerenumapark.jp/xmas_2026/" target="_blank" rel="noopener"
+         style="background:#ec4899" title="モエレのホワイトクリスマス2026 ｜ モアレ沼公園　ガラスのピラミッド ｜ 12/19–12/20">
+        モエレのホワイトクリスマス2026
+      </a>
+      
+      <a class="ev" href="https://www.stv.jp/radio/event/matsumaro_tour/index.html" target="_blank" rel="noopener"
+         style="background:#64748b" title="神田松麻呂 日本縦断講談会 ～赤穂義士伝編～（札幌） ｜ 札幌文化芸術劇場 クリエイティブスタジオ ｜ 12/19">
+        神田松麻呂 日本縦断講談会 ～赤穂義士伝編～（札幌）
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 19 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>20</b></div>
+      
+      <a class="ev" href="https://sapporo-src.com/kagakukan/index.html" target="_blank" rel="noopener"
+         style="background:#22c55e" title="クリスマスイベント ｜ 札幌市下水道科学館 ｜ 12/20">
+        クリスマスイベント
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 21 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>21</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 18 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>22</b></div>
+      
+      <a class="ev" href="https://www.hus.ac.jp/news/detail/7491b05a3f3a98999ab84ceebf8539666bdd6049-21764/" target="_blank" rel="noopener"
+         style="background:#06b6d4" title="ショートフィルム上映会「Looking back, -追憶-」 ｜ 北海道科学大学 ｜ 12/22">
+        ショートフィルム上映会「Looking back, -追憶-」
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 18 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>23</b></div>
+      
+      <a class="ev" href="https://www.takinopark.com/" target="_blank" rel="noopener"
+         style="background:#0ea5e9" title="滝野スキースクール2027 ｜ 滝野スノーワールド　ファミリーゲレンデ ｜ 12/23–02/28">
+        滝野スキースクール2027
+      </a>
+      
+      <a class="ev" href="https://www.takinopark.com/" target="_blank" rel="noopener"
+         style="background:#0ea5e9" title="歩くスキー100kmコンペ ｜ 滝野スノーワールド ｜ 12/23–03/31">
+        歩くスキー100kmコンペ
+      </a>
+      
+      <a class="ev" href="https://www.takinopark.com/" target="_blank" rel="noopener"
+         style="background:#64748b" title="きのたん探検隊 ｜ 滝野スノーワールド　ありの巣トンネル・アリ塚の塔 ｜ 12/23–03/14">
+        きのたん探検隊
+      </a>
+      
+      <span class="more">+1 更多…</span>
+      
+      <span class="more">⟳ 另有 17 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>24</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 21 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>25</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 21 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>26</b></div>
+      
+      <a class="ev" href="https://sagaharuhiko.com/archives/2894" target="_blank" rel="noopener"
+         style="background:#64748b" title="夢は窓辺を過ぎ ｜ 札幌市資料館　2階　研修室 ｜ 12/26">
+        夢は窓辺を過ぎ
+      </a>
+      
+      <a class="ev" href="https://www.takinopark.com/" target="_blank" rel="noopener"
+         style="background:#64748b" title="滝野の森でお正月　ミニ門松作り ｜ 滝野スノーワールド　森の交流館 ｜ 12/26–12/27">
+        滝野の森でお正月　ミニ門松作り
+      </a>
+      
+      <a class="ev" href="https://www.takinopark.com/" target="_blank" rel="noopener"
+         style="background:#0ea5e9" title="滝野ウィンターキッズパーク ｜ 滝野スノーワールド ｜ 12/26–03/28">
+        滝野ウィンターキッズパーク
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 15 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>27</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 17 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>28</b></div>
+      
+      <a class="ev" href="https://www.takinopark.com/" target="_blank" rel="noopener"
+         style="background:#64748b" title="稲わらで正月飾りを作ろう！ ｜ 滝野スノーワールド　森の交流館 ｜ 12/28">
+        稲わらで正月飾りを作ろう！
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 16 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>29</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 16 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>30</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 16 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>31</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 15 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell out  ">
+      <div class="dnum"><b>1</b></div>
+      
+      
+      
+    </div>
+    
+    <div class="cell out weekend ">
+      <div class="dnum"><b>2</b></div>
+      
+      
+      
+    </div>
+    
+    <div class="cell out weekend ">
+      <div class="dnum"><b>3</b></div>
+      
+      
+      
+    </div>
+    
+  </div>
+</div>
+
+<div class="legend">
+  
+  <span><i style="background:#f59e0b"></i>市集/マルシェ / 市集</span>
+  
+  <span><i style="background:#a855f7"></i>フリマ/蚤の市 / 跳蚤市场</span>
+  
+  <span><i style="background:#ef4444"></i>祭り/フェス / 节庆</span>
+  
+  <span><i style="background:#06b6d4"></i>灯饰/ライトアップ / 灯饰</span>
+  
+  <span><i style="background:#3b82f6"></i>展覧会 / 展览</span>
+  
+  <span><i style="background:#ec4899"></i>舞台/コンサート / 演出</span>
+  
+  <span><i style="background:#22c55e"></i>ゲーム/謎解き / 游戏</span>
+  
+  <span><i style="background:#84cc16"></i>体験/ワークショップ / 体验</span>
+  
+  <span><i style="background:#f97316"></i>グルメ/食 / 美食</span>
+  
+  <span><i style="background:#0ea5e9"></i>スポーツ / 运动</span>
+  
+  <span><i style="background:#64748b"></i>その他 / 其他</span>
+  
+</div>
+
+<div class="section-title">
+  <h2>札幌本月活动一览</h2>
+  <span class="meta">按开始日期排序 · 共 46 个</span>
+</div>
+
+<div class="list">
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">12月 · 12/01–03/31</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.shiroikoibitopark.jp/illumination/" target="_blank" rel="noopener">白い恋人パーク　スイートイルミネーション2026～50th WINTER WITH LOVE～</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 白い恋人パーク </span>
+        <span>手稲・西区</span>
+        
+        
+      </div>
+      <div class="desc">北海道札幌市の白い恋人パークで、毎年行われるイルミネーションイベント。2026年の白い恋人パーク スイートイルミネーションは「50th WINTER WITH LOVE」がテーマ。白い恋人が発売より50周年を迎え、新たに象った雪の結晶とまばゆい輝きで節目の年をお祝いする。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">04</div>
+      <div class="m">12月 · 12/04–12/13</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://getback.tv/pages/beatles-store" target="_blank" rel="noopener">GET BACK（札幌）</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 札幌PARCO 7F PARCO FACTORY</span>
+        <span>大通・札幌駅</span>
+        
+        
+      </div>
+      <div class="desc">世界最長の歴史を誇るビートルズ公式グッズストア「GET BACK」は、1982年12月8日、ジョン・レノン二周忌の日に東京で誕生し、長年にわたり日本のビートルズ文化と共に歩み続けてきた伝説的ストア。“1966年の熱狂を、2026年へ。”をテーマに、世界中から厳選した公式商品を展開。世界限定ポスターをはじめ、Tシャツ、雑貨など、日本国内では入手困難な商品を多数販売する。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">04</div>
+      <div class="m">12月 · 12/04–12/13</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.pgs.ne.jp/pages/king-of-pop" target="_blank" rel="noopener">KING OF POP（札幌）</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 札幌PARCO 7F PARCO FACTORY</span>
+        <span>大通・札幌駅</span>
+        
+        
+      </div>
+      <div class="desc">17年ぶりに復活した伝説のマイケル・ジャクソン公式グッズストア「KING OF POP」が札幌に上陸！ 札幌PARCOにて期間限定オープン。『スリラー』『バッド』『デンジャラス』など歴代アルバム公式Tシャツや、大人気のMINIXフィギュア、限定トレーディングカード、最新ポスター、雑貨、コレクターズアイテムなど、世界中から厳選したマイケル・ジャクソン公式ライセンス商品を多数展開する。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">04</div>
+      <div class="m">12月 · 12/04–12/09</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.fujifilm.co.jp/photosalon/sapporo/" target="_blank" rel="noopener">第15回ニッコールクラブ札幌中央支部写真展</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 富士フイルムフォトサロン 札幌</span>
+        <span>大通・札幌駅</span>
+        
+        
+      </div>
+      <div class="desc">ニッコールクラブ札幌中央支部は2011年5月に発足した。ニコン製品を愛好する会員13名で毎月一回の例会を開き写真技術の向上を目指して活動している。年に2回は撮影会を開催し写真技術の向上を図っている。写真好きな人なら誰でも入会可能だ。写真の基本から高度な技術まで幅広く意見を交わして活動している。一年間学習してきた成果を発表する写真展だ。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">05</div>
+      <div class="m">12月 · 12/05</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.sapporo.travel/event/event-list/okurayama_fuyuhanabi/" target="_blank" rel="noopener">大倉山冬花火2026</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 大倉山ジャンプ競技場</span>
+        <span>大通・札幌駅</span>
+        
+        
+      </div>
+      <div class="desc">2026年12月5日(土)、札幌・大倉山ジャンプ競技場で「大倉山冬花火2026 supported by 武ダGEAD」を開催。音楽に合わせて打ち上がる華やかな花火が、雪をまとった冬空にきらめくエンターテインメントを繰り広げる。札幌市内各所から眺められる大倉山の夜空は、ひと足早いクリスマスギフトのような光景だ。今年初開催となる「ナイトバブルショー」では、音と光に包まれながら無数のシャボン玉が夜空を舞い、幻想的なひとときを演出する。さらに、花火観覧者限定で札幌オリンピックミュージアムを無料開放。開催中の「昭和100年記念企画展」を鑑賞できるほか、キッチンカーによる温かいグルメも楽しめる。また、山</div>
+      <div class="line">
+        <span>walkerplus</span><span>sapporo-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">06</div>
+      <div class="m">12月 · 12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.s-shiryokan.jp/event/" target="_blank" rel="noopener">札幌市資料館　ウィンターコンサート</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 札幌市資料館研修室</span>
+        <span>大通・札幌駅</span>
+        
+        
+      </div>
+      <div class="desc">毎回好評の資料館主催クラシックコンサート。今回はバロック・フルートを中心としたプログラム。バロック・フルートの歴史や現代のフルートとの違いも話しながら、楽器の魅力を代表的な名曲と共に届ける。出演は「アンサンブル・リベラ・バロッコ」。 ※先着60名・要事前申込</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f97316">
+    <div class="datecol">
+      <div class="d">08</div>
+      <div class="m">12月 · 12/08</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://emina.jp/forms/forms-116421/" target="_blank" rel="noopener">道産ビーフ味覚セミナー＆試食会</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f97316">グルメ/食</span>
+        <span>📍 ホテルマイステイズ札幌中島公園　ラ・ファソン</span>
+        <span>大通・札幌駅</span>
+        
+        
+      </div>
+      <div class="desc">お肉の中でも北海道の家庭では食べられる機会が少ないと言われる牛肉。赤身が多い牛肉は、実は鉄分が豊富で日頃から積極的に摂りたい食材のひとつです。また、今回は子どもの味覚を育むためにはどんなことが大切なのかを、日本味育協会代表の宮川順子先生にお話しいただきます。申し込みはHPから、応募締め切りは11月23日（月・祝）※応募多数の場合は抽選。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">10</div>
+      <div class="m">12月 · 12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://kitara-sapporo.or.jp/event/event_detail.php?num=7197" target="_blank" rel="noopener">桑原志織 ピアノ・リサイタル（札幌公演）</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 札幌コンサートホール Kitara 大ホール</span>
+        <span>大通・札幌駅</span>
+        
+        
+      </div>
+      <div class="desc">初の札幌リサイタルを開催。桑原志織は2025年のエリザベート王妃国際コンクール入賞、第19回ショパン国際ピアノコンクール第4位入賞と権威ある国際コンクールで立て続けに快挙を成し遂げ、その豊かな音楽性で国内外の多くの聴衆を魅了する話題沸騰のピアニスト。昨年12月の東京オペラシティコンサートホールでの凱旋リサイタルは発売直後に即完売。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">12月 · 12/11–12/16</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.fujifilm.co.jp/photosalon/sapporo/" target="_blank" rel="noopener">半田菜摘・坪井智洋写真展『紡ぐ』</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 富士フイルムフォトサロン 札幌</span>
+        <span>大通・札幌駅</span>
+        
+        
+      </div>
+      <div class="desc">北海道の野生動物を追い続ける半田菜摘と、美瑛町で農業を営みながら風景を撮影する坪井智洋。異なる視点で自然と向き合う二人が、それぞれの眼差しで捉えた世界を一つの空間に展示する。北の大地に息づく命の美しさと人の営みが形づくる風景。写真展「紡ぐ」を鑑賞しよう。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">12月 · 12/11</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.titan-net.co.jp/" target="_blank" rel="noopener">爆笑問題 with タイタンシネマライブ （北海道）</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 札幌シネマフロンティア</span>
+        <span>大通・札幌駅</span>
+        
+        
+      </div>
+      <div class="desc">2ヶ月に一度、爆笑問題をはじめ人気芸人たちによるお笑いライブを全国の映画館で生中継！大スクリーンでリピート無し、ここでしか観られないネタ＆トークを楽しもう。出演は、爆笑問題、キンタロー。、ダウ90000、や団、ストレッチーズ、ウエストランド、キュウ、ネコニスズ、シティホテル3号室、春とヒコーキ他全16組予定。入場者にタイタン情報紙「号外」プレゼント。金曜夜、映画館でポップコーン片手に大爆笑しよう！</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">12</div>
+      <div class="m">12月 · 12/12</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://midoridesign.main.jp/100-uk/2026/10/29/09/59/20/587/" target="_blank" rel="noopener">めざせ北海道100人ウクレレ第九2026</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 エルプラザ　ホール</span>
+        <span>大通・札幌駅</span>
+        
+        
+      </div>
+      <div class="desc">ウクレレアンサンブルの演奏を楽しむステージとみんなでウクレレを弾く「第九」の時間。年末のひとときを、音楽とともに楽しんでみてはいかが？今回は、出演6組を募集。ウクレレ仲間と一緒にステージに立ちたい人、日頃の練習の成果を披露したい人は、ぜひ参加しよう。※募集は先着順で締め切り</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#84cc16">
+    <div class="datecol">
+      <div class="d">12</div>
+      <div class="m">12月 · 12/12</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://emina.jp/forms/forms-113238/" target="_blank" rel="noopener">運動の後は、やっぱ牛乳でしょ！親子カーリング教室（12月）</a></div>
+      <div class="line">
+        <span class="badge" style="background:#84cc16">体験/ワークショップ</span>
+        <span>📍 どうぎんカーリングスタジアム</span>
+        <span>すすきの・豊平</span>
+        
+        
+      </div>
+      <div class="desc">成長期の子どもたちの骨を丈夫にするためにはカルシウムとタンパク質をバランス良く摂取することが肝心な上、実は摂取のタイミングもとても大切！ 親子カーリングスペシャルレッスン＆カーリング指導員からのミルクトークや牛乳の栄養素についてのお話を栄養士から聞けたり食育にもなる。牛乳を使ったミルクライスとミルクドリンクの試食もあり。申し込みはHPから応募締切11/23まで。応募多数の場合は抽選。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#84cc16">
+    <div class="datecol">
+      <div class="d">12</div>
+      <div class="m">12月 · 12/12</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://emina.jp/forms/forms-113238/" target="_blank" rel="noopener">運動の後は、やっぱ牛乳でしょ！親子バレーボール教室（12月）</a></div>
+      <div class="line">
+        <span class="badge" style="background:#84cc16">体験/ワークショップ</span>
+        <span>📍 北ガスアリーナ札幌46</span>
+        <span>大通・札幌駅</span>
+        
+        
+      </div>
+      <div class="desc">成長期の子どもたちの骨を丈夫にするためにはカルシウムとタンパク質をバランス良く摂取することが肝心な上、実は摂取のタイミングもとても大切！ 北海道のプロバレーボールチーム「北海道イエロースターズ」の選手が教えてくれる親子バレーボール教室。バレーボールは難しそう？ 選手たちが優しくしっかり教えてくれるので、安心して参加しよう！ 申し込みはHPから、応募締切11/23まで。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">13</div>
+      <div class="m">12月 · 12/13–01/17</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.takinopark.com/" target="_blank" rel="noopener">冒険遊び場きのたんの森</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 滝野スノーワールド　滝野の森東エリア</span>
+        <span>藻岩山・定山渓</span>
+        
+        
+      </div>
+      <div class="desc">滝野式プレーパーク。ボランティアが見守りつつ、尻滑りやかまくら作りなどを、参加者が自由に遊ぶことができる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">19</div>
+      <div class="m">12月 · 12/19–12/20</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.msnw-wishall.jp/event/202610109243/" target="_blank" rel="noopener">なの花薬局Presents 子どもといっしょに聴きたいコンサート Vol.6</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 ウィステリアホール</span>
+        <span>大通・札幌駅</span>
+        
+        
+      </div>
+      <div class="desc">「子どもといっしょに聴きたいコンサート」は、子ども向けの物語や音楽作品を題材に、オリジナルのナレーションと生演奏、映像を組み合わせたシリーズ。今回は『動物の謝肉祭』をお届け。親子で楽しめる工夫がつまった舞台を、これからもプロのアーティストと共に、独自性ある新しい作品を創り上げていく。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">19</div>
+      <div class="m">12月 · 12/19–12/20</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://moerenumapark.jp/xmas_2026/" target="_blank" rel="noopener">モエレのホワイトクリスマス2026</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 モアレ沼公園　ガラスのピラミッド</span>
+        <span>芸術の森・モエレ</span>
+        
+        
+      </div>
+      <div class="desc">モエレ沼公園のガラスのピラミッドを会場に、クリスマスコンサートを開催。クリスマスならではの楽曲を織り交ぜながら、クラシックやジャズ、ラテン、ポップスなど多彩なジャンルの音楽をお届けする。1日5組、2日間で計10組の演奏家が出演。雪景色に包まれた会場で、心温まる音楽とともに特別なクリスマスのひとときを楽しめる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">19</div>
+      <div class="m">12月 · 12/19</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.stv.jp/radio/event/matsumaro_tour/index.html" target="_blank" rel="noopener">神田松麻呂 日本縦断講談会 ～赤穂義士伝編～（札幌）</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 札幌文化芸術劇場 クリエイティブスタジオ</span>
+        <span>大通・札幌駅</span>
+        
+        
+      </div>
+      <div class="desc">現在、二ツ目の注目株として益々活動の場を広げて活躍している講談師・神田松麻呂。昨年に続き、全国11都市の全国ツアーとして独演会を開催。 ※未就学児入場不可</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#22c55e">
+    <div class="datecol">
+      <div class="d">20</div>
+      <div class="m">12月 · 12/20</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://sapporo-src.com/kagakukan/index.html" target="_blank" rel="noopener">クリスマスイベント</a></div>
+      <div class="line">
+        <span class="badge" style="background:#22c55e">ゲーム/謎解き</span>
+        <span>📍 札幌市下水道科学館</span>
+        <span>大通・札幌駅</span>
+        
+        
+      </div>
+      <div class="desc">ゲームコーナーや音楽コンサート、工作など楽しいプログラムを開催。下水道科学館のホームページをチェック。予約制のものは忘れずに事前予約しよう。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">22</div>
+      <div class="m">12月 · 12/22</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.hus.ac.jp/news/detail/7491b05a3f3a98999ab84ceebf8539666bdd6049-21764/" target="_blank" rel="noopener">ショートフィルム上映会「Looking back, -追憶-」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 北海道科学大学</span>
+        <span>手稲・西区</span>
+        
+        
+      </div>
+      <div class="desc">HUSキャンパス・イルミネーション2026の関連イベントとして、「ショートフィルム上映会」を開催。今年のテーマは「Looking back, -追憶-」。過去の出来事や大切な人との思い出、人と人とのつながりなど、さまざまな記憶や感情に触れる作品をお届けする。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">23</div>
+      <div class="m">12月 · 12/23–03/14</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.takinopark.com/" target="_blank" rel="noopener">きのたん探検隊</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 滝野スノーワールド　ありの巣トンネル・アリ塚の塔</span>
+        <span>藻岩山・定山渓</span>
+        
+        
+      </div>
+      <div class="desc">滝野の森に住んでいるエゾモモンガのきのたん。きのたんと一緒に、ありの巣トンネルを探検して、クイズに挑戦！　「不思議な塔」を探検しよう！</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ef4444">
+    <div class="datecol">
+      <div class="d">23</div>
+      <div class="m">12月 · 12/23–03/31</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.takinopark.com/" target="_blank" rel="noopener">木の実の妖精タキナッツラリー</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ef4444">祭り/フェス</span>
+        <span>📍 滝野スノーワールド　森の交流館</span>
+        <span>藻岩山・定山渓</span>
+        
+        
+      </div>
+      <div class="desc">森フェスキャラクター「木の実の妖精タキナッツ」のラリー。タキナッツキャラクターがもっているキーワードを探そう。見つけた人は景品がもらえるよ。ラリー用紙の配布場所は森の交流館。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#0ea5e9">
+    <div class="datecol">
+      <div class="d">23</div>
+      <div class="m">12月 · 12/23–03/31</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.takinopark.com/" target="_blank" rel="noopener">歩くスキー100kmコンペ</a></div>
+      <div class="line">
+        <span class="badge" style="background:#0ea5e9">スポーツ</span>
+        <span>📍 滝野スノーワールド</span>
+        <span>藻岩山・定山渓</span>
+        
+        
+      </div>
+      <div class="desc">歩くスキーの利用促進のためのコンペティション。滑走ごとにその距離を申告し、100kmを達成すると達成証が進呈される。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#0ea5e9">
+    <div class="datecol">
+      <div class="d">23</div>
+      <div class="m">12月 · 12/23–02/28</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.takinopark.com/" target="_blank" rel="noopener">滝野スキースクール2027</a></div>
+      <div class="line">
+        <span class="badge" style="background:#0ea5e9">スポーツ</span>
+        <span>📍 滝野スノーワールド　ファミリーゲレンデ</span>
+        <span>藻岩山・定山渓</span>
+        
+        
+      </div>
+      <div class="desc">平均斜度7度のなだらかなファミリーゲレンデを会場に、ゲレンデスキーを楽しみながら上達を目指す初級者対象の講習会を実施する。スキー初心者・初級者がスキーを楽しむためのレッスン。定員は15～30名/回（指導員数により変動）。当日現地申込、抽選あり。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">26</div>
+      <div class="m">12月 · 12/26</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://sagaharuhiko.com/archives/2894" target="_blank" rel="noopener">夢は窓辺を過ぎ</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 札幌市資料館　2階　研修室</span>
+        <span>大通・札幌駅</span>
+        
+        
+      </div>
+      <div class="desc">北の街、冬の大通公園。百年の歴史を重ねた札幌市資料館が、ぬくもり溢れる夢の世界へと変わる。淡い光を紡ぐ砂絵の幻燈、胸を打つ民族楽器の響き、そしてやさしく包み込むソプラノの歌声。この街でしか出逢えない特別なコラボレーションが、あなたの胸の奥にある「記憶の窓」をそっとノックする。出演：嵯峨孝子（サンドアートなど）、根深夏（歌・語り）、福井岳郎（南米民俗楽器）、嵯峨治彦（馬頭琴など）。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">26</div>
+      <div class="m">12月 · 12/26–12/27</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.takinopark.com/" target="_blank" rel="noopener">滝野の森でお正月　ミニ門松作り</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 滝野スノーワールド　森の交流館</span>
+        <span>藻岩山・定山渓</span>
+        
+        
+      </div>
+      <div class="desc">お正月飾りの定番「門松」を笹竹など森の素材で手づくりしてみては？自由に素材をくっつけて手のひらサイズのかどまつを完成させよう。4歳以上対象。予約受付、空きがあれば当日受付も可。各5組（一組最大5名）。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#0ea5e9">
+    <div class="datecol">
+      <div class="d">26</div>
+      <div class="m">12月 · 12/26–03/28</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.takinopark.com/" target="_blank" rel="noopener">滝野ウィンターキッズパーク</a></div>
+      <div class="line">
+        <span class="badge" style="background:#0ea5e9">スポーツ</span>
+        <span>📍 滝野スノーワールド</span>
+        <span>藻岩山・定山渓</span>
+        
+        
+      </div>
+      <div class="desc">チューブそりやスキーじゃなくても、冬を楽しむ遊び方がたくさん！無料レンタルの雪遊び道具、外遊び道具で楽しもう！</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">28</div>
+      <div class="m">12月 · 12/28</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.takinopark.com/" target="_blank" rel="noopener">稲わらで正月飾りを作ろう！</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 滝野スノーワールド　森の交流館</span>
+        <span>藻岩山・定山渓</span>
+        
+        
+      </div>
+      <div class="desc">滝野の森の田んぼで収穫したお米の「稲わら」をつかって正月飾りを作ろう！上手にできなくても大丈夫、滝野の森のボランティアさんがつくり方やコツを丁寧に教えてくれる。汚れてもいい服装小学生以上対象。予約受付、空きがあれば当日受付も可能。定員5名。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f97316">
+    <div class="datecol">
+      <div class="d">04</div>
+      <div class="m">10月 · 10/04–12/22</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.tokyuhotels.co.jp/sapporostream/eat/splish/menu/angel_devil/index.html" target="_blank" rel="noopener">STREAM Afternoon Tea(ストリーム アフタヌーンティー)～Angel or Devil？(エンジェル オア デビル？)～</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f97316">グルメ/食</span>
+        <span>📍 SAPPORO STREAM HOTEL</span>
+        <span>大通・札幌駅</span>
+        
+        
+      </div>
+      <div class="desc">「天使の心」と「あくまの誘惑」をテーマにしたアフタヌーンティー。天使とあくまの羽をまとった2匹のクマのヨーグルトムースをメインに、いちごのショートケーキやブドウのタルトなどが並び、スペシャルスイーツには、シャインマスカットなど2種類のブドウを使ったパフェが登場する。北海道産食材を使ったセイボリーや、パンとスコーンのブッフェ、TWG Teaの紅茶なども用意される。12月20日(日)～22日(火)には、クマのムースがクリスマスバージョンで提供される。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">10</div>
+      <div class="m">10月 · 10/10–01/11</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://event.hokkaido-np.co.jp/5ukiyoeshi/" target="_blank" rel="noopener">五大浮世絵師　歌麿に写楽、北斎と広重、そして国芳</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 札幌芸術の森美術館</span>
+        <span>藻岩山・定山渓</span>
+        
+        
+      </div>
+      <div class="desc">江戸時代の浮世絵黄金期を築いた5人の絵師による名品約140点を紹介する展覧会。女性の繊細な表情などを描いた美人画で知られる喜多川歌麿、個性的な役者絵で鮮烈なデビューを飾り、わずか10カ月で姿を消した謎の絵師、東洲斎写楽、幅広いジャンルで浮世絵の可能性を広げた葛飾北斎、移ろいゆく江戸の姿を抒情豊かな風景画で描いた歌川広重、斬新な発想で武者絵などを手がけた歌川国芳の代表作が並び、それぞれの絵師の作風や表現の違いを見比べながら楽しむことができる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">31</div>
+      <div class="m">10月 · 10/31–12/20</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.stv.jp/event/kodomonoshiten/index.html" target="_blank" rel="noopener">もっと！こどもの視展 ーこどもになる12の体験ー</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 サッポロファクトリー</span>
+        <span>大通・札幌駅</span>
+        
+        
+      </div>
+      <div class="desc">「大人がこどもになってみる」がコンセプトの体験型展覧会。子どもの視点を研究する「こどもの視点ラボ」が企画した12種類の体験型展示が登場する。巨大な食器や道具を使って2歳児の手の小ささを実感できる「2歳の朝食」や、大人に見下ろされて怒られる感覚をVRで再現した「4mの大人たち」、赤ちゃんの視力を再現した「ベイビーアイ」など、さまざまな展示が用意される。親子で楽しめるスタンプラリーやオリジナルグッズの販売も行われる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">11月 · 11/01–03/28</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.j-mfc.com/" target="_blank" rel="noopener">宮の森フランセス教会イルミネーション</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 宮の森フランセス教会</span>
+        <span>大通・札幌駅</span>
+        
+        
+      </div>
+      <div class="desc">1万5000組以上のカップルに愛されてきた恋人たちの聖地、札幌・宮の森フランセス教会のイルミネーション。さまざまな媒体の北海道におけるイルミネーションのランキングで、毎年好評価を得ている。光り輝くガーデンや、大聖堂を幻想的に彩るイルミネーションが楽しめ、教会の庭にある月のフォトスポットも人気だ。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f97316">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">11月 · 11/01–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.shiroikoibitopark.jp/christmas/" target="_blank" rel="noopener">白い恋人パークどうぶつたちのホワイトクリスマス</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f97316">グルメ/食</span>
+        <span>📍 白い恋人パーク</span>
+        <span>手稲・西区</span>
+        
+        
+      </div>
+      <div class="desc">今回は「どうぶつたちがクリスマスを白い恋人パークでお祝いする」というストーリーをもとに、オリジナルスイーツを用意する。シマエナガやエゾシカ、エゾユキウサギなど、北海道を代表するどうぶつたちが登場し、見た目にも可愛らしいスイーツが盛りだくさん。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">03</div>
+      <div class="m">11月 · 11/03–03/31</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://sapporo-bier-garten.jp/" target="_blank" rel="noopener">サッポロガーデンパークウィンターイルミネーション</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 サッポロガーデンパーク</span>
+        <span>芸術の森・モエレ</span>
+        
+        
+      </div>
+      <div class="desc">北海道札幌市のサッポロガーデンパークでは、ライトアップされた北海道遺産に指定されている明治時代のレンガ建造物の横に、高さ約20メートルのモミの木にゴールドのLEDライトで色鮮やかに飾られたクリスマスツリーが登場。パーク内のほかのエリアにもイルミネーションが設置され、昼間とは異なる幻想的な雰囲気を楽しめる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">03</div>
+      <div class="m">11月 · 11/03–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.sapporo.travel/event/event-list/jumbo_christmas_tree/" target="_blank" rel="noopener">サッポロファクトリー ジャンボクリスマスツリー</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 サッポロファクトリー アトリウム 札幌市中央区北2条東4丁目</span>
+        <span>大通・札幌駅</span>
+        
+        
+      </div>
+      <div class="desc">サッポロファクトリー ジャンボクリスマスツリー 2026年11月3日(火・祝)～12月25日(金) サッポロファクトリー アトリウム 札幌市中央区北2条東4丁目</div>
+      <div class="line">
+        <span>sapporo-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">03</div>
+      <div class="m">11月 · 11/03–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://sapporofactory.jp/" target="_blank" rel="noopener">～輝き続ける星がある～サッポロクリスマスファクトリー</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 サッポロファクトリー</span>
+        <span>大通・札幌駅</span>
+        
+        
+      </div>
+      <div class="desc">サッポロファクトリーが開業した1993年から続く「広尾サンタランド」から寄贈を受けたジャンボクリスマスツリーの展示。2026年11月3日(祝)～12月25日(金)まで、クリスマスツリーを中心としたクリスマスシーズンを彩る全館のイルミネーションが実施される。毎時00分より約5分間の光と音楽のショータイムも行われ、幻想的な世界へと導く。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">16</div>
+      <div class="m">11月 · 11/16–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.moiwashalom.com/" target="_blank" rel="noopener">藻岩シャローム教会 イルミネーション＆クリスマスツリー</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 藻岩シャローム教会</span>
+        <span>藻岩山・定山渓</span>
+        
+        
+      </div>
+      <div class="desc">教会のエントランスを彩る華やかなイルミネーション。藻岩山から望む、札幌市街の夜景とともに楽しむことができる。さらに、12月は館内のレストラン「サロット・デ・カナ」前に、約6メートルのクリスマスツリーが光り輝く。イルミネーションに彩られた教会は幻想的でより荘厳な雰囲気に包まれる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">20</div>
+      <div class="m">11月 · 11/20–03/14</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.sapporo.travel/white-illumination/event/illumination/minami-1jo/" target="_blank" rel="noopener">2026さっぽろホワイトイルミネーション(第46回) (南一条通会場)</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 南一条通(西1丁目～3丁目)</span>
+        <span>大通・札幌駅</span>
+        
+        
+      </div>
+      <div class="desc">日本を代表するイルミネーションイベントの一つで、2026年度で46回目を迎える「さっぽろホワイトイルミネーション」。札幌の冬を彩る風物詩として親しまれ、大通会場では札幌の姉妹都市ミュンヘンにゆかりのあるドイツの伝統行事クリスマス市と一体的に実施される。南一条通会場は、南1条西1丁目から3丁目間の約300mにわたり、46本のイチョウ並木を約7万個のLEDで装飾。両脇の歩道沿いに輝く光の道が広がる。開催期間は11月20日(金)から2027年3月14日(日)までと長期にわたる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">20</div>
+      <div class="m">11月 · 11/20–03/14</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.sapporo.travel/white-illumination/event/illumination/akapla/" target="_blank" rel="noopener">2026さっぽろホワイトイルミネーション(第46回) (札幌市北3条広場[アカプラ]会場)</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 北2条西4丁目及び北3条西4丁目</span>
+        <span>大通・札幌駅</span>
+        
+        
+      </div>
+      <div class="desc">日本を代表するイルミネーションイベントの1つで、2026年度で46回目を迎える「さっぽろホワイトイルミネーション」。札幌の冬を彩る風物詩として親しまれ、大通会場では札幌の姉妹都市ミュンヘンにゆかりのあるドイツの伝統行事クリスマス市と一体的に実施される。札幌市北3条広場[アカプラ]会場は、2026年度のテーマ「Luminous Resonance(ルミナス・レゾナンス)共鳴する光」のもと、北海道庁赤れんが庁舎を背景にイチョウ並木を光で演出する。開催期間は11月20日(金)から2027年3月14日(日)までとなっている。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">20</div>
+      <div class="m">11月 · 11/20–03/14</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.sapporo.travel/white-illumination/event/illumination/ekihiro/" target="_blank" rel="noopener">2026さっぽろホワイトイルミネーション(第46回) (札幌駅南口駅前広場会場)</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 北5条西3丁目</span>
+        <span>大通・札幌駅</span>
+        
+        
+      </div>
+      <div class="desc">日本を代表するイルミネーションイベントの1つで、2026年度で46回目を迎える「さっぽろホワイトイルミネーション」。札幌の冬を彩る風物詩として親しまれ、大通会場では札幌の姉妹都市ミュンヘンにゆかりのあるドイツの伝統行事クリスマス市と一体的に実施される。札幌駅南口駅前広場会場は「サツエキイルミネーション」として、色とりどりの「カラーウォール」など演出プログラムによってさまざまな模様を表現する。開催期間は11月20日(金)から2027年3月14日(日)までで、日没に合わせて点灯する。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">20</div>
+      <div class="m">11月 · 11/20–02/11</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.sapporo.travel/white-illumination/event/illumination/ekimae/" target="_blank" rel="noopener">2026さっぽろホワイトイルミネーション(第46回) (駅前通会場)</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 札幌駅前通中央分離帯、北4条～南4条</span>
+        <span>大通・札幌駅</span>
+        
+        
+      </div>
+      <div class="desc">日本を代表するイルミネーションイベントの一つで、2026年度で46回目を迎える「さっぽろホワイトイルミネーション」。札幌の冬を彩る風物詩として親しまれ、大通会場では札幌の姉妹都市ミュンヘンにゆかりのあるドイツの伝統行事クリスマス市と一体的に実施し、賑わいと魅力あふれる初冬の都市空間を創出する。会場は大通公園3丁目から5丁目で構成され、エリアごとに異なる光の演出を展開する。開催期間は11月20日(金)から12月25日(金)までで、VELVETA DESIGNが各エリアのデザインを手がける。</div>
+      <div class="line">
+        <span>walkerplus</span><span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">20</div>
+      <div class="m">11月 · 11/20–03/14</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.sapporo.travel/event/event-list/sapporo_white_illumination/" target="_blank" rel="noopener">さっぽろホワイトイルミネーション</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 ・ 大通公園 （大通西1丁目～6丁目） ・札幌駅前通中央分離帯（北4条～南4条）</span>
+        <span>大通・札幌駅</span>
+        
+        
+      </div>
+      <div class="desc">さっぽろホワイトイルミネーション 2026年11月20日～2027年3月14日 ・ 大通公園 （大通西1丁目～6丁目） ・札幌駅前通中央分離帯（北4条～南4条） ・南1条通（南1条西1丁目～3丁目） ・アカプラ（北2条西4丁目及び北3条西4丁目） ・札幌駅南口駅前広場（北5条西3丁目）</div>
+      <div class="line">
+        <span>sapporo-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f59e0b">
+    <div class="datecol">
+      <div class="d">20</div>
+      <div class="m">11月 · 11/20–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.sapporo.travel/event/event-list/munich_christmas_market/" target="_blank" rel="noopener">ミュンヘン・クリスマス市 in Sapporo</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f59e0b">市集/マルシェ</span>
+        <span>📍 大通公園 （大通西2丁目）</span>
+        <span>大通・札幌駅</span>
+        
+        
+      </div>
+      <div class="desc">ミュンヘン・クリスマス市 in Sapporo 2026年11月20日(金)～ 12月25日(金) 大通公園 （大通西2丁目）</div>
+      <div class="line">
+        <span>sapporo-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#22c55e">
+    <div class="datecol">
+      <div class="d">23</div>
+      <div class="m">11月 · 11/23–12/30</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://pandorobo-hiroba.com/" target="_blank" rel="noopener">パンどろぼうひろば　さっぽろ</a></div>
+      <div class="line">
+        <span class="badge" style="background:#22c55e">ゲーム/謎解き</span>
+        <span>📍 サッポロファクトリーホール</span>
+        <span>大通・札幌駅</span>
+        
+        
+      </div>
+      <div class="desc">かわいくて、ちょっとシュールな世界を丸ごと体験！2026年春に横浜で開催し、総来場者数7万人を突破した、大人気絵本『パンどろぼう』のキャラクターたちが大集合する体験型イベント「パンどろぼうひろば」が札幌へ。さっぽろ会場では、2026年9月16日に発売されたばかりの絵本『パンどろぼう』シリーズ最新作『パンどろぼうとさすらいラーメン』関連フォトスポットが初登場。会場では「パンどろぼうひろば」のために描き下ろされた、オリジナルイラスト使用の限定グッズや、横浜で大好評だったクレーンゲームも登場する。絵本の世界に入り込んだかのような“わくわく“と”癒やし“の空間で、写真を撮ったり、買い物したり、自分だけ</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">26</div>
+      <div class="m">11月 · 11/26–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.hus.ac.jp/news/detail/397827bdd4a9bf7e4a627e596207619cbfbf3268-21719/" target="_blank" rel="noopener">HUSキャンパス・イルミネーション2026</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 北海道科学大学</span>
+        <span>手稲・西区</span>
+        
+        
+      </div>
+      <div class="desc">HUS キャンパス・イルミネーションは、北海道科学大学の開学50周年を機に寄せられた寄付を元に制作したことに始まり、今年で10年目を迎える。ステンドグラスアーティストmie（同学客員教授）が手掛ける6メートルの巨大ツリーと20基の光のオブジェがキャンパスを幻想的に彩る。期間中は参加型のイベントも開催されるので足を運んでみよう。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">27</div>
+      <div class="m">11月 · 11/27–12/02</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.fujifilm.co.jp/photosalon/sapporo/26112701.html" target="_blank" rel="noopener">フォレスト08フォトクラブ ＆ B&amp;amp;W 銀遊写人の集い 合同展</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 富士フイルムフォトサロン 札幌</span>
+        <span>大通・札幌駅</span>
+        
+        
+      </div>
+      <div class="desc">フォレスト08フォトクラブは2008年に結成され、モノクロ写真愛好家の10名が集うクラブで暗室現像による作品作りに余念がない。B&amp;amp;W 銀遊写人の集いは暗室での自家処理または現像所による銀塩プリントファンの6名が富士フイルムフォトサロンで展示するために集まった。ギャラリーを半分ずつ分けての展示となる。両チームの講師はプリント歴52年の廣島が担う。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#84cc16">
+    <div class="datecol">
+      <div class="d">29</div>
+      <div class="m">11月 · 11/29–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.medel-the-kids.com/p/75/" target="_blank" rel="noopener">クリスマスの感触あそび｜親子で楽しむセンサリープレイ</a></div>
+      <div class="line">
+        <span class="badge" style="background:#84cc16">体験/ワークショップ</span>
+        <span>📍 めでるのアトリエ</span>
+        <span>芸術の森・モエレ</span>
+        
+        
+      </div>
+      <div class="desc">ふわふわ、もちもち、つるつる！クリスマスをテーマに、さまざまな素材に触れて遊ぶ親子イベント。ケーキやピザ、パスタ、クリスマスツリーなどをイメージした素材で、混ぜたり、こねたり、並べたり。クリスマスオーナメント作りも楽しめる。完成させることより、自由に試して遊ぶことを大切にした2時間。対象は1歳〜小学生。事前予約制。小さな素材を使用するため、保護者同伴・見守り必須。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+<footer class="stats">
+  <div>札幌 数据源 2 个 ｜ 库内有效活动 97 个 ｜ </div>
+  <table>
+    <tr><th>来源</th><th>活动数</th><th>最近抓取</th><th>成功/失败</th></tr>
+    
+    <tr>
+      <td>ようこそさっぽろ（札幌公式）</td>
+      <td>20</td>
+      <td>2026-11-27T16:50:43</td>
+      <td><span class="ok">1</span> / <span class="bad">0</span></td>
+    </tr>
+    
+    <tr>
+      <td>ウォーカープラス</td>
+      <td>81</td>
+      <td>2026-11-27T16:50:42</td>
+      <td><span class="ok">1</span> / <span class="bad">0</span></td>
+    </tr>
+    
+  </table>
+</footer>
+
+</div>
+<script>
+async function doRefresh() {
+  const btn = document.getElementById('refreshBtn');
+  btn.disabled = true; btn.textContent = '抓取中…';
+  const r = await Promise.resolve({json:async()=>({message:'静态页面不支持抓取',ok:false})});//sapporo', {method: 'POST'});
+  const j = await r.json();
+  btn.textContent = j.message || '完成';
+  setTimeout(() => location.reload(), j.ok ? 90000 : 3000);
+}
+</script>
+</body>
+</html>

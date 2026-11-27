@@ -1,0 +1,3317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026年12月 · 京都活动日历 ｜ 日本热门城市</title>
+<style>
+:root {
+  --bg: #f7f5f1;
+  --card: #ffffff;
+  --ink: #24211d;
+  --sub: #8b8680;
+  --line: #e6e1d9;
+  --accent: #c9453f;
+  --shadow: 0 1px 2px rgba(36, 33, 29, .08), 0 8px 24px rgba(36, 33, 29, .06);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP",
+    "Microsoft YaHei", "Segoe UI", sans-serif;
+  font-size: 14px; line-height: 1.6;
+}
+a { color: inherit; }
+.wrap { max-width: 1280px; margin: 0 auto; padding: 22px 20px 60px; }
+
+header.top { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 14px; }
+h1 { font-size: 21px; margin: 0; letter-spacing: .5px; }
+h1 span { color: var(--accent); }
+.meta { color: var(--sub); font-size: 12.5px; }
+.spacer { flex: 1; }
+.btn {
+  border: 1px solid var(--line); background: var(--card); color: var(--ink);
+  padding: 7px 13px; border-radius: 999px; font-size: 13px; cursor: pointer;
+  text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+}
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.primary:hover { filter: brightness(.94); color: #fff; }
+
+.monthbar { display: flex; align-items: center; gap: 10px; margin: 6px 0 14px; }
+.monthbar .title { font-size: 30px; font-weight: 700; letter-spacing: 1px; }
+.monthbar .title small { font-size: 14px; font-weight: 400; color: var(--sub); margin-left: 6px; }
+.arrow { font-size: 18px; padding: 6px 12px; }
+
+form.filters {
+  background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+  padding: 12px 14px; box-shadow: var(--shadow); margin-bottom: 16px;
+  display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+}
+.chipset { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  border: 1px solid var(--line); border-radius: 999px; padding: 4px 11px; font-size: 12.5px;
+  cursor: pointer; user-select: none; background: #fff; display: inline-flex; align-items: center; gap: 6px;
+}
+.chip input { display: none; }
+.chip.on { color: #fff; border-color: transparent; }
+.chip .dot { width: 8px; height: 8px; border-radius: 50%; }
+select, input[type=search] {
+  border: 1px solid var(--line); border-radius: 999px; padding: 7px 12px; font-size: 13px;
+  background: #fff; color: var(--ink); outline: none; font-family: inherit;
+}
+input[type=search] { min-width: 190px; }
+label.check { display: inline-flex; gap: 5px; align-items: center; font-size: 13px; color: var(--sub); }
+
+.calendar { background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
+.weekhead { display: grid; grid-template-columns: repeat(7, 1fr); background: #fbfaf7; border-bottom: 1px solid var(--line); }
+.weekhead div { padding: 9px 0; text-align: center; font-size: 12.5px; color: var(--sub); letter-spacing: 2px; }
+.weekhead div:nth-child(6) { color: #2f6f9f; }
+.weekhead div:nth-child(7) { color: #b5433c; }
+.grid { display: grid; grid-template-columns: repeat(7, 1fr); }
+.cell {
+  min-height: 132px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  padding: 6px 7px 8px; display: flex; flex-direction: column; gap: 4px; background: #fff;
+}
+.cell:nth-child(7n) { border-right: 0; }
+.cell.out { background: #faf9f6; }
+.cell.weekend { background: #fdfbf8; }
+.cell.today { background: #fff6ee; box-shadow: inset 0 0 0 2px #f0c8a8; }
+.dnum { font-size: 12px; color: var(--sub); display: flex; justify-content: space-between; align-items: center; }
+.dnum b { font-size: 14px; color: var(--ink); font-weight: 600; }
+.cell.out .dnum b { color: #c8c3ba; }
+.cell.today .dnum b { color: var(--accent); }
+
+.ev {
+  border-radius: 6px; padding: 2px 5px; font-size: 11.5px; line-height: 1.35;
+  color: #fff; text-decoration: none; display: block;
+  overflow: hidden; text-overflow: ellipsis; display: -webkit-box;
+  -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+}
+.ev .t { opacity: .92; font-variant-numeric: tabular-nums; margin-right: 3px; }
+.more { font-size: 11px; color: var(--sub); padding-left: 4px; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 12px; margin: 12px 2px 26px; font-size: 12px; color: var(--sub); }
+.legend span { display: inline-flex; align-items: center; gap: 5px; }
+.legend i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+
+.section-title { display: flex; align-items: baseline; gap: 10px; margin: 8px 0 12px; }
+.section-title h2 { font-size: 17px; margin: 0; }
+.section-title .meta { font-size: 12px; }
+
+.list { display: flex; flex-direction: column; gap: 10px; }
+.item {
+  background: var(--card); border: 1px solid var(--line); border-left: 4px solid #ccc;
+  border-radius: 12px; padding: 12px 14px; display: flex; gap: 14px; box-shadow: var(--shadow);
+}
+.item .datecol { min-width: 74px; text-align: center; }
+.item .datecol .d { font-size: 19px; font-weight: 700; line-height: 1.1; }
+.item .datecol .m { font-size: 11.5px; color: var(--sub); }
+.item .body { flex: 1; min-width: 0; }
+.item .t { font-size: 15px; font-weight: 600; margin-bottom: 3px; }
+.item .t a { text-decoration: none; }
+.item .t a:hover { text-decoration: underline; }
+.item .line { font-size: 12.5px; color: var(--sub); display: flex; flex-wrap: wrap; gap: 10px; margin-top: 2px; }
+.item .desc { font-size: 12.5px; color: #55504a; margin-top: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.badge { font-size: 11px; padding: 1px 8px; border-radius: 999px; color: #fff; }
+
+footer.stats { margin-top: 34px; border-top: 1px solid var(--line); padding-top: 16px; color: var(--sub); font-size: 12.5px; }
+footer.stats table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 12px; }
+footer.stats th, footer.stats td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--line); }
+footer.stats th { color: var(--sub); font-weight: 500; }
+.ok { color: #2f7a4f; font-weight: 600; }
+.bad { color: #b5433c; font-weight: 600; }
+@media (max-width: 760px) {
+  .cell { min-height: 92px; padding: 4px; }
+  .ev { font-size: 10px; -webkit-line-clamp: 2; }
+  .monthbar .title { font-size: 22px; }
+  .item .datecol { min-width: 54px; }
+}
+
+/* ---- 城市切换标签 ---- */
+.citytabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px}
+.citytab{display:flex;align-items:center;gap:6px;padding:7px 12px;border:1px solid #e2e8f0;border-radius:999px;
+  background:#fff;color:#334155;font-size:14px;text-decoration:none;transition:all .15s}
+.citytab:hover{border-color:#94a3b8;transform:translateY(-1px)}
+.citytab.on{background:#0f172a;color:#fff;border-color:#0f172a}
+.citytab small{font-size:11px;opacity:.6}
+
+.ev.ongoing{background:#f8fafc !important;color:#475569;font-size:11px}
+
+</style>
+<link rel="alternate" type="text/calendar" href="/calendar.ics?city=kyoto">
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div>
+    <h1>日本<span>城市</span>活动日历</h1>
+    <div class="meta">京都（京都市）· 京都府 ｜ 自动汇总 2 个来源 ｜ 库内 172 个 ｜ 本月 118 个</div>
+  </div>
+  <div class="spacer"></div>
+  <a class="btn" href="/calendar.ics?city=kyoto">📅 订阅本城市 ICS</a>
+  <a class="btn" href="/sources?city=kyoto">📡 数据源状态</a>
+  <button class="btn primary" id="refreshBtn" onclick="doRefresh()">↻ 抓取本城市</button>
+</header>
+
+<nav class="citytabs">
+  
+  <a class="citytab " href="/?city=fukuoka&month=2026-12">
+    福冈<small>890</small>
+  </a>
+  
+  <a class="citytab " href="/?city=yokohama&month=2026-12">
+    横浜<small>719</small>
+  </a>
+  
+  <a class="citytab " href="/?city=tokyo&month=2026-12">
+    东京<small>227</small>
+  </a>
+  
+  <a class="citytab on" href="/?city=kyoto&month=2026-12">
+    京都<small>172</small>
+  </a>
+  
+  <a class="citytab " href="/?city=osaka&month=2026-12">
+    大阪<small>131</small>
+  </a>
+  
+  <a class="citytab " href="/?city=kobe&month=2026-12">
+    神户<small>127</small>
+  </a>
+  
+  <a class="citytab " href="/?city=nara&month=2026-12">
+    奈良<small>47</small>
+  </a>
+  
+  <a class="citytab " href="/?city=sapporo&month=2026-12">
+    札幌<small>97</small>
+  </a>
+  
+  <a class="citytab " href="/?city=okinawa&month=2026-12">
+    冲绳（那霸）<small>37</small>
+  </a>
+  
+  <a class="citytab " href="/?city=nagoya&month=2026-12">
+    名古屋<small>140</small>
+  </a>
+  
+  <a class="citytab " href="/?city=nagasaki&month=2026-12">
+    长崎<small>29</small>
+  </a>
+  
+  <a class="citytab " href="/?city=kanazawa&month=2026-12">
+    金泽<small>39</small>
+  </a>
+  
+</nav>
+
+<div class="monthbar">
+  <a class="btn arrow" href="/?city=kyoto&month=2026-11">‹</a>
+  <div class="title">2026年12月<small>京都 · 118 个活动</small></div>
+  <a class="btn arrow" href="/?city=kyoto&month=2027-01">›</a>
+  <a class="btn" href="/?city=kyoto&month=2026-11">今天</a>
+  
+</div>
+
+<form class="filters" method="get" action="/">
+  <input type="hidden" name="month" value="2026-12">
+  <input type="hidden" name="city" value="kyoto">
+  <div class="chipset">
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="market" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#f59e0b"></span>市集
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="flea" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#a855f7"></span>跳蚤市场
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="festival" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#ef4444"></span>节庆
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="illumination" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#06b6d4"></span>灯饰
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="exhibition" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#3b82f6"></span>展览
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="performance" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#ec4899"></span>演出
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="game" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#22c55e"></span>游戏
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="workshop" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#84cc16"></span>体验
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="food" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#f97316"></span>美食
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="sports" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#0ea5e9"></span>运动
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="other" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#64748b"></span>其他
+    </label>
+    
+  </div>
+  <select name="area" onchange="this.form.submit()">
+    <option value="">全部区域</option>
+    
+    <option value="祇園・東山" >祇園・東山</option>
+    
+    <option value="四条河原町・烏丸" >四条河原町・烏丸</option>
+    
+    <option value="京都駅・下京" >京都駅・下京</option>
+    
+    <option value="嵐山・嵯峨野" >嵐山・嵯峨野</option>
+    
+    <option value="金閣寺・西陣・北野" >金閣寺・西陣・北野</option>
+    
+    <option value="伏見" >伏見</option>
+    
+    <option value="左京・下鴨・南禅寺" >左京・下鴨・南禅寺</option>
+    
+    <option value="南区" >南区</option>
+    
+    <option value="山科区" >山科区</option>
+    
+    <option value="西京区" >西京区</option>
+    
+  </select>
+  <input type="search" name="q" value="" placeholder="搜索标题 / 会场 / 关键词">
+  <label class="check"><input type="checkbox" name="free" value="1" 
+         onchange="this.form.submit()">仅免费</label>
+  <label class="check"><input type="checkbox" name="weekend" value="1" 
+         onchange="this.form.submit()">仅周末</label>
+  <button class="btn" type="submit">筛选</button>
+  <a class="btn" href="/?city=kyoto&month=2026-12">重置</a>
+</form>
+
+<div class="calendar">
+  <div class="weekhead">
+    <div>月</div><div>火</div><div>水</div><div>木</div><div>金</div><div>土</div><div>日</div>
+  </div>
+  <div class="grid">
+    
+    <div class="cell out  ">
+      <div class="dnum"><b>30</b></div>
+      
+      
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>1</b></div>
+      
+      <a class="ev" href="https://www.kyoto-station-building.co.jp/" target="_blank" rel="noopener"
+         style="background:#06b6d4" title="グラフィカルイルミネーションPlus ｜ 京都駅ビル ｜ 12/01–03/31">
+        グラフィカルイルミネーションPlus
+      </a>
+      
+      <a class="ev" href="https://www.kyoto-tower.jp/" target="_blank" rel="noopener"
+         style="background:#06b6d4" title="Nidec Kyoto Tower Christmas 2026 (ニデック京都タワー クリスマス2026) ｜ ニデック京都タワー ｜ 12/01–12/25">
+        Nidec Kyoto Tower Christmas 2026 (ニデック京都タワー クリスマス2026)
+      </a>
+      
+      <a class="ev" href="https://tengu.kuramachaya.com/" target="_blank" rel="noopener"
+         style="background:#06b6d4" title="鞍馬ライトアップ「天狗の小径」 ｜ 天狗の小径,鞍馬寺門前階段 ｜ 12/01–12/08">
+        鞍馬ライトアップ「天狗の小径」
+      </a>
+      
+      <span class="more">+2 更多…</span>
+      
+      <span class="more">⟳ 另有 89 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>2</b></div>
+      
+      <a class="ev" href="https://www.nadeshikofurima.com/" target="_blank" rel="noopener"
+         style="background:#a855f7" title="平安神宮前　岡崎公園フリーマーケット（12月） ｜ 岡崎公園 ｜ 12/02–12/13">
+        平安神宮前　岡崎公園フリーマーケット（12月）
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 94 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>3</b></div>
+      
+      <a class="ev" href="https://teket.jp/14585/78699" target="_blank" rel="noopener"
+         style="background:#ec4899" title="京都大学音楽研究会第142回定期演奏会 ｜ 京都コンサートホールアンサンブルホールムラタ ｜ 12/03">
+        京都大学音楽研究会第142回定期演奏会
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 95 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>4</b></div>
+      
+      <a class="ev" href="https://www.nadeshikofurima.com/" target="_blank" rel="noopener"
+         style="background:#a855f7" title="東本願寺前　お東さんフリーマーケット（12月） ｜ 東本願寺前市民広場 ｜ 12/04–12/09">
+        東本願寺前　お東さんフリーマーケット（12月）
+      </a>
+      
+      <a class="ev" href="https://www.sugimotoke.or.jp/" target="_blank" rel="noopener"
+         style="background:#64748b" title="重要文化財 杉本家住宅一般公開「京商家の正月準備」 ｜ 重要文化財　杉本家住宅 ｜ 12/04–12/20">
+        重要文化財 杉本家住宅一般公開「京商家の正月準備」
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 95 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>5</b></div>
+      
+      <a class="ev" href="https://handmade-marche.kyoto/" target="_blank" rel="noopener"
+         style="background:#f59e0b" title="京都ハンドメイドマルシェ2026 ｜ 京都市勧業館みやこめっせ ｜ 12/05–12/06">
+        京都ハンドメイドマルシェ2026
+      </a>
+      
+      <a class="ev" href="https://kyoto-kimono-g.jp/" target="_blank" rel="noopener"
+         style="background:#3b82f6" title="きもの文化実演ショー ｜ 東本願寺「視聴覚ホール」 ｜ 12/05">
+        きもの文化実演ショー
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 97 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>6</b></div>
+      
+      <a class="ev" href="https://www.instagram.com/kcua_penguin_wo/" target="_blank" rel="noopener"
+         style="background:#ec4899" title="クリスマスコンサート ｜ 京都市立芸術大学B棟地下1階笠原記念アンサンブルホール ｜ 12/06">
+        クリスマスコンサート
+      </a>
+      
+      <a class="ev" href="https://kyotomuse.net/" target="_blank" rel="noopener"
+         style="background:#ec4899" title="太田弦指揮・京都市交響楽団 ベートーヴェン「第九」 ｜ 京都コンサートホール　大ホール ｜ 12/06">
+        太田弦指揮・京都市交響楽団 ベートーヴェン「第九」
+      </a>
+      
+      <a class="ev" href="https://tetsutarokamatani-exhibition.com" target="_blank" rel="noopener"
+         style="background:#3b82f6" title="鎌谷徹太郎「虚実の閾」 ｜ 両足院 ｜ 12/06–12/23">
+        鎌谷徹太郎「虚実の閾」
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 96 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>7</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 77 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>8</b></div>
+      
+      <a class="ev" href="https://www.tgn.co.jp/funfenfant/event/202612isk/" target="_blank" rel="noopener"
+         style="background:#ec4899" title="0歳からのコンサート　音育ランド　京都 ｜ NEEDS京都烏丸 by T&amp;amp;G WEDDING ｜ 12/08–12/09">
+        0歳からのコンサート　音育ランド　京都
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 77 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>9</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 77 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>10</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 74 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>11</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 49 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>12</b></div>
+      
+      <a class="ev" href="https://kyotomuse.net/" target="_blank" rel="noopener"
+         style="background:#ec4899" title="第11回　桂南天独演会 ｜ 京都府立文化芸術会館 ｜ 12/12">
+        第11回　桂南天独演会
+      </a>
+      
+      <a class="ev" href="https://www.be-kyoto.jp/event/antenna/" target="_blank" rel="noopener"
+         style="background:#84cc16" title="be京都アンテナショップ－町家手作り百貨店（12月） ｜ 町家ギャラリーbe京都 ｜ 12/12–12/13">
+        be京都アンテナショップ－町家手作り百貨店（12月）
+      </a>
+      
+      <a class="ev" href="https://iwakura-tomomi.jp/20261212/" target="_blank" rel="noopener"
+         style="background:#06b6d4" title="夜間特別開場　王政復古茶会 ｜ 岩倉具視幽棲旧宅 ｜ 12/12">
+        夜間特別開場　王政復古茶会
+      </a>
+      
+      <span class="more">+2 更多…</span>
+      
+      <span class="more">⟳ 另有 49 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>13</b></div>
+      
+      <a class="ev" href="https://www.nadeshikofurima.com/" target="_blank" rel="noopener"
+         style="background:#a855f7" title="京都市役所前広場フリーマーケット（12月） ｜ 京都市役所前広場 ｜ 12/13">
+        京都市役所前広場フリーマーケット（12月）
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 51 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>14</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 44 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>15</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 44 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>16</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 43 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>17</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 43 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>18</b></div>
+      
+      <a class="ev" href="https://bnr-kyoto.deca.jp/" target="_blank" rel="noopener"
+         style="background:#06b6d4" title="冬のナイトファーム2026 ｜ BNRファーム ｜ 12/18–01/31">
+        冬のナイトファーム2026
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 43 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>19</b></div>
+      
+      <a class="ev" href="https://jrwest-hotels.jp/granvia-kyoto/restaurant/menu/298/" target="_blank" rel="noopener"
+         style="background:#f97316" title="ホテルグランヴィア京都　クリスマスディナービュッフェ ｜ ホテルグランヴィア京都 ｜ 12/19–12/25">
+        ホテルグランヴィア京都　クリスマスディナービュッフェ
+      </a>
+      
+      <a class="ev" href="https://www.biwako-hall.or.jp/" target="_blank" rel="noopener"
+         style="background:#ec4899" title="びわ湖ホール声楽アンサンブル 第85回定期公演（京都公演）バロッククリスマス ｜ 京都府立府民ホール“アルティ” ｜ 12/19">
+        びわ湖ホール声楽アンサンブル 第85回定期公演（京都公演）バロッククリスマス
+      </a>
+      
+      <a class="ev" href="https://education.be-kyoto.jp/winter2026/#lesson4" target="_blank" rel="noopener"
+         style="background:#64748b" title="バーナーワークに挑戦　ガラスを溶かしてつくろう！世界にひとつのとんぼ玉づくり ｜ 町家ギャラリーbe京都 ｜ 12/19–12/20">
+        バーナーワークに挑戦　ガラスを溶かしてつくろう！世界にひとつのとんぼ玉づくり
+      </a>
+      
+      <span class="more">+1 更多…</span>
+      
+      <span class="more">⟳ 另有 44 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>20</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 44 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>21</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 39 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>22</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 39 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>23</b></div>
+      
+      <a class="ev" href="https://www.royalparkhotels.co.jp/the/kyotoumekoji/news/bn0vnd8cpoz/" target="_blank" rel="noopener"
+         style="background:#f97316" title="ザ ロイヤルパークホテル 京都梅小路　クリスマスディナーブッフェ ｜ ザ ロイヤルパークホテル 京都梅小路 ｜ 12/23–12/25">
+        ザ ロイヤルパークホテル 京都梅小路　クリスマスディナーブッフェ
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 39 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>24</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 38 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>25</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 38 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>26</b></div>
+      
+      <a class="ev" href="https://www.nadeshikofurima.com" target="_blank" rel="noopener"
+         style="background:#a855f7" title="ダイエー桂南フリーマーケット（12月） ｜ ダイエー桂南店 ｜ 12/26">
+        ダイエー桂南フリーマーケット（12月）
+      </a>
+      
+      <a class="ev" href="https://education.be-kyoto.jp/winter2026/#lesson2" target="_blank" rel="noopener"
+         style="background:#64748b" title="ガラスでつくるわたしのガラスアート ｜ 町家ギャラリーbe京都 ｜ 12/26–12/27">
+        ガラスでつくるわたしのガラスアート
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 28 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>27</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 28 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>28</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 23 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>29</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 21 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>30</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 20 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>31</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 20 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell out  ">
+      <div class="dnum"><b>1</b></div>
+      
+      
+      
+    </div>
+    
+    <div class="cell out weekend ">
+      <div class="dnum"><b>2</b></div>
+      
+      
+      
+    </div>
+    
+    <div class="cell out weekend ">
+      <div class="dnum"><b>3</b></div>
+      
+      
+      
+    </div>
+    
+  </div>
+</div>
+
+<div class="legend">
+  
+  <span><i style="background:#f59e0b"></i>市集/マルシェ / 市集</span>
+  
+  <span><i style="background:#a855f7"></i>フリマ/蚤の市 / 跳蚤市场</span>
+  
+  <span><i style="background:#ef4444"></i>祭り/フェス / 节庆</span>
+  
+  <span><i style="background:#06b6d4"></i>灯饰/ライトアップ / 灯饰</span>
+  
+  <span><i style="background:#3b82f6"></i>展覧会 / 展览</span>
+  
+  <span><i style="background:#ec4899"></i>舞台/コンサート / 演出</span>
+  
+  <span><i style="background:#22c55e"></i>ゲーム/謎解き / 游戏</span>
+  
+  <span><i style="background:#84cc16"></i>体験/ワークショップ / 体验</span>
+  
+  <span><i style="background:#f97316"></i>グルメ/食 / 美食</span>
+  
+  <span><i style="background:#0ea5e9"></i>スポーツ / 运动</span>
+  
+  <span><i style="background:#64748b"></i>その他 / 其他</span>
+  
+</div>
+
+<div class="section-title">
+  <h2>京都本月活动一览</h2>
+  <span class="meta">按开始日期排序 · 共 118 个</span>
+</div>
+
+<div class="list">
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">12月 · 12/01–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kyoto-tower.jp/" target="_blank" rel="noopener">Nidec Kyoto Tower Christmas 2026 (ニデック京都タワー クリスマス2026)</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 ニデック京都タワー</span>
+        <span>四条河原町・烏丸</span>
+        
+        
+      </div>
+      <div class="desc">京都府京都市のニデック京都タワーで開催されるイルミネーションおよびクリスマスの塔体カラーライトアップ。ニデック京都タワー展望室では、2026年12月1日(火)～25日(金)までの期間限定でイルミネーションが施される。なお、展望室へは入場料が必要になる(※詳細は公式サイトなどを確認)。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">12月 · 12/01–12/19</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="http://www.o-ya-tsu.com/" target="_blank" rel="noopener">caco    ガラスの小さな個展</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 雑貨店おやつ</span>
+        <span>西京区</span>
+        
+        
+      </div>
+      <div class="desc">ガラス作家cacoの作品展。カラーガラスを使わずに、クリアガラスを使った、時間の経過を感じられるような作品が多くそろう。生活空間の中で飾ると、そのシルエットは圧倒的な存在感。空間がすてきになるだけでなく、生活そのものが豊かになり、時間やそこに暮らす人たちも輝きだすよう。小さな手のひらの上にのせたガラスから、それぞれの新しい物語がはじまる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">12月 · 12/01–03/31</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kyoto-station-building.co.jp/" target="_blank" rel="noopener">グラフィカルイルミネーションPlus</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 京都駅ビル</span>
+        <span>四条河原町・烏丸</span>
+        
+        
+      </div>
+      <div class="desc">京都の玄関口として、訪れる人たちの未来を明るく照らしたいという思いを込め、171段中125段の階段にちりばめられた約1万5000個のLEDが、夜の京都駅ビルを鮮やかに彩る。12月のクリスマスシーズンはツリーやシャンパングラスなど、クリスマスならではのイルミネーションが、また1月以降は雪の結晶など、シーズンに合わせたイルミネーショが楽しめる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">12月 · 12/01–12/20</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.shimogamo-jinja.or.jp/" target="_blank" rel="noopener">下鴨神社の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 賀茂御祖神社(下鴨神社)</span>
+        <span>左京・下鴨・南禅寺</span>
+        
+        
+      </div>
+      <div class="desc">下鴨神社は、京都市左京区にある神社。正式名称は賀茂御祖神社(かもみおやじんじゃ)。ユネスコの世界遺産に「古都京都の文化財」の1つとして登録されている。境内にある社叢林である糺の森では、カエデなどが鮮やかな赤や黄金色に染まり、森全体が秋の装いに変わる。参道を歩けば、頭上を覆う紅葉のトンネルと足元に敷き詰められた落ち葉が織りなす美しい景観を楽しめる。また、静寂の中で流れる瀬見の小川と紅葉のコントラストが幻想的な風景を作り出し、心が洗われるようなひとときを味わうことができる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">12月 · 12/01–12/08</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://tengu.kuramachaya.com/" target="_blank" rel="noopener">鞍馬ライトアップ「天狗の小径」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 天狗の小径,鞍馬寺門前階段</span>
+        <span>左京・下鴨・南禅寺</span>
+        
+        
+      </div>
+      <div class="desc">京都・鞍馬で昨年初開催された「天狗の小径」のライトアップイベント。2年目となる今回は、天狗の小径周辺に加え、鞍馬寺の協力により仁王門前階段のライトアップも新たに実施する。派手な装飾や賑やかな演出はなく、夜の鞍馬ならではの静寂と厳かな空気感を味わう大人のための催しである。澄んだ夜気の中、光に照らし出される幻想的な景観をゆっくりと散策できる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#a855f7">
+    <div class="datecol">
+      <div class="d">02</div>
+      <div class="m">12月 · 12/02–12/13</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nadeshikofurima.com/" target="_blank" rel="noopener">平安神宮前　岡崎公園フリーマーケット（12月）</a></div>
+      <div class="line">
+        <span class="badge" style="background:#a855f7">フリマ/蚤の市</span>
+        <span>📍 岡崎公園</span>
+        <span>左京・下鴨・南禅寺</span>
+        
+        
+      </div>
+      <div class="desc">平安神宮参道と岡崎公園を会場とするBIGフリーマーケット観光スポット平安神宮前！ 初めての人もワイワイ参加できる。リサイクル商品や 手づくり商品の腕自慢・腕試し・趣味レベル作家さんも出店。みんなで一日楽しもう。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">03</div>
+      <div class="m">12月 · 12/03</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://teket.jp/14585/78699" target="_blank" rel="noopener">京都大学音楽研究会第142回定期演奏会</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 京都コンサートホールアンサンブルホールムラタ</span>
+        <span>左京・下鴨・南禅寺</span>
+        
+        
+      </div>
+      <div class="desc">京都大学音楽研究会第142回定期演奏会を開催。今年は、ニ台のピアノによるショパンのピアノコンチェルトや、ピアノソナタ、ハイドンのピアノソナタ、伝ヴィターリのシャコンヌなどの楽曲を演奏する。　※未就学児は入場不可</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#a855f7">
+    <div class="datecol">
+      <div class="d">04</div>
+      <div class="m">12月 · 12/04–12/09</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nadeshikofurima.com/" target="_blank" rel="noopener">東本願寺前　お東さんフリーマーケット（12月）</a></div>
+      <div class="line">
+        <span class="badge" style="background:#a855f7">フリマ/蚤の市</span>
+        <span>📍 東本願寺前市民広場</span>
+        <span>四条河原町・烏丸</span>
+        
+        
+      </div>
+      <div class="desc">京都市初の市民緑地「お東さん広場」は、京都玄関口にそびえる京都タワーも丸見えの会場。京都駅から徒歩約5分、アクセス抜群、観光スポット東本願寺前！ 初めての人もワイワイ参加できる。手づくり商品の　腕自慢・腕試し・趣味レベル作家さんの出店もある。みんなで一日楽しもう。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">04</div>
+      <div class="m">12月 · 12/04–12/20</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.sugimotoke.or.jp/" target="_blank" rel="noopener">重要文化財 杉本家住宅一般公開「京商家の正月準備」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 重要文化財　杉本家住宅</span>
+        <span>四条河原町・烏丸</span>
+        
+        
+      </div>
+      <div class="desc">京都市中最大級、築156年の京町家「重要文化財 杉本家住宅」の12月の一般公開。師走の杉本家住宅の一般公開は、京商家の正月準備をテーマに日常の風景をしつらえる。先人たちのくらしを垣間見ながら冬京町家でゆっくり過ごそう。予約は不要。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">05</div>
+      <div class="m">12月 · 12/05</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://kyoto-kimono-g.jp/" target="_blank" rel="noopener">きもの文化実演ショー</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 東本願寺「視聴覚ホール」</span>
+        <span>四条河原町・烏丸</span>
+        
+        
+      </div>
+      <div class="desc">きもの文化実演ショー今年は東本願寺の視聴覚ホールにて開催！無料公開講座なので事前の申込みだけで、無料で着物と十二単などの装束の着付けショーを誰でも気軽に鑑賞することができる。1部「～生徒による発表会～」2部「～源氏物語の貴公子と姫君のファッション～」。特別展示では、ロビーできものやヘッドボディの展示を行う。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f59e0b">
+    <div class="datecol">
+      <div class="d">05</div>
+      <div class="m">12月 · 12/05–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://handmade-marche.kyoto/" target="_blank" rel="noopener">京都ハンドメイドマルシェ2026</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f59e0b">市集/マルシェ</span>
+        <span>📍 京都市勧業館みやこめっせ</span>
+        <span>左京・下鴨・南禅寺</span>
+        
+        
+      </div>
+      <div class="desc">全国のクリエイターによる様々なオリジナル作品・手作りフードがそれぞれの出店ブースで自由に販売される京都最大のハンドメイドの祭典。アクセサリー・インテリア・ファッション・雑貨・イラスト・フード等を中心に約1000名のクリエイターによる多種多様なオリジナル商品がずらりと軒を連ねる。また、小さな子どもから大人まで気軽に参加できるものづくり体験教室も開催予定。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">06</div>
+      <div class="m">12月 · 12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.instagram.com/kcua_penguin_wo/" target="_blank" rel="noopener">クリスマスコンサート</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 京都市立芸術大学B棟地下1階笠原記念アンサンブルホール</span>
+        <span>四条河原町・烏丸</span>
+        
+        
+      </div>
+      <div class="desc">京都市立芸術大学の学生が集まる吹奏楽団体ぺんぎんウィンドオーケストラ。学部の垣根を越えて活動していることを特徴とし、音楽学部と美術学部のメンバーで構成されている。今回演奏する曲は、『くるみ割り人形 in POPS』や『戦場のメリークリスマス』、そして『爆裂愛してる』など盛り上がること間違いなしのJ-POPもお届け。ぺんぎんとクリスマスを楽しもう！</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">06</div>
+      <div class="m">12月 · 12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://kyotomuse.net/" target="_blank" rel="noopener">太田弦指揮・京都市交響楽団 ベートーヴェン「第九」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 京都コンサートホール　大ホール</span>
+        <span>左京・下鴨・南禅寺</span>
+        
+        
+      </div>
+      <div class="desc">1972年より続く大合唱で平和と連帯を歌い上げる。独唱は、ソプラノ：井上詩紀、メゾ・ソプラノ：八木寿子、テノール：中島康博、バリトン：萩原寛明。合唱は、京都「第九」をうたう会。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">06</div>
+      <div class="m">12月 · 12/06–12/23</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://tetsutarokamatani-exhibition.com" target="_blank" rel="noopener">鎌谷徹太郎「虚実の閾」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 両足院</span>
+        <span>祇園・東山</span>
+        
+        
+      </div>
+      <div class="desc">現代美術家・鎌谷徹太郎による個展「虚実の閾（きょじつのしきい）」を600年以上の歴史ある京都の禅寺、両足院にて開催する。鎌谷は、東京とニューヨークを拠点に活動する現代美術家。12月19日(土)には、庭園から着想した大型屏風を展示、「冥丁×鎌谷徹太郎×両足院」による一日限りの特別公演を開催。両足院という場と響き合う鎌谷の作品世界を、会場で体感してほしい。詳細は、公式ウェブサイトにて。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">08</div>
+      <div class="m">12月 · 12/08–12/09</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.tgn.co.jp/funfenfant/event/202612isk/" target="_blank" rel="noopener">0歳からのコンサート　音育ランド　京都</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 NEEDS京都烏丸 by T&amp;amp;G WEDDING</span>
+        <span>四条河原町・烏丸</span>
+        
+        
+      </div>
+      <div class="desc">小さな子ども連れでも安心して参加できる親子のための参加型コンサート。クラシックから童謡まで、耳なじみのある音楽をプロの演奏家と一緒に楽しみながら、歌ったり体を動かしたりと自由に音楽とふれあえるひとときを過ごそう。泣いてしまっても元気に動き回っても大丈夫。動画や写真も可能なので、家族の思い出として残そう。演奏者はヴァイオリン：池添三輪子、パーカッション：田中めぐみ、クラリネット：真末聡子。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#84cc16">
+    <div class="datecol">
+      <div class="d">12</div>
+      <div class="m">12月 · 12/12–12/13</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.be-kyoto.jp/event/antenna/" target="_blank" rel="noopener">be京都アンテナショップ－町家手作り百貨店（12月）</a></div>
+      <div class="line">
+        <span class="badge" style="background:#84cc16">体験/ワークショップ</span>
+        <span>📍 町家ギャラリーbe京都</span>
+        <span>金閣寺・西陣・北野</span>
+        
+        
+      </div>
+      <div class="desc">「突然の風雨から作品を守りたい！」という声から生まれた屋内型手作り市。毎月第2土日の2日間、約30店舗が集結し手作り品を販売。土曜日は京都上賀茂の新鮮野菜、くみひもやマクラメ編みのワークショップなど学びある手作り市。ハンドメイド作品は、舞妓の帯から生まれたノートカバー、アクセサリー、カバンなどユニークな作品が並ぶ。築200年以上歴史がある京町家をリノベーションしたギャラリーも魅力的。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">12</div>
+      <div class="m">12月 · 12/12</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://iwakura-tomomi.jp/20261212/" target="_blank" rel="noopener">夜間特別開場　王政復古茶会</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 岩倉具視幽棲旧宅</span>
+        <span>左京・下鴨・南禅寺</span>
+        
+        
+      </div>
+      <div class="desc">王政復古の大号令が出される直前にあたる時期の夜間開場。この時期は王政復古の大号令に向けて大久保利通が足しげく旧宅に通った時期。旧宅での夜間の見学は王政復古直前の大久保利通と繰り広げられた密談した当時の雰囲気を味わえる。当日は学芸員による特別ガイドを18：20～18：40、19：20～19：40の2回開催。ほんのりとライトアップされた旧宅で、岩倉具視にまつわる主菓子と抹茶を頂ける。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#84cc16">
+    <div class="datecol">
+      <div class="d">12</div>
+      <div class="m">12月 · 12/12</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.be-kyoto.jp/news/hanawork2026" target="_blank" rel="noopener">植物を使ったミニツリー ークリスマス支度</a></div>
+      <div class="line">
+        <span class="badge" style="background:#84cc16">体験/ワークショップ</span>
+        <span>📍 町家ギャラリーbe京都</span>
+        <span>金閣寺・西陣・北野</span>
+        
+        
+      </div>
+      <div class="desc">クリスマスを前に、植物を使って小さなクリスマスツリーを作るワークショップを開催。季節の植物を使い、飾って楽しめる自分だけのミニツリーを制作する。大がかりなアレンジではなく、気軽に植物にふれながら楽しめる内容。手づくりの小さなツリーとともに、冬を迎えるクリスマス支度を楽しんでみよう。当日の参加も大歓迎。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">12</div>
+      <div class="m">12月 · 12/12</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://kyotomuse.net/" target="_blank" rel="noopener">第11回　桂南天独演会</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 京都府立文化芸術会館</span>
+        <span>金閣寺・西陣・北野</span>
+        
+        
+      </div>
+      <div class="desc">落語を聴くのが初めてという人も楽しめる、わかりやすく楽しい語り。今、勢いのある落語をとくと堪能あれ！ 出演者・演目は出演順に、桂天吾「代脈」、桂南天「二百億円(作：桂南天)」、桂米之助「ふぐ鍋」、桂南天「鬼あざみ」～中入～桂南天「茶の湯」。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">12</div>
+      <div class="m">12月 · 12/12–12/26</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.alti.org/at/20261212.html" target="_blank" rel="noopener">豊嶋泰嗣演奏活動40周年記念公演～名演奏家たちと紡ぐオールブラームスプログラム～</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 京都府立府民ホール「アルティ」</span>
+        <span>金閣寺・西陣・北野</span>
+        
+        
+      </div>
+      <div class="desc">日本クラシック音楽界を牽引する豊嶋泰嗣の演奏活動40周年を記念し、名演奏家たちとブラームスの作品を2日間にわたって奏でる。12/12は韓国の国宝級ピアニスト、クンウー・パイクを迎えヴァイオリン・ソナタ全曲を演奏。12/26は日本の名演奏家達を迎えてヴィオラの名曲を演奏。豊嶋が心から信頼を寄せる日本の名演奏家たちとの共演を通じ、貴重なブラームスの音楽世界を楽しんでみてはいかが。　※未就学児入場不可</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#a855f7">
+    <div class="datecol">
+      <div class="d">13</div>
+      <div class="m">12月 · 12/13</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nadeshikofurima.com/" target="_blank" rel="noopener">京都市役所前広場フリーマーケット（12月）</a></div>
+      <div class="line">
+        <span class="badge" style="background:#a855f7">フリマ/蚤の市</span>
+        <span>📍 京都市役所前広場</span>
+        <span>四条河原町・烏丸</span>
+        
+        
+      </div>
+      <div class="desc">リサイクル意識向上とふれあいの場となる京都市役所前広場フリーマーケット。ゴミ減量を目的としたフリーマーケットで古着や日用品などさまざまなお店が出店し、ほとんどが中古品ということもあり、格安な価格で商品を購入できることが大きな魅力。倉の中の古美術品やヴィンテージ品なども期待できるフリーマーケット。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">18</div>
+      <div class="m">12月 · 12/18–01/31</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://bnr-kyoto.deca.jp/" target="_blank" rel="noopener">冬のナイトファーム2026</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 BNRファーム</span>
+        <span>西京区</span>
+        
+        
+      </div>
+      <div class="desc">約1,000球のイルミネーションが灯る京都・大原野の夜の畑で、冬野菜の収穫と温かい鍋を楽しんでみてはいかが？今冬は約16種類の冬野菜を栽培。ピンク色の大根や紫色のミニ大根など、個性豊かな野菜との出会いも。収穫した野菜はすべて持ち帰ることができる。（2,000円相当）冬の夜ならではの幻想的な農園で、五感で楽しむ特別な農業体験を楽しもう。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">19</div>
+      <div class="m">12月 · 12/19</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.biwako-hall.or.jp/" target="_blank" rel="noopener">びわ湖ホール声楽アンサンブル 第85回定期公演（京都公演）バロッククリスマス</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 京都府立府民ホール“アルティ”</span>
+        <span>金閣寺・西陣・北野</span>
+        
+        
+      </div>
+      <div class="desc">さまざまなジャンルの声楽曲をお贈りする定期公演。クリスマスにぴったりな曲をお届けする。指揮：本山秀毅 (びわ湖ホール声楽アンサンブル桂冠指揮者） 管弦楽：アンサンブルSDG 鍵盤楽器：パブロ・エスカンデ  ［曲目］J.S.バッハ：「喜ばしく舞い上がれ」 BWV36 待降節第1主日のためのカンタータ　ヘンデル：オラトリオ「メサイア」HWV56(抜粋)　シャルパンティエ：真夜中のミサ曲</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">19</div>
+      <div class="m">12月 · 12/19–12/20</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://education.be-kyoto.jp/winter2026/#lesson4" target="_blank" rel="noopener">バーナーワークに挑戦　ガラスを溶かしてつくろう！世界にひとつのとんぼ玉づくり</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 町家ギャラリーbe京都</span>
+        <span>金閣寺・西陣・北野</span>
+        
+        
+      </div>
+      <div class="desc">専用のバーナーでガラスを溶かし、くるくると芯に巻きつけて形をつくる。好きな色のガラスに白くて細いガラスを巻きつけてつくる「マーブル模様」に挑戦！ 冬休みは特別に、小学4年生以上なら「花模様」も選択可。完成したとんぼ玉は、ネックレス・ストラップ・サンキャッチャーのいずれかに仕上げて持ち帰り。模様の種類（対象年齢による）と仕上げ方法は、参加当日に選択可。色は、赤系、黄系、青系など複数用意あり。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f97316">
+    <div class="datecol">
+      <div class="d">19</div>
+      <div class="m">12月 · 12/19–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://jrwest-hotels.jp/granvia-kyoto/restaurant/menu/298/" target="_blank" rel="noopener">ホテルグランヴィア京都　クリスマスディナービュッフェ</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f97316">グルメ/食</span>
+        <span>📍 ホテルグランヴィア京都</span>
+        <span>四条河原町・烏丸</span>
+        
+        
+      </div>
+      <div class="desc">1週間限定で開催されるクリスマスディナービュッフェ。京都産の豚肉のポワレや野菜のピザ、古代米入りのリゾットなど、地元の食材をたっぷりと使用したクリスマスシーズンにふさわしい料理が提供される。香ばしく豪快に焼き上げたローストチキン、黒毛和牛ローストビーフ、職人が目の前で握る寿司、スイーツなどバラエティ豊かなメニューが好きなだけ味わえる。店内では電子ピアノの生演奏が各部約30分間実施される。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">19</div>
+      <div class="m">12月 · 12/19</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://tatsuyadejima.tokyo" target="_blank" rel="noopener">魔法の両手タッピング奏法（京都公演）</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 京都 祇園 ピックアップ</span>
+        <span>祇園・東山</span>
+        
+        
+      </div>
+      <div class="desc">出嶌達也によるコンサートツアー！ 当日はギターのボーイング（弓弾き）やピッキング、フィンガリング、パッティング、スラップ奏法、そして出嶌達也の最大の特徴である両手タッピング奏法など、類希なるギターテクニックを駆使したオリジナル曲を堪能できる。目の前で弾き出される音のみならず、空気感、振動、身体との共鳴、生の視覚効果、そしておしゃべりも含め、ここでしか味わえない貴重なひとときをお楽しみに！</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f97316">
+    <div class="datecol">
+      <div class="d">23</div>
+      <div class="m">12月 · 12/23–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.royalparkhotels.co.jp/the/kyotoumekoji/news/bn0vnd8cpoz/" target="_blank" rel="noopener">ザ ロイヤルパークホテル 京都梅小路　クリスマスディナーブッフェ</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f97316">グルメ/食</span>
+        <span>📍 ザ ロイヤルパークホテル 京都梅小路</span>
+        <span>四条河原町・烏丸</span>
+        
+        
+      </div>
+      <div class="desc">3日間限定のクリスマスディナーブッフェ。ジューシーなローストビーフをはじめ、牛のひき肉とソーセージをパイ生地で巻き焼き上げたミートパイ、白身魚のトマトチーズ焼き、シーフードパエリアなど、クリスマスにぴったりの肉料理や温製料理を好きなだけ味わえる。サクサクの生地に八ッ橋とあんこをトッピングしたミニリーフパイ、中はしっとり、表面は香ばしく焼き上げたりんごと紅茶のケーキなどスイーツも充実している。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">26</div>
+      <div class="m">12月 · 12/26–12/27</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://education.be-kyoto.jp/winter2026/#lesson2" target="_blank" rel="noopener">ガラスでつくるわたしのガラスアート</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 町家ギャラリーbe京都</span>
+        <span>金閣寺・西陣・北野</span>
+        
+        
+      </div>
+      <div class="desc">ガラスを切って、溶かして焼いて世界で一つのオリジナルグッズを作っちゃおう！　溶けたガラスの融合が魅力的な世界にひとつのガラス細工。10時からは小物、14時～15時30分～は豆皿またはスプーン。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#a855f7">
+    <div class="datecol">
+      <div class="d">26</div>
+      <div class="m">12月 · 12/26</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nadeshikofurima.com" target="_blank" rel="noopener">ダイエー桂南フリーマーケット（12月）</a></div>
+      <div class="line">
+        <span class="badge" style="background:#a855f7">フリマ/蚤の市</span>
+        <span>📍 ダイエー桂南店</span>
+        <span>南区</span>
+        
+        
+      </div>
+      <div class="desc">ファミリーが集まる大型商業施設なので、年齢を問わずオープンから賑わうイベント。施設入り口前会場で好立地間違いなし！</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">21</div>
+      <div class="m">08月 · 08/21–12/15</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://hosotsuji-ihee-museum.com/index.html" target="_blank" rel="noopener">びっくり構図展</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 細辻伊兵衛美術館</span>
+        <span>四条河原町・烏丸</span>
+        
+        
+      </div>
+      <div class="desc">手ぬぐいの印象を大きく左右するのが構図。先人たちも、手ぬぐい特有の細長い画面に図柄をどのように配置するか、工夫を重ねてきた。何を大きく見せるか、どこを切り取るか、余白をどのように生かすかによって、作品の印象は大きく変わる。今展では、手ぬぐいに見られる構図の工夫に焦点を当てる。大胆な切り取りや余白の生かし方、画面全体に広がる動きに注目し、手ぬぐいならではの表現の魅力を紹介する。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">05</div>
+      <div class="m">09月 · 09/05–12/28</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kyoto-aquarium.com/index.html" target="_blank" rel="noopener">オオサンミミクリー～「模倣」それはテクノロジーの始まり～</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 京都水族館</span>
+        <span>四条河原町・烏丸</span>
+        
+        
+      </div>
+      <div class="desc">9月9日の「オオサンショウウオの日」を記念し、オオサンショウウオの体の特徴を模した“ミミクリーアイテム”を通して謎に包まれた生態を知る企画展「オオサンミミクリー～「模倣」それはテクノロジーの始まり～」が開催。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">13</div>
+      <div class="m">09月 · 09/13–01/11</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.be-kyoto.jp/news/amezaiku2026-2" target="_blank" rel="noopener">つくろう！あめ細工</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 町家ギャラリーbe京都</span>
+        <span>金閣寺・西陣・北野</span>
+        
+        
+      </div>
+      <div class="desc">日本伝統の手づくり飴細工。80度に熱した水飴を手にとって、ねってねってまたねって、和ばさみと指先を使ってわずか数分で花や動物の形を作り上げる。なめてもおいしい、飴細工。1グループ1～3名までの少人数受付。予約優先。説明の後、まずは練習、そのあと本番！ おみやげ付。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">16</div>
+      <div class="m">09月 · 09/16–12/13</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://co-jin.jp/exhibition/5932/" target="_blank" rel="noopener">T/CU/CUT</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 art space co-jin</span>
+        <span>金閣寺・西陣・北野</span>
+        
+        
+      </div>
+      <div class="desc">ハサミを入れる前の一枚の紙には、無限の可能性が静かに眠っている。そこに刃を入れた瞬間、ただの紙だった空間から、新しい「形」と「物語」が息吹をあげるように飛び出してくる。「切る」とは、ただ物を分けるだけでなく、そこから新しい世界を紡ぎ出し、未知の美しさに対する期待に胸を膨らませる、最も根源的でエキサイティングな行為。二度と戻らないからこそ、覚悟を含んだ実存の輝きを放つ。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">17</div>
+      <div class="m">09月 · 09/17–01/19</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://kyotomm.jp/ee/manga-in-europe-40/" target="_blank" rel="noopener">Mangaと育った子どもたち：ヨーロッパにおけるManga文化の40年</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 京都国際マンガミュージアム</span>
+        <span>四条河原町・烏丸</span>
+        
+        
+      </div>
+      <div class="desc">京都国際マンガミュージアムでは、ヨーロッパ、特にフランス、ベルギー、スペイン、イタリア、ドイツの約40年にわたるマンガ受容の歴史を鑑賞する展覧会と、展覧会の出展作家を招いたイベントを開催。今展は京都国際マンガミュージアム開館20周年の企画。グローバル文化として花開くMangaの過去・現在・未来をともに考える機会にしよう。詳細は京都国際マンガミュージアムサイト参照。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">17</div>
+      <div class="m">09月 · 09/17–03/07</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="http://www.furutaoribe-museum.com/" target="_blank" rel="noopener">織部十作－古田織部と十人の陶工たち―</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 一般財団法人古田織部美術館</span>
+        <span>金閣寺・西陣・北野</span>
+        
+        
+      </div>
+      <div class="desc">古田織部は瀬戸の名工十人と京都の名工六人を選定したといわれる。選ばれた陶工はそれぞれ「瀬戸十作」「織部六作」と呼ばれる。彼らは、茶の湯の世界では、「丁字は新兵衛」「十字は茂右衛門」というように、その窯印とともに語り伝えられていたが、考古学・美術史学の研究者からは、非実在の伝説的人物として捉えられていた。そこで今展では窯印の現物を展示し、いま一度彼らについて検討を試みる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">19</div>
+      <div class="m">09月 · 09/19–01/17</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://fukuda-art-museum.jp/exhibition/202607014791" target="_blank" rel="noopener">愛のカタチ 幻の春画《稚児草紙》</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 福田美術館</span>
+        <span>嵐山・嵯峨野</span>
+        
+        
+      </div>
+      <div class="desc">福田美術館初となる春画展。愛と欲望、人が人を求める切実な感情を描いた「春画」の世界を紹介する。本邦初公開となる《稚児草紙》は、14世紀初頭に制作されたとされる、稚児と僧侶の親密な関係を描く絵巻で、長らく実在のみが知られてきた「幻の春画」である。日本最古級の春画《小柴垣草紙》の模写や葛飾北斎の《波千鳥》、上村松園らが描く「愛」の作品も展示する。※18歳未満の入場は不可</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">10月 · 10/01–12/28</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kyoto-aquarium.com/news/wayn6oy5uhm/" target="_blank" rel="noopener">企画展「あっちもこっちもスズキさん」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 京都水族館</span>
+        <span>四条河原町・烏丸</span>
+        
+        
+      </div>
+      <div class="desc">水族館では当たり前の存在すぎて、なかなか関心を持たれにくい魚類。そんな魚類の1種ごとの特徴に注目してほしいという思いから企画された。今企画展では、スズキを中心に、近年まで“スズキ目”に分類されてきた魚種について解説する。魚種の見直しの結果、近年ではスズキ目に分類されていた魚たちは再分類されている。その経緯も含め、スズキの仲間たちをもっと知ってもらえるよう、楽しく紹介する。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">10月 · 10/01–12/27</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="#" target="_blank" rel="noopener">清永安雄 作品展『天花-Heavenly Flowers-』</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 京都写真美術館　ギャラリー・ジャパネスク</span>
+        <span>祇園・東山</span>
+        
+        
+      </div>
+      <div class="desc">写真家・清永安雄による作品展。花を生命の象徴、美の原型として捉え、その内に宿る「存在の輝き」を表現した作品21点を展示する。小作品からF40号サイズまで、静けさの中に力強さを宿す花々を通して、根源的な美と生命の輝きを見つめる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">10月 · 10/01–12/27</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.orgel-hall.com/" target="_blank" rel="noopener">温かな音　-オルゴールと手廻しオルガン-</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 京都嵐山オルゴール博物館</span>
+        <span>嵐山・嵯峨野</span>
+        
+        
+      </div>
+      <div class="desc">秋から冬に季節が移ろい寒さが増していくなか、心に響く温かなアンティークオルゴールや手廻しオルガンの音色。クリスマスシーズンには讃美歌の演奏も楽しめる。今年最後の思い出作りに。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">10月 · 10/01–12/13</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://rurikoin.komyoji.com/" target="_blank" rel="noopener">瑠璃光院の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 瑠璃光院</span>
+        <span>左京・下鴨・南禅寺</span>
+        
+        
+      </div>
+      <div class="desc">平安貴族や武士たちに「やすらぎ」の郷として愛されてきた「八瀬」の地にあり、大正末から昭和の初めにかけての大改築で、自然を借景とした名庭を造営された。修学院・大原の豊かな自然と数寄屋造りの建物や名庭がおりなす四季折々の表情は見事で、特に紅に染まる秋には見事な紅葉が楽しめる。2026年の秋の特別拝観は10月1日(木)から12月13日(日)で、それ以外の期間は拝観ができないので要注意。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">03</div>
+      <div class="m">10月 · 10/03–02/28</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.samac.jp/exhibition/detail.php?id=71" target="_blank" rel="noopener">「絵で知る、もっと楽しむ京都」展</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 嵯峨嵐山文華館</span>
+        <span>嵐山・嵯峨野</span>
+        
+        
+      </div>
+      <div class="desc">千年以上の歴史を誇り、訪れる人々を惹きつけてやまない観光都市・京都。今展では、その多彩な魅力を近世から近代にかけての日本画を通して紹介する。今日でも親しまれている京都の名所や行事、伝統文化を描いた作品のほか、芸舞妓や京野菜など、京都ならではの画題を扱った作品を展示。また、京都と言えば、和菓子の老舗も多く軒を連ねる街。画家らが意匠を凝らした和菓子の包装紙もあわせて鑑賞しよう。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">03</div>
+      <div class="m">10月 · 10/03–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://ec.travel.jr-central.co.jp/tp/optionalFacilities/Z000726/plans/Z000726-C040479-M043137/detail?specialCode=&amp;amp;useDays=1&amp;amp;kodawari=exmaas&amp;amp;sort=recommend&amp;amp;lang=ja&amp;amp;agentCode=ex" target="_blank" rel="noopener">『禅とジブリ』京都展コラボ！ 特別御朱印・先行鑑賞会</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 京都市京セラ美術館 総合案内（中央ホール）</span>
+        <span>左京・下鴨・南禅寺</span>
+        
+        
+      </div>
+      <div class="desc">10月3日（土）より京都市京セラ美術館 新館 東山キューブで開催される『禅とジブリ』京都展と「そうだ 京都、行こう。」が連携し、展覧会とあわせて禅の世界観を深掘りできる特別な体験を「EX旅先予約」限定で販売する。展覧会を鑑賞した後は、南禅寺・相国寺・妙心寺を訪れて限定の特別御朱印を楽しみながら、実際の寺院に息づく禅文化や空間を体感しよう。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">04</div>
+      <div class="m">10月 · 10/04–02/28</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.samac.jp/exhibition/detail.php?id=71" target="_blank" rel="noopener">お喋りしながら楽しくアート鑑賞ができる「喋っていいDAY！」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 嵯峨嵐山文華館</span>
+        <span>嵐山・嵯峨野</span>
+        
+        
+      </div>
+      <div class="desc">嵯峨嵐山文華館では、友人や知人、家族、恋人と楽しく感想を述べあったり、小さな子供連れでも気兼ねなく美術鑑賞をしたいという人のために、企画展「絵で知る、もっと楽しむ京都」期間中、毎週火曜日・日曜日は全館「お喋りOK」とする「喋っていいDAY！」を開催する。アートと一緒にコミュニケーションを楽しみながら、いつもよりほんの少し賑やかな美術館を体感することができる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">04</div>
+      <div class="m">10月 · 10/04–12/27</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://ec.travel.jr-central.co.jp/tp/optionalFacilities/Z000724/plans?lang=ja" target="_blank" rel="noopener">秋の京都をより深く楽しむ！京都 秋めぐりパスポート</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 毘沙門堂門跡、醍醐寺、隨心院、永観堂、詩仙堂丈山寺、鈴虫寺（華厳寺）、二尊院</span>
+        <span>山科区</span>
+        
+        
+      </div>
+      <div class="desc">CM舞台の毘沙門堂門跡をはじめ、醍醐寺、隨心院、永観堂、詩仙堂丈山寺、鈴虫寺（華厳寺）、二尊院の京都市内の紅葉の名所である7寺院から、最大4つの寺院を選んでお得に拝観できるパスポートを用意。パスポートに加えて、地下鉄・バス1日券がセットになったさらにお得なプランも販売。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">10</div>
+      <div class="m">10月 · 10/10–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://hakuryuen.com/" target="_blank" rel="noopener">白龍園の紅葉(2026白龍園 秋の特別公開)</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 白龍園</span>
+        <span>左京・下鴨・南禅寺</span>
+        
+        
+      </div>
+      <div class="desc">京都市内に本社をおく老舗アパレルメーカーの青野が所有する日本庭園白龍園。四季を通じて風情ある景観が楽しめる庭園で通常は貸切での利用となるが、春と秋に1カ月半ほど、特別公開を行っている。紅葉の見ごろとなる11月中旬には秋の特別公開で、木々が赤く染める庭園を鑑賞することができる。2026年の秋の公開は、各回50名限定の事前予約制で開催。 ※応募方法の詳細は公式サイト参照。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">21</div>
+      <div class="m">10月 · 10/21–12/20</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://ninnaji.jp/" target="_blank" rel="noopener">【紅葉・見ごろ】仁和寺</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 仁和寺</span>
+        <span>嵐山・嵯峨野</span>
+        
+        
+      </div>
+      <div class="desc">仁和寺は春の御室桜で有名だが、秋の紅葉もとても美しく、四季折々の仁和寺を楽しむことができる景勝地。敷地内でも、金堂附近、参道など様々な場所で赤く色づいた紅葉が見られる。期間中の特定日には、仁和寺紅葉雲海ライトアップを実施する。昼間とは違う幽玄で幻想的な光景を楽しむのもおすすめ。壮大な“秋の京都の美”を堪能しよう。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">21</div>
+      <div class="m">10月 · 10/21–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.arashiyamahoshokai.com/" target="_blank" rel="noopener">【紅葉・見ごろ】嵐山</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 渡月橋周辺</span>
+        <span>嵐山・嵯峨野</span>
+        
+        
+      </div>
+      <div class="desc">標高382m、大堰川を挟んでそびえる嵐山。秋にアカマツやカエデ、ヤマザクラが赤や黄色に染まるその絶景は京都の代名詞とも言える。嵐山の中心部を流れる桂川にかかる渡月橋から見る紅葉は見事。社寺、中之島公園、商店街等、多くの紅葉樹を楽しめる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">21</div>
+      <div class="m">10月 · 10/21–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.higashihonganji.or.jp/about/guide/shoseien/" target="_blank" rel="noopener">渉成園の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 渉成園</span>
+        <span>四条河原町・烏丸</span>
+        
+        
+      </div>
+      <div class="desc">京都駅から徒歩10分の場所にある渉成園(枳殻邸)は、東本願寺の飛地境内(別邸)で、国の名勝に指定されている。石川丈山が趣向を入れた池泉回遊式庭園には四季折々の花が咲きほこり、変化に富んだ景観は「十三景」と称されている。秋の紅葉の時期も美しく、約1万6000坪の庭園にはイロハモミジやイチョウなど約50本の木々が植えられており、10月下旬から12月上旬まで楽しむことができる。アクセスがよく、紅葉に包まれる広大な庭園をゆっくりと散策できる穴場的な紅葉スポットで、赤や黄色に色づく庭園の背景に京都タワーを望む、京都ならではの風景も魅力だ。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">23</div>
+      <div class="m">10月 · 10/23–12/05</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://event.naked.works/nijojo/autumn/ja/" target="_blank" rel="noopener">NAKED meets(ネイキッド ミーツ) 二条城 2026</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 元離宮二条城</span>
+        <span>四条河原町・烏丸</span>
+        
+        
+      </div>
+      <div class="desc">2026年10月23日(金)から12月5日(土)の期間、京都で唯一の城であり世界遺産である二条城で、夜間限定アート展が開催。1626年に行われた江戸最大級の文化行事「寛永行幸」から400年の節目を迎える二条城を舞台に、寛永文化の中心人物であった徳川和子の感性を手がかりに伝統美の裏にあるクリエイティビティや思考をアート作品として再構築。また、日向坂46の正源司陽子が音声ナビゲーターを務める音声ガイドを導入。作品を楽しみながら、その背景にある文化やストーリーを知ることができる。伝統美の新たな魅力と出会い、時を超えて受け継がれる美意識を堪能できる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ef4444">
+    <div class="datecol">
+      <div class="d">23</div>
+      <div class="m">10月 · 10/23–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://nijo-jocastle.city.kyoto.lg.jp/" target="_blank" rel="noopener">二条城まつり2026</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ef4444">祭り/フェス</span>
+        <span>📍 元離宮二条城</span>
+        <span>四条河原町・烏丸</span>
+        
+        
+      </div>
+      <div class="desc">秋の二条城の魅力に触れることのできる「二条城まつり2026」。昼間は、城内を巡る「紅葉スタンプラリー」や、京都ならではの名産品が揃う「京の名産品展」のほか、華道・香道など寛永文化にゆかりの文化企画を実施。夜間ライトアップでは、400年前の寛永行幸の中心人物のひとり徳川和子に着目し、寛永文化を美とデザインの視点から紐解く体験型アート展「NAKED meets 二条城 2026」を開催。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">23</div>
+      <div class="m">10月 · 10/23–12/05</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.bukkyo-u.ac.jp/museum/" target="_blank" rel="noopener">特別展「ほとけの処方箋－看護学部の新設にことよせて－」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 佛教大学宗教文化ミュージアム</span>
+        <span>嵐山・嵯峨野</span>
+        
+        
+      </div>
+      <div class="desc">今年度、佛教大学に看護学部が新設された。佛教大学における看護の学びは、建学の理念である仏教精神に基づくもので、その意義や背景を仏教における様々なエピソードから紐解いていく。あわせて東洋医学（伝統医療）にも眼を向け、「こころ」と「からだ」のケアをめぐる宗教文化の一端を紹介。関連行事として11月7日（土）には講演会、11月28日（土）にはワークショップを開催（いずれも14時開始。無料、先着100名）。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">23</div>
+      <div class="m">10月 · 10/23–12/13</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kodaiji.com/index.html" target="_blank" rel="noopener">高台寺秋の夜間特別拝観</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 高台寺</span>
+        <span>祇園・東山</span>
+        
+        
+      </div>
+      <div class="desc">臨済宗建仁寺派の寺院で、1606（慶長11）年豊臣秀吉の正室、ねね（北政所）が秀吉の菩提を弔うために創建。蒔絵で飾られた霊廟の霊屋にはねねが眠る。境内には小堀遠州作「高台寺庭園」、開山堂や茶室などの重要文化財、竹林の道など見どころたくさん。東山散策の際は必ず立ち寄りたいスポット。夜間特別拝観ではライトアップが実施され幽玄な世界に浸ることができる。高台寺掌美術館では霊屋の『大随求菩薩像』も公開中。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">24</div>
+      <div class="m">10月 · 10/24–01/17</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.momak.go.jp/Japanese/exhibitionarchive/2026/468.html" target="_blank" rel="noopener">ジュエリーは、誰を夢みる</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 京都国立近代美術館</span>
+        <span>左京・下鴨・南禅寺</span>
+        
+        
+      </div>
+      <div class="desc">京都国立近代美術館にて、展覧会『ジュエリーは、誰を夢みる』を開催。専門学校ヒコ・みづのジュエリーカレッジ所蔵作品の大規模な公開に加え、約50年ぶりにドイツから来日する優品、また現代作家作品まで約350件により構成。身に着けるものに表現が侵入している、というジュエリーの可能性を、戦後の日本に視点を据えて問い直す。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ef4444">
+    <div class="datecol">
+      <div class="d">24</div>
+      <div class="m">10月 · 10/24–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="http://www.sanzenin.or.jp/" target="_blank" rel="noopener">三千院 もみじ祭り</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ef4444">祭り/フェス</span>
+        <span>📍 三千院</span>
+        <span>左京・下鴨・南禅寺</span>
+        
+        
+      </div>
+      <div class="desc">かつて建礼門院が隠棲した山里、大原。その散策の中心地である三千院は、国宝の阿弥陀三尊をはじめ、多くの文化財が安置される天台宗の寺院。紅葉のシーズンには、杉木立に囲まれた有清園、聚碧園、往生極楽院をはじめ、境内が秋色に染まる。寒暖差が生み出すひときわ鮮やかなもみじの紅と苔の緑のコントラストは息を飲む美しさ。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">24</div>
+      <div class="m">10月 · 10/24–12/29</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.sagano-kanko.co.jp/" target="_blank" rel="noopener">嵯峨野トロッコ列車　光の幻想列車</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 嵯峨野トロッコ列車</span>
+        <span>嵐山・嵯峨野</span>
+        
+        
+      </div>
+      <div class="desc">嵯峨嵐山から亀岡まで保津川に沿って走る観光列車。2026年10月24日(土)から12月29日(火)のうち12月16日(水)の運休日を除いて、嵯峨野トロッコ列車紅葉ライトアップ＆イルミネーション「光の幻想列車」を運行。約1000台の照明に照らされる美しい紅葉、色彩豊かな光によってさらに神秘的な姿を見せる山々、きらめく川面など、まさに「幻想的」な光景を堪能できる。見どころの一つである「殿の漁場」では、設置以来好評を博しているフルカラー投光器の演出で、一段とダイナミックな光景が広がる。期間中は「臨時列車、嵯峨野/嵯峨野リッチ81号・82号・91号・92号」も運行(※臨時列車の詳しい運転日は運行スケジ</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">24</div>
+      <div class="m">10月 · 10/24–12/13</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://ninnaji.jp/news/event-34-2/" target="_blank" rel="noopener">紅葉雲海ライトアップ</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 仁和寺</span>
+        <span>嵐山・嵯峨野</span>
+        
+        
+      </div>
+      <div class="desc">仁和寺は春の御室桜で有名だが、秋の紅葉もとても美しく、四季折々の仁和寺を楽しむことができる景勝地。敷地内でも、金堂附近、参道など様々な場所で赤く色づいた紅葉が見られる。今年は、「〜528Hz癒しのサウンドガーデン〜」と題して、観音堂夜間特別拝観と仁和寺紅葉雲海ライトアップを実施する。昼間とは違う幽玄で幻想的な光景は息を飲む美しさ。壮大な“秋の京都の美”を堪能しよう。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">31</div>
+      <div class="m">10月 · 10/31–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://ec.travel.jr-central.co.jp/tp/optionalFacilities/6490M02/plans?lang=ja" target="_blank" rel="noopener">NAKED GARDEN NIGHTS 東本願寺・渉成園</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 東本願寺・渉成園（枳殻邸）および周辺エリア</span>
+        <span>四条河原町・烏丸</span>
+        
+        
+      </div>
+      <div class="desc">東本願寺および渉成園（枳殻邸）を中心に、正面通りやお東さん広場などの周辺エリアを含めた広域でのライトアップイベントが開催される。EX旅先予約では、「EX旅先予約」購入者限定の特別エリア「御影堂門 楼上」を楽しめるペシャルプランに加え、お得に楽しめる一般割引入場券の用意もあり。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">31</div>
+      <div class="m">10月 · 10/31–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://event.naked.works/higashihonganji/autumn/ja/" target="_blank" rel="noopener">NAKED GARDEN NIGHTS 東本願寺・渉成園(ネイキッド ガーデン ナイツ)</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 東本願寺・渉成園</span>
+        <span>四条河原町・烏丸</span>
+        
+        
+      </div>
+      <div class="desc">京都府京都市下京区の東本願寺と、その飛地境内にある国指定名勝・渉成園(枳殻邸)を舞台にした秋の夜間ライトアップイベント。2026年10月31日(土)から12月6日(日)まで、18時から22時まで開催。最寄り駅のJR京都駅から徒歩7分で、観光後にも立ち寄りやすい。東本願寺では御影堂前に小さな灯りが幾重にも連なり、大きな蓮華の光紋が浮かぶ。正面通の行灯をたどって向かう渉成園は、石川丈山が作庭に関わったと伝わる池泉回遊式庭園。印月池の水面に映し出される大きな月をはじめ「五つの景色」を巡りながら、酒や茶とともに秋の庭を味わえる。11月6日(金)から8日(日)と11月25日(水)は渉成園のみの公開。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ef4444">
+    <div class="datecol">
+      <div class="d">31</div>
+      <div class="m">10月 · 10/31–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://kitanotenmangu.or.jp/" target="_blank" rel="noopener">北野天満宮「史跡 御土居のもみじ苑」の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ef4444">祭り/フェス</span>
+        <span>📍 北野天満宮「史跡 御土居のもみじ苑」</span>
+        <span>金閣寺・西陣・北野</span>
+        
+        
+      </div>
+      <div class="desc">御祭神 菅原道真公を祀る北野天満宮は天神信仰発祥の地であり、日本中に1万2000社もあるといわれる全国天満宮・天神社の総本社。桃山時代に豊臣秀吉公は洛中洛外の境界、水防のための土塁「御土居」を築いた。その一部が残る境内の西側一帯は史跡として指定され、現在、約350本の紅葉を有する名所「もみじ苑」となっている。また展望所から眺める国宝御本殿と紅葉の風景はまさに絶景。もみじ苑は2026年10月31日(土)から12月6日(日)まで公開される。また、11月26日(木)には御茶壺奉献奉告祭が、12月1日(火)には献茶祭が行われる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">31</div>
+      <div class="m">10月 · 10/31–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://murin-an.jp/events/event-20261031-1206/" target="_blank" rel="noopener">紅葉の京都　名勝庭園を二階から望むプライベート貸切カフェ</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 無鄰菴母屋2階</span>
+        <span>左京・下鴨・南禅寺</span>
+        
+        
+      </div>
+      <div class="desc">無鄰菴の二階特別室をプライベート貸切で、京都の秋を楽しめる。京都の職人が手間暇かけて手入れする日本庭園と、東山の借景が、心を打つ青もみじの景色を楽しませてくれる無鄰菴の二階特別室。通常、保存のための非公開となっているが、この期間は予約優先・各時間帯1組限定で公開。広々とした絶景を眺めながら、こだわりのカフェメニューを味わおう。予約優先。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f97316">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">11月 · 11/01–12/23</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://doubletree-kyoto-station.hiltonjapan.co.jp/restaurants/lp/wagyu-fair" target="_blank" rel="noopener">WAGYU（和牛） FAIR 2026</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f97316">グルメ/食</span>
+        <span>📍 オールデイダイニング「ハーベストキッチン」</span>
+        <span>南区</span>
+        
+        
+      </div>
+      <div class="desc">きめ細やかな肉質と上質な脂の甘みが魅力の和牛を、オールデイダイニング「ハーベストキッチン」ならではの多彩なスタイルで用意。ステーキやハンバーガー、うなぎとの贅沢な組み合わせまで、それぞれの料理に寄り添うワインをホテルスタッフが厳選。和牛の奥深い味わいとワインが織りなす至福のマリアージュを楽しもう。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">11月 · 11/01–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="http://anrakuji-kyoto.com/" target="_blank" rel="noopener">安楽寺の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 安楽寺</span>
+        <span>左京・下鴨・南禅寺</span>
+        
+        
+      </div>
+      <div class="desc">京都府京都市左京区鹿ケ谷、哲学の道から少し東へ入った静かな住宅地にたたずむ浄土宗の寺院。法然上人の弟子・住蓮と安楽が、後鳥羽上皇の女官だった松虫姫と鈴虫姫を出家させたとして処刑され、その菩提を弔うために建立されたと伝わる。銀閣寺から歩いて15分ほどの距離ながら、周囲は落ち着いた空気に包まれる。ふだんは非公開で、春の桜やツツジ、サツキ、秋の紅葉の時期などに限って門を開く。秋は例年11月の土日祝と12月上旬の土日にかけて拝観でき、モミジの見頃は11月下旬から12月上旬ごろ。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">11月 · 11/01–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.jissoin.com/" target="_blank" rel="noopener">岩倉実相院門跡の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 岩倉実相院門跡</span>
+        <span>左京・下鴨・南禅寺</span>
+        
+        
+      </div>
+      <div class="desc">実相院は京都府京都市の大原エリアに位置し、岩倉門跡や岩倉御殿と呼ばれる、元天台宗の寺門派(天台宗には山門派と寺門派がある)の単立寺院。パワースポットである岩倉にあり、本殿は300年前に御所から移築された。趣きの違う2つの庭を擁し、1つは奥の書院と客殿との間にある山水庭園で、裏山の景色に溶け込み日々違った表情を見せる。もう1つは、比叡の山並みを借景とした雄大な石庭だ。秋の紅葉の頃はいっそう美しく、例年11月上旬から12月上旬が見頃だ。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">11月 · 11/01–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="http://tsakae.justhpbs.jp/joshoji/toppage.html" target="_blank" rel="noopener">鷹峯 常照寺の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 鷹峯 常照寺</span>
+        <span>金閣寺・西陣・北野</span>
+        
+        
+      </div>
+      <div class="desc">江戸時代開山の寺院で、紅葉300本がある境内には、茶室や苔庭、白馬池、山門など、秋を楽しめるスポットが点在する。夕暮れ時に灯籠に火が灯されるさまは風情があり、静寂に包まれた境内で紅葉を鑑賞するのがおすすめだ。そのほか、庭で抹茶を楽しむこともできる。例年、モミジやドウダンツツジ、ハゼノキなどが11月上旬ごろから色づき始め、12月上旬ごろにかけて見頃を迎える。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">03</div>
+      <div class="m">11月 · 11/03–03/28</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://nishijin.or.jp/" target="_blank" rel="noopener">所蔵品展「西陣織 寛永行幸に想いを馳せて」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 西陣織会館３階西陣織史料室</span>
+        <span>金閣寺・西陣・北野</span>
+        
+        
+      </div>
+      <div class="desc">寛永3年に行われた寛永行幸は、徳川将軍家が後水尾天皇を二条城に招き、総勢9,000名の壮大で華やかな行列で、5日間にわたり、能楽や管弦、蹴鞠や和歌などで盛大で豪華な饗宴が執り行われた。歴史的な行事に想いを馳せて、公家や貴族が着用していた装束の裂地、江戸期の能装束裂や近代の能装束、天皇家が用いる菊御紋の旗や三種の神器を題材に織られた綴織袱紗など、当時の行幸が感じられる雅やかな織物を中心に展示する。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">07</div>
+      <div class="m">11月 · 11/07–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="#" target="_blank" rel="noopener">智山紅葉月</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 智積院</span>
+        <span>祇園・東山</span>
+        
+        
+      </div>
+      <div class="desc">「そうだ 京都、行こう。」では、この秋新たなライトアップイベントを智積院で開催！ 境内を彩る紅葉が幻想的な雲海に浮かび上がる、秋の夜ならではのライトアップに加え、参道では提灯の灯りを使った、これまでにない演出も予定している。昼間とはまた違った幻想的な秋の夜を楽しもう。EX旅先予約では、今イベントにスムーズに入場できる優先入場券を販売予定。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">09</div>
+      <div class="m">11月 · 11/09–01/23</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.museum.kit.ac.jp/" target="_blank" rel="noopener">生誕170周年記念　浅井忠　駆け抜けた京都時代―洋画とデザインの境界をこえて</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 京都工芸繊維大学美術工芸資料館</span>
+        <span>左京・下鴨・南禅寺</span>
+        
+        
+      </div>
+      <div class="desc">生誕170周年を迎える浅井忠（1856-1907）は、明治35年（1902）に開校した京都高等工芸学校でデッサン指導を担う一方、明治40年には、自身の図案による陶器店「九雲堂」を開店し、伝統的な意匠を好む京都の人々に新しい風を吹き込んだ。今展では、最晩年の油画の大作《武士山狩図》から「九雲堂」の商品まで、洋画家としてまた図案家としての浅井の活躍を、館蔵コレクションをつうじて振り返る。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">10</div>
+      <div class="m">11月 · 11/10–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="http://www.enkouji.jp/" target="_blank" rel="noopener">【紅葉・見ごろ】圓光寺</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 圓光寺</span>
+        <span>左京・下鴨・南禅寺</span>
+        
+        
+      </div>
+      <div class="desc">日本最古といわれる木活字（重文）を所蔵し、臨済宗南禅寺派の尼僧堂であった圓光寺。中門前には枯山水の奔龍庭が有り、裏は十牛之庭を呼ばれる紅葉と杉苔と竹林の美しい庭園が広がる。水琴窟や栖龍池に浮かぶ落葉には心を澄まされる。混雑を避けるため紅葉特別拝観は専用webページから事前予約が必要（定員に空きがある場合、当日予約可能）。10名以上の団体は電話問合せを。詳細はHP参照。注意事項等確認して申し込みを。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">10</div>
+      <div class="m">11月 · 11/10–12/09</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.miyako-eco.jp/event/event-39068/" target="_blank" rel="noopener">私たちが生きる未来</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 京エコロジーセンター</span>
+        <span>伏見</span>
+        
+        
+      </div>
+      <div class="desc">もし化石燃料が無くなってしまったら、私たちの生活はどうなってしまうの？ 限りのある地球の資源を大切に使う方法を一緒に学ぼう！</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">11月 · 11/11–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kyotobotanicalgardens.jp/" target="_blank" rel="noopener">京都府立植物園の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 京都府立植物園</span>
+        <span>左京・下鴨・南禅寺</span>
+        
+        
+      </div>
+      <div class="desc">大正13年に開園した日本最古の公立植物園。約24ヘクタールの広大な敷地に約1万種類の植物が植栽・展示されており、四季折々に美しい。秋には、モミジや桜、フウ、イチョウなど約1000本の木々が色鮮やかに紅葉し、都市部にいながら1カ月近く楽しめる。特に、「なからぎの森」周辺の紅葉やあじさい園のフウの大木の紅葉は必見だ。約200本のイロハモミジが、なからぎの池の水面に映える。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">11月 · 11/11–12/20</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://fng.or.jp/kyoto/" target="_blank" rel="noopener">京都御苑の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 京都御苑</span>
+        <span>金閣寺・西陣・北野</span>
+        
+        
+      </div>
+      <div class="desc">京都御苑は、京都御所・京都仙洞御所などを囲む約65平方メートルの広大な国民公園。江戸時代には公家や宮家の邸宅が建ち並ぶ町だった。明治時代に屋敷が取り除かれ公園として整備されたが、苑内には茶室・拾翠亭や閑院宮邸跡など歴史的な遺構が残る。現在では、約10万本の樹木が育ち、さまざまな草花、キノコ、野鳥などが見られ、ウメや桜、紅葉など四季折々の美しい自然が鑑賞できる自然豊かな憩いの場ともなっている。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">11月 · 11/11–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://inari.jp" target="_blank" rel="noopener">伏見稲荷大社の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 伏見稲荷大社</span>
+        <span>伏見</span>
+        
+        
+      </div>
+      <div class="desc">京都を代表する伏見稲荷大社は、朱色の千本鳥居と紅葉のコントラストが見事な人気スポット。紅葉は例年11月中旬から12月上旬にかけて見頃を迎え、境内の至る所でイロハモミジやイチョウが色鮮やかに染まる。とくに十石橋周辺や八島ヶ池では、水面に映る紅葉と鳥居が幻想的な光景をつくり出す。24時間参拝可能なため、静けさの中で紅葉をゆっくり堪能できるのも魅力。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#84cc16">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">11月 · 11/11–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://eizandensha.co.jp/spot/208/" target="_blank" rel="noopener">八瀬もみじの小径の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#84cc16">体験/ワークショップ</span>
+        <span>📍 八瀬もみじの小径</span>
+        <span>左京・下鴨・南禅寺</span>
+        
+        
+      </div>
+      <div class="desc">約3700平方メートルの広大な敷地内に群生する紅葉を楽しめるスポット。京都の静かな自然に囲まれた紅葉の名所で、秋になると一面が鮮やかな赤や橙に染まる。八瀬の美しい自然の中に続くこの小径は、モミジやカエデが左右に広がり、まるで紅葉のトンネルを歩いているかのような幻想的な体験が楽しめる。山々と川に囲まれた風景が、京都ならではの風情を感じさせ、静かな時間を過ごすには最適な場所だ。また、叡山ケーブルのケーブル八瀬駅の横にあるためアクセス良好で、四季折々の姿で訪れた人の目を楽しませる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">11月 · 11/11–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="#" target="_blank" rel="noopener">南禅寺 高徳庵(最勝院)の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 南禅寺 高徳庵(最勝院)</span>
+        <span>左京・下鴨・南禅寺</span>
+        
+        
+      </div>
+      <div class="desc">南禅寺は京都府京都市左京区にある、開創から700年以上の年月を経た臨済宗の寺院。塔頭である高徳庵(最勝院)の境内には百日紅と松が共生した縁結びの松があり、大きな見所となっている。御朱印をいただくこともできる。秋の紅葉の時期も見応えがあり、例年11月中旬から12月上旬にかけてが、見頃の時期となる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">11月 · 11/11–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://ja.kyoto.travel/tourism/single01.php?category_id=8&amp;amp;tourism_id=2684" target="_blank" rel="noopener">哲学の道の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 哲学の道</span>
+        <span>左京・下鴨・南禅寺</span>
+        
+        
+      </div>
+      <div class="desc">京都市の若王子から銀閣寺道までの分線に沿って京都画壇の橋本関雪が大正時代に植樹した桜があり、哲学者の西田幾多郎などの文化人がこよなく愛し、瞑想にふけったといわれる。この散策路は、その後整備され、現在では「哲学の道」として多くの市民や観光客に親しまれ、四季を通じて訪れる人々の心をなごませている。例年11月中旬から下旬ごろにかけては、水路沿いに植えられた木々が赤く色づき、見事な紅葉を見ながら散策することができる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">11月 · 11/11–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://hogonin.jp/" target="_blank" rel="noopener">宝厳院の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 宝厳院</span>
+        <span>嵐山・嵯峨野</span>
+        
+        
+      </div>
+      <div class="desc">嵐山借景 回遊式山水庭園「獅子吼(ししく)の庭」は、嵐山の景観を取り入れた借景式山水庭園で、室町時代に中国に2度渡った禅僧、策彦周良禅師によって作庭された。「獅子吼」とは「仏が説法する」という意味であり、庭園内を散策し鳥の声や風の音を聴くことで、人生の心理や正道を肌で感じ、心を穏やかにする効果を持つとされる。紅葉シーズンには、カエデやイチョウなどが色づき、より豊かな庭の彩りが楽しめる。2026年10月3日(土)～12月6日(日)には、秋の特別拝観を開催。嵐山借景 回遊式山水庭園 「獅子吼(ししく)の庭」が公開され、田村能里子筆の障壁画「風河燦燦三三自在(ふうがさんさん さんさんじざい)」が納め</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">11月 · 11/11–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://yusai.kyoto" target="_blank" rel="noopener">嵐山 祐斎亭の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 嵐山 祐斎亭</span>
+        <span>嵐山・嵯峨野</span>
+        
+        
+      </div>
+      <div class="desc">平安時代より風光明媚な景勝地として知られ、源氏物語の舞台となった京都・嵐山。この地に染色作家・奥田祐斎氏の染色アートギャラリー「祐斎亭」がある。約800年前の離宮跡に立地する築150年の建造物で、特徴的な丸窓から眺める桂川は今も翡翠色に輝き、いにしえの世界へ誘ってくれる。部屋から丸窓を通して眺める紅葉は、机や水面(水鏡)に映り込むシンメトリーの風景とあいまって言葉に表せないほどの美しさだ。一歩足を踏み入れた瞬間に、目の前に庭と嵐山のパノラマ風景が広がる「絶景テラス」や、水琴窟の音色を味わいながら心をいやす「水琴と苔の庭」もあり、特有の空間を五感で堪能できる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">11月 · 11/11–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.sagano-kanko.co.jp/" target="_blank" rel="noopener">嵯峨野トロッコ列車の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 嵯峨野トロッコ列車</span>
+        <span>嵐山・嵯峨野</span>
+        
+        
+      </div>
+      <div class="desc">嵯峨嵐山から亀岡まで保津川に沿って走る観光列車。四季折々の渓谷美を堪能できる。秋になると沿線に植えられた約1000本のカエデやヤマモミジが色づき、近くを走るトロッコ列車から色鮮やかな紅葉を楽しむことができる。例年、11月中旬から12月上旬にかけてが見頃の時期となり、紅葉時期には沿線のライトアップも行われる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">11月 · 11/11–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://chisan.or.jp/" target="_blank" rel="noopener">智積院の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 智積院</span>
+        <span>祇園・東山</span>
+        
+        
+      </div>
+      <div class="desc">智積院は京都市東山区にある真言宗智山派の総本山で、毎年11月中旬から12月上旬に紅葉の見頃を迎える。境内にはカエデやイチョウが点在し、参道や金堂の周辺、鐘楼堂付近では鮮やかな紅葉が寺院建築と調和して趣のある景色を楽しめる。名勝庭園は拝観料500円で、池泉回遊式庭園に映り込む紅葉は格別。京阪七条駅から徒歩10分とアクセスも便利で、近隣の三十三間堂や京都国立博物館とあわせて訪れる人も多い。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">11月 · 11/11–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://toji.or.jp/" target="_blank" rel="noopener">東寺(教王護国寺)の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 東寺(教王護国寺)</span>
+        <span>南区</span>
+        
+        
+      </div>
+      <div class="desc">国宝だけでも80点を超える文化財を有し、1994年には世界遺産に登録された名刹で、教王護国寺とも呼ばれる。11月中旬から12月上旬にかけての紅葉シーズンには東寺の象徴でもある五重塔周辺が深紅に染まり、見る者の心を魅了する。五大菩薩像や五大明王像など国宝指定の仏像を数多く安置する重要文化財の講堂も訪れたい。毎月21日に行われる縁日の弘法市には数多くの露店が並び、大いに賑わう。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">11月 · 11/11–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kyoto-ga.jp/umekouji/index.html" target="_blank" rel="noopener">梅小路公園 朱雀の庭の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 梅小路公園 朱雀の庭</span>
+        <span>四条河原町・烏丸</span>
+        
+        
+      </div>
+      <div class="desc">梅小路公園にある、平安建都1200年を記念して作られた池泉回遊式庭園「朱雀の庭」。秋に行われる紅葉まつりでは、約9000平方メートルの庭園内が幻想的にライトアップされ、約150本のモミジやアカマツが夜空に美しく浮かび上がる。浅池「水鏡」の水面に映り込む「逆さ紅葉」は、絶好の紅葉ポイント。照らされた紅葉が浅池に映りこみ、幻想的な景観が広がる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">11月 · 11/11–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.enkouji.jp/" target="_blank" rel="noopener">洛北(圓光寺)の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 洛北(圓光寺)</span>
+        <span>左京・下鴨・南禅寺</span>
+        
+        
+      </div>
+      <div class="desc">圓光寺は、1601年(慶長6年)、徳川家康公が文治政策として閑室元佶(カンシツゲンキツ)師を招いて伏見に学問所を開いたのに始まり、圓光寺版と呼ぶ図書も出版、当時の木活字(重文)が現存する。1667年(寛文7年)、現在地に移転。庭園は新緑や紅葉時に美観を呈し、本堂前には水琴窟が設置され、妙音を聞ける。境内山上からは眼下に燃え立つ紅葉、遠くには北山や嵐山の眺望も楽しめる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">11月 · 11/11–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://oharano-jinja.jp/" target="_blank" rel="noopener">洛西(大原野神社)の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 洛西（大原野神社）</span>
+        <span>西京区</span>
+        
+        
+      </div>
+      <div class="desc">桓武帝が長岡京遷都の際に、皇后の氏神であった奈良の春日明神をここに分祀したのが起こりと伝えられる。850年(嘉祥3年)には社殿が造営され、春日造りの丹塗りの壮麗な本殿、猿沢池を模した鯉沢池も造られた。紅葉の名所として名高く、広大な境内に桜やモミジの赤が映える。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">11月 · 11/11–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.chion-in.or.jp/" target="_blank" rel="noopener">浄土宗 総本山知恩院の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 浄土宗 総本山知恩院</span>
+        <span>祇園・東山</span>
+        
+        
+      </div>
+      <div class="desc">1175年(承安5年)、法然上人が吉水の地に草庵を結ばれたことを起源とする浄土宗の総本山。境内には、国宝の御影堂や三門、重要文化財の集会堂、大方丈、小方丈、大鐘楼などが立ち並ぶ。境内にはイロハモミジやケヤキなどの紅葉を見ることができ、特に友禅苑、方丈庭園の紅葉は見事。ライトアップ期間中は三門、御影堂、友禅苑のライトアップも行われる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">11月 · 11/11–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="http://www.hakusasonso.jp/" target="_blank" rel="noopener">白沙村荘の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 白沙村荘</span>
+        <span>左京・下鴨・南禅寺</span>
+        
+        
+      </div>
+      <div class="desc">白沙村荘は、京都市左京区浄土寺にある日本画家・橋本関雪が1916年から住んだ邸宅で、紅葉の名所としても知られている。例年11月中旬から下旬にかけて紅葉の見頃を迎え、多くの観光客が訪れる。庭園は約6000平方メートルに広がり、カエデやモミジ、 桜などが色づくと、池泉回遊式庭園や十三重石塔、如舫亭とのコントラストが美しい風景を作り出す。また、庭園は橋本関雪自身が設計したもので、歴史的価値が高く、静かな環境で秋の景色をゆっくり楽しめるスポットだ。近隣には銀閣寺や哲学の道もあり、併せて散策することで京都の秋をさらに堪能できる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">11月 · 11/11–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.unryuin.jp/" target="_blank" rel="noopener">雲龍院の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 雲龍院</span>
+        <span>祇園・東山</span>
+        
+        
+      </div>
+      <div class="desc">1372年(応安5年)創建の御寺泉涌寺の別院。本堂「龍華殿」は国の重要文化財に指定されている。秋の紅葉シーズンが到来すると、境内のモミジが真っ赤に染まり、訪れる人はその美しさを堪能できる。例年11月中旬から12月上旬頃にかけてが、紅葉の見頃の時期となる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">11月 · 11/11–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kyotorakuhoku.net/社寺のご案内/④鷺森神社/" target="_blank" rel="noopener">鷺森神社の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 鷺森神社</span>
+        <span>左京・下鴨・南禅寺</span>
+        
+        
+      </div>
+      <div class="desc">京都府京都市の左京区にある、素戔嗚尊(スサノオノミコト)を祀る神社。境内には素戔嗚尊が妻を迎える時に詠んだ和歌にちなみ、良縁を授かると言われている八重垣の石が鎮座する。11月中旬から12月上旬ごろが紅葉の見頃で、カエデの赤色に加え、イチョウの黄色も鮮やか。修学院・一乗寺エリアの知る人ぞ知る紅葉スポットで、落ち着いた雰囲気の中、ゆったり散策しながら紅葉を楽しむことができる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f97316">
+    <div class="datecol">
+      <div class="d">13</div>
+      <div class="m">11月 · 11/13–12/27</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://kyoto.hiltonjapan.co.jp/restaurants/lp/sweetsbuffet-christmas" target="_blank" rel="noopener">ヒルトン京都心弾むクリスマススイーツビュッフェ</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f97316">グルメ/食</span>
+        <span>📍 オールデイダイニングテオリ</span>
+        <span>四条河原町・烏丸</span>
+        
+        
+      </div>
+      <div class="desc">フランス出身のエグゼクティブペストリーシェフ、ボナフス・ギオムが手掛ける、クリスマスの煌めきを閉じ込めたスイーツビュッフェ。オーナメントやギフトボックスをモチーフにした華やかなスイーツをはじめ、愛らしいトナカイを表現したクリスマス限定のパリブレストなど、この季節ならではのスイーツが並ぶ。さらに、ペストリーシェフが目の前で仕上げるモンブランやクリスマススモアをライブステーションで提供。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">13</div>
+      <div class="m">11月 · 11/13–01/11</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.hotel.kyoto/okura/" target="_blank" rel="noopener">ホテルオークラ京都 ウインターイルミネーション・クリスマス装飾</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 ホテルオークラ京都</span>
+        <span>四条河原町・烏丸</span>
+        
+        
+      </div>
+      <div class="desc">京都府京都市のホテルオークラ京都では、毎年恒例でウインターイルミネーションを実施。ホテル西側(河原町通)と南側(御池通)の街路樹を中心に、約2万5000球のあかりが灯る。歴史と伝統が息づく京都の風景と調和し、訪れる人々に心温まるひとときが感じられる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">13</div>
+      <div class="m">11月 · 11/13–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kurodani.jp/" target="_blank" rel="noopener">浄土宗大本山 くろ谷 金戒光明寺の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 浄土宗大本山 くろ谷 金戒光明寺</span>
+        <span>左京・下鴨・南禅寺</span>
+        
+        
+      </div>
+      <div class="desc">幕末に幕府から命を受け京都守護職となった会津藩主松平容保が本陣を構えた寺院。例年、11月中旬から12月上旬に紅葉の見頃を迎え、山門の北側と南側を赤い紅葉が美しく彩る。秋季限定で特別公開される奥の庭園「紫雲の庭」をはじめ、境内には紅葉の見どころが点在。2026年11月13日(金)から12月6日(日)は特別日中拝観期間および特別夜間拝観期間で、紅葉のライトアップも実施される。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f97316">
+    <div class="datecol">
+      <div class="d">14</div>
+      <div class="m">11月 · 11/14–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://doubletree-kyoto-station.hiltonjapan.co.jp/restaurants/lp/grove-lounge-afternoontea" target="_blank" rel="noopener">ダブルツリーbyヒルトン京都駅クリスマスアフタヌーンティー</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f97316">グルメ/食</span>
+        <span>📍 カフェラウンジ グローブ ラウンジ</span>
+        <span>京都駅・下京</span>
+        
+        
+      </div>
+      <div class="desc">京かぶらや京丹波鶏、おから、抹茶、柚子など京都ならではの食材を使用したセイボリーと、クリスマスを彩るスイーツを、お重に詰め込んだ“プレゼントボックス”のようなスタイルで提供する。スイーツを選ぶときは、まるでアドベントカレンダーの窓を開くようなひととき。何から味わおうかと迷う楽しさや、お気に入りを見つける喜び、一品ごとに新しい発見と出会う特別な時間を楽しむことが出来る。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">14</div>
+      <div class="m">11月 · 11/14–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://tofukuji.jp/" target="_blank" rel="noopener">東福寺　看楓特別公開</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 東福寺</span>
+        <span>祇園・東山</span>
+        
+        
+      </div>
+      <div class="desc">紅葉が美しい時期に、通常より30分早く「通天橋」と国指定名勝「東福寺本坊庭園」の拝観ができる特別拝観。東福寺の楓は宋国原産の三葉楓で、葉先が三つに分かれ、黄金色に色づくのが特徴。その珍しさから「秋のすゑ」「洛陽の奇観」として有名。京都では、立地条件の関係で色づく時期が遅い事もあり、「秋の京都における最後の紅葉」として秋の名残りを惜しむ人々に愛されている。電話問合せは9～12時。時間外はメールで。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">15</div>
+      <div class="m">11月 · 11/15–02/15</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://morinokyoto.jp/gibier2025/" target="_blank" rel="noopener">第10回 森の京都ジビエフェア</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 亀岡市、南丹市、京丹波町、福知山市、綾部市、舞鶴市、京都市右京区京北の参加店舗</span>
+        <span>嵐山・嵯峨野</span>
+        
+        
+      </div>
+      <div class="desc">ジビエとは狩猟で得た天然の野生鳥獣の食肉のことで、ヨーロッパ各地で貴族の食文化として発展し、今も愛され続けている。森の京都エリアでは、捕獲した鳥獣を食肉として有効活用し、鳥獣被害対策や地域活性化に役立てている。ジビエフェアには、亀岡市、南丹市、京丹波町、福知山市、綾部市、舞鶴市、京都市右京区京北地域の57店が参加し、様々なジビエ料理を提供する。ジビエ商品が当たるアンケートも実施。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">16</div>
+      <div class="m">11月 · 11/16–01/04</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://kyoto.hiltonjapan.co.jp/plans/restaurants/afternoontea/lattice-festive" target="_blank" rel="noopener">ヒルトン京都クリスマスアフタヌーンティー</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 ラティスラウンジ</span>
+        <span>四条河原町・烏丸</span>
+        
+        
+      </div>
+      <div class="desc">街がイルミネーションの輝きに包まれ、心躍るフェスティブシーズンが訪れる頃。ツリーやオーナメント、テディベアなどシーズンを象徴するモチーフを繊細に表現したスイーツとセイボリーが彩るアフタヌーンティーを用意した。まるで暖かな灯りを囲みながら大切な人と語らうような、心安らぐティータイムを過ごそう。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ef4444">
+    <div class="datecol">
+      <div class="d">16</div>
+      <div class="m">11月 · 11/16–01/04</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://kyoto.hiltonjapan.co.jp/plans/restaurants/afternoontea/lattice-festive" target="_blank" rel="noopener">フェスティブシーズン・アフタヌーンティー</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ef4444">祭り/フェス</span>
+        <span>📍 ヒルトン京都ラティスラウンジ</span>
+        <span>四条河原町・烏丸</span>
+        
+        
+      </div>
+      <div class="desc">街がイルミネーションの輝きに包まれ、心躍るフェスティブシーズンが訪れる頃。ツリーやオーナメント、テディベアなどシーズンを象徴するモチーフを繊細に表現したスイーツとセイボリーが彩るアフタヌーンティーを用意した。まるで暖かな灯りを囲みながら大切な人と語らうような、心安らぐティータイムを過ごそう。予約は2名以上にて。1名または人数が奇数の場合は電話にて申込を。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">17</div>
+      <div class="m">11月 · 11/17–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.chion-in.or.jp/special/lightup_aut/" target="_blank" rel="noopener">知恩院 秋のライトアップ 2026</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 知恩院</span>
+        <span>祇園・東山</span>
+        
+        
+      </div>
+      <div class="desc">間口45ｍ、奥行き35ｍの壮大な伽藍を誇る国宝「御影堂」や国宝「三門」、「友禅苑」、「男坂」、「女坂」、「阿弥陀堂（外観のみ）」など境内各所をライトアップ。またプチお寺体験ができる「聞いてみよう！お坊さんのはなし」を期間中毎夜開催する他、月かげプレミアムツアー（限定日、予約制、有料、定員あり）、声明公演：11/26、仏教聖歌音楽法要：11/27、雅楽演奏：11/28も実施する。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">18</div>
+      <div class="m">11月 · 11/18–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.mistore.jp/store/kyoto/event_calendar/christmas/christmas_event.html" target="_blank" rel="noopener">ジェイアール京都伊勢丹のクリスマス2026</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 ジェイアール京都伊勢丹</span>
+        <span>四条河原町・烏丸</span>
+        
+        
+      </div>
+      <div class="desc">総勢20名のサンタによる恒例の「サンタパレード」は、「太秦映画村」とのコラボによる特別版。また事前応募により選ばれた「お子サンタ」が、「太秦映画村」からやってきた侍と町娘と一緒に練り歩く「お子サンタパレード」の他、アプリ会員限定の子ども向けクリスマスデパート探検など、ファミリーで楽しめる参加型イベントが豊富。さらに、2階には一風変わったカーブミラーツリーも登場。思い出をセルフィで楽しんでみて。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">18</div>
+      <div class="m">11月 · 11/18–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://tofukuji.jp/" target="_blank" rel="noopener">東福寺　夜間拝観</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 東福寺</span>
+        <span>祇園・東山</span>
+        
+        
+      </div>
+      <div class="desc">東福寺の楓は宋国原産の三葉楓で、葉先が三つに分かれ、黄金色に色づくのが特徴。その珍しさから「秋のすゑ」「洛陽の奇観」として有名。京都は立地条件の関係で色づく時期が遅い事もあり、「秋の京都における最後の紅葉」として秋の名残りを惜しむ人々に愛されている。夜間拝観は完全予約制で実施。申し込みは公式HP内の専用URLから（先着順。定員に達し次第締め切り）。日中とは異なる静寂な禅寺が味わい深い。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">19</div>
+      <div class="m">11月 · 11/19–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://ja.kyoto.travel/tourism/article/mitsuike/" target="_blank" rel="noopener">旧三井家下鴨別邸の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 旧三井家下鴨別邸</span>
+        <span>左京・下鴨・南禅寺</span>
+        
+        
+      </div>
+      <div class="desc">駅から近い紅葉の穴場スポットとしても知られる旧三井家下鴨別邸は、1925年(大正14年)に完成し、重要文化財に指定されている歴史的建造物。11月下旬から12月上旬にかけて見頃を迎える。最寄りの出町柳駅から徒歩5分とアクセスもよく、豪商の邸宅ならではの優雅な雰囲気と美しい庭園を背景にした紅葉を楽しめる、京都の秋を代表する紅葉スポットの1つ。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">20</div>
+      <div class="m">11月 · 11/20–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.heian.ac.jp/topics/20261009-2" target="_blank" rel="noopener">アグネス・イルミネーション2026</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 平安女学院大学 京都キャンパス</span>
+        <span>金閣寺・西陣・北野</span>
+        
+        
+      </div>
+      <div class="desc">京都府にある平安女学院大学国際観光学部の学生を中心に、教職員と協力して制作するイルミネーション。デザインから取り付けまで業者に頼らず、学生が主体となって手がけている。毎年、委員会でテーマを決め、その想いを表現したオリジナルのデザインを制作する。電飾にはすべてLEDを使用し、省エネや環境にも配慮。2026年のテーマは「愛」。愛によって平和が実現するよう願いを込め、イルミネーションを制作する。なお、11月20日(金)は点灯式が開催される。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">20</div>
+      <div class="m">11月 · 11/20–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://christian-center.doshisha.ac.jp/cc/christianism/xmas/tree.html" target="_blank" rel="noopener">同志社大学(今出川校地) クリスマス・イルミネーション</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 同志社大学(今出川校地)</span>
+        <span>金閣寺・西陣・北野</span>
+        
+        
+      </div>
+      <div class="desc">京都府京都市上京区にある同志社大学(今出川校地)では、特大イルミネーションツリーが登場。2000年にヒマラヤスギを飾り付けたことからから始まったクリスマス・イルミネーションは、2013年から西門からほど近いサンクタスコートのヒマラヤスギがその役を務めており、約1万6000個のLED電球が学び舎を優しく照らし出す。学生だけでなく地域の人々からも好評を得ており、京都の冬の風物詩として広く親しまれている。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">20</div>
+      <div class="m">11月 · 11/20–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.eikando.or.jp" target="_blank" rel="noopener">秋の特別寺宝展及び夜間ライトアップ</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 総本山永観堂禅林寺</span>
+        <span>左京・下鴨・南禅寺</span>
+        
+        
+      </div>
+      <div class="desc">イロハモミジ、オオモミジなど約3000本の紅葉が植えられている永観堂禅林寺境内の庭園。「みかえり阿弥陀」で有名な永観堂は、紅葉の夜間ライトアップの先駆け（1994年開始）。池泉回遊式庭園、多宝塔や御影堂を紅葉した木々が華やかに彩り、ライトアップされたその美しさはひときわ。寺宝展では「証空上人像 （思惟像）」（室町時代）や「十界図」（重要文化財・鎌倉時代）、「二十五菩薩来迎図」などが展示される。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">21</div>
+      <div class="m">11月 · 11/21–01/11</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://goodnaturestation.com/" target="_blank" rel="noopener">Holiday with you 2026(ホリデー ウィズ ユー2026)</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 GOOD NATURE STATION</span>
+        <span>四条河原町・烏丸</span>
+        
+        
+      </div>
+      <div class="desc">京都府京都市にある「GOOD NATURE STATION」のクリスマスイベントは、「心満ちる、温かなつながり。」がテーマ。4階中庭には、モダンカリグラフィー作家・角野梨沙氏によるカリグラフィーオーナメントが飾られたクリスマスツリーと頭上にはランタンが登場。11月21日(土)は、4階中庭でクリスマスツリー＆ランタン点灯式が開催。もみの木と優しいランタンの光が包む、特別な点灯の瞬間をカウントダウンで迎える(17時45分頃)。 点灯式の前にはフルートとバイオリンの美しい三重奏が、輝くツリー点灯を鮮やかに彩る。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">21</div>
+      <div class="m">11月 · 11/21–03/31</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kyoto-aquarium.com/news/k_20261105/" target="_blank" rel="noopener">くらげのあかりたち</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 京都水族館</span>
+        <span>四条河原町・烏丸</span>
+        
+        
+      </div>
+      <div class="desc">飼育スタッフ監修のもと、京都水族館で飼育する約20種類のクラゲをモチーフに制作した約60個のクラゲランプを展示する冬期限定イベント。ガラス職人が制作したランプで、種類ごとに異なるクラゲの模様や色、形を観賞できる。「クラゲワンダー」の入り口や360度パノラマ水槽「GURURI」を囲む通路にクラゲランプが装飾されるほか、エリアの一部の壁面を鏡で囲んだ「ミラートンネル」では、クラゲランプに囲まれる幻想的な空間が広がる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f97316">
+    <div class="datecol">
+      <div class="d">21</div>
+      <div class="m">11月 · 11/21–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://hotelfauchonkyoto.com/post-4612/" target="_blank" rel="noopener">フォションホテル京都　クリスマスアフタヌーンティー</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f97316">グルメ/食</span>
+        <span>📍 フォションホテル京都</span>
+        <span>四条河原町・烏丸</span>
+        
+        
+      </div>
+      <div class="desc">クリスマスにぴったりのアフタヌーンティー。モンブランクリームをカシスクリームで包み込んだツリーの形をしたムースや、雪の結晶のバターサンドクッキーなどのスイーツが並び、フォアグラ、キャビア、ズワイガニといった高級食材を使用したセイボリーとともに味わえる。ピンク色のチョコレートフォンデュが2026年も登場し、マシュマロやプチシューをチョコレートにつけて楽しめる。ドリンクはグランティーマスター特製スペシャルウェルカムティーをはじめ、フォションオリジナル紅茶とフルーツジュース、コーヒーをフリーフローで利用できる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">21</div>
+      <div class="m">11月 · 11/21–03/31</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kyoto-aquarium.com/news/k_20261105/" target="_blank" rel="noopener">冬のあったかすいぞくかん</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 京都水族館</span>
+        <span>四条河原町・烏丸</span>
+        
+        
+      </div>
+      <div class="desc">いきものたちにまつわる心温まるエピソードや冬ならではの展示空間で、いきものの魅力を楽しめる冬季限定イベント。「クラゲワンダー」には、毎年人気のクラゲ型のランプを展示する「くらげのあかりたち」が登場。また「オットセイ」エリアには、子どもの背丈に合わせたコの字型のくぼみに「夢のあったかオットセイルーム」が設置されており、暖かな空間でゆっくりとオットセイを観察できる。期間中は、飼育スタッフの解説付きで楽しめるクラゲとオットセイの観察プログラムも実施予定だ。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">21</div>
+      <div class="m">11月 · 11/21–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="http://tensai-art.kyoto" target="_blank" rel="noopener">天才アート展2026 Open Studios &amp;amp; 青空美術館 in 船岡山公園</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 天才アートKYOTO「きたアトリエ」・船岡山公園</span>
+        <span>金閣寺・西陣・北野</span>
+        
+        
+      </div>
+      <div class="desc">「第14回天才アート展2026」は、アトリエを解放するOpen Studio形式で開催し、作家の制作の様子なども鑑賞できる。また、同じ期間にきたアトリエ近くの船岡山公園にアートパネルを展示する「青空美術館 in 船岡山公園」も実施する。公園での展示と同時開催は初めての試みで、室内と屋外の両面でアートを楽しめる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">21</div>
+      <div class="m">11月 · 11/21–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://rokuouin.com/" target="_blank" rel="noopener">嵐山(鹿王院)の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 嵐山(鹿王院)</span>
+        <span>嵐山・嵯峨野</span>
+        
+        
+      </div>
+      <div class="desc">足利義満が1379年(康暦1年)に春屋妙葩を開山として建立した、宝幢寺の開山塔。山門をくぐると石畳の道に紅葉のアーチが続いており、最初に目に飛び込んでくる、奥に伸びた参道の苔の緑色と紅葉の赤色のコントラストが見事。周囲は静かなエリアで、意外と人も少なく時間帯によっては、静寂を感じながらの紅葉を堪能できる。JR嵯峨嵐山駅から徒歩5分、京福嵐山線鹿王院駅から徒歩3分と、アクセスも良好だ。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">21</div>
+      <div class="m">11月 · 11/21–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.shoden-eigenin.com/" target="_blank" rel="noopener">正伝永源院 秋の庭園特別公開</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 正伝永源院</span>
+        <span>祇園・東山</span>
+        
+        
+      </div>
+      <div class="desc">正伝永源院は、織田信長の弟で大名茶人・織田有楽斎と、熊本藩主・細川家の菩提所。境内には、有楽斎が建てた国宝の茶室「如庵（じょあん）」が復元されており、暦張りや「鱗板（うろこいた）」「有楽窓」など有楽斎好みの特徴を見ることができる。織田有楽斎・細川家ゆかりの寺宝を併せて公開する。紅葉の美しい庭園の眺めとあわせて楽しもう。期間中は限定のご朱印もある。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">21</div>
+      <div class="m">11月 · 11/21–12/13</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://jojuji.org/" target="_blank" rel="noopener">浄住寺の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 浄住寺</span>
+        <span>西京区</span>
+        
+        
+      </div>
+      <div class="desc">京都市西京区にある浄住寺は、平安時代に嵯峨天皇の勅願により創建された黄檗宗の禅寺。京都の隠れた紅葉スポットとして注目を集めている寺院で、喧騒を避けて静かに紅葉を楽しめる。11月中旬から下旬にかけて、境内全体が紅葉に包まれ、石段が鮮やかに染まる様子は圧巻。12月上旬には散り紅葉が石畳や庭園を彩り、趣深い景観を楽しむことができる。また、紅葉と池が見事に調和した池泉式方丈庭園など、秋の特別公開期間中は普段非公開のエリアも観覧可能。静寂に包まれた環境で、ゆっくりと紅葉を楽しむことができる隠れた名所としておすすめだ。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">21</div>
+      <div class="m">11月 · 11/21–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kamigamojinja.jp/" target="_blank" rel="noopener">賀茂別雷神社(上賀茂神社)の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 賀茂別雷神社(上賀茂神社)</span>
+        <span>金閣寺・西陣・北野</span>
+        
+        
+      </div>
+      <div class="desc">ユネスコ世界遺産に「古都京都の文化財」として登録されている上賀茂神社。秋の紅葉の時期も美しく、例年11月上旬頃から、国宝2棟、重要文化財41棟を含む広大な敷地のあちこちで木々が色づき、11月下旬から12月上旬にかけて紅葉の見頃を迎える。二の鳥居やならの小川の橋殿、渉渓園など見どころも多く、モミジが真っ赤に染まる日本情緒あふれる景観を楽しむことができる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">21</div>
+      <div class="m">11月 · 11/21–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://murin-an.jp/events/event-20251115-24/" target="_blank" rel="noopener">近代日本庭園の傑作 名勝無鄰菴の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 近代日本庭園の傑作 名勝無鄰菴</span>
+        <span>左京・下鴨・南禅寺</span>
+        
+        
+      </div>
+      <div class="desc">明治、大正時代の政治家山縣有朋の別荘として造営され、1951年に国の名勝に指定された無鄰菴。11月下旬から12月上旬に見頃を迎え、赤や黄色に染まる紅葉と近代日本庭園のコラボが楽しめる。無鄰菴で配るチケットには、山縣有朋が庭園を愛でた言葉が記されており、庭園カフェとあわせて楽しみたい。おすすめの時間帯は、開場後の9時～10時頃で、目覚めたばかりの新鮮なお庭の状態を味わえる上、カフェも混みあわずに利用できる。また、1時間ごとの時間枠での予約になるが、入替制ではないため、ゆっくりと過ごすことができる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">25</div>
+      <div class="m">11月 · 11/25–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.mistore.jp/store/kyoto/event_calendar/hokuohyatai.html" target="_blank" rel="noopener">北欧屋台 meets ヨーロッパのクリスマス　2026</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 ジェイアール京都伊勢丹 10階 催物場</span>
+        <span>四条河原町・烏丸</span>
+        
+        
+      </div>
+      <div class="desc">会場には、「クリスマスの装いと集い」をテーマに、天然素材を用いたオーナメントやキャンドルをはじめ、ヨーロッパの冬の暮らしを彩るインテリアやファッションアイテムなど約16,000点が一堂に集結。昨年好評を博した「グルメ屋台ストリート」は会期を拡大し、会場で味わえるフードやドリンクが充実するほか、毎年人気のビンテージアイテムも豊富に取り扱う。北欧やヨーロッパの味覚と雑貨に出会う心華やぐ4週間。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">27</div>
+      <div class="m">11月 · 11/27–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.keihanhotels-resorts.co.jp/the-thousand-kyoto/christmas2026/" target="_blank" rel="noopener">THE CHRISTMAS Parfait Afternoon Tea(ザ クリスマス パルフェ アフタヌーンティー)</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 THE THOUSAND KYOTO(ザ・サウザンド京都)</span>
+        <span>四条河原町・烏丸</span>
+        
+        
+      </div>
+      <div class="desc">クリスマスをテーマにした、期間限定のアフタヌーンティー。キャンドルやサンタクロースの帽子、リースなどクリスマスになじみのあるアイテムをモチーフにした6種類のスイーツが、ローストビーフのサラダ巻きやカリフラワーポタージュなどのセイボリーとともに味わえる。ドリンクは京都府和束町産の茶葉を使用したオリジナル和紅茶をはじめとした30種類以上のメニューに加え、期間限定のホットチョコレートがフリーフローで提供される。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">28</div>
+      <div class="m">11月 · 11/28–01/11</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://ja.kyoto.travel/event/single.php?event_id=15403" target="_blank" rel="noopener">令和6年能登半島地震復興祈念 不滅の力 永井豪 –永井豪記念館リバイバル– ETERNAL SPIRITS-GO NAGAI GO!WONDERLAND REVIVAL【京都文化博</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 京都市内</span>
+        
+        
+        
+      </div>
+      <div class="desc">アート／音楽／劇場 夜観光 2026年11月28日（土）～2027年1月11日（月・祝） 令和6年能登半島地震復興祈念 不滅の力 永井豪 –永井豪記念館リバイバル– ETERNAL SPIRITS-GO NAGAI GO!WONDERLAND REVIVAL【京都文化博物館】</div>
+      <div class="line">
+        <span>kyoto-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">28</div>
+      <div class="m">11月 · 11/28–01/11</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://nagaigo-eternalspirits-exh.com/" target="_blank" rel="noopener">令和6年能登半島地震復興祈念 不滅の力 永井豪―永井豪記念館リバイバル―</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 京都文化博物館</span>
+        <span>四条河原町・烏丸</span>
+        
+        
+      </div>
+      <div class="desc">『マジンガーZ』『デビルマン』『キューティーハニー』など、数々の名作を生み出してきた漫画家、永井豪さんの展覧会。永井豪さんの故郷である石川県輪島市の「永井豪記念館」は、令和6年能登半島地震とその後の火災で被災したものの、焼け残った建物から原画108点やフィギュア類が発見された。本展では、被災当時に記念館で展示されていた原画や原稿、フィギュア類に加え、開館当時に展示されていた代表作の原稿などを紹介。被災した記念館にゆかりのある貴重な資料を通して、永井豪さんの創作活動の軌跡に触れることができる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">28</div>
+      <div class="m">11月 · 11/28–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="http://www.posukore.com" target="_blank" rel="noopener">第40回be京都ポストカードコレクション×冬のあったか小物展2026winter</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 町家ギャラリーbe京都</span>
+        <span>金閣寺・西陣・北野</span>
+        
+        
+      </div>
+      <div class="desc">全国約150名以上の作家によるオリジナルポストカード約700種類を楽しむことができる、関西最大級のポストカード展示販売会。アーティスト発掘も視野に入れ開催され、冬テーマのイラスト、写真、切り絵、パステルなど様々なジャンルのアーティスト作品が楽しめる。1枚100円～500円程で販売されており、冬のお便りにもぴったり。あったか小物展も同時開催。京町家でアートに癒されてみては。アーティストも毎回募集。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">30</div>
+      <div class="m">11月 · 11/30–12/19</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.o-ya-tsu.com" target="_blank" rel="noopener">わたしだけの織物マフラー展</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 雑貨店おやつ</span>
+        <span>西京区</span>
+        
+        
+      </div>
+      <div class="desc">織り上げた個性的な1点もののマフラー、ネックウオーマー、ストールなど首回りがあたたかくなるアイテムが70種類以上集まる。日本人作家女性4名が、日々愉しみながら作った作品はどれも美しく、とびっきりかわいい。作品は、体をあたためてくれるだけでなく、エネルギーがいっぱいつまっていて、見ているだけでも元気になりそう。3000円台から買えるプライスもうれしい。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+<footer class="stats">
+  <div>京都 数据源 2 个 ｜ 库内有效活动 172 个 ｜ </div>
+  <table>
+    <tr><th>来源</th><th>活动数</th><th>最近抓取</th><th>成功/失败</th></tr>
+    
+    <tr>
+      <td>京都観光Navi（京都市公式）</td>
+      <td>24</td>
+      <td>2026-11-27T16:50:15</td>
+      <td><span class="ok">1</span> / <span class="bad">0</span></td>
+    </tr>
+    
+    <tr>
+      <td>ウォーカープラス</td>
+      <td>150</td>
+      <td>2026-11-27T16:50:14</td>
+      <td><span class="ok">1</span> / <span class="bad">0</span></td>
+    </tr>
+    
+  </table>
+</footer>
+
+</div>
+<script>
+async function doRefresh() {
+  const btn = document.getElementById('refreshBtn');
+  btn.disabled = true; btn.textContent = '抓取中…';
+  const r = await Promise.resolve({json:async()=>({message:'静态页面不支持抓取',ok:false})});//kyoto', {method: 'POST'});
+  const j = await r.json();
+  btn.textContent = j.message || '完成';
+  setTimeout(() => location.reload(), j.ok ? 90000 : 3000);
+}
+</script>
+</body>
+</html>

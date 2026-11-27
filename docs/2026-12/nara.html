@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026年12月 · 奈良活动日历 ｜ 日本热门城市</title>
+<style>
+:root {
+  --bg: #f7f5f1;
+  --card: #ffffff;
+  --ink: #24211d;
+  --sub: #8b8680;
+  --line: #e6e1d9;
+  --accent: #c9453f;
+  --shadow: 0 1px 2px rgba(36, 33, 29, .08), 0 8px 24px rgba(36, 33, 29, .06);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP",
+    "Microsoft YaHei", "Segoe UI", sans-serif;
+  font-size: 14px; line-height: 1.6;
+}
+a { color: inherit; }
+.wrap { max-width: 1280px; margin: 0 auto; padding: 22px 20px 60px; }
+
+header.top { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 14px; }
+h1 { font-size: 21px; margin: 0; letter-spacing: .5px; }
+h1 span { color: var(--accent); }
+.meta { color: var(--sub); font-size: 12.5px; }
+.spacer { flex: 1; }
+.btn {
+  border: 1px solid var(--line); background: var(--card); color: var(--ink);
+  padding: 7px 13px; border-radius: 999px; font-size: 13px; cursor: pointer;
+  text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+}
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.primary:hover { filter: brightness(.94); color: #fff; }
+
+.monthbar { display: flex; align-items: center; gap: 10px; margin: 6px 0 14px; }
+.monthbar .title { font-size: 30px; font-weight: 700; letter-spacing: 1px; }
+.monthbar .title small { font-size: 14px; font-weight: 400; color: var(--sub); margin-left: 6px; }
+.arrow { font-size: 18px; padding: 6px 12px; }
+
+form.filters {
+  background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+  padding: 12px 14px; box-shadow: var(--shadow); margin-bottom: 16px;
+  display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+}
+.chipset { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  border: 1px solid var(--line); border-radius: 999px; padding: 4px 11px; font-size: 12.5px;
+  cursor: pointer; user-select: none; background: #fff; display: inline-flex; align-items: center; gap: 6px;
+}
+.chip input { display: none; }
+.chip.on { color: #fff; border-color: transparent; }
+.chip .dot { width: 8px; height: 8px; border-radius: 50%; }
+select, input[type=search] {
+  border: 1px solid var(--line); border-radius: 999px; padding: 7px 12px; font-size: 13px;
+  background: #fff; color: var(--ink); outline: none; font-family: inherit;
+}
+input[type=search] { min-width: 190px; }
+label.check { display: inline-flex; gap: 5px; align-items: center; font-size: 13px; color: var(--sub); }
+
+.calendar { background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
+.weekhead { display: grid; grid-template-columns: repeat(7, 1fr); background: #fbfaf7; border-bottom: 1px solid var(--line); }
+.weekhead div { padding: 9px 0; text-align: center; font-size: 12.5px; color: var(--sub); letter-spacing: 2px; }
+.weekhead div:nth-child(6) { color: #2f6f9f; }
+.weekhead div:nth-child(7) { color: #b5433c; }
+.grid { display: grid; grid-template-columns: repeat(7, 1fr); }
+.cell {
+  min-height: 132px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  padding: 6px 7px 8px; display: flex; flex-direction: column; gap: 4px; background: #fff;
+}
+.cell:nth-child(7n) { border-right: 0; }
+.cell.out { background: #faf9f6; }
+.cell.weekend { background: #fdfbf8; }
+.cell.today { background: #fff6ee; box-shadow: inset 0 0 0 2px #f0c8a8; }
+.dnum { font-size: 12px; color: var(--sub); display: flex; justify-content: space-between; align-items: center; }
+.dnum b { font-size: 14px; color: var(--ink); font-weight: 600; }
+.cell.out .dnum b { color: #c8c3ba; }
+.cell.today .dnum b { color: var(--accent); }
+
+.ev {
+  border-radius: 6px; padding: 2px 5px; font-size: 11.5px; line-height: 1.35;
+  color: #fff; text-decoration: none; display: block;
+  overflow: hidden; text-overflow: ellipsis; display: -webkit-box;
+  -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+}
+.ev .t { opacity: .92; font-variant-numeric: tabular-nums; margin-right: 3px; }
+.more { font-size: 11px; color: var(--sub); padding-left: 4px; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 12px; margin: 12px 2px 26px; font-size: 12px; color: var(--sub); }
+.legend span { display: inline-flex; align-items: center; gap: 5px; }
+.legend i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+
+.section-title { display: flex; align-items: baseline; gap: 10px; margin: 8px 0 12px; }
+.section-title h2 { font-size: 17px; margin: 0; }
+.section-title .meta { font-size: 12px; }
+
+.list { display: flex; flex-direction: column; gap: 10px; }
+.item {
+  background: var(--card); border: 1px solid var(--line); border-left: 4px solid #ccc;
+  border-radius: 12px; padding: 12px 14px; display: flex; gap: 14px; box-shadow: var(--shadow);
+}
+.item .datecol { min-width: 74px; text-align: center; }
+.item .datecol .d { font-size: 19px; font-weight: 700; line-height: 1.1; }
+.item .datecol .m { font-size: 11.5px; color: var(--sub); }
+.item .body { flex: 1; min-width: 0; }
+.item .t { font-size: 15px; font-weight: 600; margin-bottom: 3px; }
+.item .t a { text-decoration: none; }
+.item .t a:hover { text-decoration: underline; }
+.item .line { font-size: 12.5px; color: var(--sub); display: flex; flex-wrap: wrap; gap: 10px; margin-top: 2px; }
+.item .desc { font-size: 12.5px; color: #55504a; margin-top: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.badge { font-size: 11px; padding: 1px 8px; border-radius: 999px; color: #fff; }
+
+footer.stats { margin-top: 34px; border-top: 1px solid var(--line); padding-top: 16px; color: var(--sub); font-size: 12.5px; }
+footer.stats table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 12px; }
+footer.stats th, footer.stats td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--line); }
+footer.stats th { color: var(--sub); font-weight: 500; }
+.ok { color: #2f7a4f; font-weight: 600; }
+.bad { color: #b5433c; font-weight: 600; }
+@media (max-width: 760px) {
+  .cell { min-height: 92px; padding: 4px; }
+  .ev { font-size: 10px; -webkit-line-clamp: 2; }
+  .monthbar .title { font-size: 22px; }
+  .item .datecol { min-width: 54px; }
+}
+
+/* ---- 城市切换标签 ---- */
+.citytabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px}
+.citytab{display:flex;align-items:center;gap:6px;padding:7px 12px;border:1px solid #e2e8f0;border-radius:999px;
+  background:#fff;color:#334155;font-size:14px;text-decoration:none;transition:all .15s}
+.citytab:hover{border-color:#94a3b8;transform:translateY(-1px)}
+.citytab.on{background:#0f172a;color:#fff;border-color:#0f172a}
+.citytab small{font-size:11px;opacity:.6}
+
+.ev.ongoing{background:#f8fafc !important;color:#475569;font-size:11px}
+
+</style>
+<link rel="alternate" type="text/calendar" href="/calendar.ics?city=nara">
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div>
+    <h1>日本<span>城市</span>活动日历</h1>
+    <div class="meta">奈良（奈良市）· 奈良県 ｜ 自动汇总 2 个来源 ｜ 库内 47 个 ｜ 本月 28 个</div>
+  </div>
+  <div class="spacer"></div>
+  <a class="btn" href="/calendar.ics?city=nara">📅 订阅本城市 ICS</a>
+  <a class="btn" href="/sources?city=nara">📡 数据源状态</a>
+  <button class="btn primary" id="refreshBtn" onclick="doRefresh()">↻ 抓取本城市</button>
+</header>
+
+<nav class="citytabs">
+  
+  <a class="citytab " href="/?city=fukuoka&month=2026-12">
+    福冈<small>890</small>
+  </a>
+  
+  <a class="citytab " href="/?city=yokohama&month=2026-12">
+    横浜<small>719</small>
+  </a>
+  
+  <a class="citytab " href="/?city=tokyo&month=2026-12">
+    东京<small>227</small>
+  </a>
+  
+  <a class="citytab " href="/?city=kyoto&month=2026-12">
+    京都<small>172</small>
+  </a>
+  
+  <a class="citytab " href="/?city=osaka&month=2026-12">
+    大阪<small>131</small>
+  </a>
+  
+  <a class="citytab " href="/?city=kobe&month=2026-12">
+    神户<small>127</small>
+  </a>
+  
+  <a class="citytab on" href="/?city=nara&month=2026-12">
+    奈良<small>47</small>
+  </a>
+  
+  <a class="citytab " href="/?city=sapporo&month=2026-12">
+    札幌<small>97</small>
+  </a>
+  
+  <a class="citytab " href="/?city=okinawa&month=2026-12">
+    冲绳（那霸）<small>37</small>
+  </a>
+  
+  <a class="citytab " href="/?city=nagoya&month=2026-12">
+    名古屋<small>140</small>
+  </a>
+  
+  <a class="citytab " href="/?city=nagasaki&month=2026-12">
+    长崎<small>29</small>
+  </a>
+  
+  <a class="citytab " href="/?city=kanazawa&month=2026-12">
+    金泽<small>39</small>
+  </a>
+  
+</nav>
+
+<div class="monthbar">
+  <a class="btn arrow" href="/?city=nara&month=2026-11">‹</a>
+  <div class="title">2026年12月<small>奈良 · 28 个活动</small></div>
+  <a class="btn arrow" href="/?city=nara&month=2027-01">›</a>
+  <a class="btn" href="/?city=nara&month=2026-11">今天</a>
+  
+</div>
+
+<form class="filters" method="get" action="/">
+  <input type="hidden" name="month" value="2026-12">
+  <input type="hidden" name="city" value="nara">
+  <div class="chipset">
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="market" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#f59e0b"></span>市集
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="flea" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#a855f7"></span>跳蚤市场
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="festival" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#ef4444"></span>节庆
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="illumination" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#06b6d4"></span>灯饰
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="exhibition" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#3b82f6"></span>展览
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="performance" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#ec4899"></span>演出
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="game" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#22c55e"></span>游戏
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="workshop" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#84cc16"></span>体验
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="food" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#f97316"></span>美食
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="sports" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#0ea5e9"></span>运动
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="other" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#64748b"></span>其他
+    </label>
+    
+  </div>
+  <select name="area" onchange="this.form.submit()">
+    <option value="">全部区域</option>
+    
+    <option value="奈良公園・東大寺" >奈良公園・東大寺</option>
+    
+    <option value="JR奈良駅" >JR奈良駅</option>
+    
+    <option value="平城宮跡" >平城宮跡</option>
+    
+  </select>
+  <input type="search" name="q" value="" placeholder="搜索标题 / 会场 / 关键词">
+  <label class="check"><input type="checkbox" name="free" value="1" 
+         onchange="this.form.submit()">仅免费</label>
+  <label class="check"><input type="checkbox" name="weekend" value="1" 
+         onchange="this.form.submit()">仅周末</label>
+  <button class="btn" type="submit">筛选</button>
+  <a class="btn" href="/?city=nara&month=2026-12">重置</a>
+</form>
+
+<div class="calendar">
+  <div class="weekhead">
+    <div>月</div><div>火</div><div>水</div><div>木</div><div>金</div><div>土</div><div>日</div>
+  </div>
+  <div class="grid">
+    
+    <div class="cell out  ">
+      <div class="dnum"><b>30</b></div>
+      
+      
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>1</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 14 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>2</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 14 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>3</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 14 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>4</b></div>
+      
+      <a class="ev" href="https://hoshinoresorts.com/nara-prison-museum/ja/activities-events/prison-by-night/" target="_blank" rel="noopener"
+         style="background:#3b82f6" title="ナイトミュージアム「PRISON BY NIGHT : Light &amp;amp; Echoes」 ｜ 奈良監獄ミュージアム by 星野リゾート ｜ 12/04–01/31">
+        ナイトミュージアム「PRISON BY NIGHT : Light &amp;amp; Echoes」
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 14 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>5</b></div>
+      
+      <a class="ev" href="https://wanko.peace-winds.org/facility/ikoma" target="_blank" rel="noopener"
+         style="background:#64748b" title="保護ワンコ譲渡会inペットのお葬式＆思い出工房 ｜ ペットのお葬式＆思い出工房　奈良店 ｜ 12/05">
+        保護ワンコ譲渡会inペットのお葬式＆思い出工房
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 14 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>6</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 14 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>7</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 13 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>8</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 13 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>9</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 13 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>10</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 13 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>11</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 9 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>12</b></div>
+      
+      <a class="ev" href="https://ameblo.jp/pocketmarche" target="_blank" rel="noopener"
+         style="background:#f59e0b" title="ポケットマルシェ in 天平広場 －13th－ ｜ 奈良県コンベンションセンター　天平広場 ｜ 12/12–12/13">
+        ポケットマルシェ in 天平広場 －13th－
+      </a>
+      
+      <a class="ev" href="https://www.nadeshikofurima.com/" target="_blank" rel="noopener"
+         style="background:#a855f7" title="イオンタウン富雄南フリーマーケット（12月） ｜ イオンタウン富雄南 ｜ 12/12">
+        イオンタウン富雄南フリーマーケット（12月）
+      </a>
+      
+      <a class="ev" href="https://www.instagram.com/p/DbsbkeAGti_/?igsh=MW5mYWxuYTIza2x3bQ==" target="_blank" rel="noopener"
+         style="background:#ec4899" title="第3回はれほぐ寄席　桂りょうば落語会 ｜ 晴祝舎 ｜ 12/12">
+        第3回はれほぐ寄席　桂りょうば落語会
+      </a>
+      
+      <span class="more">+3 更多…</span>
+      
+      <span class="more">⟳ 另有 9 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>13</b></div>
+      
+      <a class="ev" href="https://www.nature.or.jp/training/naturalist.html" target="_blank" rel="noopener"
+         style="background:#84cc16" title="フィールドワーク　奈良公園（ナチュラリスト入門講座51期公開講座1） ｜ 奈良公園（近鉄奈良駅東改札口前集合） ｜ 12/13">
+        フィールドワーク　奈良公園（ナチュラリスト入門講座51期公開講座1）
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 12 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>14</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 10 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>15</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 9 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>16</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 9 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>17</b></div>
+      
+      <a class="ev" href="https://www.kasugataisha.or.jp" target="_blank" rel="noopener"
+         style="background:#ef4444" title="第891回春日若宮おん祭 ｜ 春日大社境内 春日若宮おん祭御旅所 ｜ 12/17">
+        第891回春日若宮おん祭
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 9 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>18</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 9 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>19</b></div>
+      
+      <a class="ev" href="https://www.nadeshikofurima.com/" target="_blank" rel="noopener"
+         style="background:#f59e0b" title="奈良駅前広場マルシェ（12月） ｜ JR奈良駅東口前広場 ｜ 12/19–12/20">
+        奈良駅前広場マルシェ（12月）
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 9 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>20</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 10 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>21</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 8 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>22</b></div>
+      
+      <a class="ev" href="https://www.narahaku.go.jp/exhibition/special/thematic_exhibition/202612_shuri/" target="_blank" rel="noopener"
+         style="background:#3b82f6" title="新たに修理された文化財 ｜ 奈良国立博物館 ｜ 12/22–01/17">
+        新たに修理された文化財
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 8 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>23</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 9 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>24</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 9 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>25</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 9 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>26</b></div>
+      
+      <a class="ev" href="https://www.naratv.co.jp/wacci/" target="_blank" rel="noopener"
+         style="background:#ec4899" title="wacci Hall Tour 2026-2027（奈良公演） ｜ なら100年会館　大ホール ｜ 12/26">
+        wacci Hall Tour 2026-2027（奈良公演）
+      </a>
+      
+      <a class="ev" href="https://www.tezukayama-u.ac.jp/social/lectures/openlist_citizen/20260924/" target="_blank" rel="noopener"
+         style="background:#84cc16" title="第556回市民大学講座「東大寺の発掘調査と出土瓦ー戒壇院を中心にー」 ｜ 帝塚山大学　東生駒キャンパス　5号館1階5104教室 ｜ 12/26">
+        第556回市民大学講座「東大寺の発掘調査と出土瓦ー戒壇院を中心にー」
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 9 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>27</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 7 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>28</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 6 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>29</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 6 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>30</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 6 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>31</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 6 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell out  ">
+      <div class="dnum"><b>1</b></div>
+      
+      
+      
+    </div>
+    
+    <div class="cell out weekend ">
+      <div class="dnum"><b>2</b></div>
+      
+      
+      
+    </div>
+    
+    <div class="cell out weekend ">
+      <div class="dnum"><b>3</b></div>
+      
+      
+      
+    </div>
+    
+  </div>
+</div>
+
+<div class="legend">
+  
+  <span><i style="background:#f59e0b"></i>市集/マルシェ / 市集</span>
+  
+  <span><i style="background:#a855f7"></i>フリマ/蚤の市 / 跳蚤市场</span>
+  
+  <span><i style="background:#ef4444"></i>祭り/フェス / 节庆</span>
+  
+  <span><i style="background:#06b6d4"></i>灯饰/ライトアップ / 灯饰</span>
+  
+  <span><i style="background:#3b82f6"></i>展覧会 / 展览</span>
+  
+  <span><i style="background:#ec4899"></i>舞台/コンサート / 演出</span>
+  
+  <span><i style="background:#22c55e"></i>ゲーム/謎解き / 游戏</span>
+  
+  <span><i style="background:#84cc16"></i>体験/ワークショップ / 体验</span>
+  
+  <span><i style="background:#f97316"></i>グルメ/食 / 美食</span>
+  
+  <span><i style="background:#0ea5e9"></i>スポーツ / 运动</span>
+  
+  <span><i style="background:#64748b"></i>その他 / 其他</span>
+  
+</div>
+
+<div class="section-title">
+  <h2>奈良本月活动一览</h2>
+  <span class="meta">按开始日期排序 · 共 28 个</span>
+</div>
+
+<div class="list">
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">04</div>
+      <div class="m">12月 · 12/04–01/31</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://hoshinoresorts.com/nara-prison-museum/ja/activities-events/prison-by-night/" target="_blank" rel="noopener">ナイトミュージアム「PRISON BY NIGHT : Light &amp;amp; Echoes」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 奈良監獄ミュージアム by 星野リゾート</span>
+        
+        
+        
+      </div>
+      <div class="desc">「美しき監獄からの問いかけ」がコンセプトの「奈良監獄ミュージアム」で、初のナイトイベントを開催。美しい建築を引き立てる夜のライティングの他、48の独居房が連なる保存棟や屋外の広場で、光・映像・音を重ねた演出を展開。「光」と「響き」が交差する夜の旧監獄で、歴史と想いが交錯する特別な空間を体感。施設内のカフェではイベント限定のメニューが登場する他、ミュージアムショップでは限定グッズも販売。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">05</div>
+      <div class="m">12月 · 12/05</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://wanko.peace-winds.org/facility/ikoma" target="_blank" rel="noopener">保護ワンコ譲渡会inペットのお葬式＆思い出工房</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 ペットのお葬式＆思い出工房　奈良店</span>
+        
+        
+        
+      </div>
+      <div class="desc">生駒譲渡センターで家族を探しているワンコたちと、かわいいワンコやニャンコの家族を探している団体が参加。今回参加する保護団体は「ねこマンマ」、「つむぐ奈良」、「にゃらとも」。ぜひ遊びに行こう。　※当日譲渡は行っていない</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#a855f7">
+    <div class="datecol">
+      <div class="d">12</div>
+      <div class="m">12月 · 12/12</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nadeshikofurima.com/" target="_blank" rel="noopener">イオンタウン富雄南フリーマーケット（12月）</a></div>
+      <div class="line">
+        <span class="badge" style="background:#a855f7">フリマ/蚤の市</span>
+        <span>📍 イオンタウン富雄南</span>
+        
+        
+        
+      </div>
+      <div class="desc">大型商業施設で開催されるフリーマーケット。食べて遊んでお買い物…。イオンタウン富雄南で一日中楽しんで、フリーマーケットへ掘り出し物を見つけに行こう。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f59e0b">
+    <div class="datecol">
+      <div class="d">12</div>
+      <div class="m">12月 · 12/12–12/13</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://ameblo.jp/pocketmarche" target="_blank" rel="noopener">ポケットマルシェ in 天平広場 －13th－</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f59e0b">市集/マルシェ</span>
+        <span>📍 奈良県コンベンションセンター　天平広場</span>
+        
+        
+        
+      </div>
+      <div class="desc">ポケマルで唯一の「全天候型会場」での開催。石張りの屋外だが屋根があるので雨でも大丈夫。地元を中心に有名店60店舗が勢揃いする。ハンドメイドを中心にセレクト雑貨やフラワー、焼菓子やランチ、カフェなども。一部のショップは入れ替わるので2日続けて楽しめそう。毎年恒例のクリスマスコンサートも楽しめる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">12</div>
+      <div class="m">12月 · 12/12–01/17</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.narahaku.go.jp/exhibition/special/feature_exhibition/202612_on-matsuri/" target="_blank" rel="noopener">春日若宮おん祭の信仰と美術</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 奈良国立博物館</span>
+        <span>奈良公園・東大寺</span>
+        
+        
+      </div>
+      
+      <div class="line">
+        <span>narahaku</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">12</div>
+      <div class="m">12月 · 12/12–01/17</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.narahaku.go.jp/exhibition/usual/bukkyo/" target="_blank" rel="noopener">珠玉の仏教美術 特集展示「新指定品」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 奈良国立博物館</span>
+        <span>奈良公園・東大寺</span>
+        
+        
+      </div>
+      
+      <div class="line">
+        <span>narahaku</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">12</div>
+      <div class="m">12月 · 12/12</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.instagram.com/p/DbsbkeAGti_/?igsh=MW5mYWxuYTIza2x3bQ==" target="_blank" rel="noopener">第3回はれほぐ寄席　桂りょうば落語会</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 晴祝舎</span>
+        
+        
+        
+      </div>
+      <div class="desc">晴祝舎で開催する人気の落語会。上方落語の若手の実力派、桂りょうばを迎え、間近で味わう贅沢なひととき。わずか29席の小さな会場だからこそ、一言一句、息づかいまで届く臨場感。初めての人にもわかりやすい解説付きで、落語の面白さをその場で体感できる。この距離、この空気感をぜひ。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#84cc16">
+    <div class="datecol">
+      <div class="d">12</div>
+      <div class="m">12月 · 12/12</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.tezukayama-u.ac.jp/social/lectures/openlist_citizen/20260424/" target="_blank" rel="noopener">第565回市民大学講座「東大寺再建瓦は語るー重源上人とのかかわりー」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#84cc16">体験/ワークショップ</span>
+        <span>📍 帝塚山大学　東生駒キャンパス　5号館1階5104教室</span>
+        <span>奈良公園・東大寺</span>
+        
+        
+      </div>
+      <div class="desc">第47回特別展示「古瓦との出会い10－東大寺の古瓦－」の関連講座第1弾。「東大寺再建瓦は語るー重源上人とのかかわりー」をテーマに清水昭博（帝塚山大学文学部教授・考古学研究所長・附属博物館長）が講演を行う。定員150名（申込予約席100席・先着順当日席50席）。当日席は定員が超過した場合、受講できない可能性あり。11/23（月）9:30受付開始。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#84cc16">
+    <div class="datecol">
+      <div class="d">13</div>
+      <div class="m">12月 · 12/13</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nature.or.jp/training/naturalist.html" target="_blank" rel="noopener">フィールドワーク　奈良公園（ナチュラリスト入門講座51期公開講座1）</a></div>
+      <div class="line">
+        <span class="badge" style="background:#84cc16">体験/ワークショップ</span>
+        <span>📍 奈良公園（近鉄奈良駅東改札口前集合）</span>
+        <span>奈良公園・東大寺</span>
+        
+        
+      </div>
+      <div class="desc">関西が世界に誇る「the deer park」奈良公園。闊歩する約千頭のシカたちは、はたして野生動物？ それともペット？ 歴史と生態の両面からシカと人の千年史をたどり、その勢いで闇に浮かぶムササビも探索する。持ち物は筆記具、飲み物、行動食。あれば双眼鏡、ライト。日が落ちると冷えるため、暖かい服装で参加を。事前申込。講師は立澤史郎さん（北海道大学/かもしかの会関西前代表）。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ef4444">
+    <div class="datecol">
+      <div class="d">17</div>
+      <div class="m">12月 · 12/17</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kasugataisha.or.jp" target="_blank" rel="noopener">第891回春日若宮おん祭</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ef4444">祭り/フェス</span>
+        <span>📍 春日大社境内 春日若宮おん祭御旅所</span>
+        <span>奈良公園・東大寺</span>
+        
+        
+      </div>
+      <div class="desc">保延2（1136）年、関白藤原忠通が五穀豊穣・国民安寧を祈願して執行したのが始まりで、900年近く守り継がれている神事。17日零時より若宮様が参道脇の御旅所にお遷りになる「遷幸の儀」、正午より平安から江戸時代に至る時代行列「御渡り式」、14時半からは御旅所での祭典が行われ、続いて多くの神事芸能が奉納される。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f59e0b">
+    <div class="datecol">
+      <div class="d">19</div>
+      <div class="m">12月 · 12/19–12/20</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nadeshikofurima.com/" target="_blank" rel="noopener">奈良駅前広場マルシェ（12月）</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f59e0b">市集/マルシェ</span>
+        <span>📍 JR奈良駅東口前広場</span>
+        <span>JR奈良駅</span>
+        
+        
+      </div>
+      <div class="desc">一般市民参加OKのマルシェを開催。人々の交流の場、地元の生産者・作家・お店が交流する場地域活性化を目的として開催されるマルシェ。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">22</div>
+      <div class="m">12月 · 12/22–01/17</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.narahaku.go.jp/exhibition/special/thematic_exhibition/202612_shuri/" target="_blank" rel="noopener">新たに修理された文化財</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 奈良国立博物館</span>
+        <span>奈良公園・東大寺</span>
+        
+        
+      </div>
+      
+      <div class="line">
+        <span>narahaku</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">26</div>
+      <div class="m">12月 · 12/26</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.naratv.co.jp/wacci/" target="_blank" rel="noopener">wacci Hall Tour 2026-2027（奈良公演）</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 なら100年会館　大ホール</span>
+        
+        
+        
+      </div>
+      <div class="desc">数々の映画やアニメ主題歌やSNSでの話題曲も多数あり！ 日常に寄り添う温かい歌詞とメロディであなたに寄り添う。是非、wacciと楽しい年末を！ ※最大4枚まで申し込み可能。3歳未満入場不可。指定席(学割)のチケットの購入者は、学生証(小学生以下は年齢が分かる身分証)の提示が必要。座席/チケットの交換および売買禁止。購入者都合での払戻は不可。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#84cc16">
+    <div class="datecol">
+      <div class="d">26</div>
+      <div class="m">12月 · 12/26</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.tezukayama-u.ac.jp/social/lectures/openlist_citizen/20260924/" target="_blank" rel="noopener">第556回市民大学講座「東大寺の発掘調査と出土瓦ー戒壇院を中心にー」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#84cc16">体験/ワークショップ</span>
+        <span>📍 帝塚山大学　東生駒キャンパス　5号館1階5104教室</span>
+        <span>奈良公園・東大寺</span>
+        
+        
+      </div>
+      <div class="desc">第47回特別展示「古瓦との出会い10－東大寺の古瓦－」の関連講座第2弾。「東大寺の発掘調査と出土瓦ー戒壇院を中心にー」をテーマに谷川遼氏（奈良県立橿原考古学研究所調査部調査課主任研究員）が講演を行う。定員150名（申込予約席100席・先着順当日席50席）。当日席は定員が超過した場合、受講できない可能性あり。11/23（月）9:30受付開始。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#84cc16">
+    <div class="datecol">
+      <div class="d">27</div>
+      <div class="m">06月 · 06/27–12/26</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://wanto-fumi.com/2026/06/03/kogeisha_wanto-fumi/" target="_blank" rel="noopener">wanto-fumi出張教室（奈良・工藝舎）</a></div>
+      <div class="line">
+        <span class="badge" style="background:#84cc16">体験/ワークショップ</span>
+        <span>📍 工藝舎</span>
+        
+        
+        
+      </div>
+      <div class="desc">奈良の工藝舎で2ヶ月に一度開催される、wanto-fumiの少人数制出張教室である。赤膚焼のティーセットづくり、粘土でつくる十一面観音の掛け仏、旅先や日常の風景を描く風景画レッスンの3講座を実施。初めての人も、それぞれのペースで手を動かし、暮らしに飾れる作品づくりを体験できる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">29</div>
+      <div class="m">08月 · 08/29–12/20</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kintetsu-g-hd.co.jp/culture/shohaku/" target="_blank" rel="noopener">没後25年　上村松篁展</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 松伯美術館</span>
+        
+        
+        
+      </div>
+      <div class="desc">花鳥画家として知られる上村松篁。没後25年の節目に、初期から晩年までの作品を一堂に展示し、その画業を振り返る。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">09月 · 09/01–12/27</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="#" target="_blank" rel="noopener">まほろば飛鳥・あおによし平城LINEでクイズ・スタンプラリー2026</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 平城宮跡歴史公園</span>
+        <span>平城宮跡</span>
+        
+        
+      </div>
+      <div class="desc">飛鳥時代・奈良時代の歴史と文化を感じるふたつの公園をめぐってスタンプを集める。両コースのクイズに答えると豪華賞品があたる抽選に参加できる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">15</div>
+      <div class="m">09月 · 09/15–03/14</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.narahaku.go.jp/exhibition/usual/202609_butsuzo_selection/" target="_blank" rel="noopener">ナラハク仏像セレクション ―受け継ぎ、未来へ―</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 奈良国立博物館</span>
+        <span>奈良公園・東大寺</span>
+        
+        
+      </div>
+      
+      <div class="line">
+        <span>narahaku</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">03</div>
+      <div class="m">10月 · 10/03–03/20</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="#" target="_blank" rel="noopener">古都奈良の歴史体験型演劇イベント「養老瑞水行幸記」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 平城宮跡歴史公園　平城宮いざない館</span>
+        <span>平城宮跡</span>
+        
+        
+      </div>
+      <div class="desc">天平衣装に着替え、登場人物と実際に会話しながら会場内を歩き回り、物語が進行していくイマ―シブシアター（没入演劇）形式のイベントとなっている。定員を超える申し込みがあった場合は抽選にて参加者を決定する。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">05</div>
+      <div class="m">10月 · 10/05–12/04</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://jspot.jp" target="_blank" rel="noopener">絵画展「秋から冬隣りへ」秋の色、冬の気配。</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 小さな美術館　ギャラリーJspot</span>
+        
+        
+        
+      </div>
+      <div class="desc">秋の色が深まり、冬の気配がそっと感じられる季節。移ろう季節の美しさを感じる作品を展示する。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">17</div>
+      <div class="m">10月 · 10/17–12/13</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="#" target="_blank" rel="noopener">おぎの美術館</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 平城宮跡歴史公園</span>
+        <span>平城宮跡</span>
+        
+        
+      </div>
+      <div class="desc">「おぎの美術館」とは、平城宮跡管理センターと奈良女子大学が共同で製作し、平城宮跡の魅力を若者をはじめとする多くの人に発信するための屋外美術館であり昨年は都市公園等コンクールにて、国土交通大臣賞を受賞した。今年は、5年目の開催となる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">21</div>
+      <div class="m">10月 · 10/21–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.pref.nara.lg.jp/n113/56577.html" target="_blank" rel="noopener">奈良公園の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 奈良公園</span>
+        <span>奈良公園・東大寺</span>
+        
+        
+      </div>
+      <div class="desc">古都・奈良の顔で、国の天然記念物にも指定されている、野生のシカが生息していることでもおなじみの奈良公園。約511万平方メートルの巨大な敷地に、春日大社、興福寺、東大寺、国立博物館、正倉院など数々の社寺や文化施設が隣接する都市公園だ。若草山の山容を望む見事な景観が特徴で、秋になると桜やイチョウの木々が美しい紅葉の表情を見せる。紅葉の様子も各スポットごとに異なるので、さまざまなスポットをめぐりながら楽しむことができる。なお、紅葉時期は平日も周辺のパーキングはすぐに満車になるため、公共交通機関またはパーク＆ライドがおすすめ。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">24</div>
+      <div class="m">10月 · 10/24–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kintetsu-g-hd.co.jp/culture/yamato/" target="_blank" rel="noopener">特別展　地上の天堂 杭州と呉越国――渡海する信仰と美</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 大和文華館</span>
+        
+        
+        
+      </div>
+      <div class="desc">「天有天堂、地有蘇杭」（天には天国があるように、地には蘇州・杭州がある）――杭州は景勝の地として知られる一方、海上交通の要衝となり、国際都市として文化をつなぐ役割を果たした。杭州を首都とした呉越国は仏教が栄え、国王 銭弘叔が発願した「銭弘叔八万四千塔」は、日本でも多く発見されている。呉越文化の伝播とその日本における信仰のあり方について再考するとともに、広く交差した文化の流れをたどる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">26</div>
+      <div class="m">10月 · 10/26–12/14</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nara-u.ac.jp/facilities/museum/news/1596.html" target="_blank" rel="noopener">奈良大学博物館　2026年度企画展 「天皇陵の近世近代」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 奈良大学博物館</span>
+        
+        
+        
+      </div>
+      <div class="desc">神功皇后や成務天皇は、現代の歴史学において実在が疑問視されている。これらの「陵墓」がどのように定められ、近世・近代にどのような歴史をたどったのかを、初代天皇とされる「神武天皇陵」（橿原市）と、奈良大学の近くにある「神功皇后陵」を中心に、展示史料を通して読み解く。さらに、近世・近代の学問、政治、観光などをめぐる多様な言説も取り上げる。今回は、江戸時代の知識人が考証に基づいて著した書物47点を展示。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#84cc16">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">11月 · 11/01–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.isuien.or.jp" target="_blank" rel="noopener">【紅葉・見ごろ】奈良の名勝 依水園</a></div>
+      <div class="line">
+        <span class="badge" style="background:#84cc16">体験/ワークショップ</span>
+        <span>📍 名勝 依水園</span>
+        
+        
+        
+      </div>
+      <div class="desc">広大な日本庭園の池の先には、東大寺南大門や若草山・春日山・御蓋山といった古都の山々が連なっており、一味違った古都奈良を体験することができる。真っ赤なドウダンツツジ、日一日と色ずくイロハモミジが、風情のある建物群と一体になって池に映る様子は、この時期の楽しみのひとつ。知る人ぞ知る紅葉の穴場となっている。庭園内で抹茶やぜんざいをいただいたり、敷地内の寧楽美術館では美術鑑賞も。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">11月 · 11/11–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.pref.nara.lg.jp/site/park/index.html" target="_blank" rel="noopener">【紅葉・見ごろ】奈良公園</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 奈良公園</span>
+        <span>奈良公園・東大寺</span>
+        
+        
+      </div>
+      <div class="desc">奈良公園は511haの広大な地域にわたり、東大寺・興福寺・春日大社をはじめ、国立博物館や正倉院などの貴重な歴史的文化遺産が隣接し、雄大で豊かな自然美と調和する他に類を見ない歴史公園である。近隣の春日大社参道脇の飛火野や、鷺池に浮かぶ六角堂の浮見堂など、園内には秋の景観を楽しめる名所が点在する。世界遺産である東大寺大仏殿が鏡池の水面に紅葉とともに映る光景も、風情豊かな眺めとして知られている。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">11月 · 11/11–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://shoryakuji.jp/" target="_blank" rel="noopener">正暦寺の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 正暦寺</span>
+        
+        
+        
+      </div>
+      <div class="desc">一条天皇の発願により、992年関白九条兼家の子兼俊が創建した寺院。自然の多さが魅力で、峯から吹く風や渓流の流れる音に虫の鳴き声が調和し、安らぎをもたらす。四季の移り変わりが美しく、特に境内にある約3000本のカエデが色づく晩秋は、木々の緑と黄色や赤の紅葉が織り重なり、山内全体が美しい錦で着飾ったように見えるほどだ。このことから、昔から「錦の里」と呼ばれ、紅葉名所として親しまれている。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">16</div>
+      <div class="m">11月 · 11/16–12/26</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.tezukayama-u.ac.jp/museum/special/47/" target="_blank" rel="noopener">第47回特別展示「古瓦との出会い10－東大寺の古瓦－」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 帝塚山大学附属博物館</span>
+        <span>奈良公園・東大寺</span>
+        
+        
+      </div>
+      <div class="desc">帝塚山大学では奈良にはじまる日本の瓦の歴史や文化を研究し、展示や教育に活用するため、古瓦の収集に努めている。今回の特別展示は「古瓦との出会い」シリーズの第10回目として、奈良時代に聖武天皇が国を守護する目的で建立を発願した東大寺の各時代の古瓦を展示し、古瓦の技や美を紹介するとともに、瓦からみた東大寺の歴史をたどる。期間中館長による展示解説・関連講座あり（共に12/12・12/26）。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+<footer class="stats">
+  <div>奈良 数据源 2 个 ｜ 库内有效活动 47 个 ｜ </div>
+  <table>
+    <tr><th>来源</th><th>活动数</th><th>最近抓取</th><th>成功/失败</th></tr>
+    
+    <tr>
+      <td>奈良国立博物館</td>
+      <td>6</td>
+      <td>2026-11-27T16:50:37</td>
+      <td><span class="ok">1</span> / <span class="bad">0</span></td>
+    </tr>
+    
+    <tr>
+      <td>ウォーカープラス</td>
+      <td>41</td>
+      <td>2026-11-27T16:50:37</td>
+      <td><span class="ok">1</span> / <span class="bad">0</span></td>
+    </tr>
+    
+  </table>
+</footer>
+
+</div>
+<script>
+async function doRefresh() {
+  const btn = document.getElementById('refreshBtn');
+  btn.disabled = true; btn.textContent = '抓取中…';
+  const r = await Promise.resolve({json:async()=>({message:'静态页面不支持抓取',ok:false})});//nara', {method: 'POST'});
+  const j = await r.json();
+  btn.textContent = j.message || '完成';
+  setTimeout(() => location.reload(), j.ok ? 90000 : 3000);
+}
+</script>
+</body>
+</html>

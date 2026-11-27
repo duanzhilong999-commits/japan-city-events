@@ -1,0 +1,2847 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026年12月 · 名古屋活动日历 ｜ 日本热门城市</title>
+<style>
+:root {
+  --bg: #f7f5f1;
+  --card: #ffffff;
+  --ink: #24211d;
+  --sub: #8b8680;
+  --line: #e6e1d9;
+  --accent: #c9453f;
+  --shadow: 0 1px 2px rgba(36, 33, 29, .08), 0 8px 24px rgba(36, 33, 29, .06);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP",
+    "Microsoft YaHei", "Segoe UI", sans-serif;
+  font-size: 14px; line-height: 1.6;
+}
+a { color: inherit; }
+.wrap { max-width: 1280px; margin: 0 auto; padding: 22px 20px 60px; }
+
+header.top { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 14px; }
+h1 { font-size: 21px; margin: 0; letter-spacing: .5px; }
+h1 span { color: var(--accent); }
+.meta { color: var(--sub); font-size: 12.5px; }
+.spacer { flex: 1; }
+.btn {
+  border: 1px solid var(--line); background: var(--card); color: var(--ink);
+  padding: 7px 13px; border-radius: 999px; font-size: 13px; cursor: pointer;
+  text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+}
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.primary:hover { filter: brightness(.94); color: #fff; }
+
+.monthbar { display: flex; align-items: center; gap: 10px; margin: 6px 0 14px; }
+.monthbar .title { font-size: 30px; font-weight: 700; letter-spacing: 1px; }
+.monthbar .title small { font-size: 14px; font-weight: 400; color: var(--sub); margin-left: 6px; }
+.arrow { font-size: 18px; padding: 6px 12px; }
+
+form.filters {
+  background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+  padding: 12px 14px; box-shadow: var(--shadow); margin-bottom: 16px;
+  display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+}
+.chipset { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  border: 1px solid var(--line); border-radius: 999px; padding: 4px 11px; font-size: 12.5px;
+  cursor: pointer; user-select: none; background: #fff; display: inline-flex; align-items: center; gap: 6px;
+}
+.chip input { display: none; }
+.chip.on { color: #fff; border-color: transparent; }
+.chip .dot { width: 8px; height: 8px; border-radius: 50%; }
+select, input[type=search] {
+  border: 1px solid var(--line); border-radius: 999px; padding: 7px 12px; font-size: 13px;
+  background: #fff; color: var(--ink); outline: none; font-family: inherit;
+}
+input[type=search] { min-width: 190px; }
+label.check { display: inline-flex; gap: 5px; align-items: center; font-size: 13px; color: var(--sub); }
+
+.calendar { background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
+.weekhead { display: grid; grid-template-columns: repeat(7, 1fr); background: #fbfaf7; border-bottom: 1px solid var(--line); }
+.weekhead div { padding: 9px 0; text-align: center; font-size: 12.5px; color: var(--sub); letter-spacing: 2px; }
+.weekhead div:nth-child(6) { color: #2f6f9f; }
+.weekhead div:nth-child(7) { color: #b5433c; }
+.grid { display: grid; grid-template-columns: repeat(7, 1fr); }
+.cell {
+  min-height: 132px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  padding: 6px 7px 8px; display: flex; flex-direction: column; gap: 4px; background: #fff;
+}
+.cell:nth-child(7n) { border-right: 0; }
+.cell.out { background: #faf9f6; }
+.cell.weekend { background: #fdfbf8; }
+.cell.today { background: #fff6ee; box-shadow: inset 0 0 0 2px #f0c8a8; }
+.dnum { font-size: 12px; color: var(--sub); display: flex; justify-content: space-between; align-items: center; }
+.dnum b { font-size: 14px; color: var(--ink); font-weight: 600; }
+.cell.out .dnum b { color: #c8c3ba; }
+.cell.today .dnum b { color: var(--accent); }
+
+.ev {
+  border-radius: 6px; padding: 2px 5px; font-size: 11.5px; line-height: 1.35;
+  color: #fff; text-decoration: none; display: block;
+  overflow: hidden; text-overflow: ellipsis; display: -webkit-box;
+  -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+}
+.ev .t { opacity: .92; font-variant-numeric: tabular-nums; margin-right: 3px; }
+.more { font-size: 11px; color: var(--sub); padding-left: 4px; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 12px; margin: 12px 2px 26px; font-size: 12px; color: var(--sub); }
+.legend span { display: inline-flex; align-items: center; gap: 5px; }
+.legend i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+
+.section-title { display: flex; align-items: baseline; gap: 10px; margin: 8px 0 12px; }
+.section-title h2 { font-size: 17px; margin: 0; }
+.section-title .meta { font-size: 12px; }
+
+.list { display: flex; flex-direction: column; gap: 10px; }
+.item {
+  background: var(--card); border: 1px solid var(--line); border-left: 4px solid #ccc;
+  border-radius: 12px; padding: 12px 14px; display: flex; gap: 14px; box-shadow: var(--shadow);
+}
+.item .datecol { min-width: 74px; text-align: center; }
+.item .datecol .d { font-size: 19px; font-weight: 700; line-height: 1.1; }
+.item .datecol .m { font-size: 11.5px; color: var(--sub); }
+.item .body { flex: 1; min-width: 0; }
+.item .t { font-size: 15px; font-weight: 600; margin-bottom: 3px; }
+.item .t a { text-decoration: none; }
+.item .t a:hover { text-decoration: underline; }
+.item .line { font-size: 12.5px; color: var(--sub); display: flex; flex-wrap: wrap; gap: 10px; margin-top: 2px; }
+.item .desc { font-size: 12.5px; color: #55504a; margin-top: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.badge { font-size: 11px; padding: 1px 8px; border-radius: 999px; color: #fff; }
+
+footer.stats { margin-top: 34px; border-top: 1px solid var(--line); padding-top: 16px; color: var(--sub); font-size: 12.5px; }
+footer.stats table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 12px; }
+footer.stats th, footer.stats td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--line); }
+footer.stats th { color: var(--sub); font-weight: 500; }
+.ok { color: #2f7a4f; font-weight: 600; }
+.bad { color: #b5433c; font-weight: 600; }
+@media (max-width: 760px) {
+  .cell { min-height: 92px; padding: 4px; }
+  .ev { font-size: 10px; -webkit-line-clamp: 2; }
+  .monthbar .title { font-size: 22px; }
+  .item .datecol { min-width: 54px; }
+}
+
+/* ---- 城市切换标签 ---- */
+.citytabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px}
+.citytab{display:flex;align-items:center;gap:6px;padding:7px 12px;border:1px solid #e2e8f0;border-radius:999px;
+  background:#fff;color:#334155;font-size:14px;text-decoration:none;transition:all .15s}
+.citytab:hover{border-color:#94a3b8;transform:translateY(-1px)}
+.citytab.on{background:#0f172a;color:#fff;border-color:#0f172a}
+.citytab small{font-size:11px;opacity:.6}
+
+.ev.ongoing{background:#f8fafc !important;color:#475569;font-size:11px}
+
+</style>
+<link rel="alternate" type="text/calendar" href="/calendar.ics?city=nagoya">
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div>
+    <h1>日本<span>城市</span>活动日历</h1>
+    <div class="meta">名古屋（名古屋市）· 愛知県 ｜ 自动汇总 2 个来源 ｜ 库内 140 个 ｜ 本月 96 个</div>
+  </div>
+  <div class="spacer"></div>
+  <a class="btn" href="/calendar.ics?city=nagoya">📅 订阅本城市 ICS</a>
+  <a class="btn" href="/sources?city=nagoya">📡 数据源状态</a>
+  <button class="btn primary" id="refreshBtn" onclick="doRefresh()">↻ 抓取本城市</button>
+</header>
+
+<nav class="citytabs">
+  
+  <a class="citytab " href="/?city=fukuoka&month=2026-12">
+    福冈<small>890</small>
+  </a>
+  
+  <a class="citytab " href="/?city=yokohama&month=2026-12">
+    横浜<small>719</small>
+  </a>
+  
+  <a class="citytab " href="/?city=tokyo&month=2026-12">
+    东京<small>227</small>
+  </a>
+  
+  <a class="citytab " href="/?city=kyoto&month=2026-12">
+    京都<small>172</small>
+  </a>
+  
+  <a class="citytab " href="/?city=osaka&month=2026-12">
+    大阪<small>131</small>
+  </a>
+  
+  <a class="citytab " href="/?city=kobe&month=2026-12">
+    神户<small>127</small>
+  </a>
+  
+  <a class="citytab " href="/?city=nara&month=2026-12">
+    奈良<small>47</small>
+  </a>
+  
+  <a class="citytab " href="/?city=sapporo&month=2026-12">
+    札幌<small>97</small>
+  </a>
+  
+  <a class="citytab " href="/?city=okinawa&month=2026-12">
+    冲绳（那霸）<small>37</small>
+  </a>
+  
+  <a class="citytab on" href="/?city=nagoya&month=2026-12">
+    名古屋<small>140</small>
+  </a>
+  
+  <a class="citytab " href="/?city=nagasaki&month=2026-12">
+    长崎<small>29</small>
+  </a>
+  
+  <a class="citytab " href="/?city=kanazawa&month=2026-12">
+    金泽<small>39</small>
+  </a>
+  
+</nav>
+
+<div class="monthbar">
+  <a class="btn arrow" href="/?city=nagoya&month=2026-11">‹</a>
+  <div class="title">2026年12月<small>名古屋 · 96 个活动</small></div>
+  <a class="btn arrow" href="/?city=nagoya&month=2027-01">›</a>
+  <a class="btn" href="/?city=nagoya&month=2026-11">今天</a>
+  
+</div>
+
+<form class="filters" method="get" action="/">
+  <input type="hidden" name="month" value="2026-12">
+  <input type="hidden" name="city" value="nagoya">
+  <div class="chipset">
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="market" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#f59e0b"></span>市集
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="flea" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#a855f7"></span>跳蚤市场
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="festival" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#ef4444"></span>节庆
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="illumination" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#06b6d4"></span>灯饰
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="exhibition" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#3b82f6"></span>展览
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="performance" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#ec4899"></span>演出
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="game" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#22c55e"></span>游戏
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="workshop" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#84cc16"></span>体验
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="food" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#f97316"></span>美食
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="sports" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#0ea5e9"></span>运动
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="other" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#64748b"></span>其他
+    </label>
+    
+  </div>
+  <select name="area" onchange="this.form.submit()">
+    <option value="">全部区域</option>
+    
+    <option value="栄・久屋大通" >栄・久屋大通</option>
+    
+    <option value="名古屋駅・伏見" >名古屋駅・伏見</option>
+    
+    <option value="金山・熱田" >金山・熱田</option>
+    
+    <option value="港・ベイエリア" >港・ベイエリア</option>
+    
+    <option value="千種・東山" >千種・東山</option>
+    
+    <option value="中川区" >中川区</option>
+    
+    <option value="名東区" >名東区</option>
+    
+    <option value="守山区" >守山区</option>
+    
+    <option value="昭和区" >昭和区</option>
+    
+    <option value="東区" >東区</option>
+    
+    <option value="緑区" >緑区</option>
+    
+  </select>
+  <input type="search" name="q" value="" placeholder="搜索标题 / 会场 / 关键词">
+  <label class="check"><input type="checkbox" name="free" value="1" 
+         onchange="this.form.submit()">仅免费</label>
+  <label class="check"><input type="checkbox" name="weekend" value="1" 
+         onchange="this.form.submit()">仅周末</label>
+  <button class="btn" type="submit">筛选</button>
+  <a class="btn" href="/?city=nagoya&month=2026-12">重置</a>
+</form>
+
+<div class="calendar">
+  <div class="weekhead">
+    <div>月</div><div>火</div><div>水</div><div>木</div><div>金</div><div>土</div><div>日</div>
+  </div>
+  <div class="grid">
+    
+    <div class="cell out  ">
+      <div class="dnum"><b>30</b></div>
+      
+      
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>1</b></div>
+      
+      <a class="ev" href="https://seatrainland.com/" target="_blank" rel="noopener"
+         style="background:#06b6d4" title="名古屋港シートレインランド ウインターイルミネーション ｜ 名古屋港シートレインランド ｜ 12/01–12/30">
+        名古屋港シートレインランド ウインターイルミネーション
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 70 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>2</b></div>
+      
+      <a class="ev" href="https://www.anges-nagoya.com/report/11464/" target="_blank" rel="noopener"
+         style="background:#ec4899" title="覚王山ル・アンジェ教会 クリスマスイベント ｜ 覚王山ル・アンジェ教会 ｜ 12/02–12/25">
+        覚王山ル・アンジェ教会 クリスマスイベント
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 71 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>3</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 72 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>4</b></div>
+      
+      <a class="ev" href="https://www.nagoya-info.jp/event/detail/77/" target="_blank" rel="noopener"
+         style="background:#f59e0b" title="名古屋クリスマスマーケット2026 ｜ 久屋大通公園 エディオン久屋広場・エンゼル広場 ｜ 12/04–12/25">
+        名古屋クリスマスマーケット2026
+      </a>
+      
+      <a class="ev" href="https://event.lp.creema.jp/event/kittenagoya" target="_blank" rel="noopener"
+         style="background:#f59e0b" title="ＫＩＴＴＥ名古屋 クリスマスマーケット2026 by Creema ｜ ＫＩＴＴＥ名古屋 1Fアトリウム ｜ 12/04–12/13">
+        ＫＩＴＴＥ名古屋 クリスマスマーケット2026 by Creema
+      </a>
+      
+      <a class="ev" href="https://www.nagoya-info.jp/event/detail/70/" target="_blank" rel="noopener"
+         style="background:#64748b" title="NAGOYA PORT WINTER ILLUMINATION ｜ ◎名古屋港 JETTY広場 ◎名古屋港水族館正面入口階段 ｜ 12/04">
+        NAGOYA PORT WINTER ILLUMINATION
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 72 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>5</b></div>
+      
+      <a class="ev" href="https://tgs.jp.net/event/miniature-bakery/" target="_blank" rel="noopener"
+         style="background:#3b82f6" title="ミニチュアベーカリーの世界展 2026 in 名古屋 ｜ TODAYS GALLERY STUDIO. NAGOYA ｜ 12/05–01/11">
+        ミニチュアベーカリーの世界展 2026 in 名古屋
+      </a>
+      
+      <a class="ev" href="https://stiarenagoya.my.canva.site/kireifes" target="_blank" rel="noopener"
+         style="background:#84cc16" title="キレイFes ｜ ateRing ｜ 12/05">
+        キレイFes
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 73 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>6</b></div>
+      
+      <a class="ev" href="https://www.koransha.com/orch_chamber/avemaria/" target="_blank" rel="noopener"
+         style="background:#ec4899" title="クリスマス/アヴェ・マリア エリザベート弦楽アンサンブル（名古屋） ｜ しらかわホール ｜ 12/06">
+        クリスマス/アヴェ・マリア エリザベート弦楽アンサンブル（名古屋）
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 74 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>7</b></div>
+      
+      <a class="ev" href="https://nagoya.hiltonjapan.co.jp/restaurants/lp/inplace3-3-lunch-dinner-buffet-christmas" target="_blank" rel="noopener"
+         style="background:#ef4444" title="ヒルトン名古屋クリスマス・ニューイヤーランチ&amp;amp;ディナービュッフェ ｜ インプレイス3-3 ｜ 12/07–01/06">
+        ヒルトン名古屋クリスマス・ニューイヤーランチ&amp;amp;ディナービュッフェ
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 65 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>8</b></div>
+      
+      <a class="ev" href="https://www.tgn.co.jp/funfenfant/event/202612avn/" target="_blank" rel="noopener"
+         style="background:#ec4899" title="0歳からのコンサート　音育ランド　名古屋 ｜ NEEDS名古屋八事 ｜ 12/08–12/09">
+        0歳からのコンサート　音育ランド　名古屋
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 64 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>9</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 65 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>10</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 64 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>11</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 60 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>12</b></div>
+      
+      <a class="ev" href="https://tvconanten-30th.jp/nagoya_venue.html" target="_blank" rel="noopener"
+         style="background:#3b82f6" title="放送30周年記念 TVアニメ「名探偵コナン」展（名古屋会場） ｜ 金山南ビル美術館棟 ｜ 12/12–01/11">
+        放送30周年記念 TVアニメ「名探偵コナン」展（名古屋会場）
+      </a>
+      
+      <a class="ev" href="https://www.ctv.co.jp/event/pandakopanda/" target="_blank" rel="noopener"
+         style="background:#3b82f6" title="いっしょにワクワクしよう！パンダコパンダ展 ー名古屋PARCOの巻ー ｜ 名古屋PARCO(パルコ) ｜ 12/12–01/31">
+        いっしょにワクワクしよう！パンダコパンダ展 ー名古屋PARCOの巻ー
+      </a>
+      
+      <a class="ev" href="https://www.bunka758.or.jp/event/nakagawa/details/Full_Band_Jazz_Nigth2026.html" target="_blank" rel="noopener"
+         style="background:#64748b" title="Full Band Jazz Night（なかがわ JAZZ LIFE シリーズ） ｜ 名古屋市中川文化小劇場 ｜ 12/12">
+        Full Band Jazz Night（なかがわ JAZZ LIFE シリーズ）
+      </a>
+      
+      <span class="more">+4 更多…</span>
+      
+      <span class="more">⟳ 另有 60 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>13</b></div>
+      
+      <a class="ev" href="https://nagatukasa.wixsite.com/junglehunter/n28" target="_blank" rel="noopener"
+         style="background:#3b82f6" title="ジャングルハンターin名古屋 ｜ フジコミュニティセンター4F大会議室 ｜ 12/13">
+        ジャングルハンターin名古屋
+      </a>
+      
+      <a class="ev" href="https://www.raconte-concert.com/" target="_blank" rel="noopener"
+         style="background:#ec4899" title="田村響ピアノリサイタル ～オール・バッハ・プログラム～ ｜ 名古屋・伏見・電気文化会館　ザ・コンサートホール ｜ 12/13">
+        田村響ピアノリサイタル ～オール・バッハ・プログラム～
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 63 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>14</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 57 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>15</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 57 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>16</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 57 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>17</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 57 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>18</b></div>
+      
+      <a class="ev" href="https://tatsuyadejima.tokyo/9358/" target="_blank" rel="noopener"
+         style="background:#ec4899" title="魔法の両手タッピング奏法（名古屋公演） ｜ 栄Live DOXY（ライブドキシー） ｜ 12/18">
+        魔法の両手タッピング奏法（名古屋公演）
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 57 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>19</b></div>
+      
+      <a class="ev" href="https://www.tokai-tv.com/events/mozu-miniature/" target="_blank" rel="noopener"
+         style="background:#3b82f6" title="Mozu(モズ)ミニチュア展 ようこそ、ちいさな世界へ。(愛知) ｜ 名古屋PARCO(パルコ) ｜ 12/19–01/24">
+        Mozu(モズ)ミニチュア展 ようこそ、ちいさな世界へ。(愛知)
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 57 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>20</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 58 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>21</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 56 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>22</b></div>
+      
+      <a class="ev" href="https://www.koransha.com/ballet/tchaikovsky/" target="_blank" rel="noopener"
+         style="background:#ec4899" title="チャイコフスキー・バレエ劇場 ｢くるみ割り人形｣(名古屋) ｜ 愛知県芸術劇場　大ホール ｜ 12/22">
+        チャイコフスキー・バレエ劇場 ｢くるみ割り人形｣(名古屋)
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 56 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>23</b></div>
+      
+      <a class="ev" href="https://www.ongaku.cc/aya/liveinfo/" target="_blank" rel="noopener"
+         style="background:#ec4899" title="「エクスペリエンス・ジャズライブ」 ～はじめてでも楽しめるジャズの夜～（12月） ｜ サパーラウンジ邸旺（TEIOH） ｜ 12/23">
+        「エクスペリエンス・ジャズライブ」 ～はじめてでも楽しめるジャズの夜～（12月）
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 56 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>24</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 55 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>25</b></div>
+      
+      <a class="ev" href="https://www.nagoya-info.jp/event/detail/1428/" target="_blank" rel="noopener"
+         style="background:#64748b" title="名古屋市市政資料館建物ガイドツアー 小さな時間旅行 ようこそ建物百年の旅へ ｜ 名古屋市市政資料館 ｜ 12/25">
+        名古屋市市政資料館建物ガイドツアー 小さな時間旅行 ようこそ建物百年の旅へ
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 55 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>26</b></div>
+      
+      <a class="ev" href="https://isogaihanabi.com/" target="_blank" rel="noopener"
+         style="background:#ec4899" title="BERITA presents ISOGAI花火劇場in名古屋港 ｜ 名古屋港ガーデンふ頭 ｜ 12/26">
+        BERITA presents ISOGAI花火劇場in名古屋港
+      </a>
+      
+      <a class="ev" href="https://www.nagoya-info.jp/event/detail/214/" target="_blank" rel="noopener"
+         style="background:#64748b" title="BERITA presents ISOGAI花火劇場 in 名古屋港 次世代を担う子供たちに美しい花火を ｜ 名古屋港ガーデンふ頭 ｜ 12/26">
+        BERITA presents ISOGAI花火劇場 in 名古屋港 次世代を担う子供たちに美しい花火を
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 40 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>27</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 39 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>28</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 31 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>29</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 31 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>30</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 30 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>31</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 29 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell out  ">
+      <div class="dnum"><b>1</b></div>
+      
+      
+      
+    </div>
+    
+    <div class="cell out weekend ">
+      <div class="dnum"><b>2</b></div>
+      
+      
+      
+    </div>
+    
+    <div class="cell out weekend ">
+      <div class="dnum"><b>3</b></div>
+      
+      
+      
+    </div>
+    
+  </div>
+</div>
+
+<div class="legend">
+  
+  <span><i style="background:#f59e0b"></i>市集/マルシェ / 市集</span>
+  
+  <span><i style="background:#a855f7"></i>フリマ/蚤の市 / 跳蚤市场</span>
+  
+  <span><i style="background:#ef4444"></i>祭り/フェス / 节庆</span>
+  
+  <span><i style="background:#06b6d4"></i>灯饰/ライトアップ / 灯饰</span>
+  
+  <span><i style="background:#3b82f6"></i>展覧会 / 展览</span>
+  
+  <span><i style="background:#ec4899"></i>舞台/コンサート / 演出</span>
+  
+  <span><i style="background:#22c55e"></i>ゲーム/謎解き / 游戏</span>
+  
+  <span><i style="background:#84cc16"></i>体験/ワークショップ / 体验</span>
+  
+  <span><i style="background:#f97316"></i>グルメ/食 / 美食</span>
+  
+  <span><i style="background:#0ea5e9"></i>スポーツ / 运动</span>
+  
+  <span><i style="background:#64748b"></i>その他 / 其他</span>
+  
+</div>
+
+<div class="section-title">
+  <h2>名古屋本月活动一览</h2>
+  <span class="meta">按开始日期排序 · 共 96 个</span>
+</div>
+
+<div class="list">
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">12月 · 12/01–12/30</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://seatrainland.com/" target="_blank" rel="noopener">名古屋港シートレインランド ウインターイルミネーション</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 名古屋港シートレインランド</span>
+        <span>港・ベイエリア</span>
+        
+        
+      </div>
+      <div class="desc">愛知県名古屋市にある名古屋港シートレインランドのイルミネーションイベント。色鮮やかな約5万球のライトをメインに、入口には星空をイメージした「星空ドーム」や、ハートやイルカのオブジェが登場し、クリスマスシーズンの園内を彩る。また、園内には16のアトラクションがあり、東海地区最大級の高さ85メートルの大観覧車からは、名古屋港の夜景が一望できる。入場無料でアトラクションは別途有料となる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">02</div>
+      <div class="m">12月 · 12/02–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.anges-nagoya.com/report/11464/" target="_blank" rel="noopener">覚王山ル・アンジェ教会 クリスマスイベント</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 覚王山ル・アンジェ教会</span>
+        <span>千種・東山</span>
+        
+        
+      </div>
+      <div class="desc">覚王山ル・アンジェ教会では、今年もクリスマスイベントを開催。期間中の平日はベルにお願いごとを書いてモミの木に飾る「お願いベル」や、温かな光が灯る礼拝堂で、美しい歌声が響き渡るゴスペルコンサートを楽しめる（要予約）。12月25日にはクリスマス礼拝も実施。普段入ることができないチャペルに入れる貴重な機会。大人から子どもまで楽しめるクリスマスイベントに出かけよう。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">04</div>
+      <div class="m">12月 · 12/04</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nagoya-info.jp/event/detail/70/" target="_blank" rel="noopener">NAGOYA PORT WINTER ILLUMINATION</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 ◎名古屋港 JETTY広場 ◎名古屋港水族館正面入口階段</span>
+        <span>港・ベイエリア</span>
+        
+        
+      </div>
+      <div class="desc">名古屋近郊 NAGOYA PORT WINTER ILLUMINATION 2026年12月4日(金) ～ 25日(金) ◎名古屋港 JETTY広場 ◎名古屋港水族館正面入口階段</div>
+      <div class="line">
+        <span>nagoya-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f59e0b">
+    <div class="datecol">
+      <div class="d">04</div>
+      <div class="m">12月 · 12/04–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nagoya-info.jp/event/detail/77/" target="_blank" rel="noopener">名古屋クリスマスマーケット2026</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f59e0b">市集/マルシェ</span>
+        <span>📍 久屋大通公園 エディオン久屋広場・エンゼル広場</span>
+        <span>栄・久屋大通</span>
+        
+        
+      </div>
+      <div class="desc">愛知県名古屋市の冬の風物詩「名古屋クリスマスマーケット」を2026年も開催。アドヴェントと呼ばれるクリスマス前の約4週間、ドイツを始めヨーロッパ各国の多くの都市の中心の広場で開かれるクリスマスマーケット。名古屋では今年で12回目の開催を迎える。会場には、巨大な生のモミの木のクリスマスツリーが登場。また、会場内ではクリスマスならではの飲み物やお菓子、本場ドイツの郷土料理などを味わえるほか、ヨーロッパから輸入されたクリスマス雑貨も販売する。</div>
+      <div class="line">
+        <span>walkerplus</span><span>nagoya-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f59e0b">
+    <div class="datecol">
+      <div class="d">04</div>
+      <div class="m">12月 · 12/04–12/13</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://event.lp.creema.jp/event/kittenagoya" target="_blank" rel="noopener">ＫＩＴＴＥ名古屋 クリスマスマーケット2026 by Creema</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f59e0b">市集/マルシェ</span>
+        <span>📍 ＫＩＴＴＥ名古屋 1Fアトリウム</span>
+        <span>名古屋駅・伏見</span>
+        
+        
+      </div>
+      <div class="desc">気に入りのクリエイターと出会う、6日間のクリスマスマーケット。名古屋駅直結の「ＫＩＴＴＥ名古屋 1Fアトリウム」に、全国各地からCreemaクリエイターが集まる。大切な人への贈りものにも、自分へのご褒美にもぴったりなアクセサリーや器、ファブリック、革小物をはじめ、冬のひとときを彩る焼き菓子やコーヒーなど、魅力的なアイテムがずらり。名古屋駅直結の会場で心のこもった贈りもの探しを楽しもう。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#84cc16">
+    <div class="datecol">
+      <div class="d">05</div>
+      <div class="m">12月 · 12/05</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://stiarenagoya.my.canva.site/kireifes" target="_blank" rel="noopener">キレイFes</a></div>
+      <div class="line">
+        <span class="badge" style="background:#84cc16">体験/ワークショップ</span>
+        <span>📍 ateRing</span>
+        <span>栄・久屋大通</span>
+        
+        
+      </div>
+      <div class="desc">名古屋・丸の内で開催される「キレイFes」。美容・自分磨き・ショッピングをテーマに、美容体験や癒し、占い、アクセサリー販売、ワークショップなど多彩なブースが集まる。大人の女性はもちろん、中高生や親子でも楽しめる1日限定のイベント。新しい自分の魅力や、お気に入りとの出会いを楽しめる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">05</div>
+      <div class="m">12月 · 12/05–01/11</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://tgs.jp.net/event/miniature-bakery/" target="_blank" rel="noopener">ミニチュアベーカリーの世界展 2026 in 名古屋</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 TODAYS GALLERY STUDIO. NAGOYA</span>
+        <span>栄・久屋大通</span>
+        
+        
+      </div>
+      <div class="desc">パンやスイーツをテーマにしたミニチュア作品を紹介する展示会。今回は新規参加14組を含む49組のクリエイターが出展を予定しており、パン一つひとつの焼き色や質感、パンが並ぶ店内の調度品まで、作家が細部まで精巧に作り込んだベーカリー作品が写真作品と立体作品の両方で展示される。まるでミニチュアのベーカリーショップの世界へ入り込んだかのような気分を味わうことができる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">06</div>
+      <div class="m">12月 · 12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.koransha.com/orch_chamber/avemaria/" target="_blank" rel="noopener">クリスマス/アヴェ・マリア エリザベート弦楽アンサンブル（名古屋）</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 しらかわホール</span>
+        <span>栄・久屋大通</span>
+        
+        
+      </div>
+      <div class="desc">ソプラノによって歌われるJ.S.バッハ、シューベルト、カッチーニによる「アヴェ・マリア」では、弦楽器と調和し、豊かに響き渡る歌声に心を揺さぶられる。長きにわたり愛されてきたこれらの作品に演奏家たちが息を吹き込み、優しさに包まれるような至福の「アヴェ・マリア」を堪能できるだろう。名曲の数々を質の高い演奏で聴かせてくれる、特別なクリスマス・コンサート。心あたたまるひと時を過ごそう。※未就学児入場不可</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ef4444">
+    <div class="datecol">
+      <div class="d">07</div>
+      <div class="m">12月 · 12/07–01/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://nagoya.hiltonjapan.co.jp/restaurants/lp/inplace3-3-lunch-dinner-buffet-christmas" target="_blank" rel="noopener">ヒルトン名古屋クリスマス・ニューイヤーランチ&amp;amp;ディナービュッフェ</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ef4444">祭り/フェス</span>
+        <span>📍 インプレイス3-3</span>
+        <span>栄・久屋大通</span>
+        
+        
+      </div>
+      <div class="desc">ヨーロッパ各国の伝統料理を楽しめるランチ、ディナービュッフェ。パン粉をまとわせ香ばしく仕上げたローストビーフ、骨付きの豚もも肉を焼き上げた骨付きローストハムなど、国の伝統料理や郷土料理を中心に、ホリデーシーズンを彩る多彩なメニューを味わえる。12月18日(金)から2027年1月3日(日)までは「プレミアムフェスティブビュッフェ」として、通常メニューに加え、ズワイガニやローストロブスターなど、クリスマスから年末年始の食卓を華やかに演出する特別メニューが提供される。</div>
+      <div class="line">
+        <span>walkerplus</span><span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">08</div>
+      <div class="m">12月 · 12/08–12/09</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.tgn.co.jp/funfenfant/event/202612avn/" target="_blank" rel="noopener">0歳からのコンサート　音育ランド　名古屋</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 NEEDS名古屋八事</span>
+        <span>昭和区</span>
+        
+        
+      </div>
+      <div class="desc">小さな子ども連れでも安心して参加できる親子のための参加型コンサート。クラシックから童謡まで、耳なじみのある音楽をプロの演奏家と一緒に楽しみながら、歌ったり体を動かしたりと自由に音楽とふれあえるひとときを過ごそう。泣いてしまっても元気に動き回っても大丈夫。動画や写真も可能なので、家族の思い出として残そう。演奏者はヴァイオリン：増田留璃香、ピアノ：森川文恵、パーカッション：上野智子。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">12</div>
+      <div class="m">12月 · 12/12</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.bunka758.or.jp/event/nakagawa/details/Full_Band_Jazz_Nigth2026.html" target="_blank" rel="noopener">Full Band Jazz Night（なかがわ JAZZ LIFE シリーズ）</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 名古屋市中川文化小劇場</span>
+        <span>中川区</span>
+        
+        
+      </div>
+      <div class="desc">名古屋市中川区を拠点に活動するジャズドラマー小畑孝廣率いるバンドとボーカリストが贈るなかがわジャズライフシリーズ。今年はフルバンド編成によるスペシャルステージをお届け。迫力の生演奏と歌姫たちの華やかな歌声が響き渡る。ロビーではアルコール販売を行い、ほろ酔い気分で楽しめる。手数料なしで電子チケットからも購入可能。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">12</div>
+      <div class="m">12月 · 12/12–01/31</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.ctv.co.jp/event/pandakopanda/" target="_blank" rel="noopener">いっしょにワクワクしよう！パンダコパンダ展 ー名古屋PARCOの巻ー</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 名古屋PARCO(パルコ)</span>
+        <span>栄・久屋大通</span>
+        
+        
+      </div>
+      <div class="desc">高畑勲・宮崎(※1)駿コンビが生んだ名作ファンタジー『パンダコパンダ』の世界が丸ごと紹介される体験型展覧会。公開当時の貴重な資料をはじめ、設定資料やイメージボードなど制作資料の一部が公開される。サーカス列車やベッドの船など「雨ふりサーカスの巻」のシーンを中心に紹介するエリアや、大きなパパンダのオブジェなどのフォトスポットを設置。Tシャツやエコバッグ、キーホルダーなどのグッズ販売も行われる。(※1)宮崎駿さんの崎は立つ崎</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">12</div>
+      <div class="m">12月 · 12/12</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.bunka758.or.jp/event/minato/details/_1_55.html" target="_blank" rel="noopener">いぶき～吹ク、弾ク、叩ク2～</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 名古屋市港文化小劇場</span>
+        <span>港・ベイエリア</span>
+        
+        
+      </div>
+      <div class="desc">地元出身！若い演奏家による和楽器コンサートだ。出演は、平野透山（尺八）・杉山大祐（津軽三味線）・浅野聡太（和太鼓）・小林みゆ（篠笛・和太鼓）。曲目は、じょんがら超今様・民謡メドレー・りんご追分他。チケットは9月18日（金）発売。港文化小劇場ならびに名古屋市内の文化小劇場等、teketで購入可能。　※未就学児入場不可</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">12</div>
+      <div class="m">12月 · 12/12</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nagoya-info.jp/event/detail/1452/" target="_blank" rel="noopener">パンダコパンダ展 -名古屋PARCOの巻</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 名古屋PARCO 西館8F PARCO HALL</span>
+        <span>栄・久屋大通</span>
+        
+        
+      </div>
+      <div class="desc">栄・伏見 パンダコパンダ展 -名古屋PARCOの巻- 2026年12月12日(土) ～ 2027年1月31… 名古屋PARCO 西館8F PARCO HALL</div>
+      <div class="line">
+        <span>nagoya-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">12</div>
+      <div class="m">12月 · 12/12</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nagoya-info.jp/event/detail/1451/" target="_blank" rel="noopener">放送30周年記念 TVアニメ「名探偵コナン」展</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 金山南ビル美術館棟（旧名古屋ボストン美術館）</span>
+        <span>金山・熱田</span>
+        
+        
+      </div>
+      <div class="desc">大須・金山 放送30周年記念 TVアニメ「名探偵コナン」展 2026年12月12日(土) ～ 2027年1月11… 金山南ビル美術館棟（旧名古屋ボストン美術館）</div>
+      <div class="line">
+        <span>nagoya-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">12</div>
+      <div class="m">12月 · 12/12–01/11</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://tvconanten-30th.jp/nagoya_venue.html" target="_blank" rel="noopener">放送30周年記念 TVアニメ「名探偵コナン」展（名古屋会場）</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 金山南ビル美術館棟</span>
+        <span>栄・久屋大通</span>
+        
+        
+      </div>
+      <div class="desc">放送30周年記念 TVアニメ「名探偵コナン」展を開催。放送30周年を記念した、TVアニメ「名探偵コナン」ならではの企画が目白押し。＃１企画～＃５主題歌までのエリアを巡るとTVアニメ「名探偵コナン」の制作過程の裏側を知ることができる。絵に色がついて、キャラクターが動き、話しだす、TVアニメ「名探偵コナン」が完成するまでを辿っていこう。また、名場面を集めたエリアや企画展スペシャルムービーも必見！</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">12</div>
+      <div class="m">12月 · 12/12–12/13</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.bunka758.or.jp/about/archive/artland/" target="_blank" rel="noopener">親子でたのしもう！音でめぐる、みどりの森のコンサート</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 名古屋市緑文化小劇場</span>
+        <span>緑区</span>
+        
+        
+      </div>
+      <div class="desc">みんなが知っているクリスマスソングやクラシックの名曲から、“自然”をテーマに選曲してお贈り！迫力の生演奏を楽しめる、オーケストラの世界へようこそ。出演：愛知室内オーケストラ　指揮：山下一史</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">13</div>
+      <div class="m">12月 · 12/13</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://nagatukasa.wixsite.com/junglehunter/n28" target="_blank" rel="noopener">ジャングルハンターin名古屋</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 フジコミュニティセンター4F大会議室</span>
+        <span>名古屋駅・伏見</span>
+        
+        
+      </div>
+      <div class="desc">ジャングルハンターは、爬虫類等の小動物の展示即売会。来て・見て・感じて・迎え入れる――貴方(女)だけの新しい家族に出会える密林。全国のペットショップ＆ブリーダーが慈しみ育んだ自慢の生体たちが、貴方(女)との出会いを待っている。ジャングルハンターだけの激安イベント価格商品や掘り出しレア商品が満載！ ぜひ会場へ足を運んでみよう。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">13</div>
+      <div class="m">12月 · 12/13</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.raconte-concert.com/" target="_blank" rel="noopener">田村響ピアノリサイタル ～オール・バッハ・プログラム～</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 名古屋・伏見・電気文化会館　ザ・コンサートホール</span>
+        <span>栄・久屋大通</span>
+        
+        
+      </div>
+      <div class="desc">世界的なピアニストとして活躍する田村響を迎え、バッハの真髄に迫る特別なピアノリサイタルを開催する。今公演はオール・バッハ・プログラムで構成され、作曲家の深い精神性と対位法の美学を田村響の繊細かつ卓越した技巧で紐解いていく。ペア割引もあるので、家族や友人とともに素晴らしい午後のひとときを過ごすことができる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">18</div>
+      <div class="m">12月 · 12/18</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://tatsuyadejima.tokyo/9358/" target="_blank" rel="noopener">魔法の両手タッピング奏法（名古屋公演）</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 栄Live DOXY（ライブドキシー）</span>
+        <span>栄・久屋大通</span>
+        
+        
+      </div>
+      <div class="desc">出嶌達也によるコンサートツアー！ 当日はギターのボーイング（弓弾き）やピッキング、フィンガリング、パッティング、スラップ奏法、そして出嶌達也の最大の特徴である両手タッピング奏法など、類希なるギターテクニックを駆使したオリジナル曲を堪能できる。目の前で弾き出される音のみならず、空気感、振動、身体との共鳴、生の視覚効果、そしておしゃべりも含め、ここでしか味わえない貴重なひとときをお楽しみに！</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">19</div>
+      <div class="m">12月 · 12/19–01/24</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.tokai-tv.com/events/mozu-miniature/" target="_blank" rel="noopener">Mozu(モズ)ミニチュア展 ようこそ、ちいさな世界へ。(愛知)</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 名古屋PARCO(パルコ)</span>
+        <span>栄・久屋大通</span>
+        
+        
+      </div>
+      <div class="desc">全国を巡回し、総動員数26万人を突破した「Mozuアートワーク ちいさなひみつのせかい」をリニューアルした展覧会。まるで部屋の片隅にこびとが住んでいるかのような、リアリティがあるミニチュア「こびとシリーズ」の作品群をはじめ、初公開の新作ミニチュアや、錯覚を利用したアート作品のトリックラクガキ、コマ撮りアニメの動画など、Mozuの作品が余すところなく紹介される。ミュージアムショップでは、クリアファイルや、ミニチュアアートキットなどのオリジナルグッズが販売される。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">22</div>
+      <div class="m">12月 · 12/22</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.koransha.com/ballet/tchaikovsky/" target="_blank" rel="noopener">チャイコフスキー・バレエ劇場 ｢くるみ割り人形｣(名古屋)</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 愛知県芸術劇場　大ホール</span>
+        <span>東区</span>
+        
+        
+      </div>
+      <div class="desc">クリスマス・イブ、くるみ割り人形を贈られたマーシャは、おとぎの国へと導かれ、王子と夢のような時を過ごす。幻想的な雪の精たちによる群舞、ねずみ軍との戦い、きらびやかな人形の国。心ときめく物語に、チャイコフスキー最晩年の集大成である、可憐さと革新性を兼ね備えた名曲たちが響き渡る。子供から大人まであらゆる世代の観客の心をつかんで離さない、クリスマスを彩る珠玉の名作。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">23</div>
+      <div class="m">12月 · 12/23</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.ongaku.cc/aya/liveinfo/" target="_blank" rel="noopener">「エクスペリエンス・ジャズライブ」 ～はじめてでも楽しめるジャズの夜～（12月）</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 サパーラウンジ邸旺（TEIOH）</span>
+        <span>東区</span>
+        
+        
+      </div>
+      <div class="desc">「ジャズを身近な音楽に」をテーマに名古屋を中心に活動するジャズボーカル伊藤綾、西嶋恵とジャズドラマー小畑孝廣Quartetによるライブ。クリスマスソング、スタンダードナンバーを中心に、耳なじみのある映画音楽やモダンジャズも届ける。サパーラウンジ邸旺で、おいしい料理やお酒と共に楽しむ生演奏。日常を少し離れて、心ほどけるジャズの夜を過ごそう。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">25</div>
+      <div class="m">12月 · 12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nagoya-info.jp/event/detail/1428/" target="_blank" rel="noopener">名古屋市市政資料館建物ガイドツアー 小さな時間旅行 ようこそ建物百年の旅へ</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 名古屋市市政資料館</span>
+        
+        
+        
+      </div>
+      <div class="desc">東部 名古屋市市政資料館建物ガイドツアー 小さな時間旅行 ようこそ建物百年の旅へ 2026年12月25日(金) 名古屋市市政資料館</div>
+      <div class="line">
+        <span>nagoya-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">26</div>
+      <div class="m">12月 · 12/26</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nagoya-info.jp/event/detail/214/" target="_blank" rel="noopener">BERITA presents ISOGAI花火劇場 in 名古屋港 次世代を担う子供たちに美しい花火を</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 名古屋港ガーデンふ頭</span>
+        <span>港・ベイエリア</span>
+        
+        
+      </div>
+      <div class="desc">港 BERITA presents ISOGAI花火劇場 in 名古屋港 ～次世代を担う子供たちに美しい花火を～ 2026年12月26日(土) 名古屋港ガーデンふ頭</div>
+      <div class="line">
+        <span>nagoya-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">26</div>
+      <div class="m">12月 · 12/26</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://isogaihanabi.com/" target="_blank" rel="noopener">BERITA presents ISOGAI花火劇場in名古屋港</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 名古屋港ガーデンふ頭</span>
+        <span>港・ベイエリア</span>
+        
+        
+      </div>
+      <div class="desc">日本を代表する花火師、磯谷煙火店がお届けする「世界でひとつだけのクリスマス花火物語」。音楽とXmasストーリーが織りなす美しい花火ミュージカル「ドラマチックハナビ」。メロディー花火(磯谷煙火店)をさらに進化させ、1つのクリスマスストーリーを花火で描き出す特別な演出となる。当日のプログラムは、この日のためだけに構成されたオンリーワン。ISOGAI花火劇場専用に考案されたドラマチックハナビが、港の夜に鮮やかな物語を立ち上げる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">07月 · 07/01–05/04</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nagoya-info.jp/event/detail/1383/" target="_blank" rel="noopener">技術展示「パンタグラフの進化展」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 リニア・鉄道館 １階 ７００系新幹線電車後方</span>
+        
+        
+        
+      </div>
+      <div class="desc">港 技術展示「パンタグラフの進化展」 2026年7月1日(水) ～ 2027年5月4日(… リニア・鉄道館 １階 ７００系新幹線電車後方</div>
+      <div class="line">
+        <span>nagoya-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#84cc16">
+    <div class="datecol">
+      <div class="d">03</div>
+      <div class="m">07月 · 07/03–06/30</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://planetarium.konicaminolta.jp/program/doraemon2026/?hall=manten-nagoya" target="_blank" rel="noopener">プラネタリウム　ドラえもん　時間のひみつ(プラネタリウム満天NAGOYA)</a></div>
+      <div class="line">
+        <span class="badge" style="background:#84cc16">体験/ワークショップ</span>
+        <span>📍 コニカミノルタプラネタリウム満天NAGOYA</span>
+        
+        
+        
+      </div>
+      <div class="desc">テレビアニメ「ドラえもん」の時間をテーマにしたプラネタリウム作品。のび太たちがドラえもんの秘密道具を使って時間の不思議を体験するプラネタリウム限定のオリジナルストーリーで、目には見えない時間とは何か、その誕生から知られざる秘密までを、ドームならではの迫力の映像で楽しむことができる。本編上映終了後には約8分間の撮影タイムが設けられ、ドームいっぱいに映し出された12星座やドラえもん、のび太たちと一緒に写真撮影を楽しめる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#84cc16">
+    <div class="datecol">
+      <div class="d">03</div>
+      <div class="m">07月 · 07/03–02/15</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://planetarium.konicaminolta.jp/program/bumpofchicken/?hall=manten-nagoya" target="_blank" rel="noopener">流れ星を探して feat. BUMP OF CHICKEN(フィーチャリング バンプ オブ チキン)(名古屋)</a></div>
+      <div class="line">
+        <span class="badge" style="background:#84cc16">体験/ワークショップ</span>
+        <span>📍 コニカミノルタプラネタリウム満天NAGOYA</span>
+        
+        
+        
+      </div>
+      <div class="desc">4人組ロックバンド、BUMP OF CHICKENの楽曲と満天の星空を楽しめるプラネタリウム作品。夜空を一瞬で駆け抜ける「流れ星」をテーマに、季節ごとの星空や流星群の見つけ方、流れ星が生まれる宇宙の仕組みがひもとかれる。BUMP OF CHICKENの音楽とともに、声優の山下大輝さんの優しい語りのナレーションを聞きながら、流れ星の神秘に迫る幻想的な星空体験を楽しむことができる。本作の上映に合わせて、BUMP OF CHICKENのオリジナルグッズも販売される。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#22c55e">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">09月 · 09/01–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://efex.co.jp/tsuruma-nazo26/" target="_blank" rel="noopener">鶴舞公園リアル謎解きゲーム クローバーの国とトランプの魔法</a></div>
+      <div class="line">
+        <span class="badge" style="background:#22c55e">ゲーム/謎解き</span>
+        <span>📍 鶴舞公園緑化センター</span>
+        <span>昭和区</span>
+        
+        
+      </div>
+      <div class="desc">名古屋市昭和区の鶴舞公園でリアル謎解きゲームが9月1日より開催！ある日出会った動くトランプ「シャム」は、魔法で姿を変えられたクローバーの国の住人だった。公園内に隠された謎を解き「四つ葉のペンダント」を見つけ出し、世界を危機から救おう！</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">08</div>
+      <div class="m">09月 · 09/08–12/07</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nipc.or.jp/kougyou/p_training/index.html" target="_blank" rel="noopener">知財で企業に活力をもたらす！研修</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 名古屋市工業研究所　会議室</span>
+        <span>金山・熱田</span>
+        
+        
+      </div>
+      <div class="desc">特許・意匠・商標・ノウハウなどの知的財産を企業戦略に活かす実践的な研修。国家試験「知的財産管理技能検定2級」レベル以上の知識を習得できる。前後編各6日間（全12日間）で、前編・後編のみの受講も可能。企業の競争力向上につながる知識と実践力を身につける。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">19</div>
+      <div class="m">09月 · 09/19–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nagoya-info.jp/event/detail/1422/" target="_blank" rel="noopener">所蔵茶道具展 茶碗をめぐる見立てと連想</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 桑山美術館 本館</span>
+        <span>昭和区</span>
+        
+        
+      </div>
+      <div class="desc">日本文化に欠かせない「見立て」の要素。あるものを別の何かになぞらえる表現は新たな視点を生みだし、自由な連想の世界を拓く。今回の展示では、この「見立て」と「連想」に重きを置き、3章にわたる展示構成で作品を紹介する。同館が所蔵する茶碗を通じて、茶碗が持つ「見立て」の表現や、茶碗が絵画や茶道具と組み合わさることで生まれる「連想」の面白さ、また作品同士の意外な関係性を堪能しよう。</div>
+      <div class="line">
+        <span>walkerplus</span><span>nagoya-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#84cc16">
+    <div class="datecol">
+      <div class="d">19</div>
+      <div class="m">09月 · 09/19–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nagoya-info.jp/event/detail/1256/" target="_blank" rel="noopener">秋の有松めぐり おトクなきっぷと体験プログラムで秋の有松を満喫</a></div>
+      <div class="line">
+        <span class="badge" style="background:#84cc16">体験/ワークショップ</span>
+        <span>📍 名鉄「有松」駅周辺</span>
+        
+        
+        
+      </div>
+      <div class="desc">東部 秋の有松めぐり～おトクなきっぷと体験プログラムで秋の有松を満喫～ 2026年9月19日(土) ～ 12月6日(日) 名鉄「有松」駅周辺</div>
+      <div class="line">
+        <span>nagoya-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">19</div>
+      <div class="m">09月 · 09/19–12/04</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nagoya-info.jp/event/detail/1405/" target="_blank" rel="noopener">舶来と日本の茶陶</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 昭和美術館</span>
+        
+        
+        
+      </div>
+      <div class="desc">南部 舶来と日本の茶陶 2026年9月19日(土) ～ 12月4日(金) 昭和美術館</div>
+      <div class="line">
+        <span>nagoya-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">25</div>
+      <div class="m">09月 · 09/25–02/28</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.tcmit.org/information/news/2025/02/55000" target="_blank" rel="noopener">自動車館企画展「材料技術の世界へようこそ～クルマの進化を支える主役たち～」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 トヨタ産業技術記念館　自動車館1階</span>
+        
+        
+        
+      </div>
+      <div class="desc">鉄だけじゃない、クルマに使われている様々な材料の発展の歴史の他、地球温暖化問題を解決していくためのカーボンニュートラルに向けた取り組みなど、トヨタの材料技術開発について、やさしく楽しく学ぶことができる企画展を開催する。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">03</div>
+      <div class="m">10月 · 10/03–12/13</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.tcmit.org/information/news/2026/09/59197" target="_blank" rel="noopener">トヨタコレクション企画展「華ひらくジャポニスム 技術と美術の文明開化 」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 トヨタ産業技術記念館　特別展示室</span>
+        <span>名古屋駅・伏見</span>
+        
+        
+      </div>
+      <div class="desc">パリから始まり、1873年のウィーン万博を機に欧州を席巻し「ジャポニスム」。その底流には、日本の圧倒的な職人技があった。今展では、トヨタコレクションが誇る江戸時代から明治の美術・工芸品を「ものづくり」の視点から紹介する。和と洋が交差する時代に華ひらいた、美術と技術の世界を体感しよう。江戸技術でつくる美術体験の用意もある。</div>
+      <div class="line">
+        <span>walkerplus</span><span>nagoya-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">06</div>
+      <div class="m">10月 · 10/06–02/02</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nagoya-info.jp/event/detail/1418/" target="_blank" rel="noopener">ガールズ＆パンツァー 最終章 × JR東海 東海道大作戦in名古屋</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 名古屋市内</span>
+        
+        
+        
+      </div>
+      <div class="desc">ガールズ＆パンツァー 最終章 × JR東海～東海道大作戦in名古屋～ 2026年10月6日(火) ～ 2027年2月2日…</div>
+      <div class="line">
+        <span>nagoya-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">06</div>
+      <div class="m">10月 · 10/06–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://nagoya.hiltonjapan.co.jp/restaurants/lp/inplace3-3-lunch-dinner-buffet-autumn" target="_blank" rel="noopener">ヒルトン名古屋 秋のランチ＆ディナービュッフェ</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 ヒルトン名古屋</span>
+        <span>栄・久屋大通</span>
+        
+        
+      </div>
+      <div class="desc">「東海道五十三次を巡る美食の旅」をテーマにした、秋のランチ、ディナービュッフェ。桑名宿のたまりしょう油、岡崎宿の八丁みそ、由比宿の桜海老、丸子宿のとろろ汁、宮宿のひつまぶしなど、東海道沿線の宿場町で親しまれてきた名物料理や地域食材を、ヒルトン名古屋ならではのスタイルでアレンジ。70種類以上のメニューが用意されていて、各地の食文化に着想を得たラインナップを、東海道五十三次を巡るような気分で味わえる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">06</div>
+      <div class="m">10月 · 10/06–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://nagoya.hiltonjapan.co.jp/restaurants/lp/inplace3-3-lunch-dinner-buffet-autumn" target="_blank" rel="noopener">秋のランチ&amp;amp;ディナービュッフェ</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 ヒルトン名古屋インプレイス3-3</span>
+        <span>栄・久屋大通</span>
+        
+        
+      </div>
+      <div class="desc">海の幸や山の幸に恵まれた東海道五十三次の沿線には、地域ごとに個性豊かな食文化が根付いている。ヒルトン名古屋では、桑名宿のたまり醤油、岡崎宿の八丁味噌、由比宿の桜海老、丸子宿のとろろ汁、宮宿のひつまぶしなど、東海道沿線で親しまれてきた名物料理や地域食材に着想を得たメニューを用意した。ライブステーションをはじめ、約70種類の料理やスイーツを通して、東海道五十三次を巡る美食の旅を楽しもう。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ef4444">
+    <div class="datecol">
+      <div class="d">07</div>
+      <div class="m">10月 · 10/07–12/29</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://nagoya.hiltonjapan.co.jp/restaurants/lp/dynasty-autumn-buffet" target="_blank" rel="noopener">上海蟹と秋のごちそうチャイニーズビュッフェ</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ef4444">祭り/フェス</span>
+        <span>📍 ヒルトン名古屋中国料理「王朝」</span>
+        <span>栄・久屋大通</span>
+        
+        
+      </div>
+      <div class="desc">上海蟹や和牛、トリュフ、鰻、シャインマスカットなど、秋を彩る味覚を取り入れた中国料理の数々を用意。北京ダックや飲茶ワゴンサービスに加え、愛知県産食材を活かしたメニューなど、約30種類以上の味わいをビュッフェスタイルで楽しめる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">08</div>
+      <div class="m">10月 · 10/08–12/13</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.tokugawa-art-museum.jp/" target="_blank" rel="noopener">企画展　生誕140年歿後50年記念　旅する侯爵 徳川義親</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 徳川美術館・名古屋市蓬左文庫</span>
+        <span>東区</span>
+        
+        
+      </div>
+      <div class="desc">徳川美術館の創設者・尾張徳川家19代当主義親は、知的な探求心にあふれた人物だった。義親は多分野に関心を持ち、東南アジアやヨーロッパ旅行で得た美術品・日本各地の郷土玩具など、彼ならではの目線で、その地域や生活の記憶と結びついた作品を蒐集した。今展では、今年生誕140年、没後50年を迎える義親の文化への眼差しとその足跡を辿る。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">08</div>
+      <div class="m">10月 · 10/08–12/13</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nagoya-info.jp/event/detail/1154/" target="_blank" rel="noopener">旅する侯爵 徳川義親</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 名古屋市蓬左文庫</span>
+        
+        
+        
+      </div>
+      <div class="desc">東部 旅する侯爵 徳川義親 2026年10月8日(木) ～ 12月13日(日) 名古屋市蓬左文庫</div>
+      <div class="line">
+        <span>nagoya-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">09</div>
+      <div class="m">10月 · 10/09–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nagoya-info.jp/event/detail/1423/" target="_blank" rel="noopener">&lt;特別展&gt; 伊豆市近代日本画コレクション 修善寺を愛した画家 －横山大観、小林古径、安田靫彦、前田青邨、川端龍子など－</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 名都美術館</span>
+        
+        
+        
+      </div>
+      <div class="desc">名古屋近郊 &lt;特別展&gt; 伊豆市近代日本画コレクション 修善寺を愛した画家 －横山大観、小林古径、安田靫彦、前田青邨、川端龍子など－ 2026年10月9日(金) ～ 12月6日(日) 名都美術館</div>
+      <div class="line">
+        <span>nagoya-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">09</div>
+      <div class="m">10月 · 10/09–07/15</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://planetarium.konicaminolta.jp/program/sakanaction/?hall=manten-nagoya" target="_blank" rel="noopener">サカナクション グッドナイト・プラネタリウム(プラネタリウム満天 NAGOYA)</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 コニカミノルタプラネタリウム満天NAGOYA</span>
+        
+        
+        
+      </div>
+      <div class="desc">プラネタリウム天空、プラネタリウム満天(池袋)に続き約10年ぶりにリバイバル上映される、ロックバンド、サカナクションのプラネタリウム作品。星空から宇宙へとつながる幻想的な映像に、ドームシアターの音響システム向けにサラウンド化されたサカナクションの代表曲「ミュージック」や「グッドバイ」、「ユリイカ」などが重なり、まるで宇宙を漂っているかのような没入感を体感できる。ボーカルの山口一郎さんによるナレーションも聞くことができる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">17</div>
+      <div class="m">10月 · 10/17–12/13</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nagoya-info.jp/event/detail/1421/" target="_blank" rel="noopener">あいち朝日遺跡ミュージアム企画展 弥生の顔と身体表現</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 〒452-0932 愛知県清須市朝日貝塚1番地</span>
+        
+        
+        
+      </div>
+      <div class="desc">名古屋近郊 ～あいち朝日遺跡ミュージアム企画展～ 弥生の顔と身体表現 2026年10月17日(土) ～ 12月13日(日) 〒452-0932 愛知県清須市朝日貝塚1番地</div>
+      <div class="line">
+        <span>nagoya-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">17</div>
+      <div class="m">10月 · 10/17–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nagoya-info.jp/event/detail/1431/" target="_blank" rel="noopener">爲三郎記念館特別企画 エスプリ・アンティーク展 骨董編集人北村日出子 時の間の、贈り物</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 爲三郎記念館</span>
+        
+        
+        
+      </div>
+      <div class="desc">東部 爲三郎記念館特別企画 エスプリ・アンティーク展 骨董編集人北村日出子 時の間の、贈り物 2026年10月17日(土) ～ 12月25日(金) 爲三郎記念館</div>
+      <div class="line">
+        <span>nagoya-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">23</div>
+      <div class="m">10月 · 10/23–03/22</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.yokoyama-art-museum.or.jp/" target="_blank" rel="noopener">企画展「横山美術館所蔵品　優美なるオールドノリタケ×ノリタケ」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 横山美術館</span>
+        <span>東区</span>
+        
+        
+      </div>
+      <div class="desc">150年前の明治9年、兄・森村市左衛門(市太郎)が東京・銀座で貿易事業を始め、弟・豊はアメリカへ旅立った。貿易商社の森村組の設立と、ニューヨークの販売店・モリムラブラザーズに繋がる出帆である。次第に陶磁器に重点を置くこととなり、絵付や製陶を行う大企業へと発展する。兄弟の持ち前の行動力と福澤諭吉の教えによる先見性をルーツにもつ、欧米で愛されたブランド・ノリタケの優美な世界を同館所蔵品より紹介する。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">23</div>
+      <div class="m">10月 · 10/23–02/28</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.mazak-art.com/" target="_blank" rel="noopener">和紙を知る　ILLUSION　柴崎幸次のあかり</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 ヤマザキマザック美術館　4階展示室</span>
+        <span>東区</span>
+        
+        
+      </div>
+      <div class="desc">インテリア・アーティスト柴崎幸次(1964-)の代表作「ナイトフェイス・シリーズ」は、和紙を何層も重ね貼りし、透過した光の陰影の差で立体感が現れる照明作品。明るい場所では白い箱。しかし、光を灯すとどうだろう。様相が一変し、複雑な模様が出現、暗所ではさらにその迫真性が増す。館蔵のアール・ヌーヴォーの工芸作品で彩られた空間を包み込む錯視のあかり、ILLUSIONの世界を楽しもう。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">25</div>
+      <div class="m">10月 · 10/25–03/31</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.anges-nagoya.com/" target="_blank" rel="noopener">覚王山ル・アンジェ教会 クリスマスイベント2026</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 覚王山ル・アンジェ教会</span>
+        <span>千種・東山</span>
+        
+        
+      </div>
+      <div class="desc">愛知県名古屋市にある覚王山ル・アンジェ教会で開催される、クリスマスイベント。2026年10月25日(日)～2027年3月下旬までの期間中イルミネーションが灯り、本場ヨーロッパの街並みを連想させる幻想的な空間で、大切な人と素敵なひとときを過ごすことができる(※車での来場は控えてください)。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#22c55e">
+    <div class="datecol">
+      <div class="d">28</div>
+      <div class="m">10月 · 10/28–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://realdgame.jp/s/conan2026/" target="_blank" rel="noopener">リアル脱出ゲーム×名探偵コナン『疾風の追走(ハイウェイ)からの脱出』(名古屋)</a></div>
+      <div class="line">
+        <span class="badge" style="background:#22c55e">ゲーム/謎解き</span>
+        <span>📍 リアル脱出ゲーム名古屋店</span>
+        <span>栄・久屋大通</span>
+        
+        
+      </div>
+      <div class="desc">全国50カ所以上で開催される、体験型エンターテインメント「リアル脱出ゲーム」とテレビアニメ『名探偵コナン』のコラボイベント最新作。劇場版『名探偵コナン ハイウェイの堕天使』のその後の物語をもとに展開されるオリジナルのストーリーで、コナンや蘭、世良、神奈川県警交通機動隊の萩原千速、犯人を捜査する横溝重悟らが登場する。指令センターから横浜の街にいるコナンと協力し、謎を解き明かして時限爆弾が仕掛けられたバスから蘭を救い出す。会場での体験や謎解きのクオリティはそのままに、謎の難易度などを調整した小学生対象の「ファミリーキット」も用意されている。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#22c55e">
+    <div class="datecol">
+      <div class="d">29</div>
+      <div class="m">10月 · 10/29–01/31</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://realdgame.jp/s/frieren2/" target="_blank" rel="noopener">魔族潜む村からの脱出(名古屋)</a></div>
+      <div class="line">
+        <span class="badge" style="background:#22c55e">ゲーム/謎解き</span>
+        <span>📍 リアル脱出ゲーム名古屋店</span>
+        <span>栄・久屋大通</span>
+        
+        
+      </div>
+      <div class="desc">体験型エンターテインメント｢リアル脱出ゲーム｣と、テレビアニメ『葬送のフリーレン』のコラボ企画第2弾。魔族に支配された村、グラウベンを舞台にしたリアル脱出ゲームで、その村の出身者で新人魔法使いである参加者は、さまざまな謎を解きながら魔族の脅威から逃れる方法を探っていく。村の中を実際に歩き回って情報を集めたり、仲間と意見を交わしながら謎を解いたり、自らの行動によって物語を進めていくのが特徴で、魔族が潜む緊迫した状況のなか、フリーレンたちと協力して村人に紛れ込んだ魔族を見つけ出し、勇者ヒンメルを救い出す。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">30</div>
+      <div class="m">10月 · 10/30–01/24</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://entaku.ticket-store.jp/pages/hatenanagoya-2026" target="_blank" rel="noopener">はてな展(名古屋)</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 伏見第一ビル</span>
+        <span>栄・久屋大通</span>
+        
+        
+      </div>
+      <div class="desc">「いい人すぎるよ展」などを手がけたクリエイティブチーム、entakuのシリーズ最新作。たくさんの質問と回答を通して自分と他者の価値観や感覚の違いを楽しめる体験型展示で、会場に並ぶ「朝早いって何時から？」「付き合う前の初デートで行きたい場所は？」「性格が悪そうなひらがなは？」などの身近なテーマの質問に答えながら、自分らしさや他者との違い、思いがけない共通点を発見することができる。会場には、趣向を凝らした仕掛けが多数用意されている。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">31</div>
+      <div class="m">10月 · 10/31–02/21</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nadyapark.jp/" target="_blank" rel="noopener">ナディアパークイルミネーション 2026</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 ナディアパーク</span>
+        <span>栄・久屋大通</span>
+        
+        
+      </div>
+      <div class="desc">名古屋市中区栄にあるナディアパークは、新しいメディアサポート(情報源)として機能している総合商業施設。この地域のデザインや芸術文化の情報発信基地として「国際デザインセンター」「青少年文化センター」をはじめ、商業施設やオフィスゾーンも複合している。毎年この時期になるとナディアパークの外周がライトアップされるほか、北東ゲート、北西ゲートの街路樹にイルミネーションが施され、名古屋の冬を彩る。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">11月 · 11/01–12/20</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.city.nagoya.jp/shisei/keikaku/1009818/1009822/1010205.html" target="_blank" rel="noopener">ゆとりーとライン沿線重ね捺しスタンプラリー</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 ゆとりーとライン沿線施設</span>
+        <span>守山区</span>
+        
+        
+      </div>
+      <div class="desc">ゆとりーとラインに乗って重ね捺しスタンプラリーに挑戦しよう！ゆとりーとライン沿線全体の魅力を発信するため、ゆとりーとライン沿線施設を巡る重ね捺しスタンプラリーを開催。10の沿線施設を5つのグループに区分し、各グループで1つずつスタンプをおして絵を完成させた人先着800名にオリジナルグッズをプレゼント。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#84cc16">
+    <div class="datecol">
+      <div class="d">02</div>
+      <div class="m">11月 · 11/02–12/27</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://conrad-nagoya.hiltonjapan.co.jp/plans/afternoon-tea-harrywinston" target="_blank" rel="noopener">HARRY WINSTON&amp;#39;s Holiday アフタヌーンティー</a></div>
+      <div class="line">
+        <span class="badge" style="background:#84cc16">体験/ワークショップ</span>
+        <span>📍 コンラッド名古屋サンドロップ</span>
+        <span>栄・久屋大通</span>
+        
+        
+      </div>
+      <div class="desc">ブランドを象徴する街・ニューヨークの、一年で最も美しく輝くホリデーシーズンをテーマに、スイーツとセイボリーでその魅力を表現した。期間中、アフタヌーンティーの利用者には、ハリー・ウィンストンオリジナルギフト（数量限定）を用意。さらに会場では、このコラボレーションの世界観を体感できる特別なフォト体験も楽しめる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">03</div>
+      <div class="m">11月 · 11/03–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nagoya-info.jp/event/detail/1441/" target="_blank" rel="noopener">海を渡ったクリスマス</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 名古屋陶磁器会館 1F ギャラリー</span>
+        
+        
+        
+      </div>
+      <div class="desc">北部 海を渡ったクリスマス 2026年11月3日(火･祝) ～ 12月25日(… 名古屋陶磁器会館 1F ギャラリー</div>
+      <div class="line">
+        <span>nagoya-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f97316">
+    <div class="datecol">
+      <div class="d">04</div>
+      <div class="m">11月 · 11/04–01/11</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.strings-group.jp/nagoya/recommend/recommend_18985/" target="_blank" rel="noopener">スノーホリデー×ジュリーク ローズアフタヌーンティー(名古屋)</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f97316">グルメ/食</span>
+        <span>📍 ストリングスホテル 名古屋</span>
+        <span>名古屋駅・伏見</span>
+        
+        
+      </div>
+      <div class="desc">オーストラリアのオーガニックコスメブランド「ジュリーク」と、セントグレースヴィラがコラボしたアフタヌーンティー。バラの香りを閉じ込めたホワイトショコラムースや、甘酸っぱいいちごとローズガナッシュを使ったストロベリーローズタルトなど、白銀の冬の世界とジュリークのオーガニックローズで彩られた、華やかなスイーツとシェフ特製のセイボリーが楽しめる。ドリンクはフランスの高級紅茶専門ブランド「マリアージュ フレール」の紅茶などが用意される。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f97316">
+    <div class="datecol">
+      <div class="d">05</div>
+      <div class="m">11月 · 11/05–12/27</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://nagoya.hiltonjapan.co.jp/restaurants/inplace3-3" target="_blank" rel="noopener">ヒルトン名古屋　クリスマススイーツビュッフェ＆アフタヌーンティー</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f97316">グルメ/食</span>
+        <span>📍 ヒルトン名古屋</span>
+        <span>栄・久屋大通</span>
+        
+        
+      </div>
+      <div class="desc">「ヨーロッパのクリスマス絵本をめくるような世界」をテーマにしたクリスマスのスイーツビュッフェとアフタヌーンティー。スイーツビュッフェでは、天然のビーツを使用し、美しい深紅色に焼き上げたレッドベルベット生地を重ねたケーキやオーストリアで親しまれる伝統的なデザートなどが登場。アフタヌーンティーでは、クリスマスをモチーフにした7種類のスイーツ、オレンジとアーモンドスコーンなどが提供される。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f97316">
+    <div class="datecol">
+      <div class="d">05</div>
+      <div class="m">11月 · 11/05–12/27</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://nagoya.hiltonjapan.co.jp/restaurants/lp/inplace3-3-sweetsbuffet-christmas" target="_blank" rel="noopener">ヒルトン名古屋クリスマススイーツビュッフェ</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f97316">グルメ/食</span>
+        <span>📍 インプレイス3-3</span>
+        <span>栄・久屋大通</span>
+        
+        
+      </div>
+      <div class="desc">サンタクロースやトナカイ、クリスマスツリーをモチーフにした愛らしいスイーツと、ヨーロッパ各国で親しまれる伝統菓子が並ぶ。きらめくクリスマスデコレーションに包まれながら、一年の締めくくりにふさわしい甘いひとときを過ごそう。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#84cc16">
+    <div class="datecol">
+      <div class="d">06</div>
+      <div class="m">11月 · 11/06–01/11</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://planetarium.konicaminolta.jp/program/naniwadanshi/?rl=260928_all_naniwa" target="_blank" rel="noopener">Twinkle Seven Stars(トゥインクル セブン スターズ) ～満天のプレゼント～ from(フロム) なにわ男子(名古屋)</a></div>
+      <div class="line">
+        <span class="badge" style="background:#84cc16">体験/ワークショップ</span>
+        <span>📍 コニカミノルタプラネタリウム満天NAGOYA</span>
+        
+        
+        
+      </div>
+      <div class="desc">なにわ男子のデビュー5周年を記念して上映される、コニカミノルタプラネタリウムとの特別コラボレーション作品。満天の星々の下で、本作のために書き下ろされた新曲「Twinkle love」をはじめ、なにわ男子の楽曲全5曲を聴くことができるプログラムとなっており、メンバーと一緒に夜空を見上げているかのような特別なプラネタリウム体験ができる。メンバー7人によるナレーションとともに、冬の星座や輝く1等星、さまざまな流星群など、星空の魅力も紹介される。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ef4444">
+    <div class="datecol">
+      <div class="d">06</div>
+      <div class="m">11月 · 11/06–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nagoya-info.jp/event/detail/1448/" target="_blank" rel="noopener">『ラブライブ！シリーズ』×「ラブナゴヤ！フェス」Welcome to Nagoya!</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ef4444">祭り/フェス</span>
+        <span>📍 名古屋市内/愛知県内各所 ※詳しくは公式ホームページをご覧ください。</span>
+        
+        
+        
+      </div>
+      <div class="desc">『ラブライブ！シリーズ』×「ラブナゴヤ！フェス」Welcome to Nagoya! 2026年11月6日(金) ～ 12月6日(日) 名古屋市内/愛知県内各所 ※詳しくは公式ホームページをご覧ください。</div>
+      <div class="line">
+        <span>nagoya-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f97316">
+    <div class="datecol">
+      <div class="d">06</div>
+      <div class="m">11月 · 11/06–12/27</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.princehotels.co.jp/nagoya/plan/skydining/2026/Christmas/afternoontea/" target="_blank" rel="noopener">クリスマスアフタヌーンティー ～シマエナガからの贈り物～</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f97316">グルメ/食</span>
+        <span>📍 名古屋プリンスホテル スカイタワー</span>
+        <span>名古屋駅・伏見</span>
+        
+        
+      </div>
+      <div class="desc">「シマエナガ」とクリスマスをテーマにしたアフタヌーンティー。いちごのショートケーキやラズベリーのフォレノワール風パフェ、ピスタチオムースなど、白、赤、緑のクリスマスカラーで彩られた華やかなスイーツが提供される。セイボリーは鴨のパストラミやモッツァレラチーズとトマトのカプレーゼなど、シェフこだわりのメニューが並ぶ。ドリンクは「ロンネフェルト」「マイティーリーフ」の紅茶をはじめ、コーヒーやエスプレッソなどがフリーフローで利用できる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f97316">
+    <div class="datecol">
+      <div class="d">06</div>
+      <div class="m">11月 · 11/06–12/27</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.princehotels.co.jp/nagoya/restaurant/skydining/" target="_blank" rel="noopener">クリスマススイーツ＆ランチブッフェ ～White Noel(ホワイトノエル)～、クリスマスディナーブッフェ ～Sky Noel(スカイノエル)～</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f97316">グルメ/食</span>
+        <span>📍 名古屋プリンスホテル スカイタワー</span>
+        <span>名古屋駅・伏見</span>
+        
+        
+      </div>
+      <div class="desc">地上140メートルからの景色とともに楽しめるランチ、ディナーブッフェ。スイーツ＆ランチブッフェでは、雪景色を思わせる白を基調にしたスイーツやランチ限定のスパゲッティなどが提供される。ディナーブッフェの12月11日(金)～27日(日)は大人のみメインディッシュ付きで、国産牛のステーキ、真鯛のポワレなど4種類から好きなメニューを選べるほか、シェフこだわりのバラエティ豊かなメニューを味わえる。12月11日(金)～18日(金)は、アルコールを含むドリンクがフリーフローで利用できる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ef4444">
+    <div class="datecol">
+      <div class="d">06</div>
+      <div class="m">11月 · 11/06–05/16</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://nanica-nagoya.jp/promo/train_festival/" target="_blank" rel="noopener">体験型謎解きイベント「魔法鉄道祭と53枚目のトランプ」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ef4444">祭り/フェス</span>
+        <span>📍 名古屋市内各所</span>
+        <span>栄・久屋大通</span>
+        
+        
+      </div>
+      <div class="desc">名古屋市営地下鉄や市バスに乗って街を巡りながら謎を解く、大規模な周遊型謎解きイベント。参加者は、専用1日乗車券やストーリーブックなどがセットになった謎解きキットを使い、物語を読み進めながら謎を解いていく。トランプと魔法をテーマにしたストーリーに沿って、暗号やヒントを手がかりに目的地へ移動し、地下鉄沿線を巡りながら謎の解明を目指す。第3章は、第2章のクリア画面の提示で「NANICA-NAGOYA-」にて無料配布される(第3章をプレイするには、第1章、第2章両方のキットが必要)。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">07</div>
+      <div class="m">11月 · 11/07–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nagoya-info.jp/event/detail/1116/" target="_blank" rel="noopener">『Christmas Memories』 想いを結び、未来へつなぐクリスマス</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 ノリタケの森 赤レンガ棟北側ひろば</span>
+        <span>名古屋駅・伏見</span>
+        
+        
+      </div>
+      <div class="desc">名古屋駅 『Christmas Memories』～想いを結び、未来へつなぐクリスマス～ 2026年11月7日(土) ～ 12月25日(金) ノリタケの森 赤レンガ棟北側ひろば</div>
+      <div class="line">
+        <span>nagoya-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">07</div>
+      <div class="m">11月 · 11/07–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.noritake.co.jp/mori/event/detail/266/" target="_blank" rel="noopener">ノリタケの森×イオンモール Nagoya Noritake Garden 『Christmas Memories』(クリスマスメモリーズ)</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 ノリタケの森</span>
+        
+        
+        
+      </div>
+      <div class="desc">本イベントは、地域の賑わいの創出を目的として開催しているもので、2026年で5回目を迎える。ノリタケの森の開業25周年とイオンモール Nagoya Noritake Gardenの開業5周年という節目となる今年は、来場者に笑顔と思い出が生まれる空間をこれからも提供していきたいとの思いを込め、｢想いを結び、未来へつなぐクリスマス｣をテーマに開催。会場には、｢想いを結ぶ｣を表現するリボンをモチーフにした装飾を施し、来場者の思い出や地域の皆さまとのつながりを表現した。また、11月21日10時～17時、22日10時～16時には煙突広場で「NORITAKE COFFEE GARDEN」が開催。全国からコ</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">08</div>
+      <div class="m">11月 · 11/08–04/04</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nagoya-info.jp/event/detail/1101/" target="_blank" rel="noopener">ラグーナ イルミネーション「光と水のカーニバル」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 ラグーナテンボス ラグナシア園内各所</span>
+        
+        
+        
+      </div>
+      <div class="desc">名古屋近郊 ラグーナ イルミネーション「光と水のカーニバル」 2026年11月8日(日) ～ 2027年4月4日… ラグーナテンボス ラグナシア園内各所</div>
+      <div class="line">
+        <span>nagoya-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f97316">
+    <div class="datecol">
+      <div class="d">09</div>
+      <div class="m">11月 · 11/09–12/23</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://nagoya.hiltonjapan.co.jp/restaurants/lp/inplace3-3-afternoontea-christmas" target="_blank" rel="noopener">ヒルトン名古屋クリスマスアフタヌーンティー</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f97316">グルメ/食</span>
+        <span>📍 インプレイス3-3</span>
+        <span>栄・久屋大通</span>
+        
+        
+      </div>
+      <div class="desc">サンタクロースやトナカイ、クリスマスツリーをモチーフにした愛らしいスイーツや、ヨーロッパ各国で親しまれる伝統菓子など、スイーツ8種類とセイボリー3種類を用意した。ディルマの紅茶のポットサービスに加え、コーヒーや抹茶ラテなど12種類のソフトドリンクをドリンクステーションで楽しめる。心温まるクリスマスの世界に包まれながら、優雅なティータイムを過ごそう。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">11月 · 11/11–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nagoya-info.jp/event/detail/931/" target="_blank" rel="noopener">JRセントラルタワーズ・JRゲートタワー クリスマス</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 名古屋市中村区名駅1-1-3 (JRゲートタワー1階イベントスペース)</span>
+        <span>名古屋駅・伏見</span>
+        
+        
+      </div>
+      <div class="desc">名古屋駅 JRセントラルタワーズ・JRゲートタワー クリスマス 2026年11月11日(水)～12月25日(金) 名古屋市中村区名駅1-1-3 (JRゲートタワー1階イベントスペース)</div>
+      <div class="line">
+        <span>nagoya-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">11月 · 11/11–02/28</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.century-toyota.jp/index.html" target="_blank" rel="noopener">センチュリー豊田ビル クリスマスイルミネーション2026</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 センチュリー豊田ビル</span>
+        <span>名古屋駅・伏見</span>
+        
+        
+      </div>
+      <div class="desc">愛知県名古屋市にあるセンチュリー豊田ビル、ミッドランドスクエア外周、シンフォニー豊田ビル、桜通豊田ビル、名古屋クロスコートタワーの樹木や植栽をいかしたイルミネーション「ウィンター・イルミネーション」を実施。約8万個の電球で錦通側、南北に連なる街路樹の樹木を鮮やかに演出。「CO2フリー電力」や、オーナメントの一部にLANケーブルの廃材を使用するなど、SDGsに配慮したサステナブルなイルミネーションで、訪れた人々の心を温かく照らす。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">11月 · 11/11–02/28</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.midland-square.com/xmas/" target="_blank" rel="noopener">ミッドランドスクエア・イルミネーション2026</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 ミッドランドスクエア</span>
+        <span>名古屋駅・伏見</span>
+        
+        
+      </div>
+      <div class="desc">ミッドランドスクエアの館内やビル外周、周辺施設の樹木や植栽が、シャンパンゴールドの光で美しく彩られる。館内には、ミッドランドスクエアのために別注制作された約16万球ものイルミネーションが登場。きらめく光が空間を優雅に包み込み、訪れる人を心華やぐ冬のひとときへと誘う。館外では、ミッドランドスクエア外周をはじめ、周辺ビルの街路樹などを約8万球のイルミネーションで演出。錦通沿いに連なる並木道もあたたかな光に照らされ、思わず足を止めて眺めたくなるような美しい景色が広がる。また、CO2フリー電力の採用や、LANケーブルの廃材を一部オーナメントに再利用するなど、環境にも配慮。街を歩くひとときまで特別にして</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">11月 · 11/11–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nagoya-info.jp/event/detail/379/" target="_blank" rel="noopener">ミッドランド・クリスマス 2026</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 ミッドランドスクエア周辺</span>
+        <span>名古屋駅・伏見</span>
+        
+        
+      </div>
+      <div class="desc">11月11日(水)～12月25日(金)、「ミッドランド・クリスマス2026」を開催。今年のテーマは「Glowing Prelude ―輝きは、この冬から。―」。オープニングを飾るのは、デビュー30周年のBONNIE PINKと、11/11にオープンする『ルイスポールセン』のコラボステージ。その他、クリスマスマーケットやコンサートも実施。ミッドランドスクエアならではの特別なホリデーシーズンが始まる。</div>
+      <div class="line">
+        <span>walkerplus</span><span>nagoya-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">11月 · 11/11–02/28</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nagoya-info.jp/event/detail/378/" target="_blank" rel="noopener">メイエキイルミ 2026</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 名古屋駅地区周辺</span>
+        <span>名古屋駅・伏見</span>
+        
+        
+      </div>
+      <div class="desc">名古屋駅 メイエキイルミ 2026 2026年11月11日(水)～2027年2月28日… 名古屋駅地区周辺</div>
+      <div class="line">
+        <span>nagoya-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">11月 · 11/11–12/27</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.associa.com/nma/restaurant/pergola/menu/" target="_blank" rel="noopener">名古屋マリオットアソシアホテル　クリスマスブッフェ ～ローストビーフ＆ドルチェ～</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 名古屋マリオットアソシアホテル</span>
+        <span>名古屋駅・伏見</span>
+        
+        
+      </div>
+      <div class="desc">ローストビーフとスイーツを主役にしたクリスマスのランチ、ディナーブッフェ。じっくり煮込んだビーフシチューや、魚介の旨みたっぷりのブイヤベースなど、寒い冬にぴったりのメニューが集結。ローストビーフは切り立てが提供されるので、肉の旨みを存分に味わえる。またブッシュ・ド・ノエルやシュトーレン、ベルギー産チョコレートのオペラなど、この時期ならではのデザートもそろう。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">11月 · 11/11–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.higashiyama.city.nagoya.jp/koyo_momiji/" target="_blank" rel="noopener">名古屋市東山動植物園の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 名古屋市東山動植物園</span>
+        <span>千種・東山</span>
+        
+        
+      </div>
+      <div class="desc">名古屋随一の紅葉スポットとして多くの来場者が訪れる、公共交通機関で行ける紅葉スポット。園内では約450種類の動物と約7000種類の植物が展示され、中でも植物園には、イロハモミジ、ハウチワカエデなど紅葉する樹木が500本以上。自然の地形をそのまま生かした山野のような美しい紅葉や日本庭園、合掌造りの家などさまざまな景観を楽しめる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">11月 · 11/11–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nagoya-info.jp/event/detail/387/" target="_blank" rel="noopener">大名古屋クリスマスイルミネーション</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 大名古屋ビルヂング 5F スカイガーデン</span>
+        <span>名古屋駅・伏見</span>
+        
+        
+      </div>
+      <div class="desc">名古屋駅 大名古屋クリスマスイルミネーション 2026年11月11日(水) ～ 12月25日(金) 大名古屋ビルヂング 5F スカイガーデン</div>
+      <div class="line">
+        <span>nagoya-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">11月 · 11/11–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://dainagoyabuilding.com/article/skygarden/13366/" target="_blank" rel="noopener">大名古屋ビルヂング クリスマスイルミネーション</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 大名古屋ビルヂング</span>
+        <span>名古屋駅・伏見</span>
+        
+        
+      </div>
+      <div class="desc">昨年、約23万人が来場したクリスマスイルミネーション。ビル開業10周年のメモリアルイヤーとなる2026年のテーマは、「White Forest Fantasy（ホワイトフォレストファンタジー）」。10年分の感謝が降り積もった「白銀の森」が輝く。ホワイトを基調に、シャンパンゴールドのきらめくイルミネーションがスカイガーデン全体を包み込みこむ。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ef4444">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">11月 · 11/11–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.tokugawaen.aichi.jp/" target="_blank" rel="noopener">徳川園の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ef4444">祭り/フェス</span>
+        <span>📍 徳川園</span>
+        <span>東区</span>
+        
+        
+      </div>
+      <div class="desc">愛知県名古屋市の池泉回遊式の日本庭園。秋にはイロハモミジやヤマモミジなどが色づく。高低差の大きな地形、既存のまま取り入れた樹林、立体的に迫る大きな岩組みが特徴だ。変化に富んだ景観を大胆に切り替える構成を用いて、武家社会の豪快さを眺めることができるようにしている。新緑や紅葉、ボタンやハナショウブの花々など四季を通じて楽しめる庭となっている。秋の紅葉の見頃は、例年11月中旬から12月上旬ごろとなる。2026年11月14日(土)から12月6日(日)の期間には、「錦を纏う 徳川園紅葉祭」を開催。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">11月 · 11/11–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nagoya-info.jp/event/detail/222/" target="_blank" rel="noopener">ＫＩＴＴＥ名古屋 Joy forward Christmas -よろこびは、つぎの誰かへ</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 ＫＩＴＴＥ名古屋</span>
+        <span>名古屋駅・伏見</span>
+        
+        
+      </div>
+      <div class="desc">名古屋駅 ＫＩＴＴＥ名古屋 Joy forward Christmas -よろこびは、つぎの誰かへ- 2026年11月11日(水) ～ 12月25日(金) ＫＩＴＴＥ名古屋</div>
+      <div class="line">
+        <span>nagoya-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">11月 · 11/11–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://nagoya.jp-kitte.jp/christmas2025/" target="_blank" rel="noopener">ＫＩＴＴＥ名古屋　Joy forward Christmas (ジョイ フォワード クリスマス)</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 ＫＩＴＴＥ名古屋</span>
+        <span>名古屋駅・伏見</span>
+        
+        
+      </div>
+      <div class="desc">今年10周年を迎えたKITTE名古屋のクリスマスイルミネーション。10周年を象徴する「10本」のツリーが集まり、高さ8メートルの一つの大きなメインツリーとして登場。1本1本、異なる色彩をまとったツリーをリボンがつなぎ、小さなよろこびが集まって大きく広がる姿を表現する。毎日定時に行うライティングショーでは、クリスマスソングに合わせてツリーが輝き、空間全体を華やかな光で包みこむ。また、2026年11月28日(土)、12月9日(水)、25日(金)には、バタフライドローンショーが楽しめる。(時間等は公式サイトでご確認ください)</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">12</div>
+      <div class="m">11月 · 11/12–02/28</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.asunal.jp/event/detail/?cd=000710" target="_blank" rel="noopener">Harmony Garden Lights</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 アスナル金山</span>
+        <span>栄・久屋大通</span>
+        
+        
+      </div>
+      <div class="desc">「音を奏でる、幻想的な光のガーデン」をテーマとしたイルミネーションがアスナル金山に登場。館内には、ピアノやドラム、バイオリン、トランペットをモチーフにした植物楽器が登場し、それぞれの楽器をイメージした音と光の演出で、幻想的な光のガーデンへと誘う。また中京テレビの朝の情報番組『あさドレ♪』（月～金 朝5:50～）のキャラクターで、幸せを運ぶ妖精『あさドレ♪ちゃん』がイルミネーションの世界観を彩る。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">12</div>
+      <div class="m">11月 · 11/12–02/28</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nagoya-info.jp/event/detail/926/" target="_blank" rel="noopener">アスナル金山「ウィンターイルミネーション2026」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 アスナル金山</span>
+        <span>金山・熱田</span>
+        
+        
+      </div>
+      <div class="desc">大須・金山 アスナル金山「ウィンターイルミネーション2026」 2026年11月12日(木)～2027年2月28日… アスナル金山</div>
+      <div class="line">
+        <span>nagoya-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">13</div>
+      <div class="m">11月 · 11/13–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.hitonodenwaten.com/" target="_blank" rel="noopener">050-5893-5336(ひとのでんわ)展(名古屋)</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 名古屋PARCO(パルコ)</span>
+        <span>栄・久屋大通</span>
+        
+        
+      </div>
+      <div class="desc">謎の人物たちによる40種類以上の音声通話を手がかりに、電話の向こう側で起こっている物語の真相に迫る謎解きイベント。参加者は受付で渡される「時空のテレホンカード」を用いて各電話機に残された音声を聞き、20人以上の人物の関係性や状況をひもときながら物語の全貌を解き明かす。「時空のテレホンカード」は、あらかじめ使用回数が決まっているため、自分のペースで謎解きやを進めながら電話機を選んでいく。物語は参加者それぞれの選択で結末が異なる2つのルートが用意されている。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">13</div>
+      <div class="m">11月 · 11/13–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nagoya-info.jp/event/detail/1278/" target="_blank" rel="noopener">中日ビルCHRISTMAS2026</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 中日ビル</span>
+        <span>栄・久屋大通</span>
+        
+        
+      </div>
+      <div class="desc">栄・伏見 中日ビルCHRISTMAS2026 2026年11月13日(金) ～ 12月25日(金) 中日ビル</div>
+      <div class="line">
+        <span>nagoya-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">13</div>
+      <div class="m">11月 · 11/13–02/04</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.sakaehigashi-mky.jp/illumination" target="_blank" rel="noopener">第25回池田公園イルミネーション</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 池田公園</span>
+        <span>栄・久屋大通</span>
+        
+        
+      </div>
+      <div class="desc">今年で25周年を迎える、冬の池田公園を彩る恒例イベント。公園を包むイルミネーションが、街の夜をより華やかに彩る。いつもの街並みとはひと味違う、冬ならではの景色を楽しむことができる。点灯イベントのほか、イルミネーションフォトコンテストも開催。25周年を迎える池田公園イルミネーションへ行ってみよう。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">14</div>
+      <div class="m">11月 · 11/14–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.higashiyama.city.nagoya.jp/koyo_momiji/" target="_blank" rel="noopener">東山動植物園 もみじ狩り・紅葉ライトアップ</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 東山動植物園</span>
+        <span>千種・東山</span>
+        
+        
+      </div>
+      <div class="desc">約60ヘクタールの広さを誇る緑豊かな東山動植物園。植物園ではこの期間は「もみじ狩り」を開催。期間中は夜間ライトアップを実施、普段は見られない夜の植物園を楽しめる。また、紅葉や秋を楽しむイベントが土日祝を中心に開催される。美しく色づく紅葉を満喫しよう。</div>
+      <div class="line">
+        <span>walkerplus</span><span>nagoya-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ef4444">
+    <div class="datecol">
+      <div class="d">14</div>
+      <div class="m">11月 · 11/14–12/26</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nagoya-info.jp/event/detail/60/" target="_blank" rel="noopener">錦を纏う 徳川園紅葉祭</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ef4444">祭り/フェス</span>
+        <span>📍 徳川園</span>
+        <span>東区</span>
+        
+        
+      </div>
+      <div class="desc">徳川園では、紅葉の見頃に併せて「錦を纏う　徳川園紅葉祭」を開催。期間中は、毎日夕方16時頃から庭園のライトアップを行う。その他、紅葉の時期にちなんだ様々な催しも行われる。</div>
+      <div class="line">
+        <span>walkerplus</span><span>nagoya-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">16</div>
+      <div class="m">11月 · 11/16–02/28</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nagoya-tv-tower.co.jp/nakedinc/" target="_blank" rel="noopener">NAKED 天空のSTAR ILLUMINATION (ネイキッド天空のスターイルミネーション)</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 中部電力 MIRAI TOWER</span>
+        <span>栄・久屋大通</span>
+        
+        
+      </div>
+      <div class="desc">毎年好評を博している「NAKED 天空のSTAR ILLUMINATION」を、今年も中部電力 MIRAI TOWERで開催。名古屋の街並みを一望できる90メートル屋内展望台のスカイデッキが、シャンパンゴールドにきらめく冬の星空へと変貌する。恋人との冬の夜はもちろん、家族や友人とのお出かけや名古屋観光にも適しており、世代を問わずそれぞれのスタイルで特別な時間を過ごすことができる。名古屋の夜景と星空に包まれる冬ならではの体験を楽しめる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f97316">
+    <div class="datecol">
+      <div class="d">19</div>
+      <div class="m">11月 · 11/19–12/27</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.bestbridal.co.jp/guestparty/event/artgrace_hoshigaoka/2026event-34/" target="_blank" rel="noopener">アリスのクリスマスギフトアフタヌーンティー(名古屋)</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f97316">グルメ/食</span>
+        <span>📍 星ヶ丘迎賓館 アートグレイスクラブ</span>
+        <span>名東区</span>
+        
+        
+      </div>
+      <div class="desc">「不思議の国のアリス」と「鏡の国のアリス」を原作とした「マクミラン・アリス」と、星ヶ丘迎賓館 アートグレイスクラブがコラボしたアフタヌーンティーの第3弾。甘酸っぱいいちごを使用したヴェリーヌや、可憐なアリスのドレス姿をイメージしたいちごムース、ツリーを模したタルトなど、クリスマスカラーのスイーツを楽しめる。ドリンクはフランスの老舗紅茶ブランド「マリアージュ フレール」の紅茶などが用意されている。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#22c55e">
+    <div class="datecol">
+      <div class="d">20</div>
+      <div class="m">11月 · 11/20–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.legoland.jp/operation/seasonal-events/christmas/2026/" target="_blank" rel="noopener">レゴランド(Ｒ)でメリークリスマス</a></div>
+      <div class="line">
+        <span class="badge" style="background:#22c55e">ゲーム/謎解き</span>
+        <span>📍 レゴランド(R)・ジャパン・リゾート</span>
+        <span>港・ベイエリア</span>
+        
+        
+      </div>
+      <div class="desc">2026年11月20日(金)から12月25日(金)の期間、「レゴランド(Ｒ)でメリークリスマス」を開催。毎年クリスマスに実施している大人気の謎解きアクティビティ「ハッピー・ホリデー・ハント2026」や、キャラクターと一緒に歌って踊るスペシャルショー「トナカイさんが届けるハートフルクリスマスプレゼント」が開催。クリスマス期間だけの限定のレゴ(Ｒ)ミニフィギュアを交換でゲットできる「スペシャル・ミニフィギュア・トレード」も体験できる。ほかにも、家族で過ごすクリスマスを彩る豊富なコンテンツを用意し、忘れられない心温まるひとときをを過ごすことができる。クリスマスプレゼントにもぴったりな限定グッズ、心も</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">21</div>
+      <div class="m">11月 · 11/21–12/20</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.koushoji.or.jp/" target="_blank" rel="noopener">八事山興正寺の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 八事山興正寺</span>
+        <span>昭和区</span>
+        
+        
+      </div>
+      <div class="desc">江戸期創建の八事山興正寺では、例年11月下旬から紅葉が美しく色づき、境内の五重塔や庭園が秋の彩りに包まれる。八事山興正寺の創建当初、学問と修行の「東山」と参拝のための「西山」に分かれていたが、現在は、緑豊かな境内を散策しながら7つのお堂を参拝することができる。愛知県名古屋市昭和区に位置し、アクセスが良く気軽に行ける紅葉スポットだ。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">21</div>
+      <div class="m">11月 · 11/21–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.shirotori-garden.jp/" target="_blank" rel="noopener">白鳥庭園の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 白鳥庭園</span>
+        <span>金山・熱田</span>
+        
+        
+      </div>
+      <div class="desc">名古屋市内最大級の規模を誇る日本庭園。秋にはイロハモミジやドウダンツツジなど約1500本が色づく。紅葉の見ごろになる時期からは雪吊りがあり、放射線状に広がる造形美とともに紅葉が楽しめる。池泉回遊式庭園で中部地方の地形をモチーフに、築山を御嶽山、そこからの流れを木曽川、流れの水が注ぎ込む池を伊勢湾に見立て、源流から大海までの水の物語をテーマにしている。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">21</div>
+      <div class="m">11月 · 11/21–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://tsurumapark.info/" target="_blank" rel="noopener">鶴舞公園の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 鶴舞公園</span>
+        <span>昭和区</span>
+        
+        
+      </div>
+      <div class="desc">愛知県名古屋市昭和区の鶴舞公園は、1909年(明治42年)に名古屋市が初めて設置した都市公園。洋風庭園と回遊式の日本庭園をあわせ持つ和洋折衷のつくりで、2009年には国の登録記念物(名勝地関係)に登録された。園内にはハゼノキやイチョウ、メタセコイアなど紅葉する木々が多く、例年11月中旬ごろから色づき始め、11月下旬から12月上旬に見頃を迎える。青空に映える赤や黄の葉と、足元の落ち葉のじゅうたんは秋ならではの眺め。JR・地下鉄鶴舞駅から徒歩すぐで、都心で気軽に紅葉狩りを楽しめる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">26</div>
+      <div class="m">11月 · 11/26–12/07</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nagoya-info.jp/event/detail/1449/" target="_blank" rel="noopener">華道家 假屋崎省吾の世界展 in 文化のみち橦木館</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 文化のみち橦木館（愛知県名古屋市東区橦木町2丁目18番地）</span>
+        <span>東区</span>
+        
+        
+      </div>
+      <div class="desc">東部 華道家 假屋崎省吾の世界展 in 文化のみち橦木館 2026年11月26日(木) ～ 12月7日(月) 文化のみち橦木館（愛知県名古屋市東区橦木町2丁目18番地）</div>
+      <div class="line">
+        <span>nagoya-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">27</div>
+      <div class="m">11月 · 11/27–02/21</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.blossa.jp/" target="_blank" rel="noopener">ブロッサ ウインターイルミネーション2026</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 Blossa</span>
+        <span>東区</span>
+        
+        
+      </div>
+      <div class="desc">2026年度は、ブロッサが位置する東桜の「桜」にちなんだ淡いピンクを基調に、上品なハニーゴールドをポイントカラーとした4万5000球のイルミネーションを設置。アーバンネット名古屋ビル1階エントランスには、雪の結晶のモチーフを配し、光を取り込み幻想的に輝くアクリルツリーを設置。ビル内を回遊しながら、特別なひとときを満喫できる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">28</div>
+      <div class="m">11月 · 11/28–12/27</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nagoya-info.jp/event/detail/1444/" target="_blank" rel="noopener">ダンガンロンパ１５周年記念展</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 テレピアホール</span>
+        <span>栄・久屋大通</span>
+        
+        
+      </div>
+      <div class="desc">栄・伏見 ダンガンロンパ１５周年記念展 2026年11月28日(土) ～ 12月27日(日) テレピアホール</div>
+      <div class="line">
+        <span>nagoya-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+<footer class="stats">
+  <div>名古屋 数据源 2 个 ｜ 库内有效活动 140 个 ｜ </div>
+  <table>
+    <tr><th>来源</th><th>活动数</th><th>最近抓取</th><th>成功/失败</th></tr>
+    
+    <tr>
+      <td>名古屋コンシェルジュ</td>
+      <td>52</td>
+      <td>2026-11-27T16:50:54</td>
+      <td><span class="ok">1</span> / <span class="bad">0</span></td>
+    </tr>
+    
+    <tr>
+      <td>ウォーカープラス</td>
+      <td>101</td>
+      <td>2026-11-27T16:50:53</td>
+      <td><span class="ok">1</span> / <span class="bad">0</span></td>
+    </tr>
+    
+  </table>
+</footer>
+
+</div>
+<script>
+async function doRefresh() {
+  const btn = document.getElementById('refreshBtn');
+  btn.disabled = true; btn.textContent = '抓取中…';
+  const r = await Promise.resolve({json:async()=>({message:'静态页面不支持抓取',ok:false})});//nagoya', {method: 'POST'});
+  const j = await r.json();
+  btn.textContent = j.message || '完成';
+  setTimeout(() => location.reload(), j.ok ? 90000 : 3000);
+}
+</script>
+</body>
+</html>

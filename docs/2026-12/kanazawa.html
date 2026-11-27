@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026年12月 · 金泽活动日历 ｜ 日本热门城市</title>
+<style>
+:root {
+  --bg: #f7f5f1;
+  --card: #ffffff;
+  --ink: #24211d;
+  --sub: #8b8680;
+  --line: #e6e1d9;
+  --accent: #c9453f;
+  --shadow: 0 1px 2px rgba(36, 33, 29, .08), 0 8px 24px rgba(36, 33, 29, .06);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP",
+    "Microsoft YaHei", "Segoe UI", sans-serif;
+  font-size: 14px; line-height: 1.6;
+}
+a { color: inherit; }
+.wrap { max-width: 1280px; margin: 0 auto; padding: 22px 20px 60px; }
+
+header.top { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 14px; }
+h1 { font-size: 21px; margin: 0; letter-spacing: .5px; }
+h1 span { color: var(--accent); }
+.meta { color: var(--sub); font-size: 12.5px; }
+.spacer { flex: 1; }
+.btn {
+  border: 1px solid var(--line); background: var(--card); color: var(--ink);
+  padding: 7px 13px; border-radius: 999px; font-size: 13px; cursor: pointer;
+  text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+}
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.primary:hover { filter: brightness(.94); color: #fff; }
+
+.monthbar { display: flex; align-items: center; gap: 10px; margin: 6px 0 14px; }
+.monthbar .title { font-size: 30px; font-weight: 700; letter-spacing: 1px; }
+.monthbar .title small { font-size: 14px; font-weight: 400; color: var(--sub); margin-left: 6px; }
+.arrow { font-size: 18px; padding: 6px 12px; }
+
+form.filters {
+  background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+  padding: 12px 14px; box-shadow: var(--shadow); margin-bottom: 16px;
+  display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+}
+.chipset { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  border: 1px solid var(--line); border-radius: 999px; padding: 4px 11px; font-size: 12.5px;
+  cursor: pointer; user-select: none; background: #fff; display: inline-flex; align-items: center; gap: 6px;
+}
+.chip input { display: none; }
+.chip.on { color: #fff; border-color: transparent; }
+.chip .dot { width: 8px; height: 8px; border-radius: 50%; }
+select, input[type=search] {
+  border: 1px solid var(--line); border-radius: 999px; padding: 7px 12px; font-size: 13px;
+  background: #fff; color: var(--ink); outline: none; font-family: inherit;
+}
+input[type=search] { min-width: 190px; }
+label.check { display: inline-flex; gap: 5px; align-items: center; font-size: 13px; color: var(--sub); }
+
+.calendar { background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
+.weekhead { display: grid; grid-template-columns: repeat(7, 1fr); background: #fbfaf7; border-bottom: 1px solid var(--line); }
+.weekhead div { padding: 9px 0; text-align: center; font-size: 12.5px; color: var(--sub); letter-spacing: 2px; }
+.weekhead div:nth-child(6) { color: #2f6f9f; }
+.weekhead div:nth-child(7) { color: #b5433c; }
+.grid { display: grid; grid-template-columns: repeat(7, 1fr); }
+.cell {
+  min-height: 132px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  padding: 6px 7px 8px; display: flex; flex-direction: column; gap: 4px; background: #fff;
+}
+.cell:nth-child(7n) { border-right: 0; }
+.cell.out { background: #faf9f6; }
+.cell.weekend { background: #fdfbf8; }
+.cell.today { background: #fff6ee; box-shadow: inset 0 0 0 2px #f0c8a8; }
+.dnum { font-size: 12px; color: var(--sub); display: flex; justify-content: space-between; align-items: center; }
+.dnum b { font-size: 14px; color: var(--ink); font-weight: 600; }
+.cell.out .dnum b { color: #c8c3ba; }
+.cell.today .dnum b { color: var(--accent); }
+
+.ev {
+  border-radius: 6px; padding: 2px 5px; font-size: 11.5px; line-height: 1.35;
+  color: #fff; text-decoration: none; display: block;
+  overflow: hidden; text-overflow: ellipsis; display: -webkit-box;
+  -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+}
+.ev .t { opacity: .92; font-variant-numeric: tabular-nums; margin-right: 3px; }
+.more { font-size: 11px; color: var(--sub); padding-left: 4px; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 12px; margin: 12px 2px 26px; font-size: 12px; color: var(--sub); }
+.legend span { display: inline-flex; align-items: center; gap: 5px; }
+.legend i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+
+.section-title { display: flex; align-items: baseline; gap: 10px; margin: 8px 0 12px; }
+.section-title h2 { font-size: 17px; margin: 0; }
+.section-title .meta { font-size: 12px; }
+
+.list { display: flex; flex-direction: column; gap: 10px; }
+.item {
+  background: var(--card); border: 1px solid var(--line); border-left: 4px solid #ccc;
+  border-radius: 12px; padding: 12px 14px; display: flex; gap: 14px; box-shadow: var(--shadow);
+}
+.item .datecol { min-width: 74px; text-align: center; }
+.item .datecol .d { font-size: 19px; font-weight: 700; line-height: 1.1; }
+.item .datecol .m { font-size: 11.5px; color: var(--sub); }
+.item .body { flex: 1; min-width: 0; }
+.item .t { font-size: 15px; font-weight: 600; margin-bottom: 3px; }
+.item .t a { text-decoration: none; }
+.item .t a:hover { text-decoration: underline; }
+.item .line { font-size: 12.5px; color: var(--sub); display: flex; flex-wrap: wrap; gap: 10px; margin-top: 2px; }
+.item .desc { font-size: 12.5px; color: #55504a; margin-top: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.badge { font-size: 11px; padding: 1px 8px; border-radius: 999px; color: #fff; }
+
+footer.stats { margin-top: 34px; border-top: 1px solid var(--line); padding-top: 16px; color: var(--sub); font-size: 12.5px; }
+footer.stats table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 12px; }
+footer.stats th, footer.stats td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--line); }
+footer.stats th { color: var(--sub); font-weight: 500; }
+.ok { color: #2f7a4f; font-weight: 600; }
+.bad { color: #b5433c; font-weight: 600; }
+@media (max-width: 760px) {
+  .cell { min-height: 92px; padding: 4px; }
+  .ev { font-size: 10px; -webkit-line-clamp: 2; }
+  .monthbar .title { font-size: 22px; }
+  .item .datecol { min-width: 54px; }
+}
+
+/* ---- 城市切换标签 ---- */
+.citytabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px}
+.citytab{display:flex;align-items:center;gap:6px;padding:7px 12px;border:1px solid #e2e8f0;border-radius:999px;
+  background:#fff;color:#334155;font-size:14px;text-decoration:none;transition:all .15s}
+.citytab:hover{border-color:#94a3b8;transform:translateY(-1px)}
+.citytab.on{background:#0f172a;color:#fff;border-color:#0f172a}
+.citytab small{font-size:11px;opacity:.6}
+
+.ev.ongoing{background:#f8fafc !important;color:#475569;font-size:11px}
+
+</style>
+<link rel="alternate" type="text/calendar" href="/calendar.ics?city=kanazawa">
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div>
+    <h1>日本<span>城市</span>活动日历</h1>
+    <div class="meta">金泽（金沢市）· 石川県 ｜ 自动汇总 2 个来源 ｜ 库内 39 个 ｜ 本月 14 个</div>
+  </div>
+  <div class="spacer"></div>
+  <a class="btn" href="/calendar.ics?city=kanazawa">📅 订阅本城市 ICS</a>
+  <a class="btn" href="/sources?city=kanazawa">📡 数据源状态</a>
+  <button class="btn primary" id="refreshBtn" onclick="doRefresh()">↻ 抓取本城市</button>
+</header>
+
+<nav class="citytabs">
+  
+  <a class="citytab " href="/?city=fukuoka&month=2026-12">
+    福冈<small>890</small>
+  </a>
+  
+  <a class="citytab " href="/?city=yokohama&month=2026-12">
+    横浜<small>719</small>
+  </a>
+  
+  <a class="citytab " href="/?city=tokyo&month=2026-12">
+    东京<small>227</small>
+  </a>
+  
+  <a class="citytab " href="/?city=kyoto&month=2026-12">
+    京都<small>172</small>
+  </a>
+  
+  <a class="citytab " href="/?city=osaka&month=2026-12">
+    大阪<small>131</small>
+  </a>
+  
+  <a class="citytab " href="/?city=kobe&month=2026-12">
+    神户<small>127</small>
+  </a>
+  
+  <a class="citytab " href="/?city=nara&month=2026-12">
+    奈良<small>47</small>
+  </a>
+  
+  <a class="citytab " href="/?city=sapporo&month=2026-12">
+    札幌<small>97</small>
+  </a>
+  
+  <a class="citytab " href="/?city=okinawa&month=2026-12">
+    冲绳（那霸）<small>37</small>
+  </a>
+  
+  <a class="citytab " href="/?city=nagoya&month=2026-12">
+    名古屋<small>140</small>
+  </a>
+  
+  <a class="citytab " href="/?city=nagasaki&month=2026-12">
+    长崎<small>29</small>
+  </a>
+  
+  <a class="citytab on" href="/?city=kanazawa&month=2026-12">
+    金泽<small>39</small>
+  </a>
+  
+</nav>
+
+<div class="monthbar">
+  <a class="btn arrow" href="/?city=kanazawa&month=2026-11">‹</a>
+  <div class="title">2026年12月<small>金泽 · 14 个活动</small></div>
+  <a class="btn arrow" href="/?city=kanazawa&month=2027-01">›</a>
+  <a class="btn" href="/?city=kanazawa&month=2026-11">今天</a>
+  
+</div>
+
+<form class="filters" method="get" action="/">
+  <input type="hidden" name="month" value="2026-12">
+  <input type="hidden" name="city" value="kanazawa">
+  <div class="chipset">
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="market" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#f59e0b"></span>市集
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="flea" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#a855f7"></span>跳蚤市场
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="festival" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#ef4444"></span>节庆
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="illumination" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#06b6d4"></span>灯饰
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="exhibition" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#3b82f6"></span>展览
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="performance" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#ec4899"></span>演出
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="game" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#22c55e"></span>游戏
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="workshop" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#84cc16"></span>体验
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="food" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#f97316"></span>美食
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="sports" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#0ea5e9"></span>运动
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="other" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#64748b"></span>其他
+    </label>
+    
+  </div>
+  <select name="area" onchange="this.form.submit()">
+    <option value="">全部区域</option>
+    
+    <option value="香林坊・片町" >香林坊・片町</option>
+    
+    <option value="21世紀美術館・広坂" >21世紀美術館・広坂</option>
+    
+  </select>
+  <input type="search" name="q" value="" placeholder="搜索标题 / 会场 / 关键词">
+  <label class="check"><input type="checkbox" name="free" value="1" 
+         onchange="this.form.submit()">仅免费</label>
+  <label class="check"><input type="checkbox" name="weekend" value="1" 
+         onchange="this.form.submit()">仅周末</label>
+  <button class="btn" type="submit">筛选</button>
+  <a class="btn" href="/?city=kanazawa&month=2026-12">重置</a>
+</form>
+
+<div class="calendar">
+  <div class="weekhead">
+    <div>月</div><div>火</div><div>水</div><div>木</div><div>金</div><div>土</div><div>日</div>
+  </div>
+  <div class="grid">
+    
+    <div class="cell out  ">
+      <div class="dnum"><b>30</b></div>
+      
+      
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>1</b></div>
+      
+      <a class="ev" href="https://www.hyatt.com/hyatt-centric/ja-JP/kmqct-hyatt-centric-kanazawa/dining/five-grill-lounge" target="_blank" rel="noopener"
+         style="background:#f97316" title="ネオクラシック アフタヌーンティー ｜ ハイアット セントリック 金沢 ｜ 12/01–02/28">
+        ネオクラシック アフタヌーンティー
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 11 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>2</b></div>
+      
+      <a class="ev" href="https://i-shodo.com/" target="_blank" rel="noopener"
+         style="background:#3b82f6" title="第74回（2026）石川県書道展覧会 ｜ 金沢21世紀美術館 ｜ 12/02–12/06">
+        第74回（2026）石川県書道展覧会
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 11 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>3</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 12 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>4</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 12 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>5</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 12 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>6</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 12 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>7</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 11 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>8</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 11 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>9</b></div>
+      
+      <a class="ev" href="https://ishikawa-rofukukyo.jp/kinbun/" target="_blank" rel="noopener"
+         style="background:#3b82f6" title="第７６回石川県勤労者美術展 ｜ 金沢21世紀美術館 ｜ 12/09–12/13">
+        第７６回石川県勤労者美術展
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 11 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>10</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 12 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>11</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 12 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>12</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 12 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>13</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 12 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>14</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 8 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>15</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 8 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>16</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 8 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>17</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 8 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>18</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 7 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>19</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 7 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>20</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 7 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>21</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 7 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>22</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 7 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>23</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 7 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>24</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 7 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>25</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 7 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>26</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 7 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>27</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 7 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>28</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 7 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>29</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 7 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>30</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 7 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>31</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 7 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell out  ">
+      <div class="dnum"><b>1</b></div>
+      
+      
+      
+    </div>
+    
+    <div class="cell out weekend ">
+      <div class="dnum"><b>2</b></div>
+      
+      
+      
+    </div>
+    
+    <div class="cell out weekend ">
+      <div class="dnum"><b>3</b></div>
+      
+      
+      
+    </div>
+    
+  </div>
+</div>
+
+<div class="legend">
+  
+  <span><i style="background:#f59e0b"></i>市集/マルシェ / 市集</span>
+  
+  <span><i style="background:#a855f7"></i>フリマ/蚤の市 / 跳蚤市场</span>
+  
+  <span><i style="background:#ef4444"></i>祭り/フェス / 节庆</span>
+  
+  <span><i style="background:#06b6d4"></i>灯饰/ライトアップ / 灯饰</span>
+  
+  <span><i style="background:#3b82f6"></i>展覧会 / 展览</span>
+  
+  <span><i style="background:#ec4899"></i>舞台/コンサート / 演出</span>
+  
+  <span><i style="background:#22c55e"></i>ゲーム/謎解き / 游戏</span>
+  
+  <span><i style="background:#84cc16"></i>体験/ワークショップ / 体验</span>
+  
+  <span><i style="background:#f97316"></i>グルメ/食 / 美食</span>
+  
+  <span><i style="background:#0ea5e9"></i>スポーツ / 运动</span>
+  
+  <span><i style="background:#64748b"></i>その他 / 其他</span>
+  
+</div>
+
+<div class="section-title">
+  <h2>金泽本月活动一览</h2>
+  <span class="meta">按开始日期排序 · 共 14 个</span>
+</div>
+
+<div class="list">
+  
+  <div class="item" style="border-left-color:#f97316">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">12月 · 12/01–02/28</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.hyatt.com/hyatt-centric/ja-JP/kmqct-hyatt-centric-kanazawa/dining/five-grill-lounge" target="_blank" rel="noopener">ネオクラシック アフタヌーンティー</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f97316">グルメ/食</span>
+        <span>📍 ハイアット セントリック 金沢</span>
+        
+        
+        
+      </div>
+      <div class="desc">世代を超えて長く親しまれるメニューをベースにユニークなアクセントをプラスした、ネオクラシックなアフタヌーンティー。柚子のコンフィチュールを忍ばせたタルトシトロン、香ばしく炙ったバスクチーズケーキ、カシスの風味をきかせたパリブレスト、赤ワインとチョコレートのソースで仕上げた国産牛頬肉の煮込みなど、定番のメニューに冬の彩りや風味を添えたスイーツやセイボリーを味わえる。ドリンクは「JING TEA」の紅茶をはじめ、コーヒー、加賀棒茶などをフリーフローで利用できる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">02</div>
+      <div class="m">12月 · 12/02–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://i-shodo.com/" target="_blank" rel="noopener">第74回（2026）石川県書道展覧会</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 金沢21世紀美術館</span>
+        <span>21世紀美術館・広坂</span>
+        
+        
+      </div>
+      
+      <div class="line">
+        <span>kanazawa21</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">09</div>
+      <div class="m">12月 · 12/09–12/13</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://ishikawa-rofukukyo.jp/kinbun/" target="_blank" rel="noopener">第７６回石川県勤労者美術展</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 金沢21世紀美術館</span>
+        <span>21世紀美術館・広坂</span>
+        
+        
+      </div>
+      
+      <div class="line">
+        <span>kanazawa21</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">08</div>
+      <div class="m">07月 · 07/08–12/13</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kanazawa-museum.jp/yumeji/" target="_blank" rel="noopener">オリジナルスタンプのポストカードづくり</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 金沢湯涌夢二館</span>
+        
+        
+        
+      </div>
+      <div class="desc">夢二の描いたモチーフや、かわいい民芸品のスタンプでオリジナルのポストカードをつくるイベント。特別展の記念にいかが？</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#84cc16">
+    <div class="datecol">
+      <div class="d">08</div>
+      <div class="m">07月 · 07/08–12/13</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kanazawa-museum.jp/yumeji/" target="_blank" rel="noopener">ミニこけしの絵付け体験</a></div>
+      <div class="line">
+        <span class="badge" style="background:#84cc16">体験/ワークショップ</span>
+        <span>📍 金沢湯涌夢二館</span>
+        
+        
+        
+      </div>
+      <div class="desc">夢二も愛した民芸品・こけし。ミニサイズのこけしに色を塗ってオリジナルのこけしを作ることができる。大好評につき開催期間を延長して開催されることになった。詳細はHPを参照。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">08</div>
+      <div class="m">07月 · 07/08–12/13</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kanazawa-museum.jp/yumeji/" target="_blank" rel="noopener">特別展「アウト・オブ・民藝　ー夢二・湯けむり・ユートピア編ー</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 金沢湯涌夢二館</span>
+        
+        
+        
+      </div>
+      <div class="desc">デザイナーの軸原ヨウスケ氏と美術家の中村裕太氏によるリサーチ活動「アウト・オブ・民藝」。その文脈で大衆画家・竹久夢二を捉えつつ、温泉地・湯涌の地域性に着目して芸術家達ゆかりの温泉地と彼らが思い描いた理想の世界を展観する展覧会を開催。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">08</div>
+      <div class="m">09月 · 09/08–04/18</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kanazawa21.jp/data_list.php?g=17&amp;d=1857" target="_blank" rel="noopener">牛嶋均 さわひらき ともにある風景</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 金沢21世紀美術館</span>
+        <span>21世紀美術館・広坂</span>
+        
+        
+      </div>
+      
+      <div class="line">
+        <span>kanazawa21</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">15</div>
+      <div class="m">09月 · 09/15–04/18</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kanazawa21.jp/exhibition/" target="_blank" rel="noopener">NEUTRAL COLORS NEW CIRCUIT / ニュー・サーキット</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 金沢21世紀美術館</span>
+        <span>21世紀美術館・広坂</span>
+        
+        
+      </div>
+      
+      <div class="line">
+        <span>kanazawa21</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">10月 · 10/01–02/28</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kanazawa-museum.jp/shusei/" target="_blank" rel="noopener">宇野千代没後30年記念企画展「千代と秋聲―ウノ式のゴチソウ―」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 徳田秋聲記念館</span>
+        
+        
+        
+      </div>
+      <div class="desc">作家・宇野千代と秋聲の関係を一言で表せば年の離れた遊び友達。26歳年上の秋聲に宛てた千代筆書簡など貴重資料を公開する。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">16</div>
+      <div class="m">10月 · 10/16–02/14</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kanazawa-kankoukyoukai.or.jp/event/detail_50479.html" target="_blank" rel="noopener">金箔雪吊り「金箔きらら」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 金沢市武蔵地区</span>
+        
+        
+        
+      </div>
+      <div class="desc">金沢市民の台所・近江町市場の周辺エリアでは、金箔づくしのモニュメント「金箔きらら」が冬の風物詩となっている。金沢の冬支度として知られる雪吊りに、伝統工芸品の金箔をあしらい、LEDの光でライトアップ。引き締まった空気が心地よい金沢の冬の夜に、豪華さと優雅さを添えた真のゴールデンタイムを楽しめる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">31</div>
+      <div class="m">10月 · 10/31–04/18</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.kanazawa21.jp/data_list.php?g=17&amp;d=1855" target="_blank" rel="noopener">今日から明日へ 作品を継承すること</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 金沢21世紀美術館</span>
+        <span>21世紀美術館・広坂</span>
+        <span>💴 有料</span>
+        
+      </div>
+      
+      <div class="line">
+        <span>kanazawa21</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f97316">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">11月 · 11/01–12/17</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.anacrowneplaza-kanazawa.jp/offers-restaurants/lounge-afternoontea-christmas/" target="_blank" rel="noopener">アフタヌーンティーセット ～聖夜の贈り物～</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f97316">グルメ/食</span>
+        <span>📍 ANAクラウンプラザホテル金沢</span>
+        
+        
+        
+      </div>
+      <div class="desc">クリスマスをテーマにしたアフタヌーンティー。サンタクロースやクリスマスツリー、プレゼントなど、全11種類のクリスマスモチーフのスイーツがティースタンドに並ぶ。ホテルシェフが手掛けるセイボリーは、ミニサイズのハンバーガーやクロケットを盛り付けたプレートと、冷製と温製から選べるメニューの2種類を味わえる。12月1日(火)から25日(金)までは、クリスマス限定スイーツプレートも提供される。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">11月 · 11/01–02/14</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://shop-kanazawa.jp/" target="_blank" rel="noopener">香林坊地区 ツリーファンタジー</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 金沢市香林坊</span>
+        <span>香林坊・片町</span>
+        
+        
+      </div>
+      <div class="desc">2026年度で40回目を迎える、石川県金沢市で開催されるイルミネーションイベント。香林坊地区は、城下が形成されたころより交通の要衝となり、現在はショッピング街としてにぎわっている繁華街エリアだ。金沢の目抜き通り、香林坊交差点から香林坊大和に向かう歩道にあるケヤキ28本が約8万球の電飾で飾られ、街全体が鮮やかなイルミネーションに包まれる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#f59e0b">
+    <div class="datecol">
+      <div class="d">21</div>
+      <div class="m">11月 · 11/21–12/01</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.lykkelig.jp/" target="_blank" rel="noopener">古代ZAKKAマルシェ2026</a></div>
+      <div class="line">
+        <span class="badge" style="background:#f59e0b">市集/マルシェ</span>
+        <span>📍 music &amp;amp; zakka Lykkelig（リュケリ）</span>
+        
+        
+        
+      </div>
+      <div class="desc">土偶・埴輪・古墳など「古代」をモチーフにしたオリジナル雑貨が一堂に集結！15の雑貨アーティストやメーカーが手掛ける多彩な作品を展示・販売する。昨年大好評だった第1回に続き、今年は新たな作家を迎えパワーアップ。紙雑貨・文具・陶器・クッション・Tシャツ・書籍など、250種類以上・全1,800点を超えるアイテムが集まる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+<footer class="stats">
+  <div>金泽 数据源 2 个 ｜ 库内有效活动 39 个 ｜ </div>
+  <table>
+    <tr><th>来源</th><th>活动数</th><th>最近抓取</th><th>成功/失败</th></tr>
+    
+    <tr>
+      <td>金沢21世紀美術館</td>
+      <td>10</td>
+      <td>2026-11-27T16:51:02</td>
+      <td><span class="ok">1</span> / <span class="bad">0</span></td>
+    </tr>
+    
+    <tr>
+      <td>ウォーカープラス</td>
+      <td>29</td>
+      <td>2026-11-27T16:51:01</td>
+      <td><span class="ok">1</span> / <span class="bad">0</span></td>
+    </tr>
+    
+  </table>
+</footer>
+
+</div>
+<script>
+async function doRefresh() {
+  const btn = document.getElementById('refreshBtn');
+  btn.disabled = true; btn.textContent = '抓取中…';
+  const r = await Promise.resolve({json:async()=>({message:'静态页面不支持抓取',ok:false})});//kanazawa', {method: 'POST'});
+  const j = await r.json();
+  btn.textContent = j.message || '完成';
+  setTimeout(() => location.reload(), j.ok ? 90000 : 3000);
+}
+</script>
+</body>
+</html>

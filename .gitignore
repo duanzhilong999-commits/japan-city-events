@@ -1,0 +1,9 @@
+# 本地/部署无关文件
+_scratch/
+data/cache/
+__pycache__/
+*.pyc
+.venv/
+.vscode/
+*.log
+*.tmp

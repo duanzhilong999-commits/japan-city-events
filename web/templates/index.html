@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ year }}年{{ month }}月 · {{ city_name }}活动日历 ｜ 日本热门城市</title>
+<link rel="stylesheet" href="/static/style.css">
+<link rel="alternate" type="text/calendar" href="/calendar.ics?city={{ city }}">
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div>
+    <h1>日本<span>城市</span>活动日历</h1>
+    <div class="meta">{{ city_name }}（{{ city_ja }}）· {{ city_pref }} ｜ 自动汇总 {{ sources|length }} 个来源 ｜ 库内 {{ active }} 个 ｜ 本月 {{ all_total }} 个</div>
+  </div>
+  <div class="spacer"></div>
+  <a class="btn" href="/calendar.ics?city={{ city }}">📅 订阅本城市 ICS</a>
+  <a class="btn" href="/sources?city={{ city }}">📡 数据源状态</a>
+  <button class="btn primary" id="refreshBtn" onclick="doRefresh()">↻ 抓取本城市</button>
+</header>
+
+<nav class="citytabs">
+  {% for t in tabs %}
+  <a class="citytab {% if t.id == city %}on{% endif %}" href="/?city={{ t.id }}&month={{ month_str }}">
+    {{ t.name }}<small>{{ t.n }}</small>
+  </a>
+  {% endfor %}
+</nav>
+
+<div class="monthbar">
+  <a class="btn arrow" href="/?city={{ city }}&month={{ prev_month }}{% if cats %}&cat={{ cats|join(',') }}{% endif %}">‹</a>
+  <div class="title">{{ year }}年{{ month }}月<small>{{ city_name }} · {{ total }} 个活动</small></div>
+  <a class="btn arrow" href="/?city={{ city }}&month={{ next_month }}{% if cats %}&cat={{ cats|join(',') }}{% endif %}">›</a>
+  <a class="btn" href="/?city={{ city }}&month={{ today_str }}">今天</a>
+  {% if refresh.last %}<span class="meta">上次抓取 {{ refresh.last }}</span>{% endif %}
+</div>
+
+<form class="filters" method="get" action="/">
+  <input type="hidden" name="month" value="{{ month_str }}">
+  <input type="hidden" name="city" value="{{ city }}">
+  <div class="chipset">
+    {% for code, c in categories.items() %}
+    <label class="chip {% if code in cats %}on{% endif %}"
+           {% if code in cats %}style="background:{{ c.color }}"{% endif %}>
+      <input type="checkbox" name="cat" value="{{ code }}" {% if code in cats %}checked{% endif %}
+             onchange="this.form.submit()">
+      <span class="dot" style="background:{{ c.color }}"></span>{{ c.zh }}
+    </label>
+    {% endfor %}
+  </div>
+  <select name="area" onchange="this.form.submit()">
+    <option value="">全部区域</option>
+    {% for w in wards %}
+    <option value="{{ w }}" {% if w == ward %}selected{% endif %}>{{ w }}</option>
+    {% endfor %}
+  </select>
+  <input type="search" name="q" value="{{ q }}" placeholder="搜索标题 / 会场 / 关键词">
+  <label class="check"><input type="checkbox" name="free" value="1" {% if free %}checked{% endif %}
+         onchange="this.form.submit()">仅免费</label>
+  <label class="check"><input type="checkbox" name="weekend" value="1" {% if weekend %}checked{% endif %}
+         onchange="this.form.submit()">仅周末</label>
+  <button class="btn" type="submit">筛选</button>
+  <a class="btn" href="/?city={{ city }}&month={{ month_str }}">重置</a>
+</form>
+
+<div class="calendar">
+  <div class="weekhead">
+    <div>月</div><div>火</div><div>水</div><div>木</div><div>金</div><div>土</div><div>日</div>
+  </div>
+  <div class="grid">
+    {% for row in grid %}{% for cell in row %}
+    <div class="cell {% if not cell.in_month %}out{% endif %} {% if cell.weekend %}weekend{% endif %} {% if cell.today %}today{% endif %}">
+      <div class="dnum"><b>{{ cell.day }}</b>{% if cell.today %}<span>今天</span>{% endif %}</div>
+      {% for ev in cell.events[:3] %}
+      <a class="ev" href="{{ ev.url or '#' }}" target="_blank" rel="noopener"
+         style="background:{{ ev.category_color or '#64748b' }}" title="{{ ev.title }} ｜ {{ ev.display_venue }} ｜ {{ ev.date_label }}">
+        {% if not ev.all_day %}<span class="t">{{ ev.start_at[11:16] }}</span>{% endif %}{{ ev.title }}
+      </a>
+      {% endfor %}
+      {% if cell.events|length > 3 %}<span class="more">+{{ cell.events|length - 3 }} 更多…</span>{% endif %}
+      {% if cell.ongoing %}
+      <span class="more">⟳ 另有 {{ cell.ongoing|length }} 项跨月进行中</span>
+      {% endif %}
+    </div>
+    {% endfor %}{% endfor %}
+  </div>
+</div>
+
+<div class="legend">
+  {% for code, c in categories.items() %}
+  <span><i style="background:{{ c.color }}"></i>{{ c.label }} / {{ c.zh }}</span>
+  {% endfor %}
+</div>
+
+<div class="section-title">
+  <h2>{{ city_name }}本月活动一览</h2>
+  <span class="meta">按开始日期排序 · 共 {{ total }} 个</span>
+</div>
+
+<div class="list">
+  {% for ev in events %}
+  <div class="item" style="border-left-color:{{ ev.category_color }}">
+    <div class="datecol">
+      <div class="d">{{ ev.start_at[8:10] }}</div>
+      <div class="m">{{ ev.start_at[5:7] }}月 · {{ ev.date_label }}</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="{{ ev.url or '#' }}" target="_blank" rel="noopener">{{ ev.title }}</a></div>
+      <div class="line">
+        <span class="badge" style="background:{{ ev.category_color }}">{{ ev.category_label }}</span>
+        <span>📍 {{ ev.display_venue }}</span>
+        {% if ev.ward %}<span>{{ ev.ward }}</span>{% endif %}
+        {% if ev.price %}<span>💴 {{ ev.price }}</span>{% endif %}
+        {% for t in ev.tags %}<span>#{{ t }}</span>{% endfor %}
+      </div>
+      {% if ev.description %}<div class="desc">{{ ev.description }}</div>{% endif %}
+      <div class="line">
+        {% for s in ev.sources %}<span>{{ s.source }}</span>{% endfor %}
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="item"><div class="body">这个月没有匹配的活动。试试取消筛选，或点右上角「抓取本城市」。</div></div>
+  {% endfor %}
+</div>
+
+<footer class="stats">
+  <div>{{ city_name }} 数据源 {{ sources|length }} 个 ｜ 库内有效活动 {{ active }} 个 ｜ {{ refresh.message }}</div>
+  <table>
+    <tr><th>来源</th><th>活动数</th><th>最近抓取</th><th>成功/失败</th></tr>
+    {% for s in sources %}
+    <tr>
+      <td>{{ s.short or s.source }}</td>
+      <td>{{ s.events }}</td>
+      <td>{{ s.last_run or "-" }}</td>
+      <td><span class="ok">{{ s.ok_runs }}</span> / <span class="bad">{{ s.fail_runs }}</span></td>
+    </tr>
+    {% endfor %}
+  </table>
+</footer>
+
+</div>
+<script>
+async function doRefresh() {
+  const btn = document.getElementById('refreshBtn');
+  btn.disabled = true; btn.textContent = '抓取中…';
+  const r = await fetch('/refresh?city={{ city }}', {method: 'POST'});
+  const j = await r.json();
+  btn.textContent = j.message || '完成';
+  setTimeout(() => location.reload(), j.ok ? 90000 : 3000);
+}
+</script>
+</body>
+</html>

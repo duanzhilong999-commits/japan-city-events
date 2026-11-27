@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026年12月 · 冲绳（那霸）活动日历 ｜ 日本热门城市</title>
+<style>
+:root {
+  --bg: #f7f5f1;
+  --card: #ffffff;
+  --ink: #24211d;
+  --sub: #8b8680;
+  --line: #e6e1d9;
+  --accent: #c9453f;
+  --shadow: 0 1px 2px rgba(36, 33, 29, .08), 0 8px 24px rgba(36, 33, 29, .06);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP",
+    "Microsoft YaHei", "Segoe UI", sans-serif;
+  font-size: 14px; line-height: 1.6;
+}
+a { color: inherit; }
+.wrap { max-width: 1280px; margin: 0 auto; padding: 22px 20px 60px; }
+
+header.top { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 14px; }
+h1 { font-size: 21px; margin: 0; letter-spacing: .5px; }
+h1 span { color: var(--accent); }
+.meta { color: var(--sub); font-size: 12.5px; }
+.spacer { flex: 1; }
+.btn {
+  border: 1px solid var(--line); background: var(--card); color: var(--ink);
+  padding: 7px 13px; border-radius: 999px; font-size: 13px; cursor: pointer;
+  text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+}
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.primary:hover { filter: brightness(.94); color: #fff; }
+
+.monthbar { display: flex; align-items: center; gap: 10px; margin: 6px 0 14px; }
+.monthbar .title { font-size: 30px; font-weight: 700; letter-spacing: 1px; }
+.monthbar .title small { font-size: 14px; font-weight: 400; color: var(--sub); margin-left: 6px; }
+.arrow { font-size: 18px; padding: 6px 12px; }
+
+form.filters {
+  background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+  padding: 12px 14px; box-shadow: var(--shadow); margin-bottom: 16px;
+  display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+}
+.chipset { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  border: 1px solid var(--line); border-radius: 999px; padding: 4px 11px; font-size: 12.5px;
+  cursor: pointer; user-select: none; background: #fff; display: inline-flex; align-items: center; gap: 6px;
+}
+.chip input { display: none; }
+.chip.on { color: #fff; border-color: transparent; }
+.chip .dot { width: 8px; height: 8px; border-radius: 50%; }
+select, input[type=search] {
+  border: 1px solid var(--line); border-radius: 999px; padding: 7px 12px; font-size: 13px;
+  background: #fff; color: var(--ink); outline: none; font-family: inherit;
+}
+input[type=search] { min-width: 190px; }
+label.check { display: inline-flex; gap: 5px; align-items: center; font-size: 13px; color: var(--sub); }
+
+.calendar { background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
+.weekhead { display: grid; grid-template-columns: repeat(7, 1fr); background: #fbfaf7; border-bottom: 1px solid var(--line); }
+.weekhead div { padding: 9px 0; text-align: center; font-size: 12.5px; color: var(--sub); letter-spacing: 2px; }
+.weekhead div:nth-child(6) { color: #2f6f9f; }
+.weekhead div:nth-child(7) { color: #b5433c; }
+.grid { display: grid; grid-template-columns: repeat(7, 1fr); }
+.cell {
+  min-height: 132px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  padding: 6px 7px 8px; display: flex; flex-direction: column; gap: 4px; background: #fff;
+}
+.cell:nth-child(7n) { border-right: 0; }
+.cell.out { background: #faf9f6; }
+.cell.weekend { background: #fdfbf8; }
+.cell.today { background: #fff6ee; box-shadow: inset 0 0 0 2px #f0c8a8; }
+.dnum { font-size: 12px; color: var(--sub); display: flex; justify-content: space-between; align-items: center; }
+.dnum b { font-size: 14px; color: var(--ink); font-weight: 600; }
+.cell.out .dnum b { color: #c8c3ba; }
+.cell.today .dnum b { color: var(--accent); }
+
+.ev {
+  border-radius: 6px; padding: 2px 5px; font-size: 11.5px; line-height: 1.35;
+  color: #fff; text-decoration: none; display: block;
+  overflow: hidden; text-overflow: ellipsis; display: -webkit-box;
+  -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+}
+.ev .t { opacity: .92; font-variant-numeric: tabular-nums; margin-right: 3px; }
+.more { font-size: 11px; color: var(--sub); padding-left: 4px; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 12px; margin: 12px 2px 26px; font-size: 12px; color: var(--sub); }
+.legend span { display: inline-flex; align-items: center; gap: 5px; }
+.legend i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+
+.section-title { display: flex; align-items: baseline; gap: 10px; margin: 8px 0 12px; }
+.section-title h2 { font-size: 17px; margin: 0; }
+.section-title .meta { font-size: 12px; }
+
+.list { display: flex; flex-direction: column; gap: 10px; }
+.item {
+  background: var(--card); border: 1px solid var(--line); border-left: 4px solid #ccc;
+  border-radius: 12px; padding: 12px 14px; display: flex; gap: 14px; box-shadow: var(--shadow);
+}
+.item .datecol { min-width: 74px; text-align: center; }
+.item .datecol .d { font-size: 19px; font-weight: 700; line-height: 1.1; }
+.item .datecol .m { font-size: 11.5px; color: var(--sub); }
+.item .body { flex: 1; min-width: 0; }
+.item .t { font-size: 15px; font-weight: 600; margin-bottom: 3px; }
+.item .t a { text-decoration: none; }
+.item .t a:hover { text-decoration: underline; }
+.item .line { font-size: 12.5px; color: var(--sub); display: flex; flex-wrap: wrap; gap: 10px; margin-top: 2px; }
+.item .desc { font-size: 12.5px; color: #55504a; margin-top: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.badge { font-size: 11px; padding: 1px 8px; border-radius: 999px; color: #fff; }
+
+footer.stats { margin-top: 34px; border-top: 1px solid var(--line); padding-top: 16px; color: var(--sub); font-size: 12.5px; }
+footer.stats table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 12px; }
+footer.stats th, footer.stats td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--line); }
+footer.stats th { color: var(--sub); font-weight: 500; }
+.ok { color: #2f7a4f; font-weight: 600; }
+.bad { color: #b5433c; font-weight: 600; }
+@media (max-width: 760px) {
+  .cell { min-height: 92px; padding: 4px; }
+  .ev { font-size: 10px; -webkit-line-clamp: 2; }
+  .monthbar .title { font-size: 22px; }
+  .item .datecol { min-width: 54px; }
+}
+
+/* ---- 城市切换标签 ---- */
+.citytabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px}
+.citytab{display:flex;align-items:center;gap:6px;padding:7px 12px;border:1px solid #e2e8f0;border-radius:999px;
+  background:#fff;color:#334155;font-size:14px;text-decoration:none;transition:all .15s}
+.citytab:hover{border-color:#94a3b8;transform:translateY(-1px)}
+.citytab.on{background:#0f172a;color:#fff;border-color:#0f172a}
+.citytab small{font-size:11px;opacity:.6}
+
+.ev.ongoing{background:#f8fafc !important;color:#475569;font-size:11px}
+
+</style>
+<link rel="alternate" type="text/calendar" href="/calendar.ics?city=okinawa">
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div>
+    <h1>日本<span>城市</span>活动日历</h1>
+    <div class="meta">冲绳（那霸）（那覇市）· 沖縄県 ｜ 自动汇总 2 个来源 ｜ 库内 37 个 ｜ 本月 25 个</div>
+  </div>
+  <div class="spacer"></div>
+  <a class="btn" href="/calendar.ics?city=okinawa">📅 订阅本城市 ICS</a>
+  <a class="btn" href="/sources?city=okinawa">📡 数据源状态</a>
+  <button class="btn primary" id="refreshBtn" onclick="doRefresh()">↻ 抓取本城市</button>
+</header>
+
+<nav class="citytabs">
+  
+  <a class="citytab " href="/?city=fukuoka&month=2026-12">
+    福冈<small>890</small>
+  </a>
+  
+  <a class="citytab " href="/?city=yokohama&month=2026-12">
+    横浜<small>719</small>
+  </a>
+  
+  <a class="citytab " href="/?city=tokyo&month=2026-12">
+    东京<small>227</small>
+  </a>
+  
+  <a class="citytab " href="/?city=kyoto&month=2026-12">
+    京都<small>172</small>
+  </a>
+  
+  <a class="citytab " href="/?city=osaka&month=2026-12">
+    大阪<small>131</small>
+  </a>
+  
+  <a class="citytab " href="/?city=kobe&month=2026-12">
+    神户<small>127</small>
+  </a>
+  
+  <a class="citytab " href="/?city=nara&month=2026-12">
+    奈良<small>47</small>
+  </a>
+  
+  <a class="citytab " href="/?city=sapporo&month=2026-12">
+    札幌<small>97</small>
+  </a>
+  
+  <a class="citytab on" href="/?city=okinawa&month=2026-12">
+    冲绳（那霸）<small>37</small>
+  </a>
+  
+  <a class="citytab " href="/?city=nagoya&month=2026-12">
+    名古屋<small>140</small>
+  </a>
+  
+  <a class="citytab " href="/?city=nagasaki&month=2026-12">
+    长崎<small>29</small>
+  </a>
+  
+  <a class="citytab " href="/?city=kanazawa&month=2026-12">
+    金泽<small>39</small>
+  </a>
+  
+</nav>
+
+<div class="monthbar">
+  <a class="btn arrow" href="/?city=okinawa&month=2026-11">‹</a>
+  <div class="title">2026年12月<small>冲绳（那霸） · 25 个活动</small></div>
+  <a class="btn arrow" href="/?city=okinawa&month=2027-01">›</a>
+  <a class="btn" href="/?city=okinawa&month=2026-11">今天</a>
+  
+</div>
+
+<form class="filters" method="get" action="/">
+  <input type="hidden" name="month" value="2026-12">
+  <input type="hidden" name="city" value="okinawa">
+  <div class="chipset">
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="market" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#f59e0b"></span>市集
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="flea" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#a855f7"></span>跳蚤市场
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="festival" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#ef4444"></span>节庆
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="illumination" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#06b6d4"></span>灯饰
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="exhibition" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#3b82f6"></span>展览
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="performance" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#ec4899"></span>演出
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="game" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#22c55e"></span>游戏
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="workshop" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#84cc16"></span>体验
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="food" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#f97316"></span>美食
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="sports" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#0ea5e9"></span>运动
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="other" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#64748b"></span>其他
+    </label>
+    
+  </div>
+  <select name="area" onchange="this.form.submit()">
+    <option value="">全部区域</option>
+    
+    <option value="国際通り・牧志" >国際通り・牧志</option>
+    
+    <option value="首里" >首里</option>
+    
+    <option value="豊見城・小禄" >豊見城・小禄</option>
+    
+  </select>
+  <input type="search" name="q" value="" placeholder="搜索标题 / 会场 / 关键词">
+  <label class="check"><input type="checkbox" name="free" value="1" 
+         onchange="this.form.submit()">仅免费</label>
+  <label class="check"><input type="checkbox" name="weekend" value="1" 
+         onchange="this.form.submit()">仅周末</label>
+  <button class="btn" type="submit">筛选</button>
+  <a class="btn" href="/?city=okinawa&month=2026-12">重置</a>
+</form>
+
+<div class="calendar">
+  <div class="weekhead">
+    <div>月</div><div>火</div><div>水</div><div>木</div><div>金</div><div>土</div><div>日</div>
+  </div>
+  <div class="grid">
+    
+    <div class="cell out  ">
+      <div class="dnum"><b>30</b></div>
+      
+      
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>1</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 19 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>2</b></div>
+      
+      <a class="ev" href="https://www.ikutouen.com/2026/11/16/%e5%a3%ba%e5%b1%8b%e3%81%ae%e9%a1%94-the-face-of-tsuboya%e3%80%80%e4%bd%90%e6%b2%bb%e4%bf%8a%e5%85%8b%e3%81%a8%e8%82%b2%e9%99%b6%e5%9c%92%e3%81%ae%e3%83%a2%e3%83%8e%e3%81%a5%e3%81%8f/" target="_blank" rel="noopener"
+         style="background:#3b82f6" title="壺屋の顔 — THE FACE OF TSUBOYA 佐治俊克と育陶園のモノづくり ｜ 壺屋焼窯元育陶園「壺屋のいりぐち」 ｜ 12/02–12/08">
+        壺屋の顔 — THE FACE OF TSUBOYA 佐治俊克と育陶園のモノづくり
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 19 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>3</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 20 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>4</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 20 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>5</b></div>
+      
+      <a class="ev" href="https://www.sdc-raku1.com/" target="_blank" rel="noopener"
+         style="background:#64748b" title="提案書･チラシを劇的にグレードアップする！AI画像作成セミナー（沖縄産業支援センター） ｜ 沖縄産業支援センター 会議室（302） ｜ 12/05">
+        提案書･チラシを劇的にグレードアップする！AI画像作成セミナー（沖縄産業支援センター）
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 20 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>6</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 20 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>7</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 20 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>8</b></div>
+      
+      <a class="ev" href="https://ryukyuorion.kenhotels.com/news/418" target="_blank" rel="noopener"
+         style="background:#64748b" title="Beer＆Fun. SPECIAL NIGHTS ｜ THE ORION BEER DINING ｜ 12/08–12/09">
+        Beer＆Fun. SPECIAL NIGHTS
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 20 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>9</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 20 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>10</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 19 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>11</b></div>
+      
+      <a class="ev" href="https://www.titan-net.co.jp/" target="_blank" rel="noopener"
+         style="background:#ec4899" title="爆笑問題 with タイタンシネマライブ （沖縄） ｜ 桜坂劇場 ｜ 12/11">
+        爆笑問題 with タイタンシネマライブ （沖縄）
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 19 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>12</b></div>
+      
+      <a class="ev" href="https://www.gekidan-tanpopo.com/" target="_blank" rel="noopener"
+         style="background:#ec4899" title="劇団たんぽぽ80周年記念沖縄公演「100万回生きたねこ」 ｜ ともかぜ振興会館　多目的ホール ｜ 12/12">
+        劇団たんぽぽ80周年記念沖縄公演「100万回生きたねこ」
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 19 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>13</b></div>
+      
+      <a class="ev" href="#" target="_blank" rel="noopener"
+         style="background:#ec4899" title="次代育成落語会　沖縄公演 ｜ てんぶす那覇テンブスホール ｜ 12/13">
+        次代育成落語会　沖縄公演
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 19 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>14</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 19 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>15</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 19 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>16</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 19 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>17</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 19 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>18</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 19 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>19</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 19 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>20</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 19 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>21</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 17 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>22</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 17 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>23</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 17 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>24</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 17 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>25</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 17 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>26</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 15 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>27</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 15 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>28</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 13 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>29</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 13 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>30</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 13 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>31</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 13 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell out  ">
+      <div class="dnum"><b>1</b></div>
+      
+      
+      
+    </div>
+    
+    <div class="cell out weekend ">
+      <div class="dnum"><b>2</b></div>
+      
+      
+      
+    </div>
+    
+    <div class="cell out weekend ">
+      <div class="dnum"><b>3</b></div>
+      
+      
+      
+    </div>
+    
+  </div>
+</div>
+
+<div class="legend">
+  
+  <span><i style="background:#f59e0b"></i>市集/マルシェ / 市集</span>
+  
+  <span><i style="background:#a855f7"></i>フリマ/蚤の市 / 跳蚤市场</span>
+  
+  <span><i style="background:#ef4444"></i>祭り/フェス / 节庆</span>
+  
+  <span><i style="background:#06b6d4"></i>灯饰/ライトアップ / 灯饰</span>
+  
+  <span><i style="background:#3b82f6"></i>展覧会 / 展览</span>
+  
+  <span><i style="background:#ec4899"></i>舞台/コンサート / 演出</span>
+  
+  <span><i style="background:#22c55e"></i>ゲーム/謎解き / 游戏</span>
+  
+  <span><i style="background:#84cc16"></i>体験/ワークショップ / 体验</span>
+  
+  <span><i style="background:#f97316"></i>グルメ/食 / 美食</span>
+  
+  <span><i style="background:#0ea5e9"></i>スポーツ / 运动</span>
+  
+  <span><i style="background:#64748b"></i>その他 / 其他</span>
+  
+</div>
+
+<div class="section-title">
+  <h2>冲绳（那霸）本月活动一览</h2>
+  <span class="meta">按开始日期排序 · 共 25 个</span>
+</div>
+
+<div class="list">
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">02</div>
+      <div class="m">12月 · 12/02–12/08</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.ikutouen.com/2026/11/16/%e5%a3%ba%e5%b1%8b%e3%81%ae%e9%a1%94-the-face-of-tsuboya%e3%80%80%e4%bd%90%e6%b2%bb%e4%bf%8a%e5%85%8b%e3%81%a8%e8%82%b2%e9%99%b6%e5%9c%92%e3%81%ae%e3%83%a2%e3%83%8e%e3%81%a5%e3%81%8f/" target="_blank" rel="noopener">壺屋の顔 — THE FACE OF TSUBOYA 佐治俊克と育陶園のモノづくり</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 壺屋焼窯元育陶園「壺屋のいりぐち」</span>
+        <span>国際通り・牧志</span>
+        
+        
+      </div>
+      <div class="desc">「壺屋の顔 — THE FACE OF TSUBOYA」は、グラフィックデザイナー・佐治俊克と壺屋焼窯元・育陶園によるものづくりを紹介する企画である。佐治のスケッチや造形表現をもとに、育陶園のやちむん職人が壺屋焼の技術で形にした作品などを展示し、両者の協働から生まれた表現を紹介する。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">05</div>
+      <div class="m">12月 · 12/05</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.sdc-raku1.com/" target="_blank" rel="noopener">提案書･チラシを劇的にグレードアップする！AI画像作成セミナー（沖縄産業支援センター）</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 沖縄産業支援センター 会議室（302）</span>
+        <span>国際通り・牧志</span>
+        
+        
+      </div>
+      <div class="desc">有限会社城間電算センターは、沖縄産業支援センターおよびWEBにて「AI画像作成セミナー」を無料開催する。提案書やチラシの質を高める画像生成の秘訣や、企業が守るべきコンプライアンスを解説する。定員は20名。参加者にはプロンプト作成アプリの3ヵ月無料特典があり、画像探しの業務効率化に役立つ。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">08</div>
+      <div class="m">12月 · 12/08–12/09</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://ryukyuorion.kenhotels.com/news/418" target="_blank" rel="noopener">Beer＆Fun. SPECIAL NIGHTS</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 THE ORION BEER DINING</span>
+        <span>国際通り・牧志</span>
+        
+        
+      </div>
+      <div class="desc">ホテル1階「THE ORION BEER DINING」では、12月8日（火）・9日（水）の2日間限定で、特別なディナー営業「Beer＆Fun. SPECIAL NIGHTS」を開催します。炭火で焼いた1ポンドステーキや主役級メニューが登場。友人や家族とにぎやかに、大切な人とゆったりと。さまざまなシーンで楽しむことができる、2日間だけの特別なディナーを楽しんでみてはいかが。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">12月 · 12/11</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.titan-net.co.jp/" target="_blank" rel="noopener">爆笑問題 with タイタンシネマライブ （沖縄）</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 桜坂劇場</span>
+        <span>国際通り・牧志</span>
+        
+        
+      </div>
+      <div class="desc">2ヶ月に一度、爆笑問題をはじめ人気芸人たちによるお笑いライブを全国の映画館で生中継。大スクリーンでリピート無し、ここでしか観られないネタ＆トークを楽しもう。出演は、爆笑問題、キンタロー。、ダウ90000、や団、ストレッチーズ、ウエストランド、キュウ、ネコニスズ、シティホテル3号室、春とヒコーキ他全16組予定。入場者にタイタン情報紙「号外」プレゼント。金曜夜、映画館でポップコーン片手に大爆笑しよう！</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">12</div>
+      <div class="m">12月 · 12/12</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.gekidan-tanpopo.com/" target="_blank" rel="noopener">劇団たんぽぽ80周年記念沖縄公演「100万回生きたねこ」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 ともかぜ振興会館　多目的ホール</span>
+        <span>国際通り・牧志</span>
+        
+        
+      </div>
+      <div class="desc">復帰前の1963年から毎年公演している沖縄での記念公演。沖縄公演3000回突破！　あらすじ：さまざまな人間に飼われ百万回生きたねこが、ある時初めてノラネコに生まれ変わりました。他のノラネコたちはこのねこに夢中でしたが、たった一ぴき、このねこに見向きもしない白いねこがいました…。生きること・愛することが伝わる、ふしぎなねこの物語。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">13</div>
+      <div class="m">12月 · 12/13</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="#" target="_blank" rel="noopener">次代育成落語会　沖縄公演</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 てんぶす那覇テンブスホール</span>
+        <span>国際通り・牧志</span>
+        
+        
+      </div>
+      <div class="desc">中トリ・トリは、次代を担う若手が務める奮闘落語会！ 出演は月亭柳正、桂枝之進、桂慶治朗、桂楽珍、桂二乗（出演順）。てんぶす那覇テンブスホールで、華やかで勢いのある高座をたっぷりと楽しもう！ チケットは、チケットぴあ、セブンイレブン、イープラス（ファミリーマート）、デパートリウボウ（チケットカウンター）にて取り扱い。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">03月 · 03/01–03/31</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.okinawastory.jp/event/600022045" target="_blank" rel="noopener">滞在プログラム「首里城を彩る紅 琉球のちむぐくる 」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 星のや沖縄</span>
+        <span>首里</span>
+        
+        
+      </div>
+      <div class="desc">本島中部 読谷村 滞在プログラム「首里城を彩る紅～琉球のちむぐくる～」 2026年3月1日(日)〜2027年3月31日(水) 星のや沖縄</div>
+      <div class="line">
+        <span>okinawa-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">30</div>
+      <div class="m">05月 · 05/30–12/20</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.okinawastory.jp/event/600022129" target="_blank" rel="noopener">海洋博公園コスプレ撮影会</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 海洋博公園</span>
+        <span>国際通り・牧志</span>
+        
+        
+      </div>
+      <div class="desc">本島北部 本部町 海洋博公園コスプレ撮影会 2026年5月30日(土)〜2026年12月20日(日) 海洋博公園</div>
+      <div class="line">
+        <span>okinawa-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">12</div>
+      <div class="m">06月 · 06/12–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.okinawastory.jp/event/600022388" target="_blank" rel="noopener">おきみゅーナイトミュージアム</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 沖縄県立博物館・美術館（おきみゅー）</span>
+        <span>国際通り・牧志</span>
+        
+        
+      </div>
+      <div class="desc">本島南部 那覇市 おきみゅーナイトミュージアム 2026年6月12日(金)〜2026年12月25日(金) 沖縄県立博物館・美術館（おきみゅー）</div>
+      <div class="line">
+        <span>okinawa-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">24</div>
+      <div class="m">07月 · 07/24–12/31</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.okinawastory.jp/event/600022629" target="_blank" rel="noopener">うるまでマルごと！トクトク周遊スタンプラリー</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 CAVE OKINAWA神秘の鍾乳洞</span>
+        <span>国際通り・牧志</span>
+        
+        
+      </div>
+      <div class="desc">本島中部 うるま市 うるまでマルごと！トクトク周遊スタンプラリー 2026年7月24日(金)〜2026年12月31日(木) CAVE OKINAWA神秘の鍾乳洞</div>
+      <div class="line">
+        <span>okinawa-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">09月 · 09/01–03/31</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.okinawastory.jp/event/600022979" target="_blank" rel="noopener">首里城正殿復興！歴史的な節目をお祝いする「首里城かりゆしステイ」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 OMO5沖縄那覇 by 星野リゾート</span>
+        <span>国際通り・牧志</span>
+        
+        
+      </div>
+      <div class="desc">本島南部 那覇市 首里城正殿復興！歴史的な節目をお祝いする「首里城かりゆしステイ」 2026年9月1日(火)〜2027年3月31日(水) OMO5沖縄那覇 by 星野リゾート</div>
+      <div class="line">
+        <span>okinawa-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">09月 · 09/11–01/17</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.okinawastory.jp/event/600022952" target="_blank" rel="noopener">染谷聡 個展「Relational Horizon -片身替わりの地平-」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 WALL_okinawa</span>
+        <span>国際通り・牧志</span>
+        
+        
+      </div>
+      <div class="desc">本島中部 読谷村 染谷聡 個展「Relational Horizon -片身替わりの地平-」 2026年9月11日(金)〜2027年1月17日(日) WALL_okinawa</div>
+      <div class="line">
+        <span>okinawa-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">12</div>
+      <div class="m">09月 · 09/12–01/17</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.okinawastory.jp/event/600022992" target="_blank" rel="noopener">令和8年度第2期常設展「昭和の時代へタイムトリップ―20世紀沖縄の漆器―」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 浦添市美術館</span>
+        <span>国際通り・牧志</span>
+        
+        
+      </div>
+      <div class="desc">本島中部 浦添市 令和8年度第2期常設展「昭和の時代へタイムトリップ―20世紀沖縄の漆器―」 2026年9月12日(土)〜2027年1月17日(日) 浦添市美術館</div>
+      <div class="line">
+        <span>okinawa-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">19</div>
+      <div class="m">09月 · 09/19–12/25</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.okinawastory.jp/event/600023449" target="_blank" rel="noopener">宮古島・来間島の特別な夜へ。 来間島の夜を彩る「88星座イルミネーション2026」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 シーウッドホテル 水盤エリア</span>
+        <span>国際通り・牧志</span>
+        
+        
+      </div>
+      <div class="desc">宮古諸島 宮古島（伊良部島・池間島・来間島・下地島含む） 宮古島・来間島の特別な夜へ。 来間島の夜を彩る「88星座イルミネーション2026」 2026年9月19日(土)〜2026年12月25日(金) シーウッドホテル 水盤エリア</div>
+      <div class="line">
+        <span>okinawa-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">19</div>
+      <div class="m">09月 · 09/19–03/28</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.okinawastory.jp/event/600022904" target="_blank" rel="noopener">美術館コレクション展</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 沖縄県立博物館・美術館 コレクションギャラリー1，ホワイエ，コレクションギャラリ</span>
+        <span>国際通り・牧志</span>
+        
+        
+      </div>
+      <div class="desc">本島南部 那覇市 美術館コレクション展 2026年9月19日(土)〜2027年3月28日(日) 沖縄県立博物館・美術館 コレクションギャラリー1，ホワイエ，コレクションギャラリー2，コレクションギャラリー3</div>
+      <div class="line">
+        <span>okinawa-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">30</div>
+      <div class="m">09月 · 09/30–03/29</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.okinawastory.jp/event/600022924" target="_blank" rel="noopener">沖芸サテライト・ミニ・ギャラリーVol. 20</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 沖縄県立図書館 4F</span>
+        <span>国際通り・牧志</span>
+        
+        
+      </div>
+      <div class="desc">本島南部 那覇市 沖芸サテライト・ミニ・ギャラリーVol. 20 2026年9月30日(水)〜2027年3月29日(月) 沖縄県立図書館 4F</div>
+      <div class="line">
+        <span>okinawa-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">10月 · 10/01–12/31</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.okinawastory.jp/event/600023150" target="_blank" rel="noopener">Dining19 シーズナルカクテルのご案内</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 リーガロイヤルグラン沖縄</span>
+        <span>国際通り・牧志</span>
+        
+        
+      </div>
+      <div class="desc">本島南部 那覇市 Dining19 シーズナルカクテルのご案内 2026年10月1日(木)〜2026年12月31日(木) リーガロイヤルグラン沖縄</div>
+      <div class="line">
+        <span>okinawa-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">01</div>
+      <div class="m">10月 · 10/01–01/15</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.okinawastory.jp/event/600023153" target="_blank" rel="noopener">【秋冬限定スパトリートメント】 癒しの秋、温もりの冬。心と身体に、やさしいご褒美を</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 ヒルトン沖縄瀬底リゾート SEEK SPA（シークスパ）</span>
+        <span>国際通り・牧志</span>
+        
+        
+      </div>
+      <div class="desc">本島北部 本部町 【秋冬限定スパトリートメント】 癒しの秋、温もりの冬。心と身体に、やさしいご褒美を。 2026年10月1日(木)〜2027年1月15日(金) ヒルトン沖縄瀬底リゾート SEEK SPA（シークスパ）</div>
+      <div class="line">
+        <span>okinawa-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">03</div>
+      <div class="m">10月 · 10/03–03/15</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.okinawastory.jp/event/600023090" target="_blank" rel="noopener">メーリアンの立体昆虫図譜展</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 東南植物楽園 昆虫展エリア</span>
+        <span>国際通り・牧志</span>
+        
+        
+      </div>
+      <div class="desc">本島中部 沖縄市 メーリアンの立体昆虫図譜展 2026年10月3日(土)〜2027年3月15日(月) 東南植物楽園 昆虫展エリア</div>
+      <div class="line">
+        <span>okinawa-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">03</div>
+      <div class="m">10月 · 10/03–03/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.okinawastory.jp/event/600023111" target="_blank" rel="noopener">第1回 パームロイヤルRUN＆ウォーク in 豊崎ヤシの木ロード</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 豊見城市 豊崎・ヤシ並木ロード</span>
+        <span>豊見城・小禄</span>
+        
+        
+      </div>
+      <div class="desc">本島南部 豊見城市 第1回 パームロイヤルRUN＆ウォーク in 豊崎ヤシの木ロード 2026年10月3日(土)〜2027年3月6日(土) 豊見城市 豊崎・ヤシ並木ロード</div>
+      <div class="line">
+        <span>okinawa-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">03</div>
+      <div class="m">10月 · 10/03–12/20</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.okinawastory.jp/event/600023089" target="_blank" rel="noopener">週末限定ランチブッフェ</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 コートヤード・バイ・マリオット 沖縄リゾート</span>
+        <span>国際通り・牧志</span>
+        
+        
+      </div>
+      <div class="desc">本島北部 名護市 週末限定ランチブッフェ 2026年10月3日(土)〜2026年12月20日(日) コートヤード・バイ・マリオット 沖縄リゾート</div>
+      <div class="line">
+        <span>okinawa-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">04</div>
+      <div class="m">10月 · 10/04–12/27</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.okinawastory.jp/event/600023272" target="_blank" rel="noopener">金城次郎館 第16回展示ご案内</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 金城次郎館</span>
+        <span>首里</span>
+        
+        
+      </div>
+      <div class="desc">本島南部 南城市 金城次郎館 第16回展示ご案内 2026年10月4日(日)〜2026年12月27日(日) 金城次郎館</div>
+      <div class="line">
+        <span>okinawa-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">13</div>
+      <div class="m">10月 · 10/13–12/27</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.okinawastory.jp/event/600023292" target="_blank" rel="noopener">SHIMA KAJI MENSORE 風と音と、島時間</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 ジャングリア沖縄</span>
+        <span>国際通り・牧志</span>
+        
+        
+      </div>
+      <div class="desc">本島北部 今帰仁村 SHIMA KAJI MENSORE 風と音と、島時間。 2026年10月13日(火)〜2026年12月27日(日) ジャングリア沖縄</div>
+      <div class="line">
+        <span>okinawa-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">15</div>
+      <div class="m">10月 · 10/15–09/26</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.okinawastory.jp/event/600023049" target="_blank" rel="noopener">「記録が語る沖縄展」―戦後の歩みから考える私たちの社会― Records Tell the Story of Okinawa–Reflecting on Our Society t</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 沖縄県公文書館展示室</span>
+        <span>国際通り・牧志</span>
+        
+        
+      </div>
+      <div class="desc">本島南部 南風原町 「記録が語る沖縄展」―戦後の歩みから考える私たちの社会― Records Tell the Story of Okinawa–Reflecting on Our Society through Okinawa’s Postwar History 2026年10月15日(木)〜2027年9月26日(日) 沖縄県公文書館展示室</div>
+      <div class="line">
+        <span>okinawa-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">17</div>
+      <div class="m">10月 · 10/17–02/23</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.okinawastory.jp/event/600023095" target="_blank" rel="noopener">特別巡回展示「MIRAI‐Bit」</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 沖縄こどもの国 ワンダーミュージアム館内</span>
+        <span>国際通り・牧志</span>
+        
+        
+      </div>
+      <div class="desc">本島中部 沖縄市 特別巡回展示「MIRAI‐Bit」 2026年10月17日(土)〜2027年2月23日(火) 沖縄こどもの国 ワンダーミュージアム館内</div>
+      <div class="line">
+        <span>okinawa-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+<footer class="stats">
+  <div>冲绳（那霸） 数据源 2 个 ｜ 库内有效活动 37 个 ｜ </div>
+  <table>
+    <tr><th>来源</th><th>活动数</th><th>最近抓取</th><th>成功/失败</th></tr>
+    
+    <tr>
+      <td>おきなわ物語（沖縄観光情報）</td>
+      <td>29</td>
+      <td>2026-11-27T16:50:45</td>
+      <td><span class="ok">1</span> / <span class="bad">0</span></td>
+    </tr>
+    
+    <tr>
+      <td>ウォーカープラス</td>
+      <td>8</td>
+      <td>2026-11-27T16:50:45</td>
+      <td><span class="ok">1</span> / <span class="bad">0</span></td>
+    </tr>
+    
+  </table>
+</footer>
+
+</div>
+<script>
+async function doRefresh() {
+  const btn = document.getElementById('refreshBtn');
+  btn.disabled = true; btn.textContent = '抓取中…';
+  const r = await Promise.resolve({json:async()=>({message:'静态页面不支持抓取',ok:false})});//okinawa', {method: 'POST'});
+  const j = await r.json();
+  btn.textContent = j.message || '完成';
+  setTimeout(() => location.reload(), j.ok ? 90000 : 3000);
+}
+</script>
+</body>
+</html>

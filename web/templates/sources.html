@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>数据源状态 ｜ 日本热门城市活动日历</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div>
+    <h1>数据源<span>状态</span></h1>
+    <div class="meta">库内有效活动 {{ active }} 个 ｜ 每行前的 tokyo: / kyoto: 等前缀表示城市</div>
+  </div>
+  <div class="spacer"></div>
+  <a class="btn" href="/">← 返回日历</a>
+</header>
+
+<nav class="citytabs">
+  <a class="citytab {% if not city %}on{% endif %}" href="/sources">全部</a>
+  {% for t in tabs %}
+  <a class="citytab {% if t.id == city %}on{% endif %}" href="/sources?city={{ t.id }}">{{ t.name }}<small>{{ city_counts[t.id] }}</small></a>
+  {% endfor %}
+</nav>
+
+<footer class="stats">
+  <table>
+    <tr><th>来源</th><th>活动数</th><th>最近抓取</th><th>成功</th><th>失败</th></tr>
+    {% for s in sources %}
+    <tr>
+      <td>{{ s.label or s.source }}</td>
+      <td>{{ s.events }}</td>
+      <td>{{ s.last_run or "-" }}</td>
+      <td><span class="ok">{{ s.ok_runs }}</span></td>
+      <td><span class="bad">{{ s.fail_runs }}</span></td>
+    </tr>
+    {% endfor %}
+  </table>
+</footer>
+</div>
+</body>
+</html>

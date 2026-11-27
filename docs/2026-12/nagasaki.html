@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026年12月 · 长崎活动日历 ｜ 日本热门城市</title>
+<style>
+:root {
+  --bg: #f7f5f1;
+  --card: #ffffff;
+  --ink: #24211d;
+  --sub: #8b8680;
+  --line: #e6e1d9;
+  --accent: #c9453f;
+  --shadow: 0 1px 2px rgba(36, 33, 29, .08), 0 8px 24px rgba(36, 33, 29, .06);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP",
+    "Microsoft YaHei", "Segoe UI", sans-serif;
+  font-size: 14px; line-height: 1.6;
+}
+a { color: inherit; }
+.wrap { max-width: 1280px; margin: 0 auto; padding: 22px 20px 60px; }
+
+header.top { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 14px; }
+h1 { font-size: 21px; margin: 0; letter-spacing: .5px; }
+h1 span { color: var(--accent); }
+.meta { color: var(--sub); font-size: 12.5px; }
+.spacer { flex: 1; }
+.btn {
+  border: 1px solid var(--line); background: var(--card); color: var(--ink);
+  padding: 7px 13px; border-radius: 999px; font-size: 13px; cursor: pointer;
+  text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+}
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.primary:hover { filter: brightness(.94); color: #fff; }
+
+.monthbar { display: flex; align-items: center; gap: 10px; margin: 6px 0 14px; }
+.monthbar .title { font-size: 30px; font-weight: 700; letter-spacing: 1px; }
+.monthbar .title small { font-size: 14px; font-weight: 400; color: var(--sub); margin-left: 6px; }
+.arrow { font-size: 18px; padding: 6px 12px; }
+
+form.filters {
+  background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+  padding: 12px 14px; box-shadow: var(--shadow); margin-bottom: 16px;
+  display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+}
+.chipset { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  border: 1px solid var(--line); border-radius: 999px; padding: 4px 11px; font-size: 12.5px;
+  cursor: pointer; user-select: none; background: #fff; display: inline-flex; align-items: center; gap: 6px;
+}
+.chip input { display: none; }
+.chip.on { color: #fff; border-color: transparent; }
+.chip .dot { width: 8px; height: 8px; border-radius: 50%; }
+select, input[type=search] {
+  border: 1px solid var(--line); border-radius: 999px; padding: 7px 12px; font-size: 13px;
+  background: #fff; color: var(--ink); outline: none; font-family: inherit;
+}
+input[type=search] { min-width: 190px; }
+label.check { display: inline-flex; gap: 5px; align-items: center; font-size: 13px; color: var(--sub); }
+
+.calendar { background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
+.weekhead { display: grid; grid-template-columns: repeat(7, 1fr); background: #fbfaf7; border-bottom: 1px solid var(--line); }
+.weekhead div { padding: 9px 0; text-align: center; font-size: 12.5px; color: var(--sub); letter-spacing: 2px; }
+.weekhead div:nth-child(6) { color: #2f6f9f; }
+.weekhead div:nth-child(7) { color: #b5433c; }
+.grid { display: grid; grid-template-columns: repeat(7, 1fr); }
+.cell {
+  min-height: 132px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  padding: 6px 7px 8px; display: flex; flex-direction: column; gap: 4px; background: #fff;
+}
+.cell:nth-child(7n) { border-right: 0; }
+.cell.out { background: #faf9f6; }
+.cell.weekend { background: #fdfbf8; }
+.cell.today { background: #fff6ee; box-shadow: inset 0 0 0 2px #f0c8a8; }
+.dnum { font-size: 12px; color: var(--sub); display: flex; justify-content: space-between; align-items: center; }
+.dnum b { font-size: 14px; color: var(--ink); font-weight: 600; }
+.cell.out .dnum b { color: #c8c3ba; }
+.cell.today .dnum b { color: var(--accent); }
+
+.ev {
+  border-radius: 6px; padding: 2px 5px; font-size: 11.5px; line-height: 1.35;
+  color: #fff; text-decoration: none; display: block;
+  overflow: hidden; text-overflow: ellipsis; display: -webkit-box;
+  -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+}
+.ev .t { opacity: .92; font-variant-numeric: tabular-nums; margin-right: 3px; }
+.more { font-size: 11px; color: var(--sub); padding-left: 4px; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 12px; margin: 12px 2px 26px; font-size: 12px; color: var(--sub); }
+.legend span { display: inline-flex; align-items: center; gap: 5px; }
+.legend i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+
+.section-title { display: flex; align-items: baseline; gap: 10px; margin: 8px 0 12px; }
+.section-title h2 { font-size: 17px; margin: 0; }
+.section-title .meta { font-size: 12px; }
+
+.list { display: flex; flex-direction: column; gap: 10px; }
+.item {
+  background: var(--card); border: 1px solid var(--line); border-left: 4px solid #ccc;
+  border-radius: 12px; padding: 12px 14px; display: flex; gap: 14px; box-shadow: var(--shadow);
+}
+.item .datecol { min-width: 74px; text-align: center; }
+.item .datecol .d { font-size: 19px; font-weight: 700; line-height: 1.1; }
+.item .datecol .m { font-size: 11.5px; color: var(--sub); }
+.item .body { flex: 1; min-width: 0; }
+.item .t { font-size: 15px; font-weight: 600; margin-bottom: 3px; }
+.item .t a { text-decoration: none; }
+.item .t a:hover { text-decoration: underline; }
+.item .line { font-size: 12.5px; color: var(--sub); display: flex; flex-wrap: wrap; gap: 10px; margin-top: 2px; }
+.item .desc { font-size: 12.5px; color: #55504a; margin-top: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.badge { font-size: 11px; padding: 1px 8px; border-radius: 999px; color: #fff; }
+
+footer.stats { margin-top: 34px; border-top: 1px solid var(--line); padding-top: 16px; color: var(--sub); font-size: 12.5px; }
+footer.stats table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 12px; }
+footer.stats th, footer.stats td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--line); }
+footer.stats th { color: var(--sub); font-weight: 500; }
+.ok { color: #2f7a4f; font-weight: 600; }
+.bad { color: #b5433c; font-weight: 600; }
+@media (max-width: 760px) {
+  .cell { min-height: 92px; padding: 4px; }
+  .ev { font-size: 10px; -webkit-line-clamp: 2; }
+  .monthbar .title { font-size: 22px; }
+  .item .datecol { min-width: 54px; }
+}
+
+/* ---- 城市切换标签 ---- */
+.citytabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px}
+.citytab{display:flex;align-items:center;gap:6px;padding:7px 12px;border:1px solid #e2e8f0;border-radius:999px;
+  background:#fff;color:#334155;font-size:14px;text-decoration:none;transition:all .15s}
+.citytab:hover{border-color:#94a3b8;transform:translateY(-1px)}
+.citytab.on{background:#0f172a;color:#fff;border-color:#0f172a}
+.citytab small{font-size:11px;opacity:.6}
+
+.ev.ongoing{background:#f8fafc !important;color:#475569;font-size:11px}
+
+</style>
+<link rel="alternate" type="text/calendar" href="/calendar.ics?city=nagasaki">
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div>
+    <h1>日本<span>城市</span>活动日历</h1>
+    <div class="meta">长崎（長崎市）· 長崎県 ｜ 自动汇总 2 个来源 ｜ 库内 29 个 ｜ 本月 13 个</div>
+  </div>
+  <div class="spacer"></div>
+  <a class="btn" href="/calendar.ics?city=nagasaki">📅 订阅本城市 ICS</a>
+  <a class="btn" href="/sources?city=nagasaki">📡 数据源状态</a>
+  <button class="btn primary" id="refreshBtn" onclick="doRefresh()">↻ 抓取本城市</button>
+</header>
+
+<nav class="citytabs">
+  
+  <a class="citytab " href="/?city=fukuoka&month=2026-12">
+    福冈<small>890</small>
+  </a>
+  
+  <a class="citytab " href="/?city=yokohama&month=2026-12">
+    横浜<small>719</small>
+  </a>
+  
+  <a class="citytab " href="/?city=tokyo&month=2026-12">
+    东京<small>227</small>
+  </a>
+  
+  <a class="citytab " href="/?city=kyoto&month=2026-12">
+    京都<small>172</small>
+  </a>
+  
+  <a class="citytab " href="/?city=osaka&month=2026-12">
+    大阪<small>131</small>
+  </a>
+  
+  <a class="citytab " href="/?city=kobe&month=2026-12">
+    神户<small>127</small>
+  </a>
+  
+  <a class="citytab " href="/?city=nara&month=2026-12">
+    奈良<small>47</small>
+  </a>
+  
+  <a class="citytab " href="/?city=sapporo&month=2026-12">
+    札幌<small>97</small>
+  </a>
+  
+  <a class="citytab " href="/?city=okinawa&month=2026-12">
+    冲绳（那霸）<small>37</small>
+  </a>
+  
+  <a class="citytab " href="/?city=nagoya&month=2026-12">
+    名古屋<small>140</small>
+  </a>
+  
+  <a class="citytab on" href="/?city=nagasaki&month=2026-12">
+    长崎<small>29</small>
+  </a>
+  
+  <a class="citytab " href="/?city=kanazawa&month=2026-12">
+    金泽<small>39</small>
+  </a>
+  
+</nav>
+
+<div class="monthbar">
+  <a class="btn arrow" href="/?city=nagasaki&month=2026-11">‹</a>
+  <div class="title">2026年12月<small>长崎 · 13 个活动</small></div>
+  <a class="btn arrow" href="/?city=nagasaki&month=2027-01">›</a>
+  <a class="btn" href="/?city=nagasaki&month=2026-11">今天</a>
+  
+</div>
+
+<form class="filters" method="get" action="/">
+  <input type="hidden" name="month" value="2026-12">
+  <input type="hidden" name="city" value="nagasaki">
+  <div class="chipset">
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="market" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#f59e0b"></span>市集
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="flea" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#a855f7"></span>跳蚤市场
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="festival" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#ef4444"></span>节庆
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="illumination" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#06b6d4"></span>灯饰
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="exhibition" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#3b82f6"></span>展览
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="performance" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#ec4899"></span>演出
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="game" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#22c55e"></span>游戏
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="workshop" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#84cc16"></span>体验
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="food" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#f97316"></span>美食
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="sports" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#0ea5e9"></span>运动
+    </label>
+    
+    <label class="chip "
+           >
+      <input type="checkbox" name="cat" value="other" 
+             onchange="this.form.submit()">
+      <span class="dot" style="background:#64748b"></span>其他
+    </label>
+    
+  </div>
+  <select name="area" onchange="this.form.submit()">
+    <option value="">全部区域</option>
+    
+    <option value="出島・新地" >出島・新地</option>
+    
+    <option value="グラバー園・南山手" >グラバー園・南山手</option>
+    
+    <option value="平和公園・浦上" >平和公園・浦上</option>
+    
+  </select>
+  <input type="search" name="q" value="" placeholder="搜索标题 / 会场 / 关键词">
+  <label class="check"><input type="checkbox" name="free" value="1" 
+         onchange="this.form.submit()">仅免费</label>
+  <label class="check"><input type="checkbox" name="weekend" value="1" 
+         onchange="this.form.submit()">仅周末</label>
+  <button class="btn" type="submit">筛选</button>
+  <a class="btn" href="/?city=nagasaki&month=2026-12">重置</a>
+</form>
+
+<div class="calendar">
+  <div class="weekhead">
+    <div>月</div><div>火</div><div>水</div><div>木</div><div>金</div><div>土</div><div>日</div>
+  </div>
+  <div class="grid">
+    
+    <div class="cell out  ">
+      <div class="dnum"><b>30</b></div>
+      
+      
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>1</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 7 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>2</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 7 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>3</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 7 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>4</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 7 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>5</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 7 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>6</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 7 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>7</b></div>
+      
+      <a class="ev" href="https://jaf.or.jp/common/area/2026/kyushu/nagasaki/seminars/drivers-seminar-general-course/1207" target="_blank" rel="noopener"
+         style="background:#84cc16" title="ドライバーズセミナー 一般コース 半日（長崎） ｜ 浦上自動車学校 ｜ 12/07">
+        ドライバーズセミナー 一般コース 半日（長崎）
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 6 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>8</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 6 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>9</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 6 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>10</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 6 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>11</b></div>
+      
+      <a class="ev" href="https://www.instagram.com/sunao_tokimatsu/" target="_blank" rel="noopener"
+         style="background:#64748b" title="第82回 肉肉パーク 長崎市 おのうえの丘 ｜ おのうえの丘 イベント特設会場 ｜ 12/11–12/13">
+        第82回 肉肉パーク 長崎市 おのうえの丘
+      </a>
+      
+      <a class="ev" href="https://www.titan-net.co.jp/" target="_blank" rel="noopener"
+         style="background:#ec4899" title="爆笑問題 with タイタンシネマライブ （長崎） ｜ TOHOシネマズ　長崎 ｜ 12/11">
+        爆笑問題 with タイタンシネマライブ （長崎）
+      </a>
+      
+      <a class="ev" href="https://www.at-nagasaki.jp/event/65417" target="_blank" rel="noopener"
+         style="background:#ef4444" title="水産加工振興祭withふるさと物産まつり ｜ 長崎市中心市街地エリア（平和公園・稲佐山・グラバー園など） ｜ 12/11">
+        水産加工振興祭withふるさと物産まつり
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 5 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>12</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 6 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>13</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 6 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>14</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 5 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>15</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 5 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>16</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 5 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>17</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 5 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>18</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 5 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>19</b></div>
+      
+      <a class="ev" href="https://www.nib.jp/nib_nagasaki/kiborinokonno/" target="_blank" rel="noopener"
+         style="background:#3b82f6" title="キボリノコンノ展　食べたい！木彫りアートの世界 ｜ 出島メッセ長崎 イベント・展示ホールB ｜ 12/19–01/11">
+        キボリノコンノ展　食べたい！木彫りアートの世界
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 5 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>20</b></div>
+      
+      <a class="ev" href="https://n-kenmori.jp/events/" target="_blank" rel="noopener"
+         style="background:#64748b" title="ミニクリスマスリース作り ｜ ながさき県民の森　森林館 ｜ 12/20">
+        ミニクリスマスリース作り
+      </a>
+      
+      
+      
+      <span class="more">⟳ 另有 6 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>21</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 5 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>22</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 5 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>23</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 5 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>24</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 5 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>25</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 5 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>26</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 5 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell  weekend ">
+      <div class="dnum"><b>27</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 5 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>28</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 4 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>29</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 4 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>30</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 4 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell   ">
+      <div class="dnum"><b>31</b></div>
+      
+      
+      
+      <span class="more">⟳ 另有 4 项跨月进行中</span>
+      
+    </div>
+    
+    <div class="cell out  ">
+      <div class="dnum"><b>1</b></div>
+      
+      
+      
+    </div>
+    
+    <div class="cell out weekend ">
+      <div class="dnum"><b>2</b></div>
+      
+      
+      
+    </div>
+    
+    <div class="cell out weekend ">
+      <div class="dnum"><b>3</b></div>
+      
+      
+      
+    </div>
+    
+  </div>
+</div>
+
+<div class="legend">
+  
+  <span><i style="background:#f59e0b"></i>市集/マルシェ / 市集</span>
+  
+  <span><i style="background:#a855f7"></i>フリマ/蚤の市 / 跳蚤市场</span>
+  
+  <span><i style="background:#ef4444"></i>祭り/フェス / 节庆</span>
+  
+  <span><i style="background:#06b6d4"></i>灯饰/ライトアップ / 灯饰</span>
+  
+  <span><i style="background:#3b82f6"></i>展覧会 / 展览</span>
+  
+  <span><i style="background:#ec4899"></i>舞台/コンサート / 演出</span>
+  
+  <span><i style="background:#22c55e"></i>ゲーム/謎解き / 游戏</span>
+  
+  <span><i style="background:#84cc16"></i>体験/ワークショップ / 体验</span>
+  
+  <span><i style="background:#f97316"></i>グルメ/食 / 美食</span>
+  
+  <span><i style="background:#0ea5e9"></i>スポーツ / 运动</span>
+  
+  <span><i style="background:#64748b"></i>その他 / 其他</span>
+  
+</div>
+
+<div class="section-title">
+  <h2>长崎本月活动一览</h2>
+  <span class="meta">按开始日期排序 · 共 13 个</span>
+</div>
+
+<div class="list">
+  
+  <div class="item" style="border-left-color:#84cc16">
+    <div class="datecol">
+      <div class="d">07</div>
+      <div class="m">12月 · 12/07</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://jaf.or.jp/common/area/2026/kyushu/nagasaki/seminars/drivers-seminar-general-course/1207" target="_blank" rel="noopener">ドライバーズセミナー 一般コース 半日（長崎）</a></div>
+      <div class="line">
+        <span class="badge" style="background:#84cc16">体験/ワークショップ</span>
+        <span>📍 浦上自動車学校</span>
+        <span>平和公園・浦上</span>
+        
+        
+      </div>
+      <div class="desc">ドライバー（人間）と車両の特性に関する知識を、運転体験を通じて学ぶ講習会を実施。カリキュラムは、運転の基本姿勢（走行前点検・適切な運転姿勢・クルマの死角）、スラローム走行、急ブレーキ体験、危険回避など。内容は一部変更となる場合あり。参加条件：普通免許（AT限定可）を所持し、運転歴1年以上、3.5.7ナンバーの自家用自動車（任意保険加入済・ABS付）で参加可能な人。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ef4444">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">12月 · 12/11</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.at-nagasaki.jp/event/65417" target="_blank" rel="noopener">水産加工振興祭withふるさと物産まつり</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ef4444">祭り/フェス</span>
+        <span>📍 長崎市中心市街地エリア（平和公園・稲佐山・グラバー園など）</span>
+        <span>グラバー園・南山手</span>
+        
+        
+      </div>
+      <div class="desc">水産加工振興祭withふるさと物産まつり 2026年12月11日（金）～13日（日） 長崎県内のおいしい水産加工品が大集合！ 長崎市中心市街地エリア（平和公園・稲佐山・グラバー園など）</div>
+      <div class="line">
+        <span>nagasaki-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#ec4899">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">12月 · 12/11</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.titan-net.co.jp/" target="_blank" rel="noopener">爆笑問題 with タイタンシネマライブ （長崎）</a></div>
+      <div class="line">
+        <span class="badge" style="background:#ec4899">舞台/コンサート</span>
+        <span>📍 TOHOシネマズ　長崎</span>
+        
+        
+        
+      </div>
+      <div class="desc">2ヶ月に一度、爆笑問題をはじめ人気芸人たちによるお笑いライブを全国の映画館で生中継！大スクリーンでリピート無し、ここでしか観られないネタ＆トークを楽しもう。出演は、爆笑問題、キンタロー。、ダウ90000、や団、ストレッチーズ、ウエストランド、キュウ、ネコニスズ、シティホテル3号室、春とヒコーキ他全16組予定。入場者にタイタン情報紙「号外」プレゼント。金曜夜、映画館でポップコーン片手に大爆笑しよう！</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">12月 · 12/11–12/13</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.instagram.com/sunao_tokimatsu/" target="_blank" rel="noopener">第82回 肉肉パーク 長崎市 おのうえの丘</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 おのうえの丘 イベント特設会場</span>
+        
+        
+        
+      </div>
+      <div class="desc">みんな大好き、お肉の人気店が大集合！福岡から長崎へ。人気店24店舗が集合。各店自慢のお肉料理をはじめ、ここでしか味わえない肉肉パーク限定メニューも登場する。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">19</div>
+      <div class="m">12月 · 12/19–01/11</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nib.jp/nib_nagasaki/kiborinokonno/" target="_blank" rel="noopener">キボリノコンノ展　食べたい！木彫りアートの世界</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 出島メッセ長崎 イベント・展示ホールB</span>
+        <span>出島・新地</span>
+        
+        
+      </div>
+      <div class="desc">今話題の木彫りアーティスト、キボリノコンノ氏によるキボリ作品展。本物そっくりな食べ物や、透明に見える生卵など、あっと驚くキボリノコンノ氏の木彫り作品が勢ぞろい！ 透明に見える生卵や、とろ～りとろけるチーズなど、思わず本物と見間違えるほど精巧な木彫り作品を紹介。「本物と木彫りを見分ける」《木彫りはどっち？》のクイズコーナーや、作品に直接触れて楽しめるコーナーも。世代問わず楽しめる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">20</div>
+      <div class="m">12月 · 12/20</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://n-kenmori.jp/events/" target="_blank" rel="noopener">ミニクリスマスリース作り</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 ながさき県民の森　森林館</span>
+        
+        
+        
+      </div>
+      <div class="desc">県民の森内外で採取した自然素材とグルーガンを使い、ミニリースを完成させよう（1組5名まで）。申込期間は11/1～11/15。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#06b6d4">
+    <div class="datecol">
+      <div class="d">12</div>
+      <div class="m">10月 · 10/12–12/31</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://glover-garden.jp/event-and-news/26562/" target="_blank" rel="noopener">グラバー園ランタンナイト 2026(秋冬)</a></div>
+      <div class="line">
+        <span class="badge" style="background:#06b6d4">灯饰/ライトアップ</span>
+        <span>📍 グラバー園</span>
+        <span>グラバー園・南山手</span>
+        
+        
+      </div>
+      <div class="desc">カラフルなランタン300個とイルミネーションが園内を彩る「グラバー園ランタンナイト2026(秋冬)」開催。ランタンに灯りがともると、園内はまるで宝石箱のように華やかで幻想的な空間に。期間中は、世界遺産「旧グラバー住宅」を含む幕末・明治期に建てられた洋館群もライトアップ。世界新三大夜景に選ばれた長崎夜景とともに夜のグラバー園散策を楽しめる。また、園内で最も高台にある「旧三菱第2ドックハウス」2階テラスからは、対岸の稲佐山や長崎港を望む絶景も。夕暮れから夜にかけて移り変わる時間帯もお見逃しなく。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#3b82f6">
+    <div class="datecol">
+      <div class="d">17</div>
+      <div class="m">10月 · 10/17–01/11</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.ktn.co.jp/special/hellokitty/" target="_blank" rel="noopener">Hello Kitty(ハローキティ)展 -わたしが変わるとキティも変わる-(長崎)</a></div>
+      <div class="line">
+        <span class="badge" style="background:#3b82f6">展覧会</span>
+        <span>📍 長崎県美術館</span>
+        
+        
+        
+      </div>
+      <div class="desc">ハローキティの誕生50周年を記念した展覧会。「キティとわたしの50年」をテーマに、ハローキティの展示史上最大量のグッズ展示をはじめ、映像ディレクターの牧野惇さんによるオリジナル本展映像作品、イラストレーターなど個性あふれる30人のアーティストが「わたしとキティ」を題材に制作したイラストレーションの展示など、さまざまなコーナーが用意される。図録をはじめ、ぬいぐるみやトートバッグといったオリジナルグッズの販売も行われる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#22c55e">
+    <div class="datecol">
+      <div class="d">31</div>
+      <div class="m">10月 · 10/31–12/20</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://sajin.meikyu.net/" target="_blank" rel="noopener">砂塵の迷宮7 長崎ラウンド</a></div>
+      <div class="line">
+        <span class="badge" style="background:#22c55e">ゲーム/謎解き</span>
+        <span>📍 長崎スタジアムシティ</span>
+        
+        
+        
+      </div>
+      <div class="desc">全国各地の都市で開催されてきた踏破型脱出アトラクション「砂塵の迷宮」の第7弾が長崎スタジアムシティで開催される。舞台は突如過去から現れた、古代エジプトを思わせる砂と石の迷宮。7つの空間が展開される迷宮の中では、ひと空間2分の制限時間内に周辺を観察して、ヒントをもとに謎や暗号を解きながら迷宮からの脱出を目指す。前作からさらにバージョンアップした謎が登場し、完全制覇確率1000分の1と超高難度の謎解きアトラクションを楽しむことができる。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">11</div>
+      <div class="m">11月 · 11/11–12/10</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.city.nagasaki.lg.jp/shimin/190001/192001/p000536.html" target="_blank" rel="noopener">滝の観音の紅葉</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 滝の観音</span>
+        
+        
+        
+      </div>
+      <div class="desc">17世紀に起源を持つ長瀧山霊源院内の滝で、長崎県指定名勝第一号。1660年に黄檗木庵 (おうばくもくあん)の弟子・鉄巌 (てつがん)によって禅堂が建てられ、1667年に本堂が寄進されたのが寺の起源とされている。庫裡の背後には一条の滝がある。1982年7月の長崎大水害で崖くずれや石橋の流失等の被害を被ったが、関係者の尽力により5年後に復元された。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">27</div>
+      <div class="m">11月 · 11/27–12/27</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nagasaki-tabinet.com/event/101461" target="_blank" rel="noopener">出島オランダ冬至</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 出島内　新石倉（出島シアター）</span>
+        <span>出島・新地</span>
+        
+        
+      </div>
+      <div class="desc">キリスト教禁教下の江戸時代、出島に住んでいたオランダ人は“オランダ冬至”と称してシンタクラース（クリスマス）をお祝いしていた。出島では現代版の「オランダ冬至」として、高さ約4mの本物のもみの木にオーナメントやライトの装飾をして、クリスマスをお祝いする。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#84cc16">
+    <div class="datecol">
+      <div class="d">27</div>
+      <div class="m">11月 · 11/27–12/06</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.city.nagasaki.lg.jp/page/3454.html" target="_blank" rel="noopener">心田庵 秋の一般公開</a></div>
+      <div class="line">
+        <span class="badge" style="background:#84cc16">体験/ワークショップ</span>
+        <span>📍 心田庵</span>
+        
+        
+        
+      </div>
+      <div class="desc">寛永5年（1628）に長崎に来た住宅唐人・何高材（がこうざい）の長男・何兆晋（がちょうしん）が長崎片淵郷（現在の片淵2丁目）に建てた別荘「心田庵」の秋の一般公開。紅葉に包まれた風情ある庭園と茅葺建物の景色を楽しむことができる貴重な機会。期間中は、煎茶体験（11月28日～12月1日）や男着物の体験（12月4日～12月6日）イベントも実施。</div>
+      <div class="line">
+        <span>walkerplus</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="item" style="border-left-color:#64748b">
+    <div class="datecol">
+      <div class="d">29</div>
+      <div class="m">11月 · 11/29–02/28</div>
+    </div>
+    <div class="body">
+      <div class="t"><a href="https://www.nagasaki-tabinet.com/event/102093" target="_blank" rel="noopener">戸石 とらふぐ料理フェア</a></div>
+      <div class="line">
+        <span class="badge" style="background:#64748b">その他</span>
+        <span>📍 長崎市(市街地・戸石港周辺　など)</span>
+        
+        
+        
+      </div>
+      <div class="desc">戸石地区は全国有数のとらふぐの産地。市内の料理店で、趣向を凝らした戸石とらふぐの料理が提供される。旬の時季を迎え身が引き締まった、ぷりぷりのトラフグを楽しんで。店舗によって提供時期やメニューが異なるので、事前に確認してから訪れるのをおすすめ。</div>
+      <div class="line">
+        <span>walkerplus</span><span>nagasaki-cards0</span>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+<footer class="stats">
+  <div>长崎 数据源 2 个 ｜ 库内有效活动 29 个 ｜ </div>
+  <table>
+    <tr><th>来源</th><th>活动数</th><th>最近抓取</th><th>成功/失败</th></tr>
+    
+    <tr>
+      <td>travel nagasaki（長崎市公式）</td>
+      <td>16</td>
+      <td>2026-11-27T16:50:57</td>
+      <td><span class="ok">1</span> / <span class="bad">0</span></td>
+    </tr>
+    
+    <tr>
+      <td>ウォーカープラス</td>
+      <td>14</td>
+      <td>2026-11-27T16:50:57</td>
+      <td><span class="ok">1</span> / <span class="bad">0</span></td>
+    </tr>
+    
+  </table>
+</footer>
+
+</div>
+<script>
+async function doRefresh() {
+  const btn = document.getElementById('refreshBtn');
+  btn.disabled = true; btn.textContent = '抓取中…';
+  const r = await Promise.resolve({json:async()=>({message:'静态页面不支持抓取',ok:false})});//nagasaki', {method: 'POST'});
+  const j = await r.json();
+  btn.textContent = j.message || '完成';
+  setTimeout(() => location.reload(), j.ok ? 90000 : 3000);
+}
+</script>
+</body>
+</html>
