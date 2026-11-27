@@ -9,6 +9,15 @@
 
 ![预览](docs/img/cities-fukuoka.png)
 
+## 线上部署（Render）
+
+- 线上地址：**https://japan-city-events.onrender.com**
+- 仓库：https://github.com/duanzhilong999-commits/japan-city-events
+- Render：Blueprint `Japancity`（`render.yaml`）→ Web Service `japan-city-events`，Python 3、Free 计划、Singapore 区域
+- 数据更新：GitHub Actions `每日刷新活动数据`，每天 04:10（日本时间）跑 `collect --city all` 并把 `data/events.db` commit 回 main；Render 检测到推送自动重新部署
+- 注意：Free 实例闲置 15 分钟后会休眠，下次访问首屏要等约 50 秒唤醒；数据库在容器内是临时的，重部署会回到仓库里的版本（所以靠 Actions 提交 DB 来保新鲜）
+- 手机订阅：`https://japan-city-events.onrender.com/calendar.ics?city=all`（单城市把 `all` 换成 `fukuoka`/`yokohama`/`tokyo` 等）
+
 ## 快速开始
 
 ```powershell
