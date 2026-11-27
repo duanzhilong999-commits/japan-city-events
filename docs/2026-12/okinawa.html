@@ -63,12 +63,13 @@ select, input[type=search] {
 input[type=search] { min-width: 190px; }
 label.check { display: inline-flex; gap: 5px; align-items: center; font-size: 13px; color: var(--sub); }
 
-.calendar { background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
-.weekhead { display: grid; grid-template-columns: repeat(7, 1fr); background: #fbfaf7; border-bottom: 1px solid var(--line); }
+.calendar { background: var(--card); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow);
+  overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; }
+.weekhead { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); background: #fbfaf7; border-bottom: 1px solid var(--line); }
 .weekhead div { padding: 9px 0; text-align: center; font-size: 12.5px; color: var(--sub); letter-spacing: 2px; }
 .weekhead div:nth-child(6) { color: #2f6f9f; }
 .weekhead div:nth-child(7) { color: #b5433c; }
-.grid { display: grid; grid-template-columns: repeat(7, 1fr); }
+.grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
 .cell {
   min-height: 132px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
   padding: 6px 7px 8px; display: flex; flex-direction: column; gap: 4px; background: #fff;
@@ -122,11 +123,29 @@ footer.stats th { color: var(--sub); font-weight: 500; }
 .ok { color: #2f7a4f; font-weight: 600; }
 .bad { color: #b5433c; font-weight: 600; }
 @media (max-width: 760px) {
-  .cell { min-height: 92px; padding: 4px; }
-  .ev { font-size: 10px; -webkit-line-clamp: 2; }
-  .monthbar .title { font-size: 22px; }
-  .item .datecol { min-width: 54px; }
+  .wrap { padding: 14px 12px 40px; }
+  header.top { gap: 10px; }
+  h1 { font-size: 18px; }
+  .monthbar { flex-wrap: wrap; gap: 8px; }
+  .monthbar .title { font-size: 20px; }
+  .filters { padding: 10px; gap: 8px; }
+  .btn { font-size: 12px; padding: 6px 10px; }
+  .monthbar .btn.arrow { padding: 6px 10px; }
+  input[type=search] { min-width: 0; flex: 1 1 100%; }
+  /* 周历在手机上横向滑动查看，不再被裁掉右半部分 */
+  .grid, .weekhead { min-width: 700px; }
+  .cell { min-height: 96px; padding: 4px 5px; }
+  .ev { font-size: 10.5px; -webkit-line-clamp: 2; word-break: break-word; }
+  .more { font-size: 10px; }
+  .legend { font-size: 11px; gap: 8px; }
+  .item { padding: 10px 12px; gap: 10px; }
+  .item .datecol { min-width: 46px; }
+  .item .datecol .d { font-size: 16px; }
+  .item .t { font-size: 14px; }
+  footer.stats table { font-size: 11px; }
+  .swipe-hint { display: block; }
 }
+.swipe-hint { display: none; font-size: 11.5px; color: var(--sub); margin: 8px 2px 0; }
 
 /* ---- 城市切换标签 ---- */
 .citytabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px}
@@ -137,6 +156,40 @@ footer.stats th { color: var(--sub); font-weight: 500; }
 .citytab small{font-size:11px;opacity:.6}
 
 .ev.ongoing{background:#f8fafc !important;color:#475569;font-size:11px}
+
+
+/* ---- 手机端：日期议程视图（替代 7 列周历） ---- */
+.magenda { display: none; }
+@media (max-width: 760px) {
+  .calendar, .swipe-hint { display: none; }
+  .magenda { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+  .mday { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; box-shadow: var(--shadow); }
+  .mday.today { box-shadow: inset 0 0 0 2px #f0c8a8; }
+  .mday-h { display: flex; align-items: baseline; gap: 6px; margin-bottom: 6px; color: var(--sub); font-size: 12px; }
+  .mday-h b { font-size: 18px; color: var(--ink); font-weight: 700; }
+  .mday-h .wd { font-size: 12px; }
+  .mday-h em { font-style: normal; margin-left: auto; }
+  .mday-h .today-tag { font-style: normal; background: var(--accent); color: #fff; font-size: 11px; padding: 1px 7px; border-radius: 999px; }
+  .mday-body { display: flex; flex-direction: column; gap: 5px; }
+  .mitem { display: grid; grid-template-columns: 8px 1fr; column-gap: 7px; align-items: start; text-decoration: none;
+    border-radius: 8px; padding: 6px 8px; background: #faf9f6; }
+  .mitem i { width: 8px; height: 8px; border-radius: 50%; margin-top: 4px; }
+  .mitem .mt { font-size: 13px; line-height: 1.4; color: var(--ink); overflow-wrap: anywhere; }
+  .mitem .mv { grid-column: 2; font-size: 11px; color: var(--sub); overflow-wrap: anywhere; }
+}
+
+
+/* ---- 手机端防横向溢出（兜底） ---- */
+@media (max-width: 760px) {
+  html, body { max-width: 100%; overflow-x: hidden; }
+  .wrap { width: 100%; }
+  header.top > div, header.top .meta, .monthbar, .filters, .citytabs, .mday, .mitem, .item, .item .body,
+  .mday-h, .mitem .mt, .mitem .mv { min-width: 0; max-width: 100%; }
+  .meta, .mday-h, .mitem .mv { white-space: normal; overflow-wrap: anywhere; word-break: break-word; }
+  header.top > div { flex: 1 1 240px; }
+  .citytab { max-width: 46vw; }
+  .citytab span, .citytab { overflow-wrap: anywhere; }
+}
 
 </style>
 <link rel="alternate" type="text/calendar" href="/calendar.ics?city=okinawa">
@@ -661,6 +714,125 @@ footer.stats th { color: var(--sub); font-weight: 500; }
     </div>
     
   </div>
+</div>
+<p class="swipe-hint">← 左右滑动可查看整周 7 天 →</p>
+
+<div class="magenda">
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>2</b>
+      <span class="wd">三</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.ikutouen.com/2026/11/16/%e5%a3%ba%e5%b1%8b%e3%81%ae%e9%a1%94-the-face-of-tsuboya%e3%80%80%e4%bd%90%e6%b2%bb%e4%bf%8a%e5%85%8b%e3%81%a8%e8%82%b2%e9%99%b6%e5%9c%92%e3%81%ae%e3%83%a2%e3%83%8e%e3%81%a5%e3%81%8f/" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">壺屋の顔 — THE FACE OF TSUBOYA 佐治俊克と育陶園のモノづくり</span>
+        <span class="mv">壺屋焼窯元育陶園「壺屋のいりぐち」</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>5</b>
+      <span class="wd">六</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.sdc-raku1.com/" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">提案書･チラシを劇的にグレードアップする！AI画像作成セミナー（沖縄産業支援センター）</span>
+        <span class="mv">沖縄産業支援センター 会議室（302）</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>8</b>
+      <span class="wd">二</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://ryukyuorion.kenhotels.com/news/418" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">Beer＆Fun. SPECIAL NIGHTS</span>
+        <span class="mv">THE ORION BEER DINING</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>11</b>
+      <span class="wd">五</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.titan-net.co.jp/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">爆笑問題 with タイタンシネマライブ （沖縄）</span>
+        <span class="mv">桜坂劇場</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>12</b>
+      <span class="wd">六</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.gekidan-tanpopo.com/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">劇団たんぽぽ80周年記念沖縄公演「100万回生きたねこ」</span>
+        <span class="mv">ともかぜ振興会館　多目的ホール</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>13</b>
+      <span class="wd">日</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="#" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">次代育成落語会　沖縄公演</span>
+        <span class="mv">てんぶす那覇テンブスホール</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
 </div>
 
 <div class="legend">

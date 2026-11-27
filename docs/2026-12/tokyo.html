@@ -63,12 +63,13 @@ select, input[type=search] {
 input[type=search] { min-width: 190px; }
 label.check { display: inline-flex; gap: 5px; align-items: center; font-size: 13px; color: var(--sub); }
 
-.calendar { background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
-.weekhead { display: grid; grid-template-columns: repeat(7, 1fr); background: #fbfaf7; border-bottom: 1px solid var(--line); }
+.calendar { background: var(--card); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow);
+  overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; }
+.weekhead { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); background: #fbfaf7; border-bottom: 1px solid var(--line); }
 .weekhead div { padding: 9px 0; text-align: center; font-size: 12.5px; color: var(--sub); letter-spacing: 2px; }
 .weekhead div:nth-child(6) { color: #2f6f9f; }
 .weekhead div:nth-child(7) { color: #b5433c; }
-.grid { display: grid; grid-template-columns: repeat(7, 1fr); }
+.grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
 .cell {
   min-height: 132px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
   padding: 6px 7px 8px; display: flex; flex-direction: column; gap: 4px; background: #fff;
@@ -122,11 +123,29 @@ footer.stats th { color: var(--sub); font-weight: 500; }
 .ok { color: #2f7a4f; font-weight: 600; }
 .bad { color: #b5433c; font-weight: 600; }
 @media (max-width: 760px) {
-  .cell { min-height: 92px; padding: 4px; }
-  .ev { font-size: 10px; -webkit-line-clamp: 2; }
-  .monthbar .title { font-size: 22px; }
-  .item .datecol { min-width: 54px; }
+  .wrap { padding: 14px 12px 40px; }
+  header.top { gap: 10px; }
+  h1 { font-size: 18px; }
+  .monthbar { flex-wrap: wrap; gap: 8px; }
+  .monthbar .title { font-size: 20px; }
+  .filters { padding: 10px; gap: 8px; }
+  .btn { font-size: 12px; padding: 6px 10px; }
+  .monthbar .btn.arrow { padding: 6px 10px; }
+  input[type=search] { min-width: 0; flex: 1 1 100%; }
+  /* 周历在手机上横向滑动查看，不再被裁掉右半部分 */
+  .grid, .weekhead { min-width: 700px; }
+  .cell { min-height: 96px; padding: 4px 5px; }
+  .ev { font-size: 10.5px; -webkit-line-clamp: 2; word-break: break-word; }
+  .more { font-size: 10px; }
+  .legend { font-size: 11px; gap: 8px; }
+  .item { padding: 10px 12px; gap: 10px; }
+  .item .datecol { min-width: 46px; }
+  .item .datecol .d { font-size: 16px; }
+  .item .t { font-size: 14px; }
+  footer.stats table { font-size: 11px; }
+  .swipe-hint { display: block; }
 }
+.swipe-hint { display: none; font-size: 11.5px; color: var(--sub); margin: 8px 2px 0; }
 
 /* ---- 城市切换标签 ---- */
 .citytabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px}
@@ -137,6 +156,40 @@ footer.stats th { color: var(--sub); font-weight: 500; }
 .citytab small{font-size:11px;opacity:.6}
 
 .ev.ongoing{background:#f8fafc !important;color:#475569;font-size:11px}
+
+
+/* ---- 手机端：日期议程视图（替代 7 列周历） ---- */
+.magenda { display: none; }
+@media (max-width: 760px) {
+  .calendar, .swipe-hint { display: none; }
+  .magenda { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+  .mday { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; box-shadow: var(--shadow); }
+  .mday.today { box-shadow: inset 0 0 0 2px #f0c8a8; }
+  .mday-h { display: flex; align-items: baseline; gap: 6px; margin-bottom: 6px; color: var(--sub); font-size: 12px; }
+  .mday-h b { font-size: 18px; color: var(--ink); font-weight: 700; }
+  .mday-h .wd { font-size: 12px; }
+  .mday-h em { font-style: normal; margin-left: auto; }
+  .mday-h .today-tag { font-style: normal; background: var(--accent); color: #fff; font-size: 11px; padding: 1px 7px; border-radius: 999px; }
+  .mday-body { display: flex; flex-direction: column; gap: 5px; }
+  .mitem { display: grid; grid-template-columns: 8px 1fr; column-gap: 7px; align-items: start; text-decoration: none;
+    border-radius: 8px; padding: 6px 8px; background: #faf9f6; }
+  .mitem i { width: 8px; height: 8px; border-radius: 50%; margin-top: 4px; }
+  .mitem .mt { font-size: 13px; line-height: 1.4; color: var(--ink); overflow-wrap: anywhere; }
+  .mitem .mv { grid-column: 2; font-size: 11px; color: var(--sub); overflow-wrap: anywhere; }
+}
+
+
+/* ---- 手机端防横向溢出（兜底） ---- */
+@media (max-width: 760px) {
+  html, body { max-width: 100%; overflow-x: hidden; }
+  .wrap { width: 100%; }
+  header.top > div, header.top .meta, .monthbar, .filters, .citytabs, .mday, .mitem, .item, .item .body,
+  .mday-h, .mitem .mt, .mitem .mv { min-width: 0; max-width: 100%; }
+  .meta, .mday-h, .mitem .mv { white-space: normal; overflow-wrap: anywhere; word-break: break-word; }
+  header.top > div { flex: 1 1 240px; }
+  .citytab { max-width: 46vw; }
+  .citytab span, .citytab { overflow-wrap: anywhere; }
+}
 
 </style>
 <link rel="alternate" type="text/calendar" href="/calendar.ics?city=tokyo">
@@ -1112,6 +1165,1326 @@ footer.stats th { color: var(--sub); font-weight: 500; }
     </div>
     
   </div>
+</div>
+<p class="swipe-hint">← 左右滑动可查看整周 7 天 →</p>
+
+<div class="magenda">
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>1</b>
+      <span class="wd">二</span>
+      <em>46 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.tokyo-skytree.jp/event/special/sanrio/hokusai" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">雲の上の 浮世絵～サンリオキャラクターズとめぐる北斎展～in TOKYO SKYTREE</span>
+        <span class="mv">東京スカイツリー(R)</span>
+      </a>
+      
+      <a class="mitem" href="https://1899.jp/ochanomizu/rilakkuma/" target="_blank" rel="noopener">
+        <i style="background:#f97316"></i>
+        <span class="mt">リラックマ観光大使フェア　レストラン1899お茶の水</span>
+        <span class="mv">レストラン1899お茶の水</span>
+      </a>
+      
+      <a class="mitem" href="https://omotesando.or.jp/illumi/" target="_blank" rel="noopener">
+        <i style="background:#06b6d4"></i>
+        <span class="mt">表参道 ディオール イルミネーション2026</span>
+        <span class="mv">表参道原宿</span>
+      </a>
+      
+      <a class="mitem" href="https://www.mesm.jp/news/HolidayVoyage2026.html" target="_blank" rel="noopener">
+        <i style="background:#ef4444"></i>
+        <span class="mt">メズム東京 フェスティブプロモーション『Holiday Voyage 2026』</span>
+        <span class="mv">メズム東京、オートグラフ　コレクション</span>
+      </a>
+      
+      <a class="mitem" href="#" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">Wonderful World kaokaoworld.presents</span>
+        <span class="mv">Laguna Frame</span>
+      </a>
+      
+      <span class="more">+41 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>2</b>
+      <span class="wd">三</span>
+      <em>19 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://belgianbeerweekend.jp/shinjuku" target="_blank" rel="noopener">
+        <i style="background:#f97316"></i>
+        <span class="mt">ベルギービールウィークエンド2026新宿</span>
+        <span class="mv">新宿住友ビル三角広場</span>
+      </a>
+      
+      <a class="mitem" href="https://ekoin.or.jp/" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">空間を彩る「襖絵と屏風絵の世界展」</span>
+        <span class="mv">回向院</span>
+      </a>
+      
+      <a class="mitem" href="https://www.fuchu-cpf.or.jp/museum/1000077/1003429.html" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">生解説プラネタリウム「宇宙くらべてみまSHOW！」</span>
+        <span class="mv">府中市郷土の森博物館プラネタリウム</span>
+      </a>
+      
+      <a class="mitem" href="https://www.shikinokaori-rose-garden.com/" target="_blank" rel="noopener">
+        <i style="background:#06b6d4"></i>
+        <span class="mt">練馬区立 四季の香ローズガーデン　ガーデンイルミネーション</span>
+        <span class="mv">練馬区立 四季の香ローズガーデン</span>
+      </a>
+      
+      <a class="mitem" href="https://izumi-goto.com/riposo/" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">RIPOSO.「休息」という名の洋服（調布市）</span>
+        <span class="mv">ギャラリーマミカ</span>
+      </a>
+      
+      <span class="more">+14 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>3</b>
+      <span class="wd">四</span>
+      <em>12 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.tokyoeki-1bangai.co.jp/street/ramen/" target="_blank" rel="noopener">
+        <i style="background:#f97316"></i>
+        <span class="mt">「雨は、やさしく No,2」期間限定オープン</span>
+        <span class="mv">東京ラーメンストリート　東京駅八重洲南口地下1階（東京駅一番街地下1階）</span>
+      </a>
+      
+      <a class="mitem" href="https://www.cityphil.jp/concert/detail.php?id=745" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">東京シティ・フィルハーモニック管弦楽団　第389回定期演奏会</span>
+        <span class="mv">東京オペラシティ コンサートホール</span>
+      </a>
+      
+      <a class="mitem" href="https://reika936832417.wordpress.com/" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">松本れい子展「記憶の声」（東京）</span>
+        <span class="mv">ギャラリ-HANA</span>
+      </a>
+      
+      <a class="mitem" href="https://www.galaxcity.jp/future-creation-hall/event/20261224-009344.html" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">親子 de 工作「クリスマスカード」</span>
+        <span class="mv">ギャラクシティ ちびっこガーデン</span>
+      </a>
+      
+      <a class="mitem" href="https://www.tokyoartbeat.com/events/Yukako-Manabe-Flat-Water/kohtoh/2026-12-03" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">真鍋由伽子 「平たい水」</span>
+        <span class="mv">光灯</span>
+      </a>
+      
+      <span class="more">+7 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>4</b>
+      <span class="wd">五</span>
+      <em>42 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://tumbleweed.jp/event/xmas26" target="_blank" rel="noopener">
+        <i style="background:#22c55e"></i>
+        <span class="mt">リアル謎解きゲーム「メリー・パニック・クリスマス！」タンブルウィード</span>
+        <span class="mv">タンブルウィード スイッチ下北沢</span>
+      </a>
+      
+      <a class="mitem" href="https://www.ota-bunka.or.jp/event/list/detail?106577" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">KAMATA JAZZ LAB　中村海斗カルテット</span>
+        <span class="mv">大田区民ホール・アプリコ小ホール</span>
+      </a>
+      
+      <a class="mitem" href="https://sacas.tokyoevent.net/category/event" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">Harry Potter Tree(ハリー・ポッター ツリー) -The Sorting Ceremony-</span>
+        <span class="mv">赤坂サカス</span>
+      </a>
+      
+      <a class="mitem" href="https://www.mod.go.jp/js/jsc/jpc/event/index.html" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">国際平和と安全シンポジウム２０２６</span>
+        <span class="mv">ホテルグランドヒル市ヶ谷</span>
+      </a>
+      
+      <a class="mitem" href="https://tokyosymphony.jp/concert/57622/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">東京交響楽団 東京オペラシティシリーズ 第155回</span>
+        <span class="mv">東京オペラシティコンサートホール</span>
+      </a>
+      
+      <span class="more">+37 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>5</b>
+      <span class="wd">六</span>
+      <em>79 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.tokyo-odaiba.net/rainbow2026/" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">お台場レインボー花火2026</span>
+        <span class="mv">打ち上げ場所:お台場海浜公園 鳥の島沖(「自由の女神像」沖)</span>
+      </a>
+      
+      <a class="mitem" href="https://shoto-museum.jp/exhibitions/214naoki/" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">舟越直木 見えないものに形をあたえる ―舟越家から生まれたもうひとりの異才―</span>
+        <span class="mv">渋谷区立松濤美術館</span>
+      </a>
+      
+      <a class="mitem" href="https://christmascarol2026.com/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">全幕バレエ公演　クリスマスキャロル</span>
+        <span class="mv">MoN Takanawa  The Museum of Narratives B</span>
+      </a>
+      
+      <a class="mitem" href="https://tmc-dx.org/area/sotonomori.html" target="_blank" rel="noopener">
+        <i style="background:#f59e0b"></i>
+        <span class="mt">ママ マルシェ in 桑都の杜（12月）</span>
+        <span class="mv">桑都の杜 杜の大屋根</span>
+      </a>
+      
+      <a class="mitem" href="https://tsuruma-park.com/" target="_blank" rel="noopener">
+        <i style="background:#f59e0b"></i>
+        <span class="mt">グランベリーパーク クリスマスマーケットin鶴間公園</span>
+        <span class="mv">鶴間公園</span>
+      </a>
+      
+      <span class="more">+74 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>6</b>
+      <span class="wd">日</span>
+      <em>33 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="http://www.recycler.org" target="_blank" rel="noopener">
+        <i style="background:#a855f7"></i>
+        <span class="mt">駒沢オリンピック公園フリーマーケット(12月)</span>
+        <span class="mv">駒沢オリンピック公園</span>
+      </a>
+      
+      <a class="mitem" href="https://trx.jp/" target="_blank" rel="noopener">
+        <i style="background:#a855f7"></i>
+        <span class="mt">吉祥寺パルコMOTTAINAIフリーマーケット（12月）</span>
+        <span class="mv">吉祥寺パルコ　屋上</span>
+      </a>
+      
+      <a class="mitem" href="https://www.nntt.jac.go.jp/opera/lenozzedifigaro/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">新国立劇場オペラ「フィガロの結婚」</span>
+        <span class="mv">新国立劇場オペラパレス</span>
+      </a>
+      
+      <a class="mitem" href="#" target="_blank" rel="noopener">
+        <i style="background:#ef4444"></i>
+        <span class="mt">粋と艶の江戸まつり2026 in 吉原会場</span>
+        <span class="mv">花園公園、及びHOTEL座みかさ</span>
+      </a>
+      
+      <a class="mitem" href="https://peatix.com/event/5067041" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">ティラノレースGP in 立川競輪場</span>
+        <span class="mv">立川競輪場</span>
+      </a>
+      
+      <span class="more">+28 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>7</b>
+      <span class="wd">一</span>
+      <em>20 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.gallery-ueda.com/informations/mateuszdorozynski-2026" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">マテウス・ドロジンスキー展「Over the moon」</span>
+        <span class="mv">ギャラリー上田（銀座）</span>
+      </a>
+      
+      <a class="mitem" href="https://www.monkeymagic.or.jp/magic/monday-magic-tokyo-kasai" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">第61回 マンデーマジック東京＠葛西</span>
+        <span class="mv">クライミングジム  葛西ロックランズ</span>
+      </a>
+      
+      <a class="mitem" href="https://showa-kayo.jp" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">昭和歌謡コンサート（小金井）</span>
+        <span class="mv">宮地楽器ホール　大ホール</span>
+      </a>
+      
+      <a class="mitem" href="https://www4.big.or.jp/~ogallery/" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">上松真美子展</span>
+        <span class="mv">Oギャラリー</span>
+      </a>
+      
+      <a class="mitem" href="http://officeiida.com" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">田島愛及展　たまる時間</span>
+        <span class="mv">オフィスイイダ</span>
+      </a>
+      
+      <span class="more">+15 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>8</b>
+      <span class="wd">二</span>
+      <em>23 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.smf.or.jp/concert/nisseki69/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">第69回 日本赤十字社献血チャリティ・コンサート</span>
+        <span class="mv">東京オペラシティ コンサートホール</span>
+      </a>
+      
+      <a class="mitem" href="https://802kanko.tokyo/wellness/" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">ハイキングガイドツアー「晩秋の高尾山」</span>
+        <span class="mv">高尾山</span>
+      </a>
+      
+      <a class="mitem" href="https://www.tgn.co.jp/funfenfant/event/202612hcg/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">0歳からのコンサート　音育ランド　八王子</span>
+        <span class="mv">NEEDS八王子 by T&amp;amp;G WEDDING</span>
+      </a>
+      
+      <a class="mitem" href="https://hao-since1999.seesaa.net/article/haoten2026.html" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">ハオ展2026〜編＆織 作品展示会〜</span>
+        <span class="mv">ギャラリーKAZE</span>
+      </a>
+      
+      <a class="mitem" href="https://www.pacific-concert.co.jp/concert/view/1468/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">アブデル・ラーマン・エル＝バシャ ピアノ・リサイタル</span>
+        <span class="mv">浜離宮朝日ホール 音楽ホール</span>
+      </a>
+      
+      <span class="more">+18 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>9</b>
+      <span class="wd">三</span>
+      <em>14 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="#" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">関のボロ市</span>
+        <span class="mv">本立寺門前</span>
+      </a>
+      
+      <a class="mitem" href="http://www.reijinsha.com/sesshu.html" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">第33回雪舟国際美術協会展</span>
+        <span class="mv">国立新美術館</span>
+      </a>
+      
+      <a class="mitem" href="https://bug.art/exhibition/fujioka-2026/" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">BUG Art Square 2026</span>
+        <span class="mv">アートセンターBUG</span>
+      </a>
+      
+      <a class="mitem" href="https://www.idemitsu.com/jp/fun/art/index.html" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">Idemitsu Art Award展2026</span>
+        <span class="mv">国立新美術館　1階展示室1B</span>
+      </a>
+      
+      <a class="mitem" href="http://d-korokoro.com" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">London Bridge is falling down 彼方  江原萌々子 二人展</span>
+        <span class="mv">Galleryころころ</span>
+      </a>
+      
+      <span class="more">+9 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>10</b>
+      <span class="wd">四</span>
+      <em>15 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.nntt.jac.go.jp/play/the-minotaurs-plate/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">新国立劇場演劇「ミノタウロスの皿」</span>
+        <span class="mv">新国立劇場小劇場</span>
+      </a>
+      
+      <a class="mitem" href="https://www.ota-bunka.or.jp/event/list/detail?106087" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">ギタリストたちの饗宴</span>
+        <span class="mv">大田区民ホール・アプリコ 大ホール</span>
+      </a>
+      
+      <a class="mitem" href="https://tokyobay-light-wish.metro.tokyo.lg.jp/" target="_blank" rel="noopener">
+        <i style="background:#06b6d4"></i>
+        <span class="mt">TokyoBay Light Wish(トウキョウベイ ライト ウィッシュ)</span>
+        <span class="mv">シンボルプロムナード公園</span>
+      </a>
+      
+      <a class="mitem" href="https://mamica-m.com/" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">マミカ企画：手織り工房Studio M 展 深尾雅子</span>
+        <span class="mv">ギャラリーマミカ</span>
+      </a>
+      
+      <a class="mitem" href="https://mumon.artcafe.co.jp/" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">MUMON ART project　ー繋ぐー 現代日本美術の明日へ</span>
+        <span class="mv">Gallery MUMON</span>
+      </a>
+      
+      <span class="more">+10 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>11</b>
+      <span class="wd">五</span>
+      <em>34 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.xeoxy.com/event/taboo6" target="_blank" rel="noopener">
+        <i style="background:#22c55e"></i>
+        <span class="mt">体験型リアル謎解きゲーム「TABOO 6」</span>
+        <span class="mv">XEOXY（ゼオクシー）</span>
+      </a>
+      
+      <a class="mitem" href="https://peatix.com/event/5247512" target="_blank" rel="noopener">
+        <i style="background:#f97316"></i>
+        <span class="mt">北陸日本酒NIGHT～東京で福井とつながる夜～</span>
+        <span class="mv">Cultive291 -カルティブ291- ふくい南青山291（福井アンテナショ</span>
+      </a>
+      
+      <a class="mitem" href="https://www.tokyomineralshow.com/" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">第35回東京ミネラルショー2026</span>
+        <span class="mv">池袋・サンシャインシティ　文化会館</span>
+      </a>
+      
+      <a class="mitem" href="https://attaka-gourmet-fes.com/sumida2026" target="_blank" rel="noopener">
+        <i style="background:#ef4444"></i>
+        <span class="mt">すみだあったかグルメフェス2026 WINTER</span>
+        <span class="mv">隅田公園そよ風ひろば</span>
+      </a>
+      
+      <a class="mitem" href="https://www.takuyaokamoto.site/concerts" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">岡本拓也ギターリサイタル2027～New Album 「Poetica」発売記念～</span>
+        <span class="mv">銀座　王子ホール</span>
+      </a>
+      
+      <span class="more">+29 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>12</b>
+      <span class="wd">六</span>
+      <em>53 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://nihonshu-hitomeguri2026.peatix.com/" target="_blank" rel="noopener">
+        <i style="background:#f97316"></i>
+        <span class="mt">にほんしゅ ひと巡りー2026 新橋ー</span>
+        <span class="mv">MEETING SPACE AP新橋</span>
+      </a>
+      
+      <a class="mitem" href="https://ginza-blossom.jp/event/main/" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">音楽の絵本～ブラス★サンタwithサキソフォックス～</span>
+        <span class="mv">銀座ブロッサム中央会館（中央区立中央会館）　ホール</span>
+      </a>
+      
+      <a class="mitem" href="https://tmc-dx.org/area/parthenon_oodoori_marche.html" target="_blank" rel="noopener">
+        <i style="background:#f59e0b"></i>
+        <span class="mt">パルテノン大通りマルシェ（12月）</span>
+        <span class="mv">パルテノン大通り（多摩センター駅前歩道）</span>
+      </a>
+      
+      <a class="mitem" href="https://www.koransha.com/orch_chamber/avemaria/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">クリスマス/アヴェ・マリア エリザベート弦楽アンサンブル（新宿区）</span>
+        <span class="mv">東京オペラシティ　コンサートホール</span>
+      </a>
+      
+      <a class="mitem" href="https://gsrun.jp/santarelay/" target="_blank" rel="noopener">
+        <i style="background:#0ea5e9"></i>
+        <span class="mt">立川サンタリレーマラソン in 国営昭和記念公園</span>
+        <span class="mv">国営昭和記念公園</span>
+      </a>
+      
+      <span class="more">+48 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>13</b>
+      <span class="wd">日</span>
+      <em>25 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.regasu-shinjuku.or.jp/bunka-center/shusai/46805/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">はじめてのおんがくかい～クリスマスコンサート～</span>
+        <span class="mv">新宿区立新宿文化センター　大ホール</span>
+      </a>
+      
+      <a class="mitem" href="https://trx.jp/" target="_blank" rel="noopener">
+        <i style="background:#a855f7"></i>
+        <span class="mt">イケ・サンパーク フリーマーケット（12月）</span>
+        <span class="mv">イケ・サンパーク</span>
+      </a>
+      
+      <a class="mitem" href="https://kitatokyo-cityxmas.org/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">第37回北東京シティ・クリスマス</span>
+        <span class="mv">十条キリスト教会</span>
+      </a>
+      
+      <a class="mitem" href="https://www.tmc-dx.org/area/fujimori.html" target="_blank" rel="noopener">
+        <i style="background:#a855f7"></i>
+        <span class="mt">富士森公園フリーマーケット（12月）</span>
+        <span class="mv">富士森公園</span>
+      </a>
+      
+      <a class="mitem" href="https://www2.recycler.jp/" target="_blank" rel="noopener">
+        <i style="background:#a855f7"></i>
+        <span class="mt">調布「味の素スタジアムBIGフリーマーケット」（12月）</span>
+        <span class="mv">味の素スタジアム</span>
+      </a>
+      
+      <span class="more">+20 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>14</b>
+      <span class="wd">一</span>
+      <em>8 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://showa-kayo.jp" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">昭和歌謡コンサート（練馬）</span>
+        <span class="mv">練馬文化センター　小ホール</span>
+      </a>
+      
+      <a class="mitem" href="https://www.japanarts.co.jp/concert/p2255/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">豊嶋泰嗣＆クンウー・パイク デュオ・リサイタル</span>
+        <span class="mv">浜離宮朝日ホール</span>
+      </a>
+      
+      <a class="mitem" href="https://www4.big.or.jp/~ogallery/" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">清水彩瑛展</span>
+        <span class="mv">Oギャラリー</span>
+      </a>
+      
+      <a class="mitem" href="https://www.tokyoartbeat.com/events/Ryo-Ogawa-Sur-Architecture-X/1-D5-C57-EB/2026-12-14" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">小川遼 「SurArchitecture &#34;X&#34;」</span>
+        <span class="mv">ギャラリイK</span>
+      </a>
+      
+      <a class="mitem" href="https://www.tokyoartbeat.com/events/Fujin-Torikai-Rural-Forms/0-E250-B96/2026-12-14" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">鳥飼風人 「Rural Forms －そこにある形－」</span>
+        <span class="mv">ギャラリー58</span>
+      </a>
+      
+      <span class="more">+3 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>15</b>
+      <span class="wd">二</span>
+      <em>19 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.city.setagaya.lg.jp/02072/10108.html" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">世田谷のボロ市</span>
+        <span class="mv">世田谷一丁目「ボロ市通り」とその周辺</span>
+      </a>
+      
+      <a class="mitem" href="https://minorinome.com/concert/concert-4528/" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">四つの肖像 ─ ブラームスと、彼をめぐる三人の音楽家たち vol.2</span>
+        <span class="mv">品川区立五反田文化センター音楽ホール</span>
+      </a>
+      
+      <a class="mitem" href="https://www.bdk.or.jp/event/organization02.html" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">仏教を生活に活かす会2026「こころの終活ワークショップ」</span>
+        <span class="mv">公益財団法人仏教伝道協会</span>
+      </a>
+      
+      <a class="mitem" href="https://www.pario-machida.com/topics/event/20835" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">パリコレッ！ギャラリー vol.41 ひだかもと 個展「ちいさなはなし」</span>
+        <span class="mv">町田パリオ 3F ギャラリー・パリオ</span>
+      </a>
+      
+      <a class="mitem" href="https://shibuya-frail-yobou.tokyo/news/261215/" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">フレイル予防キャラバン〜みんなでボウリング！〜</span>
+        <span class="mv">笹塚ボウル</span>
+      </a>
+      
+      <span class="more">+14 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>16</b>
+      <span class="wd">三</span>
+      <em>8 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://chinacinemadenight-2.peatix.com/" target="_blank" rel="noopener">
+        <i style="background:#ef4444"></i>
+        <span class="mt">中国シネマdeナイト第2回上映会</span>
+        <span class="mv">公益財団法人日中友好会館地下1階大ホール</span>
+      </a>
+      
+      <a class="mitem" href="https://madrugadabigband.com" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">Orquesta de la MADRUGADA   feat. KEIKO SHIRAKABE</span>
+        <span class="mv">赤坂　Jazz Dining B-flat</span>
+      </a>
+      
+      <a class="mitem" href="https://www.coco-color-pastel.com/" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">パステルを使って60分で描きあげる『1日絵画趣味』 体験会（大田区）</span>
+        <span class="mv">スマイル大森内　エセナおおた</span>
+      </a>
+      
+      <a class="mitem" href="https://spy-hp2026.peatix.com/" target="_blank" rel="noopener">
+        <i style="background:#06b6d4"></i>
+        <span class="mt">BIBA Holiday pop-up at Slit Park YURAKUCHO</span>
+        <span class="mv">Slit Park YURAKUCHO</span>
+      </a>
+      
+      <a class="mitem" href="https://oif-tama.jp/kokubunji/event/entry-34214.html?utm_source=eventbank_press&amp;amp;utm_medium=referral&amp;amp;utm_campaign=20261216_kokubunji_event" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">中級・実践者向け　3Dプリント活用現場の課題解決＆交流会</span>
+        <span class="mv">オープンイノベーションフィールド多摩 国分寺館</span>
+      </a>
+      
+      <span class="more">+3 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>17</b>
+      <span class="wd">四</span>
+      <em>10 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://kaki-kuu-kyaku.com/next/zanzouda.html" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">柿喰う客20周年最終公演『残像だ』</span>
+        <span class="mv">紀伊國屋ホール</span>
+      </a>
+      
+      <a class="mitem" href="https://www.koransha.com/orch_chamber/avemaria/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">クリスマス/アヴェ・マリア エリザベート弦楽アンサンブル（池袋）</span>
+        <span class="mv">東京芸術劇場　コンサートホール</span>
+      </a>
+      
+      <a class="mitem" href="https://goodflat.net/" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">韓国古着専門店『GOODFLAT-KOREA- グッドフラットコリア』＠レイドアウト渋谷</span>
+        <span class="mv">レイドアウト渋谷 1F</span>
+      </a>
+      
+      <a class="mitem" href="https://npi.ac.jp/opencampus/26575" target="_blank" rel="noopener">
+        <i style="background:#06b6d4"></i>
+        <span class="mt">初心者でも安心！プロが教える撮影の基本「冬のイルミネーション編」</span>
+        <span class="mv">日本写真芸術専門学校</span>
+      </a>
+      
+      <a class="mitem" href="https://baisouin.or.jp/r8_2nd_bukkyokouza/" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">般若経の仏国土観―「大乗仏教を理解する」シリーズ（15）</span>
+        <span class="mv">梅窓院</span>
+      </a>
+      
+      <span class="more">+5 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>18</b>
+      <span class="wd">五</span>
+      <em>22 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://tachikawaillumination.com/" target="_blank" rel="noopener">
+        <i style="background:#f59e0b"></i>
+        <span class="mt">TACHIKAWA WINTER MARKET</span>
+        <span class="mv">サンサンロード</span>
+      </a>
+      
+      <a class="mitem" href="https://tachikawa-sozosha.jp/ttp/snowqueen/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">立川シアタープロジェクト　子どもとおとながいっしょに楽しむ舞台vol.10 『雪の女王』</span>
+        <span class="mv">たましんRISURUホール（立川市市民会館）　小ホール</span>
+      </a>
+      
+      <a class="mitem" href="https://www.koransha.com/ballet/tchaikovsky/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">チャイコフスキー・バレエ劇場 ｢白鳥の湖｣(目黒)</span>
+        <span class="mv">めぐろパーシモンホール</span>
+      </a>
+      
+      <a class="mitem" href="https://setagaya-pt.jp/stage/32278/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">シアタートラム・ネクストジェネレーションvol.18-演劇-yoowa『GARDEN』</span>
+        <span class="mv">シアタートラム</span>
+      </a>
+      
+      <a class="mitem" href="https://baisouin.or.jp/r8_2nd_bukkyokouza/" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">鳩摩羅什伝（くまらじゅうでん）を読む</span>
+        <span class="mv">梅窓院</span>
+      </a>
+      
+      <span class="more">+17 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>19</b>
+      <span class="wd">六</span>
+      <em>42 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.tmc-dx.org/area/shinjuku.html" target="_blank" rel="noopener">
+        <i style="background:#a855f7"></i>
+        <span class="mt">新宿中央公園ビッグフリーマーケット（12月）</span>
+        <span class="mv">新宿中央公園 水の広場</span>
+      </a>
+      
+      <a class="mitem" href="https://uo10.jp/" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">魚豊十周年展 UO10.(ウオトテン)</span>
+        <span class="mv">YURAKUCHO MUSEUM(有楽町ミュージアム)</span>
+      </a>
+      
+      <a class="mitem" href="https://tmc-dx.org/area/tamacenter_cnm.html" target="_blank" rel="noopener">
+        <i style="background:#f59e0b"></i>
+        <span class="mt">クリスマス ナイト マーケット多摩センター in 2026</span>
+        <span class="mv">パルテノン大通り（多摩センター駅前歩道）</span>
+      </a>
+      
+      <a class="mitem" href="https://www2.recycler.jp/" target="_blank" rel="noopener">
+        <i style="background:#a855f7"></i>
+        <span class="mt">ベストフリーマーケット in 東京国際フォーラム（12月）</span>
+        <span class="mv">東京国際フォーラム　地上広場</span>
+      </a>
+      
+      <a class="mitem" href="https://www.ota-bunka.or.jp/event/list/detail?109423" target="_blank" rel="noopener">
+        <i style="background:#ef4444"></i>
+        <span class="mt">アプリコ・クリスマス・フェスティバル2026　絵本 de クラシック</span>
+        <span class="mv">大田区民ホール・アプリコ大ホール</span>
+      </a>
+      
+      <span class="more">+37 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>20</b>
+      <span class="wd">日</span>
+      <em>30 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.koransha.com/ballet/tchaikovsky/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">チャイコフスキー・バレエ劇場 ｢くるみ割り人形｣(東京)</span>
+        <span class="mv">東京国際フォーラム　ホールA</span>
+      </a>
+      
+      <a class="mitem" href="https://gingaorchestra.com" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">田中洋太＆銀河オーケストラメンバー　クリスマスコンサート</span>
+        <span class="mv">TOKYO　FMホール</span>
+      </a>
+      
+      <a class="mitem" href="#" target="_blank" rel="noopener">
+        <i style="background:#ef4444"></i>
+        <span class="mt">中野和太鼓フェスタ2026</span>
+        <span class="mv">なかのZERO大ホール</span>
+      </a>
+      
+      <a class="mitem" href="https://www2.recycler.jp/" target="_blank" rel="noopener">
+        <i style="background:#a855f7"></i>
+        <span class="mt">「世田谷公園」フリーマーケット（12月）</span>
+        <span class="mv">世田谷公園　噴水広場</span>
+      </a>
+      
+      <a class="mitem" href="https://christmas.vnfunmi.com/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">音楽と映像のファミリー・クラシック☆大人も子どもも☆クリスマスコンサート</span>
+        <span class="mv">大手町KDDIホール</span>
+      </a>
+      
+      <span class="more">+25 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>21</b>
+      <span class="wd">一</span>
+      <em>11 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.koransha.com/orch_chamber/avemaria/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">クリスマス/アヴェ・マリア エリザベート弦楽アンサンブル（浜離宮）</span>
+        <span class="mv">浜離宮朝日ホール</span>
+      </a>
+      
+      <a class="mitem" href="#" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">第8回シェママン　サポーティングマギーズ・チャリティーコンサート　ひびけ歌声とどけ心に</span>
+        <span class="mv">豊洲シビックセンターホール</span>
+      </a>
+      
+      <a class="mitem" href="https://teket.jp/627/75516" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">トロンボーン四重奏《極》ここに爆誕！</span>
+        <span class="mv">TOPPANホール</span>
+      </a>
+      
+      <a class="mitem" href="https://www4.big.or.jp/~ogallery/" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">西山一葉展「取るに足らないところ」</span>
+        <span class="mv">Oギャラリー</span>
+      </a>
+      
+      <a class="mitem" href="https://www4.big.or.jp/~ogallery/" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">安 亜沙展</span>
+        <span class="mv">OギャラリーUP・S</span>
+      </a>
+      
+      <span class="more">+6 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>22</b>
+      <span class="wd">二</span>
+      <em>5 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://cocohe.jp/star2026/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">0歳からのクリスマスコンサート 「星の音楽絵本」東京公演2026</span>
+        <span class="mv">大田区民ホール　アプリコ小ホール</span>
+      </a>
+      
+      <a class="mitem" href="#" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">クリスマスハンドベルコンサート</span>
+        <span class="mv">武蔵野スイングホール</span>
+      </a>
+      
+      <a class="mitem" href="https://www.tkwo.jp/concert/others/20261222-xmas.html" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">東京佼成ウインドオーケストラPresentsファンタスティッククリスマス2026</span>
+        <span class="mv">東京芸術劇場コンサートホール</span>
+      </a>
+      
+      <a class="mitem" href="https://h-m-d.org/2026/11/10/event_2026dec/" target="_blank" rel="noopener">
+        <i style="background:#a855f7"></i>
+        <span class="mt">おさがりひろば</span>
+        <span class="mv">セシオン杉並</span>
+      </a>
+      
+      <a class="mitem" href="https://www.tokyoartbeat.com/events/Mai-Katsumi-Animal-Condition-Ginza/wabi/2026-12-22" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">Mai Katsumi 「Animal Condition-Ginza」</span>
+        <span class="mv">WABI－和・美－（ワビ）</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>23</b>
+      <span class="wd">三</span>
+      <em>9 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://play2020.jp/article/kogumachan/" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">「こぐまちゃん と しろくまちゃん」展</span>
+        <span class="mv">PLAY! MUSEUM(プレイ ミュージアム)</span>
+      </a>
+      
+      <a class="mitem" href="https://kitabunka.or.jp/event/26548/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">劇団四季ファミリーミュージカル  『はじまりの樹の神話 ～こそあどの森の物語～』</span>
+        <span class="mv">北とぴあ　さくらホール</span>
+      </a>
+      
+      <a class="mitem" href="https://www.hachiojibunka.or.jp/archives/eventinfo/seasons20261223/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">J:COMホール八王子　SEASON’Sコンサート Vol.17 Xmasジャズライブ</span>
+        <span class="mv">J:COMホール八王子 5階ホワイエ</span>
+      </a>
+      
+      <a class="mitem" href="https://restaurant.novarese.jp/lp/noel/l26.html" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">「L2126」クリスマス限定レストランフェア</span>
+        <span class="mv">L2126</span>
+      </a>
+      
+      <a class="mitem" href="https://restaurant.novarese.jp/lp/noel/ama.html" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">「ampersand By LAGUNAVEIL ATELIER」クリスマス限定レストランフェア</span>
+        <span class="mv">ampersand By LAGUNAVEIL ATELIER</span>
+      </a>
+      
+      <span class="more">+4 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>24</b>
+      <span class="wd">四</span>
+      <em>7 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://event.bitwin.ne.jp/" target="_blank" rel="noopener">
+        <i style="background:#f59e0b"></i>
+        <span class="mt">クリスマスマルシェ in 高円寺マシタ</span>
+        <span class="mv">高円寺マシタ</span>
+      </a>
+      
+      <a class="mitem" href="https://restaurant.novarese.jp/lp/noel/alt.html" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">「アルマリアン TOKYO」クリスマス限定レストランフェア</span>
+        <span class="mv">アルマリアン TOKYO</span>
+      </a>
+      
+      <a class="mitem" href="https://restaurant.novarese.jp/lp/noel/cst.html" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">「シャルマンシーナ TOKYO」クリスマス限定レストランフェア</span>
+        <span class="mv">シャルマンシーナ TOKYO</span>
+      </a>
+      
+      <a class="mitem" href="https://www.ota-bunka.or.jp/event/list/detail?110437" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">アプリコうたのアフタヌーンコンサートVol.10 岡崎陽香＆上村誠一　～聖夜に響く　いにしえの声～</span>
+        <span class="mv">大田区民ホール・アプリコ 大ホール</span>
+      </a>
+      
+      <a class="mitem" href="https://azur-rose.com/portfolio-item/mosaicoya/" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">mosaicoya Solo Exhibition「KIZASHI」</span>
+        <span class="mv">Azur rose Galerie</span>
+      </a>
+      
+      <span class="more">+2 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>25</b>
+      <span class="wd">五</span>
+      <em>8 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.xeoxy.com/event/taboo7" target="_blank" rel="noopener">
+        <i style="background:#22c55e"></i>
+        <span class="mt">体験型リアル謎解きゲーム「TABOO 7」</span>
+        <span class="mv">XEOXY（ゼオクシー）</span>
+      </a>
+      
+      <a class="mitem" href="https://haremame.com/schedule/82902/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">Xmas Special Party Live“NO SILENT NIGHT”</span>
+        <span class="mv">晴れたら空に豆まいて</span>
+      </a>
+      
+      <a class="mitem" href="https://www.tokyo-eg.com/concert/20261225" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">ストーリー・コンサート わたしたちのクリスマス</span>
+        <span class="mv">音楽の友ホール</span>
+      </a>
+      
+      <a class="mitem" href="https://za-koenji.jp/events/2549/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">座・高円寺レパートリー 『トロイメライ』</span>
+        <span class="mv">座・高円寺 1</span>
+      </a>
+      
+      <a class="mitem" href="https://loop.tamagawa-sc.com/tamagawaloop/asp-webapp/web/WWebKozaShosaiNyuryoku.do?kozaId=9240887" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">音木育ランドinたまがわ クリスマスコンサート（午後の部）</span>
+        <span class="mv">コミュニティクラブたまがわ　3階 たまがわLOOP</span>
+      </a>
+      
+      <span class="more">+3 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>26</b>
+      <span class="wd">六</span>
+      <em>19 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://asobu-promotion.com/lp/waterchallenge/" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">ウォーターチャレンジ体験型イベント すまない先生とヤマタノオロチ</span>
+        <span class="mv">IKUSA ARENA</span>
+      </a>
+      
+      <a class="mitem" href="https://tmc-dx.org/area/karasuyama_mamamarche.html" target="_blank" rel="noopener">
+        <i style="background:#f59e0b"></i>
+        <span class="mt">ママ・マルシェ in からすやま（12月）</span>
+        <span class="mv">烏山区民センター前広場</span>
+      </a>
+      
+      <a class="mitem" href="https://powerofmusic.amebaownd.com/" target="_blank" rel="noopener">
+        <i style="background:#ef4444"></i>
+        <span class="mt">みんなで楽しむ！うたフェスタ</span>
+        <span class="mv">中目黒GTプラザホール</span>
+      </a>
+      
+      <a class="mitem" href="https://tmc-dx.org/area/chofu_mamamarche.html" target="_blank" rel="noopener">
+        <i style="background:#f59e0b"></i>
+        <span class="mt">調布駅前広場「ママ・マルシェ」（12月）</span>
+        <span class="mv">調布駅前広場</span>
+      </a>
+      
+      <a class="mitem" href="https://magiozisannatsu.jimdofree.com/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">マジカルおじさんの冬休みマジック教室＆SHOW2026東京公演</span>
+        <span class="mv">大森スポーツセンター小ホール</span>
+      </a>
+      
+      <span class="more">+14 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>27</b>
+      <span class="wd">日</span>
+      <em>8 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://itabashi-prowrestling.jimdofree.com/" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">いたばしプロレスリング　板橋区立ハイライフプラザいたばし（12月）</span>
+        <span class="mv">板橋区立ハイライフプラザいたばし</span>
+      </a>
+      
+      <a class="mitem" href="https://www2.recycler.jp/" target="_blank" rel="noopener">
+        <i style="background:#a855f7"></i>
+        <span class="mt">都立小金井公園 フリーマーケット（12月）</span>
+        <span class="mv">都立小金井公園</span>
+      </a>
+      
+      <a class="mitem" href="https://up-run.jp/events/mate-koukyo213/" target="_blank" rel="noopener">
+        <i style="background:#0ea5e9"></i>
+        <span class="mt">第213回スポーツメイトラン皇居マラソン</span>
+        <span class="mv">皇居時計台前（受付）</span>
+      </a>
+      
+      <a class="mitem" href="https://www.mikikiitos.com/toyosutour" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">豊洲市場見学ツアー 全街区まるわかりコース（12月）</span>
+        <span class="mv">豊洲市場　新交通ゆりかもめ市場前駅付近集合</span>
+      </a>
+      
+      <a class="mitem" href="https://www.nihonkiin.or.jp/event/area/other/jr_park202612.html" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">第24回ジュニア囲碁パーク</span>
+        <span class="mv">東京武道館</span>
+      </a>
+      
+      <span class="more">+3 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>28</b>
+      <span class="wd">一</span>
+      <em>6 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://tokyosymphony.jp/concert/57882/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">「第九」2026</span>
+        <span class="mv">サントリーホール</span>
+      </a>
+      
+      <a class="mitem" href="https://www.xeoxy.com/event/taboo8" target="_blank" rel="noopener">
+        <i style="background:#22c55e"></i>
+        <span class="mt">体験型リアル謎解きゲーム「TABOO 8」</span>
+        <span class="mv">XEOXY（ゼオクシー）</span>
+      </a>
+      
+      <a class="mitem" href="https://moshicom.com/144957" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">山手線1周ウォーク 約10～42キロ（時速3～4キロ） 12月</span>
+        <span class="mv">東京駅丸の内南口改札口前（集合場所）</span>
+      </a>
+      
+      <a class="mitem" href="https://www.cityphil.jp/concert/detail.php?id=755" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">第九特別演奏会2026</span>
+        <span class="mv">東京オペラシティコンサートホール</span>
+      </a>
+      
+      <a class="mitem" href="https://minorinome.com/concert/concert-4416/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">サラ・デイヴィス・ビュクナー ピアノリサイタル　≪劇性がつなぐ、古典派とロマン派の軌跡≫</span>
+        <span class="mv">銀座ヤマハホール</span>
+      </a>
+      
+      <span class="more">+1 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>29</b>
+      <span class="wd">二</span>
+      <em>8 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.koransha.com/orch_chamber/no5no9/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">ウクライナ国立歌劇場管弦楽団｢第九＆運命｣(東京)</span>
+        <span class="mv">東京オペラシティ　コンサートホール</span>
+      </a>
+      
+      <a class="mitem" href="https://up-run.jp/events/up-koukyo254/" target="_blank" rel="noopener">
+        <i style="background:#0ea5e9"></i>
+        <span class="mt">第254回UP RUN皇居マラソン～年末特別ver～</span>
+        <span class="mv">皇居時計台前（受付）</span>
+      </a>
+      
+      <a class="mitem" href="#" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">KAMAKURA × TOKYO TOWER</span>
+        <span class="mv">東京タワー</span>
+      </a>
+      
+      <a class="mitem" href="https://www.koransha.com/orch_chamber/daiku/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">ウクライナ国立歌劇場管弦楽団｢第九｣(東京)</span>
+        <span class="mv">東京オペラシティ　コンサートホール</span>
+      </a>
+      
+      <a class="mitem" href="https://www.galaxcity.jp/cultural-hall/event/20261229-009160.html" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">音楽のあふれる街ADACHI にっぽんの「あの歌 この歌 こんな曲」vol.3</span>
+        <span class="mv">西新井文化ホール</span>
+      </a>
+      
+      <span class="more">+3 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>30</b>
+      <span class="wd">三</span>
+      <em>3 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.elcielo2020.mori-music.com/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">El Cielo 2020 －情熱的挑発－ 年末特別公演2026</span>
+        <span class="mv">南青山MANDALA</span>
+      </a>
+      
+      <a class="mitem" href="https://up-run.jp/events/mate-koukyo214/" target="_blank" rel="noopener">
+        <i style="background:#0ea5e9"></i>
+        <span class="mt">第214回スポーツメイトラン皇居マラソン～年末特別ver～</span>
+        <span class="mv">皇居時計台前（受付）</span>
+      </a>
+      
+      <a class="mitem" href="https://store.kinokuniya.co.jp/event/1794114000/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">第736回紀伊國屋寄席</span>
+        <span class="mv">紀伊國屋ホール</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>31</b>
+      <span class="wd">四</span>
+      <em>4 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.cityphil.jp/concert/detail.php?id=801" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">東京シティ・フィルPresentsドラゴンクエスト ジルベスターコンサート</span>
+        <span class="mv">東京オペラシティコンサートホール</span>
+      </a>
+      
+      <a class="mitem" href="https://www.mesm.jp/news/Countdown26-27.html" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">メズム東京「Holiday Voyage Countdown Party 26-27」</span>
+        <span class="mv">メズム東京、オートグラフ　コレクション</span>
+      </a>
+      
+      <a class="mitem" href="https://moshicom.com/140231/" target="_blank" rel="noopener">
+        <i style="background:#0ea5e9"></i>
+        <span class="mt">大晦日 初心者向け 山手線1周ラン 約10～42キロ（キロ約7～8分）</span>
+        <span class="mv">東京駅丸の内南口改札口前（集合場所）</span>
+      </a>
+      
+      <a class="mitem" href="https://up-run.jp/events/up-koukyo255/" target="_blank" rel="noopener">
+        <i style="background:#0ea5e9"></i>
+        <span class="mt">第255回UP RUN皇居マラソン～年末特別ver～</span>
+        <span class="mv">皇居時計台前（受付）</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
 </div>
 
 <div class="legend">

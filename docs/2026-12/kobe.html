@@ -63,12 +63,13 @@ select, input[type=search] {
 input[type=search] { min-width: 190px; }
 label.check { display: inline-flex; gap: 5px; align-items: center; font-size: 13px; color: var(--sub); }
 
-.calendar { background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
-.weekhead { display: grid; grid-template-columns: repeat(7, 1fr); background: #fbfaf7; border-bottom: 1px solid var(--line); }
+.calendar { background: var(--card); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow);
+  overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; }
+.weekhead { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); background: #fbfaf7; border-bottom: 1px solid var(--line); }
 .weekhead div { padding: 9px 0; text-align: center; font-size: 12.5px; color: var(--sub); letter-spacing: 2px; }
 .weekhead div:nth-child(6) { color: #2f6f9f; }
 .weekhead div:nth-child(7) { color: #b5433c; }
-.grid { display: grid; grid-template-columns: repeat(7, 1fr); }
+.grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
 .cell {
   min-height: 132px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
   padding: 6px 7px 8px; display: flex; flex-direction: column; gap: 4px; background: #fff;
@@ -122,11 +123,29 @@ footer.stats th { color: var(--sub); font-weight: 500; }
 .ok { color: #2f7a4f; font-weight: 600; }
 .bad { color: #b5433c; font-weight: 600; }
 @media (max-width: 760px) {
-  .cell { min-height: 92px; padding: 4px; }
-  .ev { font-size: 10px; -webkit-line-clamp: 2; }
-  .monthbar .title { font-size: 22px; }
-  .item .datecol { min-width: 54px; }
+  .wrap { padding: 14px 12px 40px; }
+  header.top { gap: 10px; }
+  h1 { font-size: 18px; }
+  .monthbar { flex-wrap: wrap; gap: 8px; }
+  .monthbar .title { font-size: 20px; }
+  .filters { padding: 10px; gap: 8px; }
+  .btn { font-size: 12px; padding: 6px 10px; }
+  .monthbar .btn.arrow { padding: 6px 10px; }
+  input[type=search] { min-width: 0; flex: 1 1 100%; }
+  /* 周历在手机上横向滑动查看，不再被裁掉右半部分 */
+  .grid, .weekhead { min-width: 700px; }
+  .cell { min-height: 96px; padding: 4px 5px; }
+  .ev { font-size: 10.5px; -webkit-line-clamp: 2; word-break: break-word; }
+  .more { font-size: 10px; }
+  .legend { font-size: 11px; gap: 8px; }
+  .item { padding: 10px 12px; gap: 10px; }
+  .item .datecol { min-width: 46px; }
+  .item .datecol .d { font-size: 16px; }
+  .item .t { font-size: 14px; }
+  footer.stats table { font-size: 11px; }
+  .swipe-hint { display: block; }
 }
+.swipe-hint { display: none; font-size: 11.5px; color: var(--sub); margin: 8px 2px 0; }
 
 /* ---- 城市切换标签 ---- */
 .citytabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px}
@@ -137,6 +156,40 @@ footer.stats th { color: var(--sub); font-weight: 500; }
 .citytab small{font-size:11px;opacity:.6}
 
 .ev.ongoing{background:#f8fafc !important;color:#475569;font-size:11px}
+
+
+/* ---- 手机端：日期议程视图（替代 7 列周历） ---- */
+.magenda { display: none; }
+@media (max-width: 760px) {
+  .calendar, .swipe-hint { display: none; }
+  .magenda { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+  .mday { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; box-shadow: var(--shadow); }
+  .mday.today { box-shadow: inset 0 0 0 2px #f0c8a8; }
+  .mday-h { display: flex; align-items: baseline; gap: 6px; margin-bottom: 6px; color: var(--sub); font-size: 12px; }
+  .mday-h b { font-size: 18px; color: var(--ink); font-weight: 700; }
+  .mday-h .wd { font-size: 12px; }
+  .mday-h em { font-style: normal; margin-left: auto; }
+  .mday-h .today-tag { font-style: normal; background: var(--accent); color: #fff; font-size: 11px; padding: 1px 7px; border-radius: 999px; }
+  .mday-body { display: flex; flex-direction: column; gap: 5px; }
+  .mitem { display: grid; grid-template-columns: 8px 1fr; column-gap: 7px; align-items: start; text-decoration: none;
+    border-radius: 8px; padding: 6px 8px; background: #faf9f6; }
+  .mitem i { width: 8px; height: 8px; border-radius: 50%; margin-top: 4px; }
+  .mitem .mt { font-size: 13px; line-height: 1.4; color: var(--ink); overflow-wrap: anywhere; }
+  .mitem .mv { grid-column: 2; font-size: 11px; color: var(--sub); overflow-wrap: anywhere; }
+}
+
+
+/* ---- 手机端防横向溢出（兜底） ---- */
+@media (max-width: 760px) {
+  html, body { max-width: 100%; overflow-x: hidden; }
+  .wrap { width: 100%; }
+  header.top > div, header.top .meta, .monthbar, .filters, .citytabs, .mday, .mitem, .item, .item .body,
+  .mday-h, .mitem .mt, .mitem .mv { min-width: 0; max-width: 100%; }
+  .meta, .mday-h, .mitem .mv { white-space: normal; overflow-wrap: anywhere; word-break: break-word; }
+  header.top > div { flex: 1 1 240px; }
+  .citytab { max-width: 46vw; }
+  .citytab span, .citytab { overflow-wrap: anywhere; }
+}
 
 </style>
 <link rel="alternate" type="text/calendar" href="/calendar.ics?city=kobe">
@@ -759,6 +812,353 @@ footer.stats th { color: var(--sub); font-weight: 500; }
     </div>
     
   </div>
+</div>
+<p class="swipe-hint">← 左右滑动可查看整周 7 天 →</p>
+
+<div class="magenda">
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>3</b>
+      <span class="wd">四</span>
+      <em>2 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.koransha.com/ballet/tchaikovsky/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">チャイコフスキー・バレエ劇場 ｢くるみ割り人形｣(神戸)</span>
+        <span class="mv">神戸国際会館 こくさいホール</span>
+      </a>
+      
+      <a class="mitem" href="https://gallery-kitanozaka.com/saishin/schedule.html" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">飯田温子展</span>
+        <span class="mv">GALLERY北野坂</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>4</b>
+      <span class="wd">五</span>
+      <em>2 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.totteikobe.jp/event/article/31918" target="_blank" rel="noopener">
+        <i style="background:#f59e0b"></i>
+        <span class="mt">神戸 TOTTEI ABCクリスマスマーケット2026 supported by ホームメイト</span>
+        <span class="mv">TOTTEI PARK (トッテイパーク)</span>
+      </a>
+      
+      <a class="mitem" href="https://www.instagram.com/otolala_kobe/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">おとララ　歌う・動く・聴く 音楽を丸ごと楽しむ75分</span>
+        <span class="mv">西神中央ホール　スタジオ1</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>5</b>
+      <span class="wd">六</span>
+      <em>10 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.hashinokagakukan.jp/news/news77" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">橋の科学館･明石海峡大橋クリスマスパーク2026</span>
+        <span class="mv">橋の科学館</span>
+      </a>
+      
+      <a class="mitem" href="#" target="_blank" rel="noopener">
+        <i style="background:#f59e0b"></i>
+        <span class="mt">しあわせの村　第22回・23回はっぴーマーケット</span>
+        <span class="mv">しあわせの村　中央緑道</span>
+      </a>
+      
+      <a class="mitem" href="https://ktomitake.wixsite.com/z-d-m" target="_blank" rel="noopener">
+        <i style="background:#ef4444"></i>
+        <span class="mt">新開地冬まつり2026 metro＋会場</span>
+        <span class="mv">メトロ神戸　metro＋</span>
+      </a>
+      
+      <a class="mitem" href="https://www.kobe-park.or.jp/shinrin/eventlist/%e6%a3%ae%e3%81%ae%e6%81%b5%e3%81%bf%e3%80%8c%e3%83%8a%e3%83%81%e3%83%a5%e3%83%a9%e3%83%ab%e3%83%aa%e3%83%bc%e3%82%b9%e3%81%a5%e3%81%8f%e3%82%8a%e3%80%8d-5/" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">森の恵み「ナチュラルリースづくり」</span>
+        <span class="mv">神戸市立森林植物園</span>
+      </a>
+      
+      <a class="mitem" href="https://www.hyogo-tourism.jp/event/detail_6838.html" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">画業20周年記念「鳥瞰図(ちょうかんず)絵師青山大介が描いたまち・みなと・過去・現代」展</span>
+        <span class="mv">神戸海洋博物館</span>
+      </a>
+      
+      <span class="more">+5 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>6</b>
+      <span class="wd">日</span>
+      <em>3 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://shiawasenomura.org/events/8030" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">第7回しあわせの村オリジナル陸上記録会</span>
+        <span class="mv">しあわせの村　多目的運動広場</span>
+      </a>
+      
+      <a class="mitem" href="https://meriken-music.com/2026winter" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">メリケンミュージックナイツ～2026冬～</span>
+        <span class="mv">メリケンパーク</span>
+      </a>
+      
+      <a class="mitem" href="https://www.hyogo-tourism.jp/event/detail_6838.html" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">青山大介氏講演会＆ギャラリートーク「わたしと鳥瞰図」</span>
+        <span class="mv">神戸海洋博物館</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>8</b>
+      <span class="wd">二</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://docs.google.com/forms/d/e/1FAIpQLSeYTwyEa4Xi5XT72GRRBshJ01H31k52ImmlTfnGb7bF__Zf7g/viewform?usp=dialog" target="_blank" rel="noopener">
+        <i style="background:#f97316"></i>
+        <span class="mt">KOBE NIGHT STORIES vol.3-チョコストーリーを味わう、神戸の夜-</span>
+        <span class="mv">BEER&amp;amp;GRILLコウベビアハウゼ</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>10</b>
+      <span class="wd">四</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://kawata-gallery.com/exhibition/2386/" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">大沢昌助展 Part.02</span>
+        <span class="mv">川田画廊</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>12</b>
+      <span class="wd">六</span>
+      <em>4 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://ktomitake.wixsite.com/z-d-m" target="_blank" rel="noopener">
+        <i style="background:#ef4444"></i>
+        <span class="mt">アミュゼフェスタ in ONE HEART BIRTH</span>
+        <span class="mv">ONE HEART BIRTH</span>
+      </a>
+      
+      <a class="mitem" href="https://kobe-shimin-daiku.com/" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">市民の第九2026</span>
+        <span class="mv">神戸文化ホール　大ホール</span>
+      </a>
+      
+      <a class="mitem" href="http://www.saga-beauty.com" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">池田 愛花里個展　愛情は よく熟れてから食べましょう</span>
+        <span class="mv">アート〇美空間Saga</span>
+      </a>
+      
+      <a class="mitem" href="https://www.harmony-fields.com/double-impact" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">DOUBLE IMPACT ＜LINKSTONE × Hachiko＞</span>
+        <span class="mv">ZING</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>13</b>
+      <span class="wd">日</span>
+      <em>6 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://100sosaku.com" target="_blank" rel="noopener">
+        <i style="background:#ef4444"></i>
+        <span class="mt">百貨創作祭　神戸 名谷駅前広場（12月）</span>
+        <span class="mv">名谷駅前広場</span>
+      </a>
+      
+      <a class="mitem" href="https://livepocket.jp/e/knightpolice20261213" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">『騎動警察ナイトポリス』Blu-ray&amp;amp;CD発売記念イベントin 関西</span>
+        <span class="mv">アミュスタ神戸</span>
+      </a>
+      
+      <a class="mitem" href="https://www.art-center.jp/kobe/geikan/portisland63.html" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">ポートアイランドクラシックvol.63 桑早穂子　クリスマスコンサート</span>
+        <span class="mv">日本芸術会館</span>
+      </a>
+      
+      <a class="mitem" href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAAGcs4ydUQzczREhWNU02VzVEU1RSNUFZWVZTQUdZRC4u" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">スクイーズを研究しよう</span>
+        <span class="mv">灘区文化センター</span>
+      </a>
+      
+      <a class="mitem" href="https://www.kobe-park.or.jp/shinrin/eventlist/%e7%ac%ac9%e5%9b%9e%e8%87%aa%e7%84%b6%e8%a6%b3%e5%af%9f%e8%ac%9b%e5%ba%a7-%e3%80%8c%e7%b8%81%e8%b5%b7%e6%a4%8d%e7%89%a9%e3%82%92%e5%ad%a6%e3%81%bc%e3%81%86%e3%80%8d%ef%bd%9e-%e8%90%bd%e3%81%a1-3" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">第9回 自然観察講座「縁起植物を学ぼう」～落ち葉を踏みしめながら～</span>
+        <span class="mv">神戸市立森林植物園</span>
+      </a>
+      
+      <span class="more">+1 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>18</b>
+      <span class="wd">五</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.shiminfukushidaigaku.jp/training/detail/619" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">もしかしたら、身近にある？セルフネグレクト～気づきとつながりの第一歩～</span>
+        <span class="mv">こうべ市民福祉交流センター</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>19</b>
+      <span class="wd">六</span>
+      <em>6 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.konan-wu.ac.jp/news/detail.php?id=4474" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">2026年度 クリスマスチャリティコンサート 災害復興支援～神戸から音楽のエールを！～</span>
+        <span class="mv">甲南女子大学 芦原講堂</span>
+      </a>
+      
+      <a class="mitem" href="https://www.eggnworks.jp/ja/event_detail/1149" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">ツクルヒトタチ博in神戸KIITO 2026</span>
+        <span class="mv">デザイン・クリエイティブセンター神戸（KIITOキイト）</span>
+      </a>
+      
+      <a class="mitem" href="https://www.rokkosan.com/museum/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">森の音クリスマス・ナイト・コンサート2026</span>
+        <span class="mv">ROKKO森の音ミュージアム</span>
+      </a>
+      
+      <a class="mitem" href="https://kobemerikenxmas.com/" target="_blank" rel="noopener">
+        <i style="background:#f59e0b"></i>
+        <span class="mt">神戸開港160年プレイベント 神戸メリケンクリスマス ～未来への灯と港の光～</span>
+        <span class="mv">メリケンパーク周辺</span>
+      </a>
+      
+      <a class="mitem" href="https://composers.jp" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">The Composers - 作曲家シリーズ02『ベートーヴェンと…』</span>
+        <span class="mv">神戸芸術センター・シューマンホール</span>
+      </a>
+      
+      <span class="more">+1 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>20</b>
+      <span class="wd">日</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.kobe-park.or.jp/shinrin/eventlist/%e3%82%a6%e3%82%a8%e3%83%ab%e3%83%8d%e3%82%b9%e3%82%a6%e3%82%a9%e3%83%bc%e3%82%ad%e3%83%b3%e3%82%b0-61/" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">ウエルネスウォーキング（12月）</span>
+        <span class="mv">神戸市立森林植物園</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>26</b>
+      <span class="wd">六</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.rokkosan.com/museum/" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">猫とこたつのあったかフェア2026</span>
+        <span class="mv">ROKKO森の音ミュージアム</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
 </div>
 
 <div class="legend">

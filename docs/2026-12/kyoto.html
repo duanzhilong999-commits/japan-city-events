@@ -63,12 +63,13 @@ select, input[type=search] {
 input[type=search] { min-width: 190px; }
 label.check { display: inline-flex; gap: 5px; align-items: center; font-size: 13px; color: var(--sub); }
 
-.calendar { background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
-.weekhead { display: grid; grid-template-columns: repeat(7, 1fr); background: #fbfaf7; border-bottom: 1px solid var(--line); }
+.calendar { background: var(--card); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow);
+  overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; }
+.weekhead { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); background: #fbfaf7; border-bottom: 1px solid var(--line); }
 .weekhead div { padding: 9px 0; text-align: center; font-size: 12.5px; color: var(--sub); letter-spacing: 2px; }
 .weekhead div:nth-child(6) { color: #2f6f9f; }
 .weekhead div:nth-child(7) { color: #b5433c; }
-.grid { display: grid; grid-template-columns: repeat(7, 1fr); }
+.grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
 .cell {
   min-height: 132px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
   padding: 6px 7px 8px; display: flex; flex-direction: column; gap: 4px; background: #fff;
@@ -122,11 +123,29 @@ footer.stats th { color: var(--sub); font-weight: 500; }
 .ok { color: #2f7a4f; font-weight: 600; }
 .bad { color: #b5433c; font-weight: 600; }
 @media (max-width: 760px) {
-  .cell { min-height: 92px; padding: 4px; }
-  .ev { font-size: 10px; -webkit-line-clamp: 2; }
-  .monthbar .title { font-size: 22px; }
-  .item .datecol { min-width: 54px; }
+  .wrap { padding: 14px 12px 40px; }
+  header.top { gap: 10px; }
+  h1 { font-size: 18px; }
+  .monthbar { flex-wrap: wrap; gap: 8px; }
+  .monthbar .title { font-size: 20px; }
+  .filters { padding: 10px; gap: 8px; }
+  .btn { font-size: 12px; padding: 6px 10px; }
+  .monthbar .btn.arrow { padding: 6px 10px; }
+  input[type=search] { min-width: 0; flex: 1 1 100%; }
+  /* 周历在手机上横向滑动查看，不再被裁掉右半部分 */
+  .grid, .weekhead { min-width: 700px; }
+  .cell { min-height: 96px; padding: 4px 5px; }
+  .ev { font-size: 10.5px; -webkit-line-clamp: 2; word-break: break-word; }
+  .more { font-size: 10px; }
+  .legend { font-size: 11px; gap: 8px; }
+  .item { padding: 10px 12px; gap: 10px; }
+  .item .datecol { min-width: 46px; }
+  .item .datecol .d { font-size: 16px; }
+  .item .t { font-size: 14px; }
+  footer.stats table { font-size: 11px; }
+  .swipe-hint { display: block; }
 }
+.swipe-hint { display: none; font-size: 11.5px; color: var(--sub); margin: 8px 2px 0; }
 
 /* ---- 城市切换标签 ---- */
 .citytabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px}
@@ -137,6 +156,40 @@ footer.stats th { color: var(--sub); font-weight: 500; }
 .citytab small{font-size:11px;opacity:.6}
 
 .ev.ongoing{background:#f8fafc !important;color:#475569;font-size:11px}
+
+
+/* ---- 手机端：日期议程视图（替代 7 列周历） ---- */
+.magenda { display: none; }
+@media (max-width: 760px) {
+  .calendar, .swipe-hint { display: none; }
+  .magenda { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+  .mday { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; box-shadow: var(--shadow); }
+  .mday.today { box-shadow: inset 0 0 0 2px #f0c8a8; }
+  .mday-h { display: flex; align-items: baseline; gap: 6px; margin-bottom: 6px; color: var(--sub); font-size: 12px; }
+  .mday-h b { font-size: 18px; color: var(--ink); font-weight: 700; }
+  .mday-h .wd { font-size: 12px; }
+  .mday-h em { font-style: normal; margin-left: auto; }
+  .mday-h .today-tag { font-style: normal; background: var(--accent); color: #fff; font-size: 11px; padding: 1px 7px; border-radius: 999px; }
+  .mday-body { display: flex; flex-direction: column; gap: 5px; }
+  .mitem { display: grid; grid-template-columns: 8px 1fr; column-gap: 7px; align-items: start; text-decoration: none;
+    border-radius: 8px; padding: 6px 8px; background: #faf9f6; }
+  .mitem i { width: 8px; height: 8px; border-radius: 50%; margin-top: 4px; }
+  .mitem .mt { font-size: 13px; line-height: 1.4; color: var(--ink); overflow-wrap: anywhere; }
+  .mitem .mv { grid-column: 2; font-size: 11px; color: var(--sub); overflow-wrap: anywhere; }
+}
+
+
+/* ---- 手机端防横向溢出（兜底） ---- */
+@media (max-width: 760px) {
+  html, body { max-width: 100%; overflow-x: hidden; }
+  .wrap { width: 100%; }
+  header.top > div, header.top .meta, .monthbar, .filters, .citytabs, .mday, .mitem, .item, .item .body,
+  .mday-h, .mitem .mt, .mitem .mv { min-width: 0; max-width: 100%; }
+  .meta, .mday-h, .mitem .mv { white-space: normal; overflow-wrap: anywhere; word-break: break-word; }
+  header.top > div { flex: 1 1 240px; }
+  .citytab { max-width: 46vw; }
+  .citytab span, .citytab { overflow-wrap: anywhere; }
+}
 
 </style>
 <link rel="alternate" type="text/calendar" href="/calendar.ics?city=kyoto">
@@ -825,6 +878,546 @@ footer.stats th { color: var(--sub); font-weight: 500; }
     </div>
     
   </div>
+</div>
+<p class="swipe-hint">← 左右滑动可查看整周 7 天 →</p>
+
+<div class="magenda">
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>1</b>
+      <span class="wd">二</span>
+      <em>5 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.kyoto-station-building.co.jp/" target="_blank" rel="noopener">
+        <i style="background:#06b6d4"></i>
+        <span class="mt">グラフィカルイルミネーションPlus</span>
+        <span class="mv">京都駅ビル</span>
+      </a>
+      
+      <a class="mitem" href="https://www.kyoto-tower.jp/" target="_blank" rel="noopener">
+        <i style="background:#06b6d4"></i>
+        <span class="mt">Nidec Kyoto Tower Christmas 2026 (ニデック京都タワー クリスマス2026)</span>
+        <span class="mv">ニデック京都タワー</span>
+      </a>
+      
+      <a class="mitem" href="https://tengu.kuramachaya.com/" target="_blank" rel="noopener">
+        <i style="background:#06b6d4"></i>
+        <span class="mt">鞍馬ライトアップ「天狗の小径」</span>
+        <span class="mv">天狗の小径,鞍馬寺門前階段</span>
+      </a>
+      
+      <a class="mitem" href="https://www.shimogamo-jinja.or.jp/" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">下鴨神社の紅葉</span>
+        <span class="mv">賀茂御祖神社(下鴨神社)</span>
+      </a>
+      
+      <a class="mitem" href="http://www.o-ya-tsu.com/" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">caco    ガラスの小さな個展</span>
+        <span class="mv">雑貨店おやつ</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>2</b>
+      <span class="wd">三</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.nadeshikofurima.com/" target="_blank" rel="noopener">
+        <i style="background:#a855f7"></i>
+        <span class="mt">平安神宮前　岡崎公園フリーマーケット（12月）</span>
+        <span class="mv">岡崎公園</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>3</b>
+      <span class="wd">四</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://teket.jp/14585/78699" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">京都大学音楽研究会第142回定期演奏会</span>
+        <span class="mv">京都コンサートホールアンサンブルホールムラタ</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>4</b>
+      <span class="wd">五</span>
+      <em>3 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.nadeshikofurima.com/" target="_blank" rel="noopener">
+        <i style="background:#a855f7"></i>
+        <span class="mt">東本願寺前　お東さんフリーマーケット（12月）</span>
+        <span class="mv">東本願寺前市民広場</span>
+      </a>
+      
+      <a class="mitem" href="https://www.sugimotoke.or.jp/" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">重要文化財 杉本家住宅一般公開「京商家の正月準備」</span>
+        <span class="mv">重要文化財　杉本家住宅</span>
+      </a>
+      
+      <a class="mitem" href="https://www.city.kyoto.lg.jp/bunshi/page/0000350648.html" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">市民狂言会（12月）</span>
+        <span class="mv">京都観世会館</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>5</b>
+      <span class="wd">六</span>
+      <em>7 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://handmade-marche.kyoto/" target="_blank" rel="noopener">
+        <i style="background:#f59e0b"></i>
+        <span class="mt">京都ハンドメイドマルシェ2026</span>
+        <span class="mv">京都市勧業館みやこめっせ</span>
+      </a>
+      
+      <a class="mitem" href="https://kyoto-kimono-g.jp/" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">きもの文化実演ショー</span>
+        <span class="mv">東本願寺「視聴覚ホール」</span>
+      </a>
+      
+      <a class="mitem" href="https://www.samac.jp/" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">吉海先生ご講演「百人一首には本歌取りが多い」</span>
+        <span class="mv">嵯峨嵐山文華館</span>
+      </a>
+      
+      <a class="mitem" href="https://www.bukkyo-u.ac.jp/museum/" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">シアター上映会2026「愛宕山と砥石　つながる・ひろがる砥石の世界」</span>
+        <span class="mv">佛教大学宗教文化ミュージアム</span>
+      </a>
+      
+      <a class="mitem" href="https://www.kyoto-be.ne.jp/yamasiro-m/cms/?p=4763" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">抹茶体験II</span>
+        <span class="mv">表千家北山会館</span>
+      </a>
+      
+      <span class="more">+2 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>6</b>
+      <span class="wd">日</span>
+      <em>7 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.instagram.com/kcua_penguin_wo/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">クリスマスコンサート</span>
+        <span class="mv">京都市立芸術大学B棟地下1階笠原記念アンサンブルホール</span>
+      </a>
+      
+      <a class="mitem" href="https://kyotomuse.net/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">太田弦指揮・京都市交響楽団 ベートーヴェン「第九」</span>
+        <span class="mv">京都コンサートホール　大ホール</span>
+      </a>
+      
+      <a class="mitem" href="https://tetsutarokamatani-exhibition.com" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">鎌谷徹太郎「虚実の閾」</span>
+        <span class="mv">両足院</span>
+      </a>
+      
+      <a class="mitem" href="https://www.miyako-eco.jp/event/event-38972/" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">化学肥料を使わずに、玉ねぎで染めてみましょう！</span>
+        <span class="mv">京エコロジーセンター</span>
+      </a>
+      
+      <a class="mitem" href="https://hrp-music-online.square.site/product/classicconcert%2Fmiyabi%2F20251110/7NHA5M2A254PXNVRQ6NO3KKY?cs=true&amp;amp;cst=custom" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">吉田大介ピアノリサイタル</span>
+        <span class="mv">パビリオンコート</span>
+      </a>
+      
+      <span class="more">+2 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>8</b>
+      <span class="wd">二</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.tgn.co.jp/funfenfant/event/202612isk/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">0歳からのコンサート　音育ランド　京都</span>
+        <span class="mv">NEEDS京都烏丸 by T&amp;amp;G WEDDING</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>10</b>
+      <span class="wd">四</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://serenomusic.jp/20261210/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">ヴァッシア・アラティ＆木口雄人 リートデュオリサイタル</span>
+        <span class="mv">青山音楽記念館 バロックザール</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>11</b>
+      <span class="wd">五</span>
+      <em>2 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://docs.google.com/forms/d/e/1FAIpQLSc46lZVhjWu9oHhVMf1TFlsRGGk9Za5SGiF8OjYAbf6XfAtFw/viewform?usp=publish-editor" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">身体ワークショップ vol.1.2 表現者の語りと騙り</span>
+        <span class="mv">京都市東山いきいき市民活動センター</span>
+      </a>
+      
+      <a class="mitem" href="https://www.titan-net.co.jp/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">爆笑問題 with タイタンシネマライブ （二条）</span>
+        <span class="mv">TOHOシネマズ　二条</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>12</b>
+      <span class="wd">六</span>
+      <em>9 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://kyotomuse.net/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">第11回　桂南天独演会</span>
+        <span class="mv">京都府立文化芸術会館</span>
+      </a>
+      
+      <a class="mitem" href="https://www.be-kyoto.jp/event/antenna/" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">be京都アンテナショップ－町家手作り百貨店（12月）</span>
+        <span class="mv">町家ギャラリーbe京都</span>
+      </a>
+      
+      <a class="mitem" href="https://iwakura-tomomi.jp/20261212/" target="_blank" rel="noopener">
+        <i style="background:#06b6d4"></i>
+        <span class="mt">夜間特別開場　王政復古茶会</span>
+        <span class="mv">岩倉具視幽棲旧宅</span>
+      </a>
+      
+      <a class="mitem" href="https://www.be-kyoto.jp/news/hanawork2026" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">植物を使ったミニツリー ークリスマス支度</span>
+        <span class="mv">町家ギャラリーbe京都</span>
+      </a>
+      
+      <a class="mitem" href="https://www.alti.org/at/20261212.html" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">豊嶋泰嗣演奏活動40周年記念公演～名演奏家たちと紡ぐオールブラームスプログラム～</span>
+        <span class="mv">京都府立府民ホール「アルティ」</span>
+      </a>
+      
+      <span class="more">+4 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>13</b>
+      <span class="wd">日</span>
+      <em>2 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.nadeshikofurima.com/" target="_blank" rel="noopener">
+        <i style="background:#a855f7"></i>
+        <span class="mt">京都市役所前広場フリーマーケット（12月）</span>
+        <span class="mv">京都市役所前広場</span>
+      </a>
+      
+      <a class="mitem" href="https://www.instagram.com/pots_workshop/" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">刺繍ワークショップ　ダイニング・ダーニング</span>
+        <span class="mv">soma</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>14</b>
+      <span class="wd">一</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://yadojinzai.go.jp/experience/467/" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">京湯元　ハトヤ瑞鳳閣（職場見学）</span>
+        <span class="mv">京湯元　ハトヤ瑞鳳閣</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>16</b>
+      <span class="wd">三</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://peatix.com/event/5266647" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">WELL3 FORUM 2026／しまいの演出</span>
+        <span class="mv">京都大学 HORIBAシンポジウムホール</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>18</b>
+      <span class="wd">五</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://bnr-kyoto.deca.jp/" target="_blank" rel="noopener">
+        <i style="background:#06b6d4"></i>
+        <span class="mt">冬のナイトファーム2026</span>
+        <span class="mv">BNRファーム</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>19</b>
+      <span class="wd">六</span>
+      <em>10 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://jrwest-hotels.jp/granvia-kyoto/restaurant/menu/298/" target="_blank" rel="noopener">
+        <i style="background:#f97316"></i>
+        <span class="mt">ホテルグランヴィア京都　クリスマスディナービュッフェ</span>
+        <span class="mv">ホテルグランヴィア京都</span>
+      </a>
+      
+      <a class="mitem" href="https://www.biwako-hall.or.jp/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">びわ湖ホール声楽アンサンブル 第85回定期公演（京都公演）バロッククリスマス</span>
+        <span class="mv">京都府立府民ホール“アルティ”</span>
+      </a>
+      
+      <a class="mitem" href="https://education.be-kyoto.jp/winter2026/#lesson4" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">バーナーワークに挑戦　ガラスを溶かしてつくろう！世界にひとつのとんぼ玉づくり</span>
+        <span class="mv">町家ギャラリーbe京都</span>
+      </a>
+      
+      <a class="mitem" href="https://tatsuyadejima.tokyo" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">魔法の両手タッピング奏法（京都公演）</span>
+        <span class="mv">京都 祇園 ピックアップ</span>
+      </a>
+      
+      <a class="mitem" href="https://www.gear.ac/press/news/20261113_3209638/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">『ギア』ハッピーシーズン2026</span>
+        <span class="mv">ギア専用劇場</span>
+      </a>
+      
+      <span class="more">+5 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>20</b>
+      <span class="wd">日</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://serenomusic.jp/20261220/" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">時空を超えて〜様々なフルートとリュート/ギターで巡る音楽のタイムトラベル</span>
+        <span class="mv">遠藤剛熈美術館</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>23</b>
+      <span class="wd">三</span>
+      <em>2 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.royalparkhotels.co.jp/the/kyotoumekoji/news/bn0vnd8cpoz/" target="_blank" rel="noopener">
+        <i style="background:#f97316"></i>
+        <span class="mt">ザ ロイヤルパークホテル 京都梅小路　クリスマスディナーブッフェ</span>
+        <span class="mv">ザ ロイヤルパークホテル 京都梅小路</span>
+      </a>
+      
+      <a class="mitem" href="https://hiltongardeninn-kyoto.hiltonjapan.co.jp/plans/restaurants/lunch/together-and-co-christmas" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">ヒルトン・ガーデンイン京都四条烏丸クリスマスランチ</span>
+        <span class="mv">Together＆Co.</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>24</b>
+      <span class="wd">四</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://doubletree-kyoto-station.hiltonjapan.co.jp/restaurants/lp/christmas-event" target="_blank" rel="noopener">
+        <i style="background:#ef4444"></i>
+        <span class="mt">ダブルツリーbyヒルトン京都駅クリスマスイベント</span>
+        <span class="mv">ダブルツリーbyヒルトン京都駅</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>26</b>
+      <span class="wd">六</span>
+      <em>5 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.nadeshikofurima.com" target="_blank" rel="noopener">
+        <i style="background:#a855f7"></i>
+        <span class="mt">ダイエー桂南フリーマーケット（12月）</span>
+        <span class="mv">ダイエー桂南店</span>
+      </a>
+      
+      <a class="mitem" href="https://education.be-kyoto.jp/winter2026/#lesson2" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">ガラスでつくるわたしのガラスアート</span>
+        <span class="mv">町家ギャラリーbe京都</span>
+      </a>
+      
+      <a class="mitem" href="#" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">喫茶室かぐら in 京都産業大学</span>
+        <span class="mv">京都産業大学　むすびわざ館（壬生校地）</span>
+      </a>
+      
+      <a class="mitem" href="https://education.be-kyoto.jp/winter2026/#lesson1" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">出張工房！ステンドグラス教室</span>
+        <span class="mv">町家ギャラリーbe京都</span>
+      </a>
+      
+      <a class="mitem" href="https://www.zestoike.com/events/" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">京都の竹で「ミニ門松」をつくろう！IN ゼスト御池</span>
+        <span class="mv">ゼスト御池　寺町広場</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
 </div>
 
 <div class="legend">

@@ -87,6 +87,30 @@
     {% endfor %}{% endfor %}
   </div>
 </div>
+<p class="swipe-hint">← 左右滑动可查看整周 7 天 →</p>
+
+<div class="magenda">
+  {% for row in grid %}{% for cell in row %}{% if cell.in_month and cell.events %}
+  <div class="mday{% if cell.today %} today{% endif %}">
+    <div class="mday-h">
+      <b>{{ cell.day }}</b>
+      <span class="wd">{{ ['一','二','三','四','五','六','日'][cell.date.weekday()] }}</span>
+      <em>{{ cell.events|length }} 项</em>
+      {% if cell.today %}<i class="today-tag">今天</i>{% endif %}
+    </div>
+    <div class="mday-body">
+      {% for ev in cell.events[:5] %}
+      <a class="mitem" href="{{ ev.url or '#' }}" target="_blank" rel="noopener">
+        <i style="background:{{ ev.category_color or '#64748b' }}"></i>
+        <span class="mt">{{ ev.title }}</span>
+        <span class="mv">{{ ev.display_venue }}</span>
+      </a>
+      {% endfor %}
+      {% if cell.events|length > 5 %}<span class="more">+{{ cell.events|length - 5 }} 更多</span>{% endif %}
+    </div>
+  </div>
+  {% endif %}{% endfor %}{% endfor %}
+</div>
 
 <div class="legend">
   {% for code, c in categories.items() %}

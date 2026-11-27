@@ -63,12 +63,13 @@ select, input[type=search] {
 input[type=search] { min-width: 190px; }
 label.check { display: inline-flex; gap: 5px; align-items: center; font-size: 13px; color: var(--sub); }
 
-.calendar { background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
-.weekhead { display: grid; grid-template-columns: repeat(7, 1fr); background: #fbfaf7; border-bottom: 1px solid var(--line); }
+.calendar { background: var(--card); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow);
+  overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; }
+.weekhead { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); background: #fbfaf7; border-bottom: 1px solid var(--line); }
 .weekhead div { padding: 9px 0; text-align: center; font-size: 12.5px; color: var(--sub); letter-spacing: 2px; }
 .weekhead div:nth-child(6) { color: #2f6f9f; }
 .weekhead div:nth-child(7) { color: #b5433c; }
-.grid { display: grid; grid-template-columns: repeat(7, 1fr); }
+.grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
 .cell {
   min-height: 132px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
   padding: 6px 7px 8px; display: flex; flex-direction: column; gap: 4px; background: #fff;
@@ -122,11 +123,29 @@ footer.stats th { color: var(--sub); font-weight: 500; }
 .ok { color: #2f7a4f; font-weight: 600; }
 .bad { color: #b5433c; font-weight: 600; }
 @media (max-width: 760px) {
-  .cell { min-height: 92px; padding: 4px; }
-  .ev { font-size: 10px; -webkit-line-clamp: 2; }
-  .monthbar .title { font-size: 22px; }
-  .item .datecol { min-width: 54px; }
+  .wrap { padding: 14px 12px 40px; }
+  header.top { gap: 10px; }
+  h1 { font-size: 18px; }
+  .monthbar { flex-wrap: wrap; gap: 8px; }
+  .monthbar .title { font-size: 20px; }
+  .filters { padding: 10px; gap: 8px; }
+  .btn { font-size: 12px; padding: 6px 10px; }
+  .monthbar .btn.arrow { padding: 6px 10px; }
+  input[type=search] { min-width: 0; flex: 1 1 100%; }
+  /* 周历在手机上横向滑动查看，不再被裁掉右半部分 */
+  .grid, .weekhead { min-width: 700px; }
+  .cell { min-height: 96px; padding: 4px 5px; }
+  .ev { font-size: 10.5px; -webkit-line-clamp: 2; word-break: break-word; }
+  .more { font-size: 10px; }
+  .legend { font-size: 11px; gap: 8px; }
+  .item { padding: 10px 12px; gap: 10px; }
+  .item .datecol { min-width: 46px; }
+  .item .datecol .d { font-size: 16px; }
+  .item .t { font-size: 14px; }
+  footer.stats table { font-size: 11px; }
+  .swipe-hint { display: block; }
 }
+.swipe-hint { display: none; font-size: 11.5px; color: var(--sub); margin: 8px 2px 0; }
 
 /* ---- 城市切换标签 ---- */
 .citytabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px}
@@ -137,6 +156,40 @@ footer.stats th { color: var(--sub); font-weight: 500; }
 .citytab small{font-size:11px;opacity:.6}
 
 .ev.ongoing{background:#f8fafc !important;color:#475569;font-size:11px}
+
+
+/* ---- 手机端：日期议程视图（替代 7 列周历） ---- */
+.magenda { display: none; }
+@media (max-width: 760px) {
+  .calendar, .swipe-hint { display: none; }
+  .magenda { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+  .mday { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; box-shadow: var(--shadow); }
+  .mday.today { box-shadow: inset 0 0 0 2px #f0c8a8; }
+  .mday-h { display: flex; align-items: baseline; gap: 6px; margin-bottom: 6px; color: var(--sub); font-size: 12px; }
+  .mday-h b { font-size: 18px; color: var(--ink); font-weight: 700; }
+  .mday-h .wd { font-size: 12px; }
+  .mday-h em { font-style: normal; margin-left: auto; }
+  .mday-h .today-tag { font-style: normal; background: var(--accent); color: #fff; font-size: 11px; padding: 1px 7px; border-radius: 999px; }
+  .mday-body { display: flex; flex-direction: column; gap: 5px; }
+  .mitem { display: grid; grid-template-columns: 8px 1fr; column-gap: 7px; align-items: start; text-decoration: none;
+    border-radius: 8px; padding: 6px 8px; background: #faf9f6; }
+  .mitem i { width: 8px; height: 8px; border-radius: 50%; margin-top: 4px; }
+  .mitem .mt { font-size: 13px; line-height: 1.4; color: var(--ink); overflow-wrap: anywhere; }
+  .mitem .mv { grid-column: 2; font-size: 11px; color: var(--sub); overflow-wrap: anywhere; }
+}
+
+
+/* ---- 手机端防横向溢出（兜底） ---- */
+@media (max-width: 760px) {
+  html, body { max-width: 100%; overflow-x: hidden; }
+  .wrap { width: 100%; }
+  header.top > div, header.top .meta, .monthbar, .filters, .citytabs, .mday, .mitem, .item, .item .body,
+  .mday-h, .mitem .mt, .mitem .mv { min-width: 0; max-width: 100%; }
+  .meta, .mday-h, .mitem .mv { white-space: normal; overflow-wrap: anywhere; word-break: break-word; }
+  header.top > div { flex: 1 1 240px; }
+  .citytab { max-width: 46vw; }
+  .citytab span, .citytab { overflow-wrap: anywhere; }
+}
 
 </style>
 <link rel="alternate" type="text/calendar" href="/calendar.ics?city=yokohama">
@@ -1028,6 +1081,1048 @@ footer.stats th { color: var(--sub); font-weight: 500; }
     </div>
     
   </div>
+</div>
+<p class="swipe-hint">← 左右滑动可查看整周 7 天 →</p>
+
+<div class="magenda">
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>1</b>
+      <span class="wd">二</span>
+      <em>15 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=93846" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">おはなし会(12月度)</span>
+        <span class="mv">川島町公園こどもログハウス</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=108483" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">プロが教えるカラオケ講座(4)</span>
+        <span class="mv">釜利谷地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=108752" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">ツリーを飾ろう</span>
+        <span class="mv">藤棚地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=108753" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">クリスマス窓にお絵かき</span>
+        <span class="mv">藤棚地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111508" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">がま口モデル・万能ポーチづくり</span>
+        <span class="mv">滝頭コミュニティハウス</span>
+      </a>
+      
+      <span class="more">+10 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>2</b>
+      <span class="wd">三</span>
+      <em>2 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=83544" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">子育てサロン「たんぽぽ」クリスマス会(12月度)</span>
+        <span class="mv">川島町公園こどもログハウス</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111699" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">Dance Dance Dance</span>
+        <span class="mv">中本牧コミニュティハウス</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>3</b>
+      <span class="wd">四</span>
+      <em>2 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=108445" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">えいごがいっぱい(3)(未就園児)</span>
+        <span class="mv">釜利谷地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111852" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">ロビーdeコンサート</span>
+        <span class="mv">根岸地区センター</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>4</b>
+      <span class="wd">五</span>
+      <em>7 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://ferris-concert.studio.site/posts/260912ensemble" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">フェリス女学院大学音楽学部　フェリス管弦アンサンブル　第25回定期演奏会</span>
+        <span class="mv">フェリスホール</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=106545" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">ちびっこ体操(3歳児～小学1年生)</span>
+        <span class="mv">上矢部地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=109724" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">手づくりキムチ・カクテキ講習会</span>
+        <span class="mv">中川西地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=109837" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">12月のシニア健康体操</span>
+        <span class="mv">幸ヶ谷公園コミュニティハウス</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111458" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">あったかマフラーを織ってみませんか</span>
+        <span class="mv">根岸なつかし公園旧柳下邸</span>
+      </a>
+      
+      <span class="more">+2 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>5</b>
+      <span class="wd">六</span>
+      <em>6 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.koransha.com/orch_chamber/avemaria/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">クリスマス/アヴェ・マリア エリザベート弦楽アンサンブル（横浜）</span>
+        <span class="mv">横浜みなとみらいホール 大ホール</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=103886" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">作品展</span>
+        <span class="mv">上笹下地域ケアプラザ</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=109304" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">おはなし会(クリスマス会)</span>
+        <span class="mv">中川西地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111789" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">都筑民家園 しの笛の朝</span>
+        <span class="mv">都筑民家園</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111998" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">炭焼き体験(宮谷戸窯)</span>
+        <span class="mv">都筑中央公園自然体験施設</span>
+      </a>
+      
+      <span class="more">+1 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>6</b>
+      <span class="wd">日</span>
+      <em>6 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=110904" target="_blank" rel="noopener">
+        <i style="background:#ef4444"></i>
+        <span class="mt">センターまつり</span>
+        <span class="mv">野毛地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111226" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">楽しいそば打ち教室</span>
+        <span class="mv">金沢地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111971" target="_blank" rel="noopener">
+        <i style="background:#f59e0b"></i>
+        <span class="mt">舞岡)まいおかウィンターマーケット2026</span>
+        <span class="mv">舞岡地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111972" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">舞岡)みんなの健康づくり広場</span>
+        <span class="mv">舞岡地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://www.kanagawa-kankou.or.jp/event/6625" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">横浜・山下公園「Winter Wonder Park Yokohama 2026-27」</span>
+        <span class="mv">横浜市</span>
+      </a>
+      
+      <span class="more">+1 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>7</b>
+      <span class="wd">一</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=108459" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">おひざの上のお話会</span>
+        <span class="mv">釜利谷地区センター</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>8</b>
+      <span class="wd">二</span>
+      <em>6 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111739" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">からだを整えるゆったりピラティス</span>
+        <span class="mv">神大寺地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=112030" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">乳幼児親子対象イベント</span>
+        <span class="mv">踊場地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=108656" target="_blank" rel="noopener">
+        <i style="background:#0ea5e9"></i>
+        <span class="mt">なみき ほぐしヨガ 3期</span>
+        <span class="mv">並木コミュニティハウス</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111661" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">エアロビクスdeボディケア(11月)</span>
+        <span class="mv">神之木地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111507" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">都筑民家園「男性表千家茶道講座」</span>
+        <span class="mv">都筑民家園</span>
+      </a>
+      
+      <span class="more">+1 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>9</b>
+      <span class="wd">三</span>
+      <em>4 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://totsuka.hall-info.jp/event/pre_rararan34.html" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">お話と音楽でたのしむ 「くるみわり人形」 ミニクリスマスコンサート</span>
+        <span class="mv">戸塚区民文化センターさくらプラザ　ステンドグラス前　にぎわいの場</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=108562" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">上矢部わくわく塾☆算数・数学</span>
+        <span class="mv">上矢部地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111613" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">「モンゴル」家庭料理教室</span>
+        <span class="mv">磯子センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=108876" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">2026年キッズ将棋ひろば(1)ゼロからクラス</span>
+        <span class="mv">中川西地区センター</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>10</b>
+      <span class="wd">四</span>
+      <em>4 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=106369" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">上矢部わくわく塾☆英語</span>
+        <span class="mv">上矢部地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=109368" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">おはなしころころbyまりこ☆みゅーじあむ</span>
+        <span class="mv">幸ヶ谷公園コミュニティハウス</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111513" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">はじめての色えんぴつ画</span>
+        <span class="mv">浜中学校コミュニティハウス</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111615" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">「韓国語」会話教室(入門コース)</span>
+        <span class="mv">磯子センター</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>11</b>
+      <span class="wd">五</span>
+      <em>44 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=108471" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">みんなの健康体操</span>
+        <span class="mv">釜利谷地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=108653" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">自然の植物から学ぶ水彩画教室 3期</span>
+        <span class="mv">並木コミュニティハウス</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=108746" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">プレイルームでお話会</span>
+        <span class="mv">藤棚地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111874" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">すくすく子育て応援クラブ</span>
+        <span class="mv">竹之丸地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111905" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">お花屋さんの植物講座</span>
+        <span class="mv">中本牧コミニュティハウス</span>
+      </a>
+      
+      <span class="more">+39 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>12</b>
+      <span class="wd">六</span>
+      <em>14 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.pandorobou-ten.com/" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">パンどろぼう展(横浜)</span>
+        <span class="mv">横浜赤レンガ倉庫</span>
+      </a>
+      
+      <a class="mitem" href="#" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">音楽交流会Vol.2　クリスマスコンサート</span>
+        <span class="mv">横浜市神奈川区民文化センター　かなっくホール　音楽ルーム4階</span>
+      </a>
+      
+      <a class="mitem" href="https://yrf.jp/rapport/event/44518" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">GS GOSPEL CHOIRクリスマスチャリティー ゴスペルコンサート</span>
+        <span class="mv">障害者スポーツ文化センター横浜ラポール　ラポールシアター</span>
+      </a>
+      
+      <a class="mitem" href="https://kdato.hp.peraichi.com/?_gl=1*1swgoru*_gcl_au*NjE5MzMxMTgyLjE3OTM2ODg4NDcuMTY2MDEyNzUwMS4xNzkzNjg4ODUyLjE3OTM2ODg4NTEuNzM5MDM5My4xNzkzNjg4ODUyLjE3OTM2ODg4NTE." target="_blank" rel="noopener">
+        <i style="background:#ef4444"></i>
+        <span class="mt">SUN＆mama+papaおやこフェスティバル</span>
+        <span class="mv">横浜市歴史博物館</span>
+      </a>
+      
+      <a class="mitem" href="https://chylim.com/event/shownan_tour/" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">冬の湘南巡りウォーキング</span>
+        <span class="mv">横浜市笠間中央公園</span>
+      </a>
+      
+      <span class="more">+9 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>13</b>
+      <span class="wd">日</span>
+      <em>7 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://totsuka.hall-info.jp/event/rararan34.html" target="_blank" rel="noopener">
+        <i style="background:#0ea5e9"></i>
+        <span class="mt">らららん♪ドレミシリーズ Vol.34 チャイコフスキー：「くるみわり人形」</span>
+        <span class="mv">戸塚区民文化センターさくらプラザ・ホール</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=66075" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">泣いても大丈夫!コンサート</span>
+        <span class="mv">ほどがや地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=108915" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">クリスマス マンドリンコンサート</span>
+        <span class="mv">能見台地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111729" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">ハートフル二胡コンサート</span>
+        <span class="mv">金沢公会堂</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111904" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">ママとこどもたちの為のお座敷ライブ～クリスマス～</span>
+        <span class="mv">中本牧コミニュティハウス</span>
+      </a>
+      
+      <span class="more">+2 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>14</b>
+      <span class="wd">一</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111894" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">古典文学を学ぶ 徒然草(全3回)</span>
+        <span class="mv">本牧地区センター</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>15</b>
+      <span class="wd">二</span>
+      <em>4 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111903" target="_blank" rel="noopener">
+        <i style="background:#0ea5e9"></i>
+        <span class="mt">椅子ヨガ</span>
+        <span class="mv">中本牧コミニュティハウス</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111962" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">舞岡)◇ちょこっとおはなし会</span>
+        <span class="mv">舞岡地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=112086" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">囲碁で頭のストレッチ</span>
+        <span class="mv">大場みすずが丘地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=112087" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">小学生初めての囲碁</span>
+        <span class="mv">大場みすずが丘地区センター</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>16</b>
+      <span class="wd">三</span>
+      <em>9 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://cocohe.jp/star2026/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">0歳からのクリスマスコンサート 「星の音楽絵本」横浜2026</span>
+        <span class="mv">神奈川区民文化センターかなっくホール</span>
+      </a>
+      
+      <a class="mitem" href="https://bungujoshi.com/event/bungujoshi2026/" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">文具女子博2026</span>
+        <span class="mv">パシフィコ横浜</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=84702" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">チャレンジタイム(12月度)</span>
+        <span class="mv">川島町公園こどもログハウス</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111895" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">こぐまの部屋</span>
+        <span class="mv">本牧地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111790" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">都筑民家園「初めての茶道講座(大日本茶道学会)」</span>
+        <span class="mv">都筑民家園</span>
+      </a>
+      
+      <span class="more">+4 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>17</b>
+      <span class="wd">四</span>
+      <em>4 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111896" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">ヴォイストレーニング</span>
+        <span class="mv">本牧地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111943" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">おはなしのとびら(12月)</span>
+        <span class="mv">神之木地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=112039" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">踊場サロン</span>
+        <span class="mv">踊場地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=109729" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">子ども茶道体験</span>
+        <span class="mv">中川西地区センター</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>18</b>
+      <span class="wd">五</span>
+      <em>7 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111804" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">「ぽっぽっぽっ」とあそぼう!</span>
+        <span class="mv">野毛地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=112031" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">乳幼児親子対象イベント</span>
+        <span class="mv">踊場地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=112088" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">”よさこい”チームみすずが丘</span>
+        <span class="mv">大場みすずが丘地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=112089" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">世代を超えてフェンシング教室</span>
+        <span class="mv">大場みすずが丘地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111721" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">絵本はともだち</span>
+        <span class="mv">上中里地区センター</span>
+      </a>
+      
+      <span class="more">+2 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>19</b>
+      <span class="wd">六</span>
+      <em>11 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://cocohe.jp/christmasparty2026/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">0歳からのわくわくコンサート「クリスマス★パーティ」横浜2026</span>
+        <span class="mv">関内ホール（小ホール）</span>
+      </a>
+      
+      <a class="mitem" href="https://www.kaat.jp/d/jazz_daimyo2026" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">KAAT神奈川芸術劇場プロデュース『ジャズ大名』</span>
+        <span class="mv">KAAT神奈川芸術劇場　ホール</span>
+      </a>
+      
+      <a class="mitem" href="https://www.shiroexpo.jp/" target="_blank" rel="noopener">
+        <i style="background:#ef4444"></i>
+        <span class="mt">お城EXPO 2026</span>
+        <span class="mv">パシフィコ横浜ノース</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111465" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">すげたのまちのクリスマスコンサート</span>
+        <span class="mv">菅田地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111776" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">うらしま荘のXmasコンサート</span>
+        <span class="mv">老人福祉センターうらしま荘</span>
+      </a>
+      
+      <span class="more">+6 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>20</b>
+      <span class="wd">日</span>
+      <em>7 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://recyclekanagawa.com/" target="_blank" rel="noopener">
+        <i style="background:#a855f7"></i>
+        <span class="mt">臨港パークフリーマーケット（12月）</span>
+        <span class="mv">臨港パーク</span>
+      </a>
+      
+      <a class="mitem" href="https://fsounds.jp/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">クリスマス コンサート～絵本で楽しむ「くるみわり人形」</span>
+        <span class="mv">横浜美術館 レクチャーホール</span>
+      </a>
+      
+      <a class="mitem" href="#" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">0歳から楽しむクラッシックからJAZZ参加型コンサート</span>
+        <span class="mv">ボッシュホール</span>
+      </a>
+      
+      <a class="mitem" href="https://yokohama-nohgakudou.org/schedule/3175163.html?page=2" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">開館30周年記念　普及公演「眠くならずに楽しめる能の名曲」</span>
+        <span class="mv">横浜能楽堂</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111795" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">都筑民家園「点茶盤de立礼」</span>
+        <span class="mv">都筑民家園</span>
+      </a>
+      
+      <span class="more">+2 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>21</b>
+      <span class="wd">一</span>
+      <em>5 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=108501" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">手ごねのパン作り・冬</span>
+        <span class="mv">釜利谷地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111687" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">「本牧の歴史」入門講座</span>
+        <span class="mv">本牧中学校コミニュティハウス</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111898" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">わいわいパネルシアター・「たまてばこ」とあそぼう</span>
+        <span class="mv">中本牧コミニュティハウス</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111931" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">親子でワッと遊ぼう</span>
+        <span class="mv">白幡地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111964" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">子育てサロン</span>
+        <span class="mv">舞岡地区センター</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>22</b>
+      <span class="wd">二</span>
+      <em>5 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://yokohama-minatomiraihall.jp/concert/archive/recommend/2026/12/4720.html" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">クリスマス・パイプオルガン・コンサート2026</span>
+        <span class="mv">横浜みなとみらいホール　大ホール</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=112029" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">乳幼児親子対象イベント</span>
+        <span class="mv">踊場地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=112052" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">冬のデューク更家式ビューティーウォーキング(全3回)</span>
+        <span class="mv">山内地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111215" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">味噌作り教室</span>
+        <span class="mv">杉田地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111925" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">覚えなくていい!スペイン語deゆるっと脳トレ</span>
+        <span class="mv">白幡地区センター</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>23</b>
+      <span class="wd">三</span>
+      <em>7 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111854" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">ロビーdeコンサート</span>
+        <span class="mv">根岸地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111889" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">ことりの会のおはなしの時間</span>
+        <span class="mv">大鳥中学校コミニュティハウス</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111899" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">みんなあつまれ!おはなし会</span>
+        <span class="mv">中本牧コミニュティハウス</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=109801" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">ワクワク絵本の会</span>
+        <span class="mv">杉田地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111796" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">都筑民家園「初めての茶道講座(裏千家)」</span>
+        <span class="mv">都筑民家園</span>
+      </a>
+      
+      <span class="more">+2 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>24</b>
+      <span class="wd">四</span>
+      <em>3 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=108493" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">おもちゃ病院</span>
+        <span class="mv">釜利谷地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://www.kanagawa-kankou.or.jp/event/7896" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">リザーブドクルーズ 「クリスマス ファンタスティック＆花火クルーズ」【横浜市】</span>
+        <span class="mv">横浜市</span>
+      </a>
+      
+      <a class="mitem" href="https://www.kanagawa-kankou.or.jp/event/7899" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">リザーブドクルーズ 「クリスマス・クルーズ」【横浜市】</span>
+        <span class="mv">横浜市</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>25</b>
+      <span class="wd">五</span>
+      <em>3 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://tokyosymphony.jp/concert/61221/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">クリスマスコンサート2026</span>
+        <span class="mv">横浜みなとみらいホール</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111824" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">男性のためのレコード喫茶『メモリーズ』</span>
+        <span class="mv">磯子地域ケアプラザ</span>
+      </a>
+      
+      <a class="mitem" href="https://www.kanagawa-kankou.or.jp/event/7898" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">リザーブドクルーズ 「クリスマス 工場夜景ジャングルクルーズ」【横浜市】</span>
+        <span class="mv">横浜市</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>26</b>
+      <span class="wd">六</span>
+      <em>4 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://realdgame.jp/s/christmas2026/" target="_blank" rel="noopener">
+        <i style="background:#22c55e"></i>
+        <span class="mt">終わらないクリスマスからの脱出</span>
+        <span class="mv">パシフィコ横浜</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111876" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">わくわくポン!おはなしのとびら</span>
+        <span class="mv">竹之丸地区センター</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111618" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">大きな紙で白い森をつくろう</span>
+        <span class="mv">横浜市民ギャラリー</span>
+      </a>
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111486" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">手づくりパン教室</span>
+        <span class="mv">杉田地区センター</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>27</b>
+      <span class="wd">日</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=111825" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">介護予防・認知症予防のための『集いのカフェ』</span>
+        <span class="mv">磯子地域ケアプラザ</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>28</b>
+      <span class="wd">一</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://cgi.city.yokohama.lg.jp/common/event2/event_detail.html?id=112158" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">舞岡)休館日</span>
+        <span class="mv">舞岡地区センター</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>30</b>
+      <span class="wd">三</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://yokohama-minatomiraihall.jp/concert/archive/recommend/2026/12/4724.html" target="_blank" rel="noopener">
+        <i style="background:#ef4444"></i>
+        <span class="mt">石田組年末感謝祭2026</span>
+        <span class="mv">横浜みなとみらいホール　大ホール</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
 </div>
 
 <div class="legend">

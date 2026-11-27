@@ -63,12 +63,13 @@ select, input[type=search] {
 input[type=search] { min-width: 190px; }
 label.check { display: inline-flex; gap: 5px; align-items: center; font-size: 13px; color: var(--sub); }
 
-.calendar { background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
-.weekhead { display: grid; grid-template-columns: repeat(7, 1fr); background: #fbfaf7; border-bottom: 1px solid var(--line); }
+.calendar { background: var(--card); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow);
+  overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; }
+.weekhead { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); background: #fbfaf7; border-bottom: 1px solid var(--line); }
 .weekhead div { padding: 9px 0; text-align: center; font-size: 12.5px; color: var(--sub); letter-spacing: 2px; }
 .weekhead div:nth-child(6) { color: #2f6f9f; }
 .weekhead div:nth-child(7) { color: #b5433c; }
-.grid { display: grid; grid-template-columns: repeat(7, 1fr); }
+.grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
 .cell {
   min-height: 132px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
   padding: 6px 7px 8px; display: flex; flex-direction: column; gap: 4px; background: #fff;
@@ -122,11 +123,29 @@ footer.stats th { color: var(--sub); font-weight: 500; }
 .ok { color: #2f7a4f; font-weight: 600; }
 .bad { color: #b5433c; font-weight: 600; }
 @media (max-width: 760px) {
-  .cell { min-height: 92px; padding: 4px; }
-  .ev { font-size: 10px; -webkit-line-clamp: 2; }
-  .monthbar .title { font-size: 22px; }
-  .item .datecol { min-width: 54px; }
+  .wrap { padding: 14px 12px 40px; }
+  header.top { gap: 10px; }
+  h1 { font-size: 18px; }
+  .monthbar { flex-wrap: wrap; gap: 8px; }
+  .monthbar .title { font-size: 20px; }
+  .filters { padding: 10px; gap: 8px; }
+  .btn { font-size: 12px; padding: 6px 10px; }
+  .monthbar .btn.arrow { padding: 6px 10px; }
+  input[type=search] { min-width: 0; flex: 1 1 100%; }
+  /* 周历在手机上横向滑动查看，不再被裁掉右半部分 */
+  .grid, .weekhead { min-width: 700px; }
+  .cell { min-height: 96px; padding: 4px 5px; }
+  .ev { font-size: 10.5px; -webkit-line-clamp: 2; word-break: break-word; }
+  .more { font-size: 10px; }
+  .legend { font-size: 11px; gap: 8px; }
+  .item { padding: 10px 12px; gap: 10px; }
+  .item .datecol { min-width: 46px; }
+  .item .datecol .d { font-size: 16px; }
+  .item .t { font-size: 14px; }
+  footer.stats table { font-size: 11px; }
+  .swipe-hint { display: block; }
 }
+.swipe-hint { display: none; font-size: 11.5px; color: var(--sub); margin: 8px 2px 0; }
 
 /* ---- 城市切换标签 ---- */
 .citytabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px}
@@ -137,6 +156,40 @@ footer.stats th { color: var(--sub); font-weight: 500; }
 .citytab small{font-size:11px;opacity:.6}
 
 .ev.ongoing{background:#f8fafc !important;color:#475569;font-size:11px}
+
+
+/* ---- 手机端：日期议程视图（替代 7 列周历） ---- */
+.magenda { display: none; }
+@media (max-width: 760px) {
+  .calendar, .swipe-hint { display: none; }
+  .magenda { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+  .mday { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; box-shadow: var(--shadow); }
+  .mday.today { box-shadow: inset 0 0 0 2px #f0c8a8; }
+  .mday-h { display: flex; align-items: baseline; gap: 6px; margin-bottom: 6px; color: var(--sub); font-size: 12px; }
+  .mday-h b { font-size: 18px; color: var(--ink); font-weight: 700; }
+  .mday-h .wd { font-size: 12px; }
+  .mday-h em { font-style: normal; margin-left: auto; }
+  .mday-h .today-tag { font-style: normal; background: var(--accent); color: #fff; font-size: 11px; padding: 1px 7px; border-radius: 999px; }
+  .mday-body { display: flex; flex-direction: column; gap: 5px; }
+  .mitem { display: grid; grid-template-columns: 8px 1fr; column-gap: 7px; align-items: start; text-decoration: none;
+    border-radius: 8px; padding: 6px 8px; background: #faf9f6; }
+  .mitem i { width: 8px; height: 8px; border-radius: 50%; margin-top: 4px; }
+  .mitem .mt { font-size: 13px; line-height: 1.4; color: var(--ink); overflow-wrap: anywhere; }
+  .mitem .mv { grid-column: 2; font-size: 11px; color: var(--sub); overflow-wrap: anywhere; }
+}
+
+
+/* ---- 手机端防横向溢出（兜底） ---- */
+@media (max-width: 760px) {
+  html, body { max-width: 100%; overflow-x: hidden; }
+  .wrap { width: 100%; }
+  header.top > div, header.top .meta, .monthbar, .filters, .citytabs, .mday, .mitem, .item, .item .body,
+  .mday-h, .mitem .mt, .mitem .mv { min-width: 0; max-width: 100%; }
+  .meta, .mday-h, .mitem .mv { white-space: normal; overflow-wrap: anywhere; word-break: break-word; }
+  header.top > div { flex: 1 1 240px; }
+  .citytab { max-width: 46vw; }
+  .citytab span, .citytab { overflow-wrap: anywhere; }
+}
 
 </style>
 <link rel="alternate" type="text/calendar" href="/calendar.ics?city=nagoya">
@@ -822,6 +875,486 @@ footer.stats th { color: var(--sub); font-weight: 500; }
     </div>
     
   </div>
+</div>
+<p class="swipe-hint">← 左右滑动可查看整周 7 天 →</p>
+
+<div class="magenda">
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>1</b>
+      <span class="wd">二</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://seatrainland.com/" target="_blank" rel="noopener">
+        <i style="background:#06b6d4"></i>
+        <span class="mt">名古屋港シートレインランド ウインターイルミネーション</span>
+        <span class="mv">名古屋港シートレインランド</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>2</b>
+      <span class="wd">三</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.anges-nagoya.com/report/11464/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">覚王山ル・アンジェ教会 クリスマスイベント</span>
+        <span class="mv">覚王山ル・アンジェ教会</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>4</b>
+      <span class="wd">五</span>
+      <em>3 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.nagoya-info.jp/event/detail/77/" target="_blank" rel="noopener">
+        <i style="background:#f59e0b"></i>
+        <span class="mt">名古屋クリスマスマーケット2026</span>
+        <span class="mv">久屋大通公園 エディオン久屋広場・エンゼル広場</span>
+      </a>
+      
+      <a class="mitem" href="https://event.lp.creema.jp/event/kittenagoya" target="_blank" rel="noopener">
+        <i style="background:#f59e0b"></i>
+        <span class="mt">ＫＩＴＴＥ名古屋 クリスマスマーケット2026 by Creema</span>
+        <span class="mv">ＫＩＴＴＥ名古屋 1Fアトリウム</span>
+      </a>
+      
+      <a class="mitem" href="https://www.nagoya-info.jp/event/detail/70/" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">NAGOYA PORT WINTER ILLUMINATION</span>
+        <span class="mv">◎名古屋港 JETTY広場 ◎名古屋港水族館正面入口階段</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>5</b>
+      <span class="wd">六</span>
+      <em>3 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://tgs.jp.net/event/miniature-bakery/" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">ミニチュアベーカリーの世界展 2026 in 名古屋</span>
+        <span class="mv">TODAYS GALLERY STUDIO. NAGOYA</span>
+      </a>
+      
+      <a class="mitem" href="https://stiarenagoya.my.canva.site/kireifes" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">キレイFes</span>
+        <span class="mv">ateRing</span>
+      </a>
+      
+      <a class="mitem" href="http://www.higashiyamaskytower.jp/" target="_blank" rel="noopener">
+        <i style="background:#06b6d4"></i>
+        <span class="mt">東山スカイタワー　冬のライトアップ</span>
+        <span class="mv">東山スカイタワー</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>6</b>
+      <span class="wd">日</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.koransha.com/orch_chamber/avemaria/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">クリスマス/アヴェ・マリア エリザベート弦楽アンサンブル（名古屋）</span>
+        <span class="mv">しらかわホール</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>7</b>
+      <span class="wd">一</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://nagoya.hiltonjapan.co.jp/restaurants/lp/inplace3-3-lunch-dinner-buffet-christmas" target="_blank" rel="noopener">
+        <i style="background:#ef4444"></i>
+        <span class="mt">ヒルトン名古屋クリスマス・ニューイヤーランチ&amp;amp;ディナービュッフェ</span>
+        <span class="mv">インプレイス3-3</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>8</b>
+      <span class="wd">二</span>
+      <em>2 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.tgn.co.jp/funfenfant/event/202612avn/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">0歳からのコンサート　音育ランド　名古屋</span>
+        <span class="mv">NEEDS名古屋八事</span>
+      </a>
+      
+      <a class="mitem" href="https://www.bunka758.or.jp/event/higashi/details/vol50_1.html" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">健康歌声＆うたごえ vol.51</span>
+        <span class="mv">名古屋市東文化小劇場</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>9</b>
+      <span class="wd">三</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://asaimasahiro.com/tsukurippa/special/" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">ちぎって貼って紙のモンスター</span>
+        <span class="mv">まちの図工室 つくりっぱ（丸の内教室）</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>10</b>
+      <span class="wd">四</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://asaimasahiro.com/tsukurippa/special/" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">もういちど、美術の時間　つくること講座</span>
+        <span class="mv">まちの図工室 つくりっぱ（丸の内教室）</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>12</b>
+      <span class="wd">六</span>
+      <em>9 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://tvconanten-30th.jp/nagoya_venue.html" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">放送30周年記念 TVアニメ「名探偵コナン」展（名古屋会場）</span>
+        <span class="mv">金山南ビル美術館棟</span>
+      </a>
+      
+      <a class="mitem" href="https://www.ctv.co.jp/event/pandakopanda/" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">いっしょにワクワクしよう！パンダコパンダ展 ー名古屋PARCOの巻ー</span>
+        <span class="mv">名古屋PARCO(パルコ)</span>
+      </a>
+      
+      <a class="mitem" href="https://www.bunka758.or.jp/event/nakagawa/details/Full_Band_Jazz_Nigth2026.html" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">Full Band Jazz Night（なかがわ JAZZ LIFE シリーズ）</span>
+        <span class="mv">名古屋市中川文化小劇場</span>
+      </a>
+      
+      <a class="mitem" href="https://www.bunka758.or.jp/about/archive/artland/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">親子でたのしもう！音でめぐる、みどりの森のコンサート</span>
+        <span class="mv">名古屋市緑文化小劇場</span>
+      </a>
+      
+      <a class="mitem" href="https://www.bunka758.or.jp/event/minato/details/_1_55.html" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">いぶき～吹ク、弾ク、叩ク2～</span>
+        <span class="mv">名古屋市港文化小劇場</span>
+      </a>
+      
+      <span class="more">+4 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>13</b>
+      <span class="wd">日</span>
+      <em>4 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://nagatukasa.wixsite.com/junglehunter/n28" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">ジャングルハンターin名古屋</span>
+        <span class="mv">フジコミュニティセンター4F大会議室</span>
+      </a>
+      
+      <a class="mitem" href="https://www.raconte-concert.com/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">田村響ピアノリサイタル ～オール・バッハ・プログラム～</span>
+        <span class="mv">名古屋・伏見・電気文化会館　ザ・コンサートホール</span>
+      </a>
+      
+      <a class="mitem" href="https://kaoru-mori.com/261213christmas/" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">大人のごほうび Christmas Concert</span>
+        <span class="mv">スタジオ フィオリーレ</span>
+      </a>
+      
+      <a class="mitem" href="https://simpleyoga.jp/news/n12.html" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">シンプルヨーガ研修 ～ハタ・ヨーガ～　in 名古屋</span>
+        <span class="mv">ポレポレ（中小田井 古民家レンタルスペース）</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>18</b>
+      <span class="wd">五</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://tatsuyadejima.tokyo/9358/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">魔法の両手タッピング奏法（名古屋公演）</span>
+        <span class="mv">栄Live DOXY（ライブドキシー）</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>19</b>
+      <span class="wd">六</span>
+      <em>3 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.tokai-tv.com/events/mozu-miniature/" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">Mozu(モズ)ミニチュア展 ようこそ、ちいさな世界へ。(愛知)</span>
+        <span class="mv">名古屋PARCO(パルコ)</span>
+      </a>
+      
+      <a class="mitem" href="https://www.bunka758.or.jp/event/midori/details/_1_35.html" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">山中千尋クリスマストリオコンサート</span>
+        <span class="mv">緑文化小劇場</span>
+      </a>
+      
+      <a class="mitem" href="https://www.nup.or.jp/nui/human/support/beginner_recruit_r08/beginner_recruit_r8_202612.html" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">令和8年度まちづくりびと講座「日常を豊かにする、一過性で終わらせないまちづくり」</span>
+        <span class="mv">名古屋都市センター11階ホール</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>20</b>
+      <span class="wd">日</span>
+      <em>2 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://asaimasahiro.com/tsukurippa/special/" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">絵の具で金属を描く</span>
+        <span class="mv">まちの図工室 つくりっぱ（丸の内教室）</span>
+      </a>
+      
+      <a class="mitem" href="https://asaimasahiro.com/tsukurippa/special/" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">じぶんのクレヨンをつくる</span>
+        <span class="mv">まちの図工室 つくりっぱ（丸の内教室）</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>22</b>
+      <span class="wd">二</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.koransha.com/ballet/tchaikovsky/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">チャイコフスキー・バレエ劇場 ｢くるみ割り人形｣(名古屋)</span>
+        <span class="mv">愛知県芸術劇場　大ホール</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>23</b>
+      <span class="wd">三</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.ongaku.cc/aya/liveinfo/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">「エクスペリエンス・ジャズライブ」 ～はじめてでも楽しめるジャズの夜～（12月）</span>
+        <span class="mv">サパーラウンジ邸旺（TEIOH）</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>25</b>
+      <span class="wd">五</span>
+      <em>2 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.nagoya-info.jp/event/detail/1428/" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">名古屋市市政資料館建物ガイドツアー 小さな時間旅行 ようこそ建物百年の旅へ</span>
+        <span class="mv">名古屋市市政資料館</span>
+      </a>
+      
+      <a class="mitem" href="https://asaimasahiro.com/tsukurippa/special/" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">アニメ制作（90分）</span>
+        <span class="mv">まちの図工室 つくりっぱ（丸の内教室）</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>26</b>
+      <span class="wd">六</span>
+      <em>3 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://isogaihanabi.com/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">BERITA presents ISOGAI花火劇場in名古屋港</span>
+        <span class="mv">名古屋港ガーデンふ頭</span>
+      </a>
+      
+      <a class="mitem" href="https://www.nagoya-info.jp/event/detail/214/" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">BERITA presents ISOGAI花火劇場 in 名古屋港 次世代を担う子供たちに美しい花火を</span>
+        <span class="mv">名古屋港ガーデンふ頭</span>
+      </a>
+      
+      <a class="mitem" href="https://www.raconte-concert.com/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">梅田智也×今田篤2台ピアノリサイタル 「第九」</span>
+        <span class="mv">名古屋・伏見・電気文化会館　ザ・コンサートホール</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>28</b>
+      <span class="wd">一</span>
+      <em>2 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://asaimasahiro.com/tsukurippa/special/" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">お正月の紙版画をつくる</span>
+        <span class="mv">まちの図工室 つくりっぱ（丸の内教室）</span>
+      </a>
+      
+      <a class="mitem" href="https://asaimasahiro.com/tsukurippa/special/" target="_blank" rel="noopener">
+        <i style="background:#f97316"></i>
+        <span class="mt">食べられない、新しいおせちをつくる</span>
+        <span class="mv">まちの図工室 つくりっぱ</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
 </div>
 
 <div class="legend">

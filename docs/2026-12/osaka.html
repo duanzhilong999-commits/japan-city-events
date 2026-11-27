@@ -63,12 +63,13 @@ select, input[type=search] {
 input[type=search] { min-width: 190px; }
 label.check { display: inline-flex; gap: 5px; align-items: center; font-size: 13px; color: var(--sub); }
 
-.calendar { background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
-.weekhead { display: grid; grid-template-columns: repeat(7, 1fr); background: #fbfaf7; border-bottom: 1px solid var(--line); }
+.calendar { background: var(--card); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow);
+  overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; }
+.weekhead { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); background: #fbfaf7; border-bottom: 1px solid var(--line); }
 .weekhead div { padding: 9px 0; text-align: center; font-size: 12.5px; color: var(--sub); letter-spacing: 2px; }
 .weekhead div:nth-child(6) { color: #2f6f9f; }
 .weekhead div:nth-child(7) { color: #b5433c; }
-.grid { display: grid; grid-template-columns: repeat(7, 1fr); }
+.grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
 .cell {
   min-height: 132px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
   padding: 6px 7px 8px; display: flex; flex-direction: column; gap: 4px; background: #fff;
@@ -122,11 +123,29 @@ footer.stats th { color: var(--sub); font-weight: 500; }
 .ok { color: #2f7a4f; font-weight: 600; }
 .bad { color: #b5433c; font-weight: 600; }
 @media (max-width: 760px) {
-  .cell { min-height: 92px; padding: 4px; }
-  .ev { font-size: 10px; -webkit-line-clamp: 2; }
-  .monthbar .title { font-size: 22px; }
-  .item .datecol { min-width: 54px; }
+  .wrap { padding: 14px 12px 40px; }
+  header.top { gap: 10px; }
+  h1 { font-size: 18px; }
+  .monthbar { flex-wrap: wrap; gap: 8px; }
+  .monthbar .title { font-size: 20px; }
+  .filters { padding: 10px; gap: 8px; }
+  .btn { font-size: 12px; padding: 6px 10px; }
+  .monthbar .btn.arrow { padding: 6px 10px; }
+  input[type=search] { min-width: 0; flex: 1 1 100%; }
+  /* 周历在手机上横向滑动查看，不再被裁掉右半部分 */
+  .grid, .weekhead { min-width: 700px; }
+  .cell { min-height: 96px; padding: 4px 5px; }
+  .ev { font-size: 10.5px; -webkit-line-clamp: 2; word-break: break-word; }
+  .more { font-size: 10px; }
+  .legend { font-size: 11px; gap: 8px; }
+  .item { padding: 10px 12px; gap: 10px; }
+  .item .datecol { min-width: 46px; }
+  .item .datecol .d { font-size: 16px; }
+  .item .t { font-size: 14px; }
+  footer.stats table { font-size: 11px; }
+  .swipe-hint { display: block; }
 }
+.swipe-hint { display: none; font-size: 11.5px; color: var(--sub); margin: 8px 2px 0; }
 
 /* ---- 城市切换标签 ---- */
 .citytabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px}
@@ -137,6 +156,40 @@ footer.stats th { color: var(--sub); font-weight: 500; }
 .citytab small{font-size:11px;opacity:.6}
 
 .ev.ongoing{background:#f8fafc !important;color:#475569;font-size:11px}
+
+
+/* ---- 手机端：日期议程视图（替代 7 列周历） ---- */
+.magenda { display: none; }
+@media (max-width: 760px) {
+  .calendar, .swipe-hint { display: none; }
+  .magenda { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+  .mday { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; box-shadow: var(--shadow); }
+  .mday.today { box-shadow: inset 0 0 0 2px #f0c8a8; }
+  .mday-h { display: flex; align-items: baseline; gap: 6px; margin-bottom: 6px; color: var(--sub); font-size: 12px; }
+  .mday-h b { font-size: 18px; color: var(--ink); font-weight: 700; }
+  .mday-h .wd { font-size: 12px; }
+  .mday-h em { font-style: normal; margin-left: auto; }
+  .mday-h .today-tag { font-style: normal; background: var(--accent); color: #fff; font-size: 11px; padding: 1px 7px; border-radius: 999px; }
+  .mday-body { display: flex; flex-direction: column; gap: 5px; }
+  .mitem { display: grid; grid-template-columns: 8px 1fr; column-gap: 7px; align-items: start; text-decoration: none;
+    border-radius: 8px; padding: 6px 8px; background: #faf9f6; }
+  .mitem i { width: 8px; height: 8px; border-radius: 50%; margin-top: 4px; }
+  .mitem .mt { font-size: 13px; line-height: 1.4; color: var(--ink); overflow-wrap: anywhere; }
+  .mitem .mv { grid-column: 2; font-size: 11px; color: var(--sub); overflow-wrap: anywhere; }
+}
+
+
+/* ---- 手机端防横向溢出（兜底） ---- */
+@media (max-width: 760px) {
+  html, body { max-width: 100%; overflow-x: hidden; }
+  .wrap { width: 100%; }
+  header.top > div, header.top .meta, .monthbar, .filters, .citytabs, .mday, .mitem, .item, .item .body,
+  .mday-h, .mitem .mt, .mitem .mv { min-width: 0; max-width: 100%; }
+  .meta, .mday-h, .mitem .mv { white-space: normal; overflow-wrap: anywhere; word-break: break-word; }
+  header.top > div { flex: 1 1 240px; }
+  .citytab { max-width: 46vw; }
+  .citytab span, .citytab { overflow-wrap: anywhere; }
+}
 
 </style>
 <link rel="alternate" type="text/calendar" href="/calendar.ics?city=osaka">
@@ -972,6 +1025,842 @@ footer.stats th { color: var(--sub); font-weight: 500; }
     </div>
     
   </div>
+</div>
+<p class="swipe-hint">← 左右滑动可查看整周 7 天 →</p>
+
+<div class="magenda">
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>1</b>
+      <span class="wd">二</span>
+      <em>4 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.newotani.co.jp/osaka/restaurant/satsukilounge/strawberry/" target="_blank" rel="noopener">
+        <i style="background:#f97316"></i>
+        <span class="mt">スーパースイーツビュッフェ2027 ～ホテルでいちご狩り～</span>
+        <span class="mv">ホテルニューオータニ大阪</span>
+      </a>
+      
+      <a class="mitem" href="https://www.pref.osaka.lg.jp/moyo/o070080/2026.html" target="_blank" rel="noopener">
+        <i style="background:#06b6d4"></i>
+        <span class="mt">中之島にぎわいの森 × DREAMS COME TRUE WINTER FANTASIA 2026</span>
+        <span class="mv">中之島公園水上劇場前ほか</span>
+      </a>
+      
+      <a class="mitem" href="https://mizutaki2026-tennoji.peatix.com/" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">水炊き郷土料理化宣言セミナー（天王寺区民センター会場）</span>
+        <span class="mv">天王寺区民センター　2階第2・3会議室</span>
+      </a>
+      
+      <a class="mitem" href="https://www.rihga.co.jp/osaka/culture/ecole-event-christmas-2026/#1120" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">麗しい薔薇モチーフで彩るエレガント・ミニ茶箱</span>
+        <span class="mv">リーガロイヤルホテル大阪　エコールドロイヤル　ウエストウイング2階</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>2</b>
+      <span class="wd">三</span>
+      <em>2 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="http://blog.onlineshop.ranbu-hp.com/?eid=1692" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">空想街雑貨店個展「空想街雑貨店の夢見る世界」</span>
+        <span class="mv">ranbu</span>
+      </a>
+      
+      <a class="mitem" href="http://blog.onlineshop.ranbu-hp.com/?eid=1690" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">ranbu企画展「星降るクリスマス」</span>
+        <span class="mv">ranbu</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>3</b>
+      <span class="wd">四</span>
+      <em>3 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.tv-osaka.co.jp/event/gacha/" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">ガチャガチャ展 in 大阪</span>
+        <span class="mv">なんばスカイオ 7Fコンベンションホール</span>
+      </a>
+      
+      <a class="mitem" href="https://www.gallery-iyn.com/post/handmade-lightandstone-droplets" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">光と石のしずく展</span>
+        <span class="mv">Gallery IYN3</span>
+      </a>
+      
+      <a class="mitem" href="https://www.gallery-iyn.cohttps://www.gallery-iyn.com/post/ryujin-exhibitionm/post/gentlecrafts-exhibition" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">龍神展</span>
+        <span class="mv">Gallery IYN3</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>4</b>
+      <span class="wd">五</span>
+      <em>3 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="http://www.uekiichi.com/event.html" target="_blank" rel="noopener">
+        <i style="background:#0ea5e9"></i>
+        <span class="mt">秋の植木市（八幡屋公園）</span>
+        <span class="mv">八幡屋公園</span>
+      </a>
+      
+      <a class="mitem" href="https://kc-i.jp/activity/award/isca/2026/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">ISCA026 (INTERNATIONAL STUDENTS CREATIVE AWARD)</span>
+        <span class="mv">VS.（グラングリーン大阪）</span>
+      </a>
+      
+      <a class="mitem" href="https://www.rihga.co.jp/osaka/culture/ecole-event-christmas-2026/#1120" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">オリジナルデザインで楽しむ　ネイルチップアート</span>
+        <span class="mv">リーガロイヤルホテル大阪　エコールドロイヤル　ウエストウイング2階</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>5</b>
+      <span class="wd">六</span>
+      <em>13 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://huyu-sake-festival.peatix.com/view" target="_blank" rel="noopener">
+        <i style="background:#ef4444"></i>
+        <span class="mt">冬の日本酒まつり2026</span>
+        <span class="mv">オーセンティック東船場503</span>
+      </a>
+      
+      <a class="mitem" href="https://swapmeet.ne.jp/info/hanahaku" target="_blank" rel="noopener">
+        <i style="background:#a855f7"></i>
+        <span class="mt">スワップミート in 花博公園（12月）</span>
+        <span class="mv">花博記念公園鶴見緑地　付属展示場</span>
+      </a>
+      
+      <a class="mitem" href="https://ameblo.jp/pocketmarche" target="_blank" rel="noopener">
+        <i style="background:#f59e0b"></i>
+        <span class="mt">ポケットマルシェ in 鶴見緑地 －19th－</span>
+        <span class="mv">鶴見緑地</span>
+      </a>
+      
+      <a class="mitem" href="https://www.instagram.com/nambashochububbles?igsh=bXhsdTVvbmhscjlu" target="_blank" rel="noopener">
+        <i style="background:#f97316"></i>
+        <span class="mt">NAMBA　SHOCHU　BUBBLES</span>
+        <span class="mv">なんばカーニバルモール（なんばパークスとなんばCITY南館のあいだ）</span>
+      </a>
+      
+      <a class="mitem" href="#" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">第8回 蛙びとの集い in OCAT</span>
+        <span class="mv">大阪難波 OCAT</span>
+      </a>
+      
+      <span class="more">+8 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>6</b>
+      <span class="wd">日</span>
+      <em>11 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://swapmeet.ne.jp/info/hanahaku-sp" target="_blank" rel="noopener">
+        <i style="background:#a855f7"></i>
+        <span class="mt">スワップミート in 花博公園スペシャル（12月）</span>
+        <span class="mv">花博記念公園鶴見緑地　ハナミズキホールおよび付属展示場</span>
+      </a>
+      
+      <a class="mitem" href="http://www.balance.join-us.jp/iyasisutajiamuoosaka.html" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">癒しスタジアムIN大阪vol96</span>
+        <span class="mv">天満橋OMMビル2F</span>
+      </a>
+      
+      <a class="mitem" href="https://www.santa-run.com/" target="_blank" rel="noopener">
+        <i style="background:#ef4444"></i>
+        <span class="mt">サンタパレード大阪 2026</span>
+        <span class="mv">大阪城公園・太陽の広場＆園内道路</span>
+      </a>
+      
+      <a class="mitem" href="https://www.rihga.co.jp/osaka/event/ahnmika/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">アンミカクリスマスディナーショー2026</span>
+        <span class="mv">リーガロイヤルホテル大阪　光琳の間（イーストウイング3階）</span>
+      </a>
+      
+      <a class="mitem" href="https://higashiosaka.hall-info.jp/event-information/2026/20261206.html" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">アフタヌーンコンサートシリーズVol.38「おんがくのおもちゃばこ」</span>
+        <span class="mv">東大阪市文化創造館　1階 多目的室</span>
+      </a>
+      
+      <span class="more">+6 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>7</b>
+      <span class="wd">一</span>
+      <em>2 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.rihga.co.jp/osaka/culture/ecole-lecture/" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">人間ドラマで楽しむ 華麗なるヨーロッパ王家の歴史（12月）</span>
+        <span class="mv">リーガロイヤルホテル大阪　エコールドロイヤル（ウエストウイング2階）</span>
+      </a>
+      
+      <a class="mitem" href="https://www.mirai-process.org/extension-lecture.html" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">漏斗胸の症状と治療について</span>
+        <span class="mv">i-Mall 医誠会国際総合病院 南棟 SAKURA ISEIKAI LOUNG</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>8</b>
+      <span class="wd">二</span>
+      <em>2 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.sumiyoshitaisha.net/" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">初辰まいり（12月）</span>
+        <span class="mv">住吉大社</span>
+      </a>
+      
+      <a class="mitem" href="https://www.rihga.co.jp/osaka/culture/ecole-event-christmas-2026/#1120" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">干支ドール2027～歓びをまとう羊～</span>
+        <span class="mv">リーガロイヤルホテル大阪　エコールドロイヤル　ウエストウイング2階</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>9</b>
+      <span class="wd">三</span>
+      <em>3 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.koransha.com/orch_chamber/avemaria/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">クリスマス/アヴェ・マリア エリザベート弦楽アンサンブル（大阪）</span>
+        <span class="mv">住友生命いずみホール</span>
+      </a>
+      
+      <a class="mitem" href="https://nishiumeda-candlenight.com/" target="_blank" rel="noopener">
+        <i style="background:#06b6d4"></i>
+        <span class="mt">NISHIUMEDA CANDLE NIGHT</span>
+        <span class="mv">西梅田一帯</span>
+      </a>
+      
+      <a class="mitem" href="https://www.rihga.co.jp/osaka/culture/ecole-event-christmas-2026/#1120" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">ロジカルシャドーボックス　新春を祝う愛らしい干支・未のシャドーボックス</span>
+        <span class="mv">リーガロイヤルホテル大阪　エコールドロイヤル　ウエストウイング2階</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>10</b>
+      <span class="wd">四</span>
+      <em>2 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.gallery-iyn.com/post/kawaii-vol-3" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">わたしの可愛い3</span>
+        <span class="mv">Gallery IYN</span>
+      </a>
+      
+      <a class="mitem" href="https://www.gallery-iyn.com/post/sheep" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">未展</span>
+        <span class="mv">Gallery IYN</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>11</b>
+      <span class="wd">五</span>
+      <em>5 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://hikari-kyoen.com/" target="_blank" rel="noopener">
+        <i style="background:#06b6d4"></i>
+        <span class="mt">OSAKA光のルネサンス2026 大阪市中央公会堂プロジェクションマッピング</span>
+        <span class="mv">大阪市中央公会堂東側正面</span>
+      </a>
+      
+      <a class="mitem" href="https://www.rihga.co.jp/osaka/culture/ecole-event-christmas-2026/#1120" target="_blank" rel="noopener">
+        <i style="background:#06b6d4"></i>
+        <span class="mt">サンドブラスト・クリスマスキャンドルポット</span>
+        <span class="mv">リーガロイヤルホテル大阪　エコールドロイヤル　ウエストウイング2階</span>
+      </a>
+      
+      <a class="mitem" href="#" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">温水プール×天然温泉　マタニティアクア</span>
+        <span class="mv">うめきた温泉蓮 Wellbeing park</span>
+      </a>
+      
+      <a class="mitem" href="https://www.titan-net.co.jp/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">爆笑問題 with タイタンシネマライブ （梅田）</span>
+        <span class="mv">TOHOシネマズ　梅田</span>
+      </a>
+      
+      <a class="mitem" href="https://www.titan-net.co.jp/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">爆笑問題 with タイタンシネマライブ （なんば）</span>
+        <span class="mv">TOHOシネマズ　なんば</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>12</b>
+      <span class="wd">六</span>
+      <em>4 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://osaka.hmj-fes.jp/" target="_blank" rel="noopener">
+        <i style="background:#f59e0b"></i>
+        <span class="mt">HandMade In Japan Fes&amp;#39;大阪</span>
+        <span class="mv">インテックス大阪</span>
+      </a>
+      
+      <a class="mitem" href="https://higashiosaka.hall-info.jp/event-information/2026/20261212_0116.html" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">カルチャースクエアNo.60「館長によるクラシック音楽入門講座」</span>
+        <span class="mv">東大阪市文化創造館　2階 創造支援室C1・C2</span>
+      </a>
+      
+      <a class="mitem" href="https://swapmeet.ne.jp/info/placedetail.html?placeId=P019" target="_blank" rel="noopener">
+        <i style="background:#a855f7"></i>
+        <span class="mt">大東市 キラリエホールdeフリマ（12月）</span>
+        <span class="mv">大阪市立市民会館　キラリエホール内　特設会場</span>
+      </a>
+      
+      <a class="mitem" href="https://www.rihga.co.jp/osaka/culture/ecole-event-christmas-2026/#1120" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">冬を彩るインテリア　シープタッセルで作る華やかクリスマス飾り</span>
+        <span class="mv">リーガロイヤルホテル大阪　エコールドロイヤル　ウエストウイング2階</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>13</b>
+      <span class="wd">日</span>
+      <em>6 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://swapmeet.ne.jp/info/cosmotower" target="_blank" rel="noopener">
+        <i style="background:#a855f7"></i>
+        <span class="mt">さきしまコスモタワーチャリティフリマ（12月）</span>
+        <span class="mv">大阪府咲洲庁舎（さきしまコスモタワー）フェスパ　1F特設会場</span>
+      </a>
+      
+      <a class="mitem" href="https://www.kidsplaza.or.jp/" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">科学マジックとクイズで楽しく 学ぶサイエンスショー</span>
+        <span class="mv">キッズプラザ大阪　5階　キッズプラザホール</span>
+      </a>
+      
+      <a class="mitem" href="https://www.ko-bun.jp/event/2026/10/001095/" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">こども劇場　みんなのクリスマス★スペシャルシネマ －サンタのひみつの映画会ー</span>
+        <span class="mv">大阪市立こども文化センター　ホール</span>
+      </a>
+      
+      <a class="mitem" href="https://www.stv.jp/radio/event/matsumaro_tour/index.html" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">神田松麻呂 日本縦断講談会 ～赤穂義士伝編～（大阪）</span>
+        <span class="mv">百年長屋</span>
+      </a>
+      
+      <a class="mitem" href="https://higashiosaka.hall-info.jp/event-information/2026/20261213.html" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">カルチャースクエアNo.58「びりびり！やぶって完成させるクリスマス絵本をつくろう」</span>
+        <span class="mv">東大阪市文化創造館　2階 創造支援室A1</span>
+      </a>
+      
+      <span class="more">+1 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>14</b>
+      <span class="wd">一</span>
+      <em>2 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="#" target="_blank" rel="noopener">
+        <i style="background:#06b6d4"></i>
+        <span class="mt">中之島ガーデンブリッジ ライトアップ クリスマスバージョン</span>
+        <span class="mv">中之島ガーデンブリッジ</span>
+      </a>
+      
+      <a class="mitem" href="https://ogalleryeyes.wixsite.com/oeyes" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">あいのかたち 展</span>
+        <span class="mv">Oギャラリーeyes</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>15</b>
+      <span class="wd">二</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.tgn.co.jp/funfenfant/event/202612ago/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">0歳からのコンサート　音育ランド　大阪</span>
+        <span class="mv">NEEDS大阪本町 by T&amp;amp;G WEDDING</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>16</b>
+      <span class="wd">三</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.facebook.com/bibliobattle/?locale=ja_JP" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">天満橋ビブリオバトル#166 in大阪市中央公会堂</span>
+        <span class="mv">大阪市中央公会堂　第3会議室</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>17</b>
+      <span class="wd">四</span>
+      <em>2 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.gallery-iyn.com/post/gentlecrafts-exhibition" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">Imagination2</span>
+        <span class="mv">Gallery IYN3</span>
+      </a>
+      
+      <a class="mitem" href="https://www.gallery-iyn.com/post/smallsparkle-makes-yourheartflutter" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">胸躍る、小さな輝き展</span>
+        <span class="mv">Gallery IYN3</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>18</b>
+      <span class="wd">五</span>
+      <em>4 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.rihga.co.jp/osaka/culture/ecole-special/#1218" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">歌の旅・歌声サロン「ホテルで素敵なクリスマス2026」</span>
+        <span class="mv">リーガロイヤルホテル大阪 「ザ・クリスタルチャペル」（イーストウイング2階）</span>
+      </a>
+      
+      <a class="mitem" href="https://www.kidsplaza.or.jp/" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">魔法の板『カプラ(R)』であそぼう！</span>
+        <span class="mv">キッズプラザ大阪　5階　キッズプラザホール前</span>
+      </a>
+      
+      <a class="mitem" href="https://www.rihga.co.jp/osaka/culture/ecole-event-christmas-2026/#1120" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">和の美を結び・地球に優しいしめ縄飾り</span>
+        <span class="mv">リーガロイヤルホテル大阪　エコールドロイヤル　ウエストウイング2階</span>
+      </a>
+      
+      <a class="mitem" href="https://www.kidsplaza.or.jp/" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">おりがみサンタ工房 in こどもの街</span>
+        <span class="mv">キッズプラザ大阪　4階　こどもの街</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>19</b>
+      <span class="wd">六</span>
+      <em>12 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.tv-osaka.co.jp/event/makingbazaar/vol53/" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">OSAKAアート＆てづくりバザールVOL.53</span>
+        <span class="mv">大阪南港ATCホール</span>
+      </a>
+      
+      <a class="mitem" href="https://www.lighty-hall.com/event/2026/12/event-3948.php" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">大阪ハープカンパニー　クリスマスロビーコンサート</span>
+        <span class="mv">大阪府立中央図書館1F　エントランス</span>
+      </a>
+      
+      <a class="mitem" href="https://tree-village.jp/news/014492.html" target="_blank" rel="noopener">
+        <i style="background:#f97316"></i>
+        <span class="mt">日常カフェ in TreeVillage(イン ツリービレッジ)(大阪)</span>
+        <span class="mv">HEP FIVE(ヘップファイブ)</span>
+      </a>
+      
+      <a class="mitem" href="https://naraannamaria.jimdofree.com/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">奈良＆神戸アンナマリアジュニアオーケストラ第5回ファミリーコンサート</span>
+        <span class="mv">大阪市立天王寺区民センターホール</span>
+      </a>
+      
+      <a class="mitem" href="https://www.newotani.co.jp/osaka/restaurant/satsuki/xmas-buffet/" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">ホテルニューオータニ大阪　クリスマスプレミアムビュッフェ</span>
+        <span class="mv">ホテルニューオータニ大阪</span>
+      </a>
+      
+      <span class="more">+7 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>20</b>
+      <span class="wd">日</span>
+      <em>8 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.sakuyakonohana.jp/event/22435/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">Orchestre d’harmonie REPRENDRE～特別公演～ in 咲くやこの花館</span>
+        <span class="mv">咲くやこの花館</span>
+      </a>
+      
+      <a class="mitem" href="#" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">大坂城ものがたり第3話−2 岩佐又兵衛</span>
+        <span class="mv">萬福寺</span>
+      </a>
+      
+      <a class="mitem" href="https://www.collegium.or.jp/html/osaka134th.html" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">大阪コレギウム・ムジクム第134回大阪定期公演 クリスマス・コンサート</span>
+        <span class="mv">住友生命いずみホール</span>
+      </a>
+      
+      <a class="mitem" href="#" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">大阪府庁本館竣工100周記念「センチュリー・ミーツ・スピード大阪」</span>
+        <span class="mv">大阪府庁</span>
+      </a>
+      
+      <a class="mitem" href="https://www.lighty-hall.com/event/2026/12/event-3925.php" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">ゴーゴー！落語　テーマは「らくごレクリエーション」桂米之助　林家勘左</span>
+        <span class="mv">大阪府立中央図書館　2F 大会議室</span>
+      </a>
+      
+      <span class="more">+3 更多</span>
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>22</b>
+      <span class="wd">二</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="http://www.ikune.net/" target="_blank" rel="noopener">
+        <i style="background:#ef4444"></i>
+        <span class="mt">こつま南瓜まつり</span>
+        <span class="mv">生根神社</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>23</b>
+      <span class="wd">三</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.kitano-hp.or.jp/info/20261119-seminar" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">北野病院　第42回　みんなの医療セミナー</span>
+        <span class="mv">医学研究所北野病院　新館2階 きたのホール</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>24</b>
+      <span class="wd">四</span>
+      <em>5 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://iricosky.com/class/yearcrossing/?utm_source=eventbank&amp;amp;utm_medium=referral&amp;amp;utm_campaign=yearcrossing" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">年越しうどん・年明けうどんを自分で打とう！（お正月・冬休み限定手打ちうどん体験教室）</span>
+        <span class="mv">イリコスキー製麺所</span>
+      </a>
+      
+      <a class="mitem" href="https://www.gallery-iyn.com/post/iyn10th-anniv-postcard" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">超！超！ポストカード展</span>
+        <span class="mv">Gallery IYN</span>
+      </a>
+      
+      <a class="mitem" href="https://www.gallery-iyn.com/post/handmade-chiristmas2" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">小さなクリスマス会-vol.2</span>
+        <span class="mv">Gallery IYN</span>
+      </a>
+      
+      <a class="mitem" href="https://www.gallery-iyn.com/post/iyn-selectedworks-exhibition2612" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">IYN選抜作品2026</span>
+        <span class="mv">ART STORE IYN</span>
+      </a>
+      
+      <a class="mitem" href="https://www.kidsplaza.or.jp/program/2026/11/002976/" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">関西テレビアナウンサーによる　かみしばいのじかん　～メリークリスマス～</span>
+        <span class="mv">キッズプラザ大阪　5階　キッズプラザホール</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>25</b>
+      <span class="wd">五</span>
+      <em>1 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://tomica-om.jp/" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">TOMICA OWNERS MEETING OSAKA</span>
+        <span class="mv">マイドームおおさか 1階展示ホールA</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>26</b>
+      <span class="wd">六</span>
+      <em>2 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://ktomitake.wixsite.com/z-d-m" target="_blank" rel="noopener">
+        <i style="background:#ef4444"></i>
+        <span class="mt">アミュゼフェスタ in スパワールド</span>
+        <span class="mv">スパワールド　ピロティ</span>
+      </a>
+      
+      <a class="mitem" href="https://www.kidsplaza.or.jp/program/2026/11/0002978/" target="_blank" rel="noopener">
+        <i style="background:#64748b"></i>
+        <span class="mt">あっぱれ！お正月の絵本特集</span>
+        <span class="mv">キッズプラザ大阪　4階　ライブラリー</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>27</b>
+      <span class="wd">日</span>
+      <em>3 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://kinen100.wixsite.com/kinen" target="_blank" rel="noopener">
+        <i style="background:#84cc16"></i>
+        <span class="mt">年越しそばに！手打ちそば体験！</span>
+        <span class="mv">平野区画整理記念会館</span>
+      </a>
+      
+      <a class="mitem" href="https://www.kozame-ten.com/" target="_blank" rel="noopener">
+        <i style="background:#3b82f6"></i>
+        <span class="mt">おでかけ子ザメ展 おもてなSEAツアー(大阪会場)</span>
+        <span class="mv">阪神梅田本店</span>
+      </a>
+      
+      <a class="mitem" href="https://serenomusic.jp/20261227-2/" target="_blank" rel="noopener">
+        <i style="background:#ec4899"></i>
+        <span class="mt">魔法の夜の音楽会</span>
+        <span class="mv">RHYコンサートサロン</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
+  <div class="mday">
+    <div class="mday-h">
+      <b>31</b>
+      <span class="wd">四</span>
+      <em>2 项</em>
+      
+    </div>
+    <div class="mday-body">
+      
+      <a class="mitem" href="https://www.usj.co.jp/web/ja/jp/events/countdown-2027/no-limit-countdown-2027" target="_blank" rel="noopener">
+        <i style="background:#f97316"></i>
+        <span class="mt">NO LIMIT！カウントダウン 2027 ～Discover U!!!～</span>
+        <span class="mv">ユニバーサル・スタジオ・ジャパン</span>
+      </a>
+      
+      <a class="mitem" href="https://www.sumiyoshitaisha.net/" target="_blank" rel="noopener">
+        <i style="background:#ef4444"></i>
+        <span class="mt">住吉大社 師走大祓式・除夜祭</span>
+        <span class="mv">住吉大社</span>
+      </a>
+      
+      
+    </div>
+  </div>
+  
 </div>
 
 <div class="legend">
