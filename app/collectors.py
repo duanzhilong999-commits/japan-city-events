@@ -118,21 +118,13 @@ class Walkerplus(Collector):
     def collect(self, anchor):
         start, end = self.window(anchor)
         out, seen = [], set()
-        pages = self.MAX_PAGES
-        page = 1
-        while page <= pages:
+        for page in range(1, self.MAX_PAGES + 1):
             url = self.homepage if page == 1 else f"{self.homepage}{page}.html"
             try:
                 html = self.get(url).text
             except Exception as exc:
                 self.errors.append(f"{url}: {exc}")
                 break
-            if page == 1:
-                # 首页写着「全 N 件」，据此决定要翻多少页（每页 10 条）
-                m = re.search(r"全\s*([\d,]+)\s*件", html)
-                if m:
-                    total = int(m.group(1).replace(",", ""))
-                    pages = min(max(self.MAX_PAGES, -(-total // 10) + 1), 160)
             events = []
             for block in re.findall(r'<script type="application/ld\+json">(.*?)</script>', html, re.S):
                 try:
@@ -174,7 +166,6 @@ class Walkerplus(Collector):
                     ward=detect_ward(addr, venue, name), city=self.city_id,
                     url=e.get("url") or "", description=desc,
                 ))
-            page += 1
         return out
 
 
